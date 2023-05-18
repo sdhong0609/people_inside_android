@@ -1,4 +1,4 @@
-package com.beside153.people_inside_android
+package com.beside153.peopleinside
 
 import org.junit.Test
 

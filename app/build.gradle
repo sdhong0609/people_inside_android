@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.beside153.people_inside_android'
+    namespace 'com.beside153.peopleinside'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.beside153.people_inside_android"
+        applicationId "com.beside153.peopleinside"
         minSdk 26
         targetSdk 33
         versionCode 1
