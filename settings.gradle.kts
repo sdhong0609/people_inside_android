@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "People-Inside-Android"
-include ':app'
+include(":app")
