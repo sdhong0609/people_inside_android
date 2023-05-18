@@ -4,6 +4,7 @@ import com.beside153.peopleinside.Libraries
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.2"
 }
 
 android {
