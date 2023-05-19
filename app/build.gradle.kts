@@ -7,6 +7,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint") version "11.3.2"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -46,6 +48,8 @@ dependencies {
     implementation(Libraries.AndroidX.APP_COMPAT)
     implementation(Libraries.AndroidX.MATERIAL)
     implementation(Libraries.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Libraries.Firebase.ANALYTICS)
+    implementation(Libraries.Firebase.CRASHYTICS)
     testImplementation(Libraries.Test.JUNIT)
     androidTestImplementation(Libraries.AndroidTest.EXT_JUNIT)
     androidTestImplementation(Libraries.AndroidTest.ESPRESSO_CORE)

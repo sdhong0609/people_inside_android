@@ -10,6 +10,10 @@ object Versions {
     const val MATERIAL = "1.9.0"
     const val CONSTRAINT_LAYOUT = "2.1.4"
 
+    // Firebase
+    const val ANALYTICS = "21.2.2"
+    const val CRASHYTICS = "18.3.7"
+
     // Test
     const val JUNIT = "4.13.2"
 
@@ -28,6 +32,11 @@ object Libraries {
         const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
+    }
+
+    object Firebase {
+        const val ANALYTICS = "com.google.firebase:firebase-analytics:${Versions.ANALYTICS}"
+        const val CRASHYTICS = "com.google.firebase:firebase-crashlytics:${Versions.CRASHYTICS}"
     }
 
     object Test {

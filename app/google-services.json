@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "560345476008",
+    "project_id": "people-inside",
+    "storage_bucket": "people-inside.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560345476008:android:57b2e130bc9c328b744b9d",
+        "android_client_info": {
+          "package_name": "com.beside153.peopleinside"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560345476008-eq0j8bcj9v4afjpb43ac08snavegvcj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4XasVDhGGzOCFCpHTLGu-KfzUuhR4QGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560345476008-eq0j8bcj9v4afjpb43ac08snavegvcj9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560345476008-gju0e7drhlg89f43br1sjuno2dmfd6ul.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.beside153.peopleinside"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
