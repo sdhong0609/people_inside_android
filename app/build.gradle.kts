@@ -38,7 +38,7 @@ android {
     }
 }
 
-tasks.named("preBuild").dependsOn("ktlintFormat")
+tasks.named("preBuild").dependsOn("ktlintCheck")
 tasks.named("preBuild").dependsOn("detekt")
 
 dependencies {
