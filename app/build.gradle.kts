@@ -1,9 +1,12 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.beside153.peopleinside.Configuration
 import com.beside153.peopleinside.Libraries
 
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.2"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
 }
 
 android {
@@ -34,6 +37,9 @@ android {
         jvmTarget = "1.8"
     }
 }
+
+tasks.named("preBuild").dependsOn("ktlintCheck")
+tasks.named("preBuild").dependsOn("detekt")
 
 dependencies {
     implementation(Libraries.KTX.CORE)
