@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio,git,kotlin,firebase
-# Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio,git,kotlin,firebase
+# Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,git,gradle,firebase
+# Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio,kotlin,git,gradle,firebase
 
 ### Android ###
 # Gradle files
@@ -91,6 +91,32 @@ gen-external-apklibs
 hs_err_pid*
 replay_pid*
 
+### Gradle ###
+.gradle
+**/build/
+!src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+### Gradle Patch ###
+# Java heap dump
+
 ### AndroidStudio ###
 # Covers files to be ignored for android development using Android Studio.
 
@@ -109,7 +135,6 @@ gen/
 out/
 
 # Gradle files
-.gradle
 
 # Signing files
 .signing/
@@ -176,8 +201,6 @@ obj/
 .idea/navEditor.xml
 
 # Legacy Eclipse project files
-.classpath
-.project
 .cproject
 .settings/
 
@@ -208,4 +231,4 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,git,kotlin,firebase
+# End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,git,gradle,firebase
