@@ -11,7 +11,7 @@ object Versions {
     const val CONSTRAINT_LAYOUT = "2.1.4"
 
     // Firebase
-    const val ANALYTICS = "21.2.2"
+    const val ANALYTICS = "21.3.0"
     const val CRASHYTICS = "18.3.7"
 
     // Test
