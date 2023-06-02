@@ -20,6 +20,9 @@ object Versions {
     // Android Test
     const val EXT_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
+
+    // Navigation
+    const val NAVIGATION = "2.5.3"
 }
 
 object Libraries {
@@ -46,5 +49,10 @@ object Libraries {
     object AndroidTest {
         const val EXT_JUNIT = "androidx.test.ext:junit:${Versions.EXT_JUNIT}"
         const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
+    }
+
+    object Navigation {
+        const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
+        const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
     }
 }

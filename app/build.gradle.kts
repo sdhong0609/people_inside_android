@@ -56,4 +56,8 @@ dependencies {
     testImplementation(Libraries.Test.JUNIT)
     androidTestImplementation(Libraries.AndroidTest.EXT_JUNIT)
     androidTestImplementation(Libraries.AndroidTest.ESPRESSO_CORE)
+
+    // Navigation
+    implementation(Libraries.Navigation.NAVIGATION_FRAGMENT)
+    implementation(Libraries.Navigation.NAVIGATION_UI)
 }

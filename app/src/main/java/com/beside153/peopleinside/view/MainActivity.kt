@@ -3,7 +3,9 @@ package com.beside153.peopleinside.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupWithNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMainBinding
 
@@ -14,22 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        setFragment(RecommendFragment())
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         binding.bottomNavigationView.apply {
             setOnItemSelectedListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.bottom_menu_recommend -> setFragment(RecommendFragment())
-                    R.id.bottom_menu_search -> setFragment(SearchFragment())
-                    R.id.bottom_menu_community -> setFragment(CommunityFragment())
-                    R.id.bottom_menu_my_page -> setFragment(MyPageFragment())
-                }
-                true
+                menuItem.onNavDestinationSelected(navController)
             }
         }
-    }
-
-    private fun setFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(binding.containerFragmentMain.id, fragment).commit()
     }
 }
