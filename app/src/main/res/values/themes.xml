@@ -13,5 +13,6 @@
         <item name="android:statusBarColor">@color/white</item>
         <!--Status Bar text color. -->
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 </resources>

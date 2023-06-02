@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_bookmark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/ic_bookmark_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="69dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/notosans_kr_bold"
+        android:maxLines="2"
+        android:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_total_rating"
+        android:layout_width="58dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="87dp"
+        android:background="@drawable/background_total_rating"
+        android:fontFamily="@font/notosans_kr_medium"
+        android:gravity="center"
+        android:letterSpacing="-0.05"
+        android:text="전체 4.3점"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/textView_item_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="82dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="87dp"
+        android:background="@drawable/background_mbti_rating"
+        android:drawableStart="@drawable/ic_clap_hands"
+        android:fontFamily="@font/notosans_kr_medium"
+        android:gravity="center"
+        android:letterSpacing="-0.05"
+        android:paddingStart="7dp"
+        android:paddingEnd="0dp"
+        android:text="ESFJ 4.5점"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/textView_total_rating"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_poster"
+        android:layout_width="161dp"
+        android:layout_height="233dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
