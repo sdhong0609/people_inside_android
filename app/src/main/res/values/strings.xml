@@ -8,7 +8,7 @@
     <string name="my_page">마이페이지</string>
 
     <!-- 추천 화면 텍스트 -->
-    <string name="top10_title">취향을 고려한 TOP10 🎞</string>
+    <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="total_rating">전체 %.1f점</string>
     <string name="mbti_rating">ESFJ %.1f점</string>
 </resources>

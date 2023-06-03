@@ -32,7 +32,7 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPagerTop10.adapter = pagerAdapter
+        binding.recommendPick10Layout.viewPagerTop10.adapter = pagerAdapter
 
         loadTop10ItemList("esfj")
     }
