@@ -8,10 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="black_333333">#FF333333</color>
+
     <color name="gray_C4C4C6">#FFC4C4C6</color>
     <color name="gray_B4B4B4">#FFB4B4B4</color>
     <color name="gray_4F4F4F">#FF4F4F4F</color>
-    <color name="gray_200">#FFEEEEEE</color>
+    <color name="gray_EEEEEE">#FFEEEEEE</color>
+    <color name="gray_F7F6F8">#FFF7F6F8</color>
+    <color name="gray_EAEAEA">#FFEAEAEA</color>
+
     <color name="blue_7193ED">#FF7193ED</color>
     <color name="white_opacity0.5">#80FFFFFF</color>
     <color name="white_opacity0.3">#4DFFFFFF</color>

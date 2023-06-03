@@ -9,6 +9,7 @@
 
     <!-- 추천 화면 텍스트 -->
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
+    <string name="mbti_rating_battle">MBTI 별점 배틀 ⚔</string>
     <string name="total_rating">전체 %.1f점</string>
     <string name="mbti_rating">ESFJ %.1f점</string>
 </resources>
