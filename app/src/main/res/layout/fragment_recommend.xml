@@ -45,20 +45,56 @@
                     android:layout_marginBottom="30dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/mbti_rating_battle"
+                    android:text="@string/mbti_rating_battle_title"
                     android:textSize="20sp" />
 
                 <include layout="@layout/recommend_mbti_battle_layout" />
 
-                <View
+                <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
                 <include layout="@layout/recommend_mbti_battle_layout" />
 
-                <View
+                <Space
                     android:layout_width="match_parent"
                     android:layout_height="60dp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        style="@style/textStyleBoldBlack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/same_mbti_ranking_title"
+                        android:textSize="20sp" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_right_arrow" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/textStyleMediumBlack333333"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="15sp"
+                    android:paddingTop="14sp"
+                    android:text="치즈님과 같은 MBTI가 선택한"
+                    android:textColor="@color/gray_9B9FA2"
+                    android:textSize="16sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
