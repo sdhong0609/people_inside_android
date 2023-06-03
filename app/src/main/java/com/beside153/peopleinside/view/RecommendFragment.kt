@@ -4,14 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.Top10Item
+import com.beside153.peopleinside.service.RetrofitClient.mbtiService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
+    private lateinit var top10ItemList: List<Top10Item>
+    private val pagerAdapter = Top10ViewPagerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,39 +32,22 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dataList = mutableListOf<Top10Item>(
-            Top10Item(
-                "어느 날 우리 집 현관으로 멸망이 들어왔다 adfadfadfsadfadfadfafsd",
-                "전체 3.5점",
-                "ENTJ 2.1점",
-                "ESFJ / 피자치킨님",
-                "이 드라마는 도전적"
-            ),
-            Top10Item(
-                "어느 날 우리 집",
-                "전체 4.0점",
-                "ISTJ 3.3점",
-                "ESFJ / 피자치킨님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어. 이 드라마는 도전적이고 흥미진진한 플롯이었어. 리뷰 최대 세 줄까지 노출..."
-            ),
-            Top10Item(
-                "어느 날 우리 집 현관으로 멸망이 들어왔다",
-                "전체 4.0점",
-                "ESTJ 4.3점",
-                "ESFJ / 피자치킨님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어. 이 드라마는 도전적이고 흥미진진한 플롯이었어. 리뷰 최대 세 줄까지 노출..."
-            ),
-            Top10Item(
-                "어느 날 우리 집 현관으로 멸망이 들어왔다",
-                "전체 4.2점",
-                "ENFP 4.7점",
-                "ESFJ / 피자치킨님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어."
-            )
-        )
+        binding.viewPagerTop10.adapter = pagerAdapter
 
-        val viewPagerAdapter = Top10ViewPagerAdapter()
-        viewPagerAdapter.submitList(dataList)
-        binding.viewPagerTop10.adapter = viewPagerAdapter
+        loadTop10ItemList("esfj")
+    }
+
+    private fun loadTop10ItemList(mbti: String) {
+        val call = mbtiService.getTop10Content(mbti)
+        call.enqueue(object : Callback<List<Top10Item>> {
+            override fun onResponse(call: Call<List<Top10Item>>, response: Response<List<Top10Item>>) {
+                top10ItemList = response.body()!!
+                pagerAdapter.submitList(top10ItemList)
+            }
+
+            override fun onFailure(call: Call<List<Top10Item>>, t: Throwable) {
+                Toast.makeText(requireActivity(), t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

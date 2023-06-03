@@ -37,7 +37,7 @@ class Top10ViewPagerAdapter : ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10
 
 private class ItemDiffCallback : DiffUtil.ItemCallback<Top10Item>() {
     override fun areItemsTheSame(oldItem: Top10Item, newItem: Top10Item): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem.contentId == newItem.contentId
     }
 
     override fun areContentsTheSame(oldItem: Top10Item, newItem: Top10Item): Boolean {
