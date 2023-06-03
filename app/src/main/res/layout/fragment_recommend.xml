@@ -55,7 +55,6 @@
             android:layout_width="0dp"
             android:layout_height="566dp"
             android:layout_marginHorizontal="16dp"
-            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_top10" />
