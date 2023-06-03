@@ -17,6 +17,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,11 +91,15 @@
                     style="@style/textStyleMediumBlack333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="15sp"
-                    android:paddingTop="14sp"
+                    android:layout_marginTop="14dp"
+                    android:paddingHorizontal="15dp"
                     android:text="치즈님과 같은 MBTI가 선택한"
                     android:textColor="@color/gray_9B9FA2"
                     android:textSize="16sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.Top10Item
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
+import com.beside153.peopleinside.util.dpToPx
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +34,14 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recommendPick10Layout.viewPagerTop10.adapter = pagerAdapter
+        binding.recommendPick10Layout.viewPagerTop10.apply {
+            val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
+            val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
+            adapter = pagerAdapter
+            offscreenPageLimit = 2
+            setPadding(pagerOffsetPx, 0, pagerOffsetPx, 0)
+            setPageTransformer(MarginPageTransformer(pagerMarginPx))
+        }
 
         loadTop10ItemList("esfj")
     }
