@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_viewpager">
+        android:background="@drawable/img_bg_pick10">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView_bookmark"
@@ -26,27 +26,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_refresh"
-            android:layout_width="105dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="26dp"
-            android:drawableStart="@drawable/ic_refresh"
-            android:drawablePadding="6dp"
-            android:fontFamily="@font/notosans_kr_medium"
-            android:letterSpacing="-0.05"
-            android:text="새로 추천받기"
-            android:textColor="@color/gray_4F4F4F"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView_item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="117dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_bold"
@@ -56,7 +40,7 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_refresh"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -120,7 +104,7 @@
                 android:layout_height="22dp"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="21dp"
-                android:src="@drawable/mbti_img"
+                android:src="@drawable/img_sample_mbti"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

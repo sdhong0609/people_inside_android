@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beside153.peopleinside.databinding.ItemMainViewpagerBinding
+import com.beside153.peopleinside.databinding.RecommendPick10ItemBinding
 import com.beside153.peopleinside.model.Top10Item
 
 class Top10ViewPagerAdapter : ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10ItemViewHolder>(ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Top10ItemViewHolder {
-        val binding = ItemMainViewpagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = RecommendPick10ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = Top10ItemViewHolder(binding)
 //        viewHolder.itemView.setOnClickListener {
 //            val position = viewHolder.adapterPosition
@@ -26,7 +26,7 @@ class Top10ViewPagerAdapter : ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10
         holder.bind(getItem(position))
     }
 
-    inner class Top10ItemViewHolder(private val binding: ItemMainViewpagerBinding) :
+    inner class Top10ItemViewHolder(private val binding: RecommendPick10ItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Top10Item) {

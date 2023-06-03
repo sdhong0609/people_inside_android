@@ -32,7 +32,7 @@
             android:layout_height="22dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="21dp"
-            android:src="@drawable/mbti_img"
+            android:src="@drawable/img_sample_mbti"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,7 +86,7 @@
             android:layout_height="22dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="21dp"
-            android:src="@drawable/mbti_img"
+            android:src="@drawable/img_sample_mbti"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
