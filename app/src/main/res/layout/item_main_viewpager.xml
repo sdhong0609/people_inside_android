@@ -1,148 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_viewpager">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView_bookmark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="18dp"
-        android:src="@drawable/ic_bookmark_empty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView_refresh"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="28.28dp"
-        android:drawableStart="@drawable/ic_refresh"
-        android:drawablePadding="6dp"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:letterSpacing="-0.05"
-        android:text="새로 추천받기"
-        android:textColor="@color/gray_4F4F4F"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView_item_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="57.28dp"
-        android:layout_marginEnd="117dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/notosans_kr_bold"
-        android:letterSpacing="-0.05"
-        android:maxLines="2"
-        android:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView_total_rating"
-        android:layout_width="58dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="115.28dp"
-        android:background="@drawable/background_total_rating"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:gravity="center"
-        android:letterSpacing="-0.05"
-        android:text="전체 4.3점"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/textView_item_title"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="82dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="115.28dp"
-        android:background="@drawable/background_mbti_rating"
-        android:drawableStart="@drawable/ic_clap_hands"
-        android:fontFamily="@font/notosans_kr_medium"
-        android:gravity="center"
-        android:letterSpacing="-0.05"
-        android:paddingStart="7dp"
-        android:paddingEnd="0dp"
-        android:text="ESFJ 4.5점"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@id/textView_total_rating"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageView_poster"
-        android:layout_width="157dp"
-        android:layout_height="228dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.Top10Item" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_main_comment"
-        android:layout_width="276dp"
-        android:layout_height="116dp"
-        android:layout_marginBottom="26.72dp"
-        android:background="@drawable/background_main_comment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_viewpager">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView_mbti_icon"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="21dp"
-            android:src="@drawable/mbti_img"
+            android:id="@+id/imageView_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_bookmark_empty"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_refresh"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="26dp"
+            android:drawableStart="@drawable/ic_refresh"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:letterSpacing="-0.05"
+            android:text="새로 추천받기"
+            android:textColor="@color/gray_4F4F4F"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_mbti_nickname"
-            android:layout_width="200dp"
+            android:id="@+id/textView_item_title"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="117dp"
             android:ellipsize="end"
             android:fontFamily="@font/notosans_kr_bold"
-            android:letterSpacing="-0.03"
-            android:maxLines="1"
-            android:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs"
+            android:letterSpacing="-0.05"
+            android:maxLines="2"
+            android:text="@{item.title}"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/imageView_mbti_icon"
-            app:layout_constraintTop_toTopOf="@id/imageView_mbti_icon" />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_refresh"
+            tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="19dp"
-            android:ellipsize="end"
+            android:id="@+id/textView_total_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/background_total_rating"
             android:fontFamily="@font/notosans_kr_medium"
-            android:letterSpacing="-0.03"
-            android:maxLines="3"
-            android:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..."
+            android:gravity="center"
+            android:letterSpacing="-0.05"
+            android:paddingHorizontal="6dp"
+            android:text="@{item.totalRating}"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textView_mbti_nickname"
-            app:layout_constraintTop_toBottomOf="@id/textView_mbti_nickname" />
+            app:layout_constraintStart_toStartOf="@id/textView_item_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_item_title"
+            tools:text="전체 4.3점" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/background_mbti_rating"
+            android:drawableStart="@drawable/ic_clap_hands"
+            android:drawablePadding="4dp"
+            android:fontFamily="@font/notosans_kr_medium"
+            android:gravity="center"
+            android:letterSpacing="-0.05"
+            android:paddingHorizontal="6dp"
+            android:text="@{item.mbtiRating}"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/textView_total_rating"
+            app:layout_constraintTop_toTopOf="@id/textView_total_rating"
+            tools:text="ESFJ 4.5점" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_poster"
+            android:layout_width="157dp"
+            android:layout_height="228dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_main_comment"
+            android:layout_width="276dp"
+            android:layout_height="116dp"
+            android:layout_marginBottom="26.72dp"
+            android:background="@drawable/background_main_comment"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageView_mbti_icon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="21dp"
+                android:src="@drawable/mbti_img"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView_mbti_nickname"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/notosans_kr_bold"
+                android:letterSpacing="-0.03"
+                android:maxLines="1"
+                android:text="@{item.commentMbtiNickname}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/imageView_mbti_icon"
+                app:layout_constraintTop_toTopOf="@id/imageView_mbti_icon"
+                tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textView_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="19dp"
+                android:layout_marginBottom="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/notosans_kr_medium"
+                android:letterSpacing="-0.03"
+                android:maxLines="3"
+                android:text="@{item.comment}"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/textView_mbti_nickname"
+                app:layout_constraintTop_toBottomOf="@id/textView_mbti_nickname"
+                tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
