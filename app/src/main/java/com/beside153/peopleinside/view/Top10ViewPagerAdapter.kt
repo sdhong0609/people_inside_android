@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.RecommendPick10ItemBinding
 import com.beside153.peopleinside.model.Top10Item
 
-class Top10ViewPagerAdapter : ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10ItemViewHolder>(ItemDiffCallback()) {
+class Top10ViewPagerAdapter :
+    ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10ItemViewHolder>(Pick10ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Top10ItemViewHolder {
         val binding = RecommendPick10ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,7 +36,7 @@ class Top10ViewPagerAdapter : ListAdapter<Top10Item, Top10ViewPagerAdapter.Top10
     }
 }
 
-private class ItemDiffCallback : DiffUtil.ItemCallback<Top10Item>() {
+private class Pick10ItemDiffCallback : DiffUtil.ItemCallback<Top10Item>() {
     override fun areItemsTheSame(oldItem: Top10Item, newItem: Top10Item): Boolean {
         return oldItem.contentId == newItem.contentId
     }
