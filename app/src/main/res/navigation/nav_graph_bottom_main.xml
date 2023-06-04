@@ -14,7 +14,11 @@
         android:id="@+id/searchFragment"
         android:name="com.beside153.peopleinside.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_searchFragment_to_recommendFragment"
+            app:popUpTo="@id/recommendFragment" />
+    </fragment>
     <fragment
         android:id="@+id/communityFragment"
         android:name="com.beside153.peopleinside.view.CommunityFragment"

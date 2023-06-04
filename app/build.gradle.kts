@@ -11,6 +11,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
+    id("androidx.navigation.safeargs")
 }
 
 android {
