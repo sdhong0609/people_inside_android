@@ -3,12 +3,8 @@ package com.beside153.peopleinside.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,25 +19,6 @@ class RecommendRankingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend_ranking)
-
-        setSupportActionBar(binding.rankingToolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_left_arrow)
-
-        addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // inflate 할 필요 없음
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    android.R.id.home -> {
-                        finish()
-                    }
-                }
-                return true
-            }
-        })
 
         val rankingList = listOf(
             RankingItem(
@@ -94,6 +71,10 @@ class RecommendRankingActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(this@RecommendRankingActivity, LinearLayoutManager.VERTICAL))
         }
         rankingAdpater.submitList(rankingList)
+
+        binding.buttonBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun onRankingItemClick(item: RankingItem) {

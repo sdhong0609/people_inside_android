@@ -137,7 +137,7 @@
                     android:id="@+id/recyclerView_sub_ranking"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/recommend_sub_ranking_item" />
+                    tools:listitem="@layout/recommend_ranking_item" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -24,7 +24,15 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/ranking_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/button_back"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_left_arrow" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     style="@style/textStyleBoldBlack"
