@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.RecommendSubRankingItemBinding
 import com.beside153.peopleinside.model.RankingItem
 
-class SubRankingRecyclerViewAdapter(private val onRankingItemClick: (item: RankingItem) -> Unit) :
-    ListAdapter<RankingItem, SubRankingRecyclerViewAdapter.RepositoryItemViewHolder>(RankingItemDiffCallback()) {
+class RankingRecyclerViewAdapter(private val onRankingItemClick: (item: RankingItem) -> Unit) :
+    ListAdapter<RankingItem, RankingRecyclerViewAdapter.RepositoryItemViewHolder>(RankingItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryItemViewHolder {
         val binding = RecommendSubRankingItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

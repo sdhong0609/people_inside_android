@@ -24,7 +24,7 @@ class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
     private lateinit var pick10ItemList: List<Pick10Item>
     private val pagerAdapter = Pick10ViewPagerAdapter()
-    private val rankingAdpater = SubRankingRecyclerViewAdapter(::onRankingItemClick)
+    private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
     private var scrollPosition: Int = 0
 
     override fun onCreateView(
@@ -79,8 +79,8 @@ class RecommendFragment : Fragment() {
         }
 
         binding.imageViewRankingArrow.setOnClickListener {
-            changeFragment(RecommendRankingFragment())
             scrollPosition = binding.recommendScrollView.scrollY
+            startActivity(RecommendRankingActivity.newIntent(requireActivity()))
         }
 
         rankingAdpater.submitList(rankingList)
@@ -113,9 +113,5 @@ class RecommendFragment : Fragment() {
                 Toast.makeText(requireActivity(), t.message, Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    private fun changeFragment(fragment: Fragment) {
-        (activity as MainActivity).changeFragment(fragment, true)
     }
 }

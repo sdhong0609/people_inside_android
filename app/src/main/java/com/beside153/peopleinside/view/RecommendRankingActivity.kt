@@ -1,44 +1,34 @@
 package com.beside153.peopleinside.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.FragmentRecommendRankingBinding
+import com.beside153.peopleinside.databinding.ActivityRecommendRankingBinding
 import com.beside153.peopleinside.model.RankingItem
 
-class RecommendRankingFragment : Fragment() {
-    private lateinit var binding: FragmentRecommendRankingBinding
-    private val rankingAdpater = SubRankingRecyclerViewAdapter(::onRankingItemClick)
+class RecommendRankingActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRecommendRankingBinding
+    private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recommend_ranking, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend_ranking)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        setSupportActionBar(binding.rankingToolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_left_arrow)
 
-        val activity = activity as MainActivity
-        activity.setSupportActionBar(binding.rankingToolbar)
-        activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        activity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_left_arrow)
-
-        activity.addMenuProvider(object : MenuProvider {
+        addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 // inflate 할 필요 없음
             }
@@ -46,7 +36,7 @@ class RecommendRankingFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     android.R.id.home -> {
-                        activity.onBackPressed()
+                        finish()
                     }
                 }
                 return true
@@ -100,13 +90,20 @@ class RecommendRankingFragment : Fragment() {
 
         binding.recyclerViewRanking.apply {
             adapter = rankingAdpater
-            layoutManager = LinearLayoutManager(activity)
-            addItemDecoration(DividerItemDecoration(activity, LinearLayoutManager.VERTICAL))
+            layoutManager = LinearLayoutManager(this@RecommendRankingActivity)
+            addItemDecoration(DividerItemDecoration(this@RecommendRankingActivity, LinearLayoutManager.VERTICAL))
         }
         rankingAdpater.submitList(rankingList)
     }
 
     private fun onRankingItemClick(item: RankingItem) {
-        Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, RecommendRankingActivity::class.java)
+        }
     }
 }
