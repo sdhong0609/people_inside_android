@@ -92,14 +92,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
+                    android:layout_marginBottom="48dp"
                     android:paddingHorizontal="15dp"
                     android:text="치즈님과 같은 MBTI가 선택한"
                     android:textColor="@color/gray_9B9FA2"
                     android:textSize="16sp" />
 
-                <Space
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="48dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/background_battle_rating"
+                    android:padding="4dp">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="34dp"
+                        app:tabBackground="@drawable/bg_recommend_tab_layout"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabTextAppearance="@style/textStyleTabLayout"
+                        app:tabTextColor="@color/recommend_tab_text_color">
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/total" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/movie" />
+
+                        <com.google.android.material.tabs.TabItem
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/drama" />
+
+                    </com.google.android.material.tabs.TabLayout>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

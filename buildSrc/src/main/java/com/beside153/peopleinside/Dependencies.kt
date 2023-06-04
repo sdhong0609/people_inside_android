@@ -7,7 +7,7 @@ object Versions {
 
     // AndroidX
     const val APP_COMPAT = "1.6.1"
-    const val MATERIAL = "1.9.0"
+    const val MATERIAL = "1.7.0"
     const val CONSTRAINT_LAYOUT = "2.1.4"
 
     // Firebase

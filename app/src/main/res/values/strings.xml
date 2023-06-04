@@ -12,6 +12,10 @@
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
     <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
 
+    <!-- Common String -->
     <string name="total_rating">전체 %.1f점</string>
     <string name="mbti_rating">ESFJ %.1f점</string>
+    <string name="total">전체</string>
+    <string name="movie">영화</string>
+    <string name="drama">드라마</string>
 </resources>

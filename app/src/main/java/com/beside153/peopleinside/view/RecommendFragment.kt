@@ -50,6 +50,10 @@ class RecommendFragment : Fragment() {
         val call = mbtiService.getTop10Content(mbti)
         call.enqueue(object : Callback<List<Top10Item>> {
             override fun onResponse(call: Call<List<Top10Item>>, response: Response<List<Top10Item>>) {
+                if (!response.isSuccessful || response.body() == null) {
+                    Toast.makeText(requireActivity(), "데이터 불러오기를 실패했습니다", Toast.LENGTH_SHORT).show()
+                    return
+                }
                 top10ItemList = response.body()!!
                 pagerAdapter.submitList(top10ItemList)
             }
