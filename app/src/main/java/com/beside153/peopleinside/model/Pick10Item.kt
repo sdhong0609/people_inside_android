@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class Top10Item(
+data class Pick10Item(
     @SerialName("content_id")
     val contentId: Int,
     @SerialName("title")

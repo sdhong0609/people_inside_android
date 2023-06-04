@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
+import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
-import com.beside153.peopleinside.model.Top10Item
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
 import com.beside153.peopleinside.util.dpToPx
 import retrofit2.Call
@@ -22,8 +22,8 @@ import retrofit2.Response
 
 class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
-    private lateinit var pick10ItemList: List<Top10Item>
-    private val pagerAdapter = Top10ViewPagerAdapter()
+    private lateinit var pick10ItemList: List<Pick10Item>
+    private val pagerAdapter = Pick10ViewPagerAdapter()
     private val rankingAdpater = SubRankingRecyclerViewAdapter(::onRankingItemClick)
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recommendPick10Layout.viewPagerTop10.apply {
+        binding.recommendPick10Layout.pick10Viewpager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
             adapter = pagerAdapter
@@ -79,17 +79,17 @@ class RecommendFragment : Fragment() {
 
         rankingAdpater.submitList(rankingList)
 
-        loadTop10ItemList("esfj")
+        loadPick10ItemList("esfj")
     }
 
     private fun onRankingItemClick(item: RankingItem) {
         Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
     }
 
-    private fun loadTop10ItemList(mbti: String) {
+    private fun loadPick10ItemList(mbti: String) {
         val call = mbtiService.getTop10Content(mbti)
-        call.enqueue(object : Callback<List<Top10Item>> {
-            override fun onResponse(call: Call<List<Top10Item>>, response: Response<List<Top10Item>>) {
+        call.enqueue(object : Callback<List<Pick10Item>> {
+            override fun onResponse(call: Call<List<Pick10Item>>, response: Response<List<Pick10Item>>) {
                 if (!response.isSuccessful || response.body() == null) {
                     Toast.makeText(requireActivity(), "데이터 불러오기를 실패했습니다", Toast.LENGTH_SHORT).show()
                     return
@@ -98,7 +98,7 @@ class RecommendFragment : Fragment() {
                 pagerAdapter.submitList(pick10ItemList)
             }
 
-            override fun onFailure(call: Call<List<Top10Item>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Pick10Item>>, t: Throwable) {
                 Toast.makeText(requireActivity(), t.message, Toast.LENGTH_SHORT).show()
             }
         })
