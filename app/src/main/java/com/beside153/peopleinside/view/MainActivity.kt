@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
@@ -25,6 +26,16 @@ class MainActivity : AppCompatActivity() {
             setOnItemSelectedListener { menuItem ->
                 menuItem.onNavDestinationSelected(navController)
             }
+        }
+    }
+
+    fun changeFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(binding.navHostFragmentContainer.id, fragment)
+        if (addToBackStack) {
+            transaction.addToBackStack(null).commit()
+        } else {
+            transaction.commit()
         }
     }
 }

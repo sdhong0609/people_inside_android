@@ -25,6 +25,7 @@ class RecommendFragment : Fragment() {
     private lateinit var pick10ItemList: List<Pick10Item>
     private val pagerAdapter = Pick10ViewPagerAdapter()
     private val rankingAdpater = SubRankingRecyclerViewAdapter(::onRankingItemClick)
+    private var scrollPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,9 +78,19 @@ class RecommendFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
+        binding.imageViewRankingArrow.setOnClickListener {
+            changeFragment(RecommendRankingFragment())
+            scrollPosition = binding.recommendScrollView.scrollY
+        }
+
         rankingAdpater.submitList(rankingList)
 
         loadPick10ItemList("esfj")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.recommendScrollView.post { binding.recommendScrollView.scrollTo(0, scrollPosition) }
     }
 
     private fun onRankingItemClick(item: RankingItem) {
@@ -102,5 +113,9 @@ class RecommendFragment : Fragment() {
                 Toast.makeText(requireActivity(), t.message, Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun changeFragment(fragment: Fragment) {
+        (activity as MainActivity).changeFragment(fragment, true)
     }
 }
