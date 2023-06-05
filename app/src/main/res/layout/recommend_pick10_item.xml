@@ -78,6 +78,8 @@
             android:id="@+id/imageView_poster"
             android:layout_width="157dp"
             android:layout_height="228dp"
+            android:layout_marginTop="134dp"
+            android:layout_marginBottom="158dp"
             android:background="@drawable/background_poster"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +88,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_main_comment"
-            android:layout_width="276dp"
+            android:layout_width="match_parent"
             android:layout_height="116dp"
+            android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
             android:background="@drawable/background_main_comment"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,8 +102,8 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="21dp"
-                android:layout_marginTop="21dp"
-                android:src="@drawable/img_sample_mbti"
+                android:layout_marginTop="19dp"
+                android:src="@drawable/istj_circle"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -123,7 +126,7 @@
                 style="@style/textStyleMediumBlack333333"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginEnd="19dp"
                 android:layout_marginBottom="20dp"
                 android:ellipsize="end"
