@@ -16,6 +16,7 @@ import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.view.notification.NotificationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

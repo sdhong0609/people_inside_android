@@ -16,6 +16,8 @@
     <string name="notification">알림</string>
     <string name="there_is_no_notification">아직 알림이 없어요.</string>
     <string name="notification_will_be_deleted">알림은 30일 이후 순차적으로 지워집니다.</string>
+    <string name="notification_message_emoji">💌</string>
+    <string name="notification_bulb_emoji">💡</string>
 
     <!-- Common String -->
     <string name="total_rating">전체 %.1f점</string>
