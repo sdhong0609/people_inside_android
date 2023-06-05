@@ -1,9 +1,11 @@
 package com.beside153.peopleinside.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,7 +31,13 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchAppbar.editTextSearch.setHorizontallyScrolling(true)
+        binding.searchAppbar.editTextSearch.apply {
+            setHorizontallyScrolling(true)
+            requestFocus()
+        }
+
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.searchAppbar.editTextSearch, InputMethodManager.SHOW_IMPLICIT)
 
         val activity = activity as MainActivity
         val navHostFragment =
@@ -60,15 +68,12 @@ class SearchFragment : Fragment() {
 
         binding.recyclerViewSearchScreen.apply {
             adapter = searchScreenAdapter
-//            layoutManager = object : LinearLayoutManager(requireActivity()) {
-//                override fun canScrollVertically(): Boolean {
-//                    return false
-//                }
-//            }
             layoutManager = LinearLayoutManager(requireActivity())
+            setOnTouchListener { v, event ->
+                v.performClick()
+                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+            }
         }
-
-        binding.recyclerViewSearchScreen
 
         @Suppress("SpreadOperator")
         val list = listOf(
