@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
@@ -16,7 +15,7 @@ import com.beside153.peopleinside.model.search.SearchTrendItem
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-    private val searchTrendAdpater = SearchTrendListAdapter(::onSearchTrendItemClick)
+    private val searchScreenAdapter = SearchScreenAdapter(::onSearchTrendItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,17 +58,25 @@ class SearchFragment : Fragment() {
             SearchTrendItem("10", "분노의 질주: 라이드 오어 다이")
         )
 
-        binding.recyclerVIewContentsTrend.apply {
-            adapter = searchTrendAdpater
-            layoutManager = object : LinearLayoutManager(requireActivity()) {
-                override fun canScrollVertically(): Boolean {
-                    return false
-                }
-            }
-            addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
+        binding.recyclerViewSearchScreen.apply {
+            adapter = searchScreenAdapter
+//            layoutManager = object : LinearLayoutManager(requireActivity()) {
+//                override fun canScrollVertically(): Boolean {
+//                    return false
+//                }
+//            }
+            layoutManager = LinearLayoutManager(requireActivity())
         }
 
-        searchTrendAdpater.submitList(searchTrendList)
+        binding.recyclerViewSearchScreen
+
+        @Suppress("SpreadOperator")
+        val list = listOf(
+            SearchScreenAdapter.SearchScreenModel.SeenViewItem,
+            SearchScreenAdapter.SearchScreenModel.TrendViewItem,
+            *searchTrendList.map { SearchScreenAdapter.SearchScreenModel.TrendListItem(it) }.toTypedArray()
+        )
+        searchScreenAdapter.submitList(list)
     }
 
     private fun onSearchTrendItemClick(item: SearchTrendItem) {
