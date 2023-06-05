@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityNotificationBinding
-import com.beside153.peopleinside.model.NotificationItem
+import com.beside153.peopleinside.model.notification.NotificationItem
 
 class NotificationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNotificationBinding

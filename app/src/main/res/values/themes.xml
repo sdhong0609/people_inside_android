@@ -64,6 +64,12 @@
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
+    <style name="textStyleMediumGray700">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
     <style name="textStyleMediumGray800">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/gray_800</item>

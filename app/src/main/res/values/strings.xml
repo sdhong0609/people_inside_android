@@ -12,6 +12,12 @@
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
     <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
 
+    <!-- 검색 화면 텍스트 -->
+    <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
+    <string name="contents_have_seen">내가 둘러본 콘텐츠</string>
+    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없습니다.</string>
+    <string name="contents_trend">인기 급상승 콘텐츠</string>
+
     <!-- 알림 화면 텍스트 -->
     <string name="notification">알림</string>
     <string name="there_is_no_notification">아직 알림이 없어요.</string>

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model
+package com.beside153.peopleinside.model.notification
 
 data class NotificationItem(
     val emoji: String,

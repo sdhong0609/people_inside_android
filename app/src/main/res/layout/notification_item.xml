@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.NotificationItem" />
+            type="com.beside153.peopleinside.model.notification.NotificationItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
