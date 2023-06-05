@@ -33,7 +33,7 @@
             android:layout_height="22dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="19dp"
-            android:src="@drawable/istj_circle"
+            android:src="@drawable/istj_circle_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +88,7 @@
             android:layout_height="22dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="19dp"
-            android:src="@drawable/istj_circle"
+            android:src="@drawable/istj_circle_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

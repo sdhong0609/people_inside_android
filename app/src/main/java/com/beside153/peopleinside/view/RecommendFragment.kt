@@ -48,6 +48,10 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
+        binding.recommendAppBar.imageViewNotification.setOnClickListener {
+            startActivity(NotificationActivity.notificationIntent(requireActivity()))
+        }
+
         val rankingList = listOf(
             RankingItem(
                 "1",
@@ -80,7 +84,7 @@ class RecommendFragment : Fragment() {
 
         binding.imageViewRankingArrow.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
-            startActivity(RecommendRankingActivity.newIntent(requireActivity()))
+            startActivity(RecommendRankingActivity.recommendRankingIntent(requireActivity()))
         }
 
         rankingAdpater.submitList(rankingList)

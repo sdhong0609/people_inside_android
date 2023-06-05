@@ -1,31 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/appbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:elevation="0dp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.MaterialToolbar
+    <data>
+
+    </data>
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        app:menu="@menu/menu_appbar">
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/changwondangamasac_bold"
-            android:maxLines="1"
-            android:text="ESFJ 피즈강아아...aaaaaaaa"
-            android:textColor="@color/black"
-            android:textSize="22sp" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:contentInsetStart="0dp">
 
-    </com.google.android.material.appbar.MaterialToolbar>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:weightSum="100">
 
-</com.google.android.material.appbar.AppBarLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/changwondangamasac_bold"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:text="ISTJ 피즈강아아 피즈강아아"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_notification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12.5"
+                    android:src="@drawable/ic_notification_on" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_mbti"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12.5"
+                    android:src="@drawable/istj_main_img" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+</layout>
 
