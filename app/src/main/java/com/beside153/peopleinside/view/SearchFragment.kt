@@ -61,7 +61,11 @@ class SearchFragment : Fragment() {
 
         binding.recyclerVIewContentsTrend.apply {
             adapter = searchTrendAdpater
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = object : LinearLayoutManager(requireActivity()) {
+                override fun canScrollVertically(): Boolean {
+                    return false
+                }
+            }
             addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
