@@ -34,11 +34,11 @@ class ContentDetailActivity : AppCompatActivity() {
             ),
             ContentDetailScreenModel.CommentItem(
                 "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어."
             ),
             ContentDetailScreenModel.CommentItem(
                 "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰"
             ),
             ContentDetailScreenModel.CommentItem(
                 "ENTP / 미소님",
