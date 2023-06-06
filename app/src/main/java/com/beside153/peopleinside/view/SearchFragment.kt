@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
@@ -39,14 +39,9 @@ class SearchFragment : Fragment() {
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.searchAppbar.editTextSearch, InputMethodManager.SHOW_IMPLICIT)
 
-        val activity = activity as MainActivity
-        val navHostFragment =
-            activity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container) as NavHostFragment
-        val navController = navHostFragment.navController
-
         binding.searchAppbar.buttonBack.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
-            navController.navigate(action)
+            findNavController().navigate(action)
         }
 
         binding.searchAppbar.imageViewSearchCancel.setOnClickListener {
@@ -69,7 +64,7 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchScreen.apply {
             adapter = searchScreenAdapter
             layoutManager = LinearLayoutManager(requireActivity())
-            setOnTouchListener { v, event ->
+            setOnTouchListener { v, _ ->
                 v.performClick()
                 inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
             }

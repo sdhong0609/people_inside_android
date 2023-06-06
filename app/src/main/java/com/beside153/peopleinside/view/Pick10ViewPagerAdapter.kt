@@ -13,14 +13,7 @@ class Pick10ViewPagerAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pick10ItemViewHolder {
         val binding = RecommendPick10ItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = Pick10ItemViewHolder(binding)
-//        viewHolder.itemView.setOnClickListener {
-//            val position = viewHolder.adapterPosition
-//            if (position != RecyclerView.NO_POSITION) {
-//                onRepositoryItemClick(getItem(position))
-//            }
-//        }
-        return viewHolder
+        return Pick10ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: Pick10ItemViewHolder, position: Int) {
