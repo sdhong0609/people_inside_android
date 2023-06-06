@@ -16,6 +16,7 @@ import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.view.notification.NotificationActivity
 import retrofit2.Call
@@ -52,6 +53,7 @@ class RecommendFragment : Fragment() {
 
         binding.recommendAppBar.imageViewNotification.setOnClickListener {
             startActivity(NotificationActivity.notificationIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
         }
 
         val rankingList = listOf(
@@ -87,6 +89,7 @@ class RecommendFragment : Fragment() {
         binding.imageViewRankingArrow.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
             startActivity(RecommendRankingActivity.recommendRankingIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
         }
 
         rankingAdpater.submitList(rankingList)
@@ -101,10 +104,12 @@ class RecommendFragment : Fragment() {
 
     private fun onPick10ItemClick() {
         startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), false))
+        requireActivity().setOpenActivityAnimation()
     }
 
     private fun onTopCommentClick() {
         startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), true))
+        requireActivity().setOpenActivityAnimation()
     }
 
     private fun onRankingItemClick(item: RankingItem) {

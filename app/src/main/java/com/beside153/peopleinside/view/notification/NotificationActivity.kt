@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.NotificationActivityBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
+import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 
 class NotificationActivity : AppCompatActivity() {
     private lateinit var binding: NotificationActivityBinding
@@ -17,6 +19,8 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.notification_activity)
+
+        addBackPressedCallback()
 
         val notificationItemList = listOf(
             NotificationItem(
@@ -71,6 +75,7 @@ class NotificationActivity : AppCompatActivity() {
 
         binding.buttonBack.setOnClickListener {
             finish()
+            setCloseActivityAnimation()
         }
     }
 
