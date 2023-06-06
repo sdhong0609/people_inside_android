@@ -9,16 +9,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.ActivityRecommendRankingBinding
+import com.beside153.peopleinside.databinding.RecommendRankingActivityBinding
 import com.beside153.peopleinside.model.RankingItem
 
 class RecommendRankingActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRecommendRankingBinding
+    private lateinit var binding: RecommendRankingActivityBinding
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend_ranking)
+        binding = DataBindingUtil.setContentView(this, R.layout.recommend_ranking_activity)
 
         val rankingList = listOf(
             RankingItem(
