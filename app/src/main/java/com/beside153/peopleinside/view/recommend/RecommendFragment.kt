@@ -16,6 +16,7 @@ import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.view.notification.NotificationActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,7 +25,7 @@ import retrofit2.Response
 class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
     private lateinit var pick10ItemList: List<Pick10Item>
-    private val pagerAdapter = Pick10ViewPagerAdapter()
+    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick)
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
     private var scrollPosition: Int = 0
 
@@ -96,6 +97,10 @@ class RecommendFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.recommendScrollView.post { binding.recommendScrollView.scrollTo(0, scrollPosition) }
+    }
+
+    private fun onPick10ItemClick() {
+        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity()))
     }
 
     private fun onRankingItemClick(item: RankingItem) {

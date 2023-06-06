@@ -12,8 +12,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img_bg_pick10">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_bg_pick10" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView_bookmark"
@@ -27,17 +40,16 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView_item_title"
+            style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="117dp"
             android:ellipsize="end"
-            android:fontFamily="@font/notosans_kr_bold"
             android:letterSpacing="-0.05"
             android:maxLines="2"
             android:text="@{item.title}"
-            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +59,7 @@
             android:id="@+id/textView_total_rating"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="26dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/background_total_rating"
             android:gravity="center"
