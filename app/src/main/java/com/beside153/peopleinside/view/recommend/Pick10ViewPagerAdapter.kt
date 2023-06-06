@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.RecommendPick10ItemBinding
 import com.beside153.peopleinside.model.Pick10Item
 
-class Pick10ViewPagerAdapter(private val onPick10ItemClick: () -> Unit) :
+class Pick10ViewPagerAdapter(private val onPick10ItemClick: () -> Unit, private val onTopCommentClick: () -> Unit) :
     ListAdapter<Pick10Item, Pick10ViewPagerAdapter.Pick10ItemViewHolder>(Pick10ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pick10ItemViewHolder {
@@ -19,6 +19,9 @@ class Pick10ViewPagerAdapter(private val onPick10ItemClick: () -> Unit) :
             if (position != RecyclerView.NO_POSITION) {
                 onPick10ItemClick()
             }
+        }
+        binding.layoutTopComment.setOnClickListener {
+            onTopCommentClick()
         }
         return viewHolder
     }

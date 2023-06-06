@@ -25,7 +25,7 @@ import retrofit2.Response
 class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
     private lateinit var pick10ItemList: List<Pick10Item>
-    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick)
+    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopCommentClick)
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
     private var scrollPosition: Int = 0
 
@@ -100,7 +100,11 @@ class RecommendFragment : Fragment() {
     }
 
     private fun onPick10ItemClick() {
-        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity()))
+        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), false))
+    }
+
+    private fun onTopCommentClick() {
+        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), true))
     }
 
     private fun onRankingItemClick(item: RankingItem) {

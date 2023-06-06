@@ -17,7 +17,7 @@
         android:background="@drawable/background_poster" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_main_comment"
+        android:id="@+id/layout_top_comment"
         android:layout_width="match_parent"
         android:layout_height="116dp"
         android:layout_marginHorizontal="26dp"
