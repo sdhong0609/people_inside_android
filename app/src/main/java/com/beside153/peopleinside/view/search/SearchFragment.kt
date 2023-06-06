@@ -74,7 +74,7 @@ class SearchFragment : Fragment() {
         val list = listOf(
             SearchScreenAdapter.SearchScreenModel.SeenViewItem,
             SearchScreenAdapter.SearchScreenModel.TrendViewItem,
-            *searchTrendList.map { SearchScreenAdapter.SearchScreenModel.TrendListItem(it) }.toTypedArray()
+            *searchTrendList.map { SearchScreenAdapter.SearchScreenModel.TrendContentItem(it) }.toTypedArray()
         )
         searchScreenAdapter.submitList(list)
     }
