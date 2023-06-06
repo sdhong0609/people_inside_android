@@ -1,8 +1,8 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.PeopleInsideAndroid" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.PeopleInsideAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -10,7 +10,40 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@color/white</item>
+        <!--Status Bar text color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="textStyleBoldBlack">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleMediumBlack333333">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/black_333333</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleTabLayout" parent="TextAppearance.Design.Tab">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:letterSpacing">-0.05</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="textStyleMediumBlack">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:letterSpacing">-0.05</item>
+    </style>
+
+    <style name="textStyleMediumWhite">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">-0.05</item>
     </style>
 </resources>
+

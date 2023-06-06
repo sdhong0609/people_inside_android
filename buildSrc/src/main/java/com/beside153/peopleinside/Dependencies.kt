@@ -7,11 +7,11 @@ object Versions {
 
     // AndroidX
     const val APP_COMPAT = "1.6.1"
-    const val MATERIAL = "1.9.0"
+    const val MATERIAL = "1.7.0"
     const val CONSTRAINT_LAYOUT = "2.1.4"
 
     // Firebase
-    const val ANALYTICS = "21.2.2"
+    const val ANALYTICS = "21.3.0"
     const val CRASHYTICS = "18.3.7"
 
     // Test
@@ -20,6 +20,9 @@ object Versions {
     // Android Test
     const val EXT_JUNIT = "1.1.5"
     const val ESPRESSO_CORE = "3.5.1"
+
+    // Navigation
+    const val NAVIGATION = "2.5.3"
 }
 
 object Libraries {
@@ -46,5 +49,10 @@ object Libraries {
     object AndroidTest {
         const val EXT_JUNIT = "androidx.test.ext:junit:${Versions.EXT_JUNIT}"
         const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:${Versions.ESPRESSO_CORE}"
+    }
+
+    object Navigation {
+        const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
+        const val NAVIGATION_UI = "androidx.navigation:navigation-ui-ktx:${Versions.NAVIGATION}"
     }
 }

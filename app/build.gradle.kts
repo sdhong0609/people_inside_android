@@ -9,6 +9,10 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("kotlin-parcelize")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
+    id("androidx.navigation.safeargs")
+    id("kotlin-kapt")
 }
 
 android {
@@ -32,11 +36,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_17.toString()
+    }
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -53,4 +60,18 @@ dependencies {
     testImplementation(Libraries.Test.JUNIT)
     androidTestImplementation(Libraries.AndroidTest.EXT_JUNIT)
     androidTestImplementation(Libraries.AndroidTest.ESPRESSO_CORE)
+
+    // Navigation
+    implementation(Libraries.Navigation.NAVIGATION_FRAGMENT)
+    implementation(Libraries.Navigation.NAVIGATION_UI)
+
+    // Retrofit2
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+
+    // kotlinx-serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
 }
