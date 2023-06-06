@@ -7,16 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.ActivityNotificationBinding
+import com.beside153.peopleinside.databinding.NotificationActivityBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
 
 class NotificationActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityNotificationBinding
+    private lateinit var binding: NotificationActivityBinding
     private val notificationAdapter = NotificationListAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
+        binding = DataBindingUtil.setContentView(this, R.layout.notification_activity)
 
         val notificationItemList = listOf(
             NotificationItem(
