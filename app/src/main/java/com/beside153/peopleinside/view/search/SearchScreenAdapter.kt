@@ -63,14 +63,14 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        class SeenViewHolder(private val binding: SearchSeenContentLayoutBinding) : ViewHolder(binding.root) {
+        class SeenViewHolder(binding: SearchSeenContentLayoutBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class TrendViewHolder(private val binding: SearchTrendContentLayoutBinding) : ViewHolder(binding.root) {
+        class TrendViewHolder(binding: SearchTrendContentLayoutBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
@@ -96,6 +96,9 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
         return when {
             oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
             oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
+            oldItem is SearchScreenModel.TrendContentItem && newItem is SearchScreenModel.TrendContentItem ->
+                oldItem.searchTrendItem.contentTitle == newItem.searchTrendItem.contentTitle
+
             else -> false
         }
     }

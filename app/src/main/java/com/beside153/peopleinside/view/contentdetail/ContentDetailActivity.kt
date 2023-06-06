@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ContentDetailActivityBinding
+import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ContentDetailActivityBinding
@@ -26,11 +27,44 @@ class ContentDetailActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ContentDetailActivity)
         }
 
-        val list = listOf(
-            ContentDetailScreenAdapter.ContentDetailScreenModel.PosterViewItem,
-            ContentDetailScreenAdapter.ContentDetailScreenModel.ReviewViewItem,
-            ContentDetailScreenAdapter.ContentDetailScreenModel.InfoViewItem
+        val commentList = listOf(
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            ),
+            ContentDetailScreenModel.CommentItem(
+                "ENTP / 미소님",
+                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
+            )
         )
+
+        val list = mutableListOf(
+            ContentDetailScreenModel.PosterView,
+            ContentDetailScreenModel.ReviewView,
+            ContentDetailScreenModel.InfoView,
+            ContentDetailScreenModel.CommentsView
+        )
+        list += commentList
         contentDetailScreenAdapter.submitList(list)
     }
 

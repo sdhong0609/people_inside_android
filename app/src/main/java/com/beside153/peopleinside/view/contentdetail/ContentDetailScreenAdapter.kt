@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.databinding.ContentDetailCommentsItemBinding
+import com.beside153.peopleinside.databinding.ContentDetailCommentsLayoutBinding
 import com.beside153.peopleinside.databinding.ContentDetailInfoLayoutBinding
 import com.beside153.peopleinside.databinding.ContentDetailPosterLayoutBinding
 import com.beside153.peopleinside.databinding.ContentDetailReviewLayoutBinding
@@ -17,10 +19,11 @@ class ContentDetailScreenAdapter :
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is ContentDetailScreenModel.PosterViewItem -> R.layout.content_detail_poster_layout
-            is ContentDetailScreenModel.ReviewViewItem -> R.layout.content_detail_review_layout
-            is ContentDetailScreenModel.InfoViewItem -> R.layout.content_detail_info_layout
-//            is ContentDetailScreenModel.TrendContentItem -> R.layout.search_trend_item
+            is ContentDetailScreenModel.PosterView -> R.layout.content_detail_poster_layout
+            is ContentDetailScreenModel.ReviewView -> R.layout.content_detail_review_layout
+            is ContentDetailScreenModel.InfoView -> R.layout.content_detail_info_layout
+            is ContentDetailScreenModel.CommentsView -> R.layout.content_detail_comments_layout
+            is ContentDetailScreenModel.CommentItem -> R.layout.content_detail_comments_item
         }
     }
 
@@ -41,24 +44,22 @@ class ContentDetailScreenAdapter :
                 ViewHolder.ReviewViewHolder(binding)
             }
 
-            else -> {
+            R.layout.content_detail_info_layout -> {
                 val binding = ContentDetailInfoLayoutBinding.inflate(inflater, parent, false)
                 binding.textViewInfoDescription.apply {
                     text = text.toString().replace(" ", "\u00A0")
                 }
                 ViewHolder.InfoViewHolder(binding)
+            }
 
-//                val binding = SearchTrendItemBinding.inflate(inflater, parent, false)
-//                val viewHolder = ViewHolder.TrenListViewHolder(binding)
-//                viewHolder.itemView.setOnClickListener {
-//                    val position = viewHolder.adapterPosition
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        onSearchTrendItemClick(
-//                            (getItem(position) as SearchScreenModel.TrendContentItem).searchTrendItem
-//                        )
-//                    }
-//                }
-//                viewHolder
+            R.layout.content_detail_comments_layout -> {
+                val binding = ContentDetailCommentsLayoutBinding.inflate(inflater, parent, false)
+                ViewHolder.CommentsViewHolder(binding)
+            }
+
+            else -> {
+                val binding = ContentDetailCommentsItemBinding.inflate(inflater, parent, false)
+                ViewHolder.CommentItemViewHolder(binding)
             }
         }
     }
@@ -68,7 +69,10 @@ class ContentDetailScreenAdapter :
             is ViewHolder.PosterViewHolder -> holder.bind()
             is ViewHolder.ReviewViewHolder -> holder.bind()
             is ViewHolder.InfoViewHolder -> holder.bind()
-//            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)
+            is ViewHolder.CommentsViewHolder -> holder.bind()
+            is ViewHolder.CommentItemViewHolder -> holder.bind(
+                getItem(position) as ContentDetailScreenModel.CommentItem
+            )
         }
     }
 
@@ -94,32 +98,46 @@ class ContentDetailScreenAdapter :
             }
         }
 
-//        class TrenListViewHolder(private val binding: SearchTrendItemBinding) : ViewHolder(binding.root) {
-//            fun bind(item: SearchScreenModel.TrendContentItem) {
-//                binding.item = item.searchTrendItem
-//            }
-//        }
+        class CommentsViewHolder(binding: ContentDetailCommentsLayoutBinding) : ViewHolder(binding.root) {
+
+            fun bind() {
+                // binding 없음
+            }
+        }
+
+        class CommentItemViewHolder(private val binding: ContentDetailCommentsItemBinding) : ViewHolder(binding.root) {
+            fun bind(item: ContentDetailScreenModel.CommentItem) {
+                binding.commentItem = item
+            }
+        }
     }
 
     sealed class ContentDetailScreenModel {
-        object PosterViewItem : ContentDetailScreenModel()
-        object ReviewViewItem : ContentDetailScreenModel()
-        object InfoViewItem : ContentDetailScreenModel()
-//        data class TrendContentItem(val searchTrendItem: SearchTrendItem) : ContentDetailScreenModel()
+        object PosterView : ContentDetailScreenModel()
+        object ReviewView : ContentDetailScreenModel()
+        object InfoView : ContentDetailScreenModel()
+        object CommentsView : ContentDetailScreenModel()
+        data class CommentItem(val nickname: String, val comment: String) : ContentDetailScreenModel()
     }
 }
 
 private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDetailScreenModel>() {
     override fun areItemsTheSame(oldItem: ContentDetailScreenModel, newItem: ContentDetailScreenModel): Boolean {
         return when {
-            oldItem is ContentDetailScreenModel.PosterViewItem &&
-                newItem is ContentDetailScreenModel.PosterViewItem -> true
+            oldItem is ContentDetailScreenModel.PosterView &&
+                newItem is ContentDetailScreenModel.PosterView -> true
 
-            oldItem is ContentDetailScreenModel.ReviewViewItem &&
-                newItem is ContentDetailScreenModel.ReviewViewItem -> true
+            oldItem is ContentDetailScreenModel.ReviewView &&
+                newItem is ContentDetailScreenModel.ReviewView -> true
 
-            oldItem is ContentDetailScreenModel.InfoViewItem &&
-                newItem is ContentDetailScreenModel.InfoViewItem -> true
+            oldItem is ContentDetailScreenModel.InfoView &&
+                newItem is ContentDetailScreenModel.InfoView -> true
+
+            oldItem is ContentDetailScreenModel.CommentsView &&
+                newItem is ContentDetailScreenModel.CommentsView -> true
+
+            oldItem is ContentDetailScreenModel.CommentItem && newItem is ContentDetailScreenModel.CommentItem ->
+                oldItem.nickname == newItem.nickname
 
             else -> false
         }
