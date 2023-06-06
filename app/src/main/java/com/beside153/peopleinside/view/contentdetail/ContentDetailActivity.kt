@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ContentDetailActivityBinding
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
@@ -69,7 +70,11 @@ class ContentDetailActivity : AppCompatActivity() {
 
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         if (didClickComment) {
-            binding.recyclerViewDetailScreen.scrollToPosition(POSITION_COMMENT_LIST)
+            val smoothScroller = object : LinearSmoothScroller(this) {
+                override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+            }
+            smoothScroller.targetPosition = POSITION_COMMENT_LIST
+            binding.recyclerViewDetailScreen.layoutManager?.startSmoothScroll(smoothScroller)
         }
     }
 
