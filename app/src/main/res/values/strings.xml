@@ -19,6 +19,11 @@
     <string name="content_information">작품 정보</string>
     <string name="content_comment_title">몰입러들의 감상</string>
 
+    <!-- 감상 작성 화면 텍스트 -->
+    <string name="write_review">감상 작성</string>
+    <string name="write_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
+    <string name="complete">완료</string>
+
     <!-- 검색 화면 텍스트 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
     <string name="contents_have_seen">내가 둘러본 콘텐츠</string>

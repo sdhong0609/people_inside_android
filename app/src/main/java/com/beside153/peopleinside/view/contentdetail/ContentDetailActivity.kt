@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ContentDetailActivityBinding
+import com.beside153.peopleinside.view.CreateReviewActivity
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ContentDetailActivityBinding
-    private val contentDetailScreenAdapter = ContentDetailScreenAdapter()
+    private val contentDetailScreenAdapter = ContentDetailScreenAdapter(::onCreateReviewClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +77,10 @@ class ContentDetailActivity : AppCompatActivity() {
             smoothScroller.targetPosition = POSITION_COMMENT_LIST
             binding.recyclerViewDetailScreen.layoutManager?.startSmoothScroll(smoothScroller)
         }
+    }
+
+    private fun onCreateReviewClick() {
+        startActivity(CreateReviewActivity.createReviewIntent(this))
     }
 
     companion object {

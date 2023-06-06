@@ -14,7 +14,7 @@ import com.beside153.peopleinside.databinding.ContentDetailPosterLayoutBinding
 import com.beside153.peopleinside.databinding.ContentDetailReviewLayoutBinding
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
-class ContentDetailScreenAdapter :
+class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
     ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(ContentDetailModelDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
@@ -40,6 +40,9 @@ class ContentDetailScreenAdapter :
                 val binding = ContentDetailReviewLayoutBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
                     ratingBar.rating = rating
+                }
+                binding.imageButtonCreateReview.setOnClickListener {
+                    onCreateReviewClick()
                 }
                 ViewHolder.ReviewViewHolder(binding)
             }

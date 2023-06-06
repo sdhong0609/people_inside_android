@@ -14,7 +14,10 @@
 
         <include
             android:id="@+id/search_appbar"
-            layout="@layout/search_appbar_layout" />
+            layout="@layout/search_appbar_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_search_screen"
