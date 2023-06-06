@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view
+package com.beside153.peopleinside.view.search
 
 import android.content.Context
 import android.os.Bundle

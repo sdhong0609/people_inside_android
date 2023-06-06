@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view
+package com.beside153.peopleinside.view.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,7 @@ import com.beside153.peopleinside.databinding.SearchSeenContentLayoutBinding
 import com.beside153.peopleinside.databinding.SearchTrendContentLayoutBinding
 import com.beside153.peopleinside.databinding.SearchTrendItemBinding
 import com.beside153.peopleinside.model.search.SearchTrendItem
-import com.beside153.peopleinside.view.SearchScreenAdapter.SearchScreenModel
+import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 
 class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrendItem) -> Unit) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
