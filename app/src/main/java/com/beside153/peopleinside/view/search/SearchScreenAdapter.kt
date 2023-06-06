@@ -20,7 +20,7 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
         return when (getItem(position)) {
             is SearchScreenModel.SeenViewItem -> R.layout.search_seen_content_layout
             is SearchScreenModel.TrendViewItem -> R.layout.search_trend_content_layout
-            is SearchScreenModel.TrendListItem -> R.layout.search_trend_item
+            is SearchScreenModel.TrendContentItem -> R.layout.search_trend_item
         }
     }
 
@@ -44,7 +44,9 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onSearchTrendItemClick((getItem(position) as SearchScreenModel.TrendListItem).searchTrendItem)
+                        onSearchTrendItemClick(
+                            (getItem(position) as SearchScreenModel.TrendContentItem).searchTrendItem
+                        )
                     }
                 }
                 viewHolder
@@ -56,7 +58,7 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
         when (holder) {
             is ViewHolder.SeenViewHolder -> holder.bind()
             is ViewHolder.TrendViewHolder -> holder.bind()
-            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendListItem)
+            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)
         }
     }
 
@@ -76,7 +78,7 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
         }
 
         class TrenListViewHolder(private val binding: SearchTrendItemBinding) : ViewHolder(binding.root) {
-            fun bind(item: SearchScreenModel.TrendListItem) {
+            fun bind(item: SearchScreenModel.TrendContentItem) {
                 binding.item = item.searchTrendItem
             }
         }
@@ -85,7 +87,7 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
     sealed class SearchScreenModel {
         object SeenViewItem : SearchScreenModel()
         object TrendViewItem : SearchScreenModel()
-        data class TrendListItem(val searchTrendItem: SearchTrendItem) : SearchScreenModel()
+        data class TrendContentItem(val searchTrendItem: SearchTrendItem) : SearchScreenModel()
     }
 }
 
