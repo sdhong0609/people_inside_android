@@ -33,6 +33,9 @@ class ContentDetailScreenAdapter :
 
             else -> {
                 val binding = ContentDetailReviewLayoutBinding.inflate(inflater, parent, false)
+                binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
+                    ratingBar.rating = rating
+                }
                 ViewHolder.ReviewViewHolder(binding)
 
 //                val binding = SearchTrendItemBinding.inflate(inflater, parent, false)
