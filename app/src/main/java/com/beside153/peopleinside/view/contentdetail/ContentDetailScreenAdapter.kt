@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ContentDetailPosterLayoutBinding
+import com.beside153.peopleinside.databinding.ContentDetailReviewLayoutBinding
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter :
@@ -16,12 +17,11 @@ class ContentDetailScreenAdapter :
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is ContentDetailScreenModel.PosterViewItem -> R.layout.content_detail_poster_layout
-//            is ContentDetailScreenModel.TrendViewItem -> R.layout.search_trend_content_layout
+            is ContentDetailScreenModel.ReviewViewItem -> R.layout.content_detail_review_layout
 //            is ContentDetailScreenModel.TrendContentItem -> R.layout.search_trend_item
         }
     }
 
-    @Suppress("ThrowingExceptionsWithoutMessageOrCause")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -32,6 +32,9 @@ class ContentDetailScreenAdapter :
             }
 
             else -> {
+                val binding = ContentDetailReviewLayoutBinding.inflate(inflater, parent, false)
+                ViewHolder.ReviewViewHolder(binding)
+
 //                val binding = SearchTrendItemBinding.inflate(inflater, parent, false)
 //                val viewHolder = ViewHolder.TrenListViewHolder(binding)
 //                viewHolder.itemView.setOnClickListener {
@@ -43,8 +46,6 @@ class ContentDetailScreenAdapter :
 //                    }
 //                }
 //                viewHolder
-                @Suppress("UseCheckOrError")
-                throw IllegalStateException()
             }
         }
     }
@@ -52,12 +53,20 @@ class ContentDetailScreenAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder.PosterViewHolder -> holder.bind()
+            is ViewHolder.ReviewViewHolder -> holder.bind()
 //            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)
         }
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         class PosterViewHolder(private val binding: ContentDetailPosterLayoutBinding) : ViewHolder(binding.root) {
+
+            fun bind() {
+                // binding 없음
+            }
+        }
+
+        class ReviewViewHolder(private val binding: ContentDetailReviewLayoutBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
@@ -73,6 +82,7 @@ class ContentDetailScreenAdapter :
 
     sealed class ContentDetailScreenModel {
         object PosterViewItem : ContentDetailScreenModel()
+        object ReviewViewItem : ContentDetailScreenModel()
 //        data class TrendContentItem(val searchTrendItem: SearchTrendItem) : ContentDetailScreenModel()
     }
 }
@@ -82,6 +92,9 @@ private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDeta
         return when {
             oldItem is ContentDetailScreenModel.PosterViewItem &&
                 newItem is ContentDetailScreenModel.PosterViewItem -> true
+
+            oldItem is ContentDetailScreenModel.ReviewViewItem &&
+                newItem is ContentDetailScreenModel.ReviewViewItem -> true
 
             else -> false
         }
