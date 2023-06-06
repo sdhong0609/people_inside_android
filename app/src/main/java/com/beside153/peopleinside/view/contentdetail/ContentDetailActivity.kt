@@ -28,7 +28,8 @@ class ContentDetailActivity : AppCompatActivity() {
 
         val list = listOf(
             ContentDetailScreenAdapter.ContentDetailScreenModel.PosterViewItem,
-            ContentDetailScreenAdapter.ContentDetailScreenModel.ReviewViewItem
+            ContentDetailScreenAdapter.ContentDetailScreenModel.ReviewViewItem,
+            ContentDetailScreenAdapter.ContentDetailScreenModel.InfoViewItem
         )
         contentDetailScreenAdapter.submitList(list)
     }

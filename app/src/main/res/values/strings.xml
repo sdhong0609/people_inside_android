@@ -16,6 +16,8 @@
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
     <string name="bookmark">북마크</string>
     <string name="create_review">감상 남기기</string>
+    <string name="content_information">작품 정보</string>
+    <string name="content_comment_title">몰입러들의 감상</string>
 
     <!-- 검색 화면 텍스트 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
