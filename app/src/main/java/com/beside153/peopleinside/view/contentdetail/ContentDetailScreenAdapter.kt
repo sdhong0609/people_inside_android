@@ -43,6 +43,9 @@ class ContentDetailScreenAdapter :
 
             else -> {
                 val binding = ContentDetailInfoLayoutBinding.inflate(inflater, parent, false)
+                binding.textViewInfoDescription.apply {
+                    text = text.toString().replace(" ", "\u00A0")
+                }
                 ViewHolder.InfoViewHolder(binding)
 
 //                val binding = SearchTrendItemBinding.inflate(inflater, parent, false)
