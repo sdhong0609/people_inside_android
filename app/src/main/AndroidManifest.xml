@@ -15,17 +15,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
-            android:exported="true">
+            android:name=".view.login.SplashActivity"
+            android:exported="true"
+            android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao89d8b4308014be36f84f5b0de58bca09" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -42,12 +38,20 @@
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustPan">
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao89d8b4308014be36f84f5b0de58bca09" />
             </intent-filter>
         </activity>
     </application>
