@@ -74,4 +74,7 @@ dependencies {
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
+
+    // Kakao Login
+    implementation("com.kakao.sdk:v2-user:2.14.0")
 }

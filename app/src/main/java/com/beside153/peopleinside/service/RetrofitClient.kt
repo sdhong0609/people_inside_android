@@ -2,7 +2,7 @@ package com.beside153.peopleinside.service
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 
 object RetrofitClient {
@@ -16,7 +16,7 @@ object RetrofitClient {
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .addConverterFactory(json.asConverterFactory(MediaType.get(contentType)))
+        .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .build()
 
     val mbtiService: MbtiService = retrofit.create(MbtiService::class.java)
