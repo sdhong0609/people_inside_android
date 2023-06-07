@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.beside153.peopleinside.R
 
 fun Activity.setOpenActivityAnimation() {
-    overridePendingTransition(R.anim.slid_in_right, R.anim.slide_out_left)
+    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 }
 
 fun Activity.setCloseActivityAnimation() {
