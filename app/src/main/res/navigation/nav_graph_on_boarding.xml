@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_on_boarding"
+    app:startDestination="@id/onBoardingUserFragment">
+
+    <fragment
+        android:id="@+id/onBoardingUserFragment"
+        android:name="com.beside153.peopleinside.view.login.OnBoardingUserFragment"
+        android:label="on_boarding_user_fragment"
+        tools:layout="@layout/on_boarding_user_fragment" />
+</navigation>

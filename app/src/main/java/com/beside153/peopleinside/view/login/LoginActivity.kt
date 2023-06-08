@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.LoginActivityBinding
+import com.beside153.peopleinside.model.login.UserInfoModel
 import com.beside153.peopleinside.util.showToast
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -71,7 +72,16 @@ class LoginActivity : AppCompatActivity() {
                 Log.e(tag, "$error")
                 showToast(R.string.kakao_user_info_load_failed)
             } else if (user != null) {
-                Log.i(tag, "카카오 사용자 정보 가져오기 성공 : $user")
+                val account = user.kakaoAccount
+                val userInfo = UserInfoModel(
+                    account?.profile?.nickname,
+                    account?.email,
+                    account?.gender,
+                    account?.ageRange,
+                    account?.birthday
+                )
+                startActivity(OnBoardingActivity.onBoardingIntent(this, userInfo))
+                finish()
             }
         }
     }

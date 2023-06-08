@@ -11,7 +11,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ContentDetailActivityBinding
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.CreateReviewActivity
+import com.beside153.peopleinside.view.WriteReviewActivity
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailActivity : AppCompatActivity() {
@@ -85,7 +85,7 @@ class ContentDetailActivity : AppCompatActivity() {
     }
 
     private fun onCreateReviewClick() {
-        startActivity(CreateReviewActivity.createReviewIntent(this))
+        startActivity(WriteReviewActivity.writeReviewIntent(this))
     }
 
     companion object {

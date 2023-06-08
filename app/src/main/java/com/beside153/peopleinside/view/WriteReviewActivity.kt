@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.WriteReviewActivityBinding
 
-class CreateReviewActivity : AppCompatActivity() {
+class WriteReviewActivity : AppCompatActivity() {
     private lateinit var binding: WriteReviewActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +36,8 @@ class CreateReviewActivity : AppCompatActivity() {
     companion object {
         private const val DURATION_UNTIL_BACK = 2000L
 
-        fun createReviewIntent(context: Context): Intent {
-            return Intent(context, CreateReviewActivity::class.java)
+        fun writeReviewIntent(context: Context): Intent {
+            return Intent(context, WriteReviewActivity::class.java)
         }
     }
 }
