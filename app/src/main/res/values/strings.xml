@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">People-Inside-Android</string>
+    <string name="app_name">피플인사이드</string>
+
+    <!-- 로그인 화면 -->
+    <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>
+    <string name="will_enter_without_login">로그인 없이 먼저 둘러볼래요</string>
 
     <!-- BNV(GNB) 텍스트 -->
     <string name="recommend">추천</string>
