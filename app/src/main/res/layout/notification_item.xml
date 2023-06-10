@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/notification_message_emoji" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textView_noti_title"
             style="@style/textStyleBoldBlack"
             android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="@id/textView_emoji"
             tools:text="하트 도착" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             style="@style/textStyleMediumGray500"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toTopOf="@id/textView_emoji"
             tools:text="2분 전" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textView_noti_description"
             style="@style/textStyleMediumGray800"
             android:layout_width="wrap_content"

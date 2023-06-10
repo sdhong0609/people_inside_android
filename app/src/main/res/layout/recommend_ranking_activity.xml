@@ -35,7 +35,7 @@
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_left_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -40,7 +40,7 @@
                     android:layout_marginVertical="40dp"
                     android:background="@color/gray_EEEEEE" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:id="@+id/textView_rating_battle"
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                     android:orientation="horizontal"
                     android:paddingHorizontal="15dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         style="@style/textStyleBoldBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <ImageView
                         android:id="@+id/imageView_ranking_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleMediumBlack333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

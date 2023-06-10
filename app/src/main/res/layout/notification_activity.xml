@@ -34,7 +34,7 @@
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_left_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,12 +56,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_notification_on" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleBoldGray500"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@id/notification_appbar_layout"
             tools:listitem="@layout/notification_item" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/textView_notification_delete"
             style="@style/textStyleMediumGray400"
             android:layout_width="match_parent"

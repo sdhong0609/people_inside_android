@@ -26,7 +26,7 @@
                 android:paddingHorizontal="16dp"
                 android:weightSum="100">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
@@ -43,14 +43,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                     android:id="@+id/imageView_notification"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="12.5"
                     android:src="@drawable/ic_notification_on" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                     android:id="@+id/imageView_mbti"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

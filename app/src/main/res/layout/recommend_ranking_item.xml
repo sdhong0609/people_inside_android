@@ -17,21 +17,21 @@
         android:paddingVertical="22dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardview_poster"
+            android:id="@+id/cvPoster"
             android:layout_width="100dp"
             android:layout_height="140dp"
             app:cardCornerRadius="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_poster"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_sample_poster" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@color/black"
@@ -44,8 +44,8 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_title"
+        <TextView
+            android:id="@+id/tvTitle"
             style="@style/textStyleBoldBlack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
             android:text="@{item.title}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview_poster"
+            app:layout_constraintStart_toEndOf="@id/cvPoster"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다." />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewDescription"
+        <TextView
+            android:id="@+id/tvDescription"
             style="@style/textStyleMediumBlack333333"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,16 +70,15 @@
             android:text="@{item.description}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textView_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_title"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
             tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁합니다" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_total_rating"
+        <TextView
+            android:id="@+id/tvTotalRating"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
             android:background="@drawable/background_total_rating"
             android:gravity="center"
             android:paddingHorizontal="8dp"
@@ -87,28 +86,29 @@
             android:text="@{item.totalRating}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textView_title"
-            app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+            app:layout_constraintStart_toStartOf="@id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
             app:layout_constraintVertical_bias="1"
             tools:text="전체 4.3점" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:background="@drawable/background_mbti_rating"
-            android:drawableStart="@drawable/ic_clap_hands"
             android:drawablePadding="4dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"
             android:letterSpacing="-0.05"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
             android:text="@{item.mbtiRating}"
             android:textColor="@color/white"
             android:textSize="12sp"
+            app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textView_total_rating"
-            app:layout_constraintTop_toTopOf="@id/textView_total_rating"
+            app:layout_constraintStart_toEndOf="@id/tvTotalRating"
+            app:layout_constraintTop_toTopOf="@id/tvTotalRating"
             tools:text="ESFJ 4.5점" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
