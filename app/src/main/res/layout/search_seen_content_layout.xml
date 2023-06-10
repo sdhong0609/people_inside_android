@@ -29,11 +29,14 @@
             android:id="@+id/textView_no_contents"
             style="@style/textStyleMediumGray700"
             android:layout_width="match_parent"
-            android:layout_height="145dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_search_bar"
             android:gravity="center"
-            android:text="@string/no_contents_have_seen" />
+            android:paddingHorizontal="63dp"
+            android:paddingVertical="62dp"
+            android:text="@string/no_contents_have_seen"
+            android:textSize="16sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
