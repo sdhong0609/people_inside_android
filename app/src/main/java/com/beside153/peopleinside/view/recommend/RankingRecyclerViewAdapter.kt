@@ -27,7 +27,7 @@ class RankingRecyclerViewAdapter(private val onRankingItemClick: (item: RankingI
         holder.bind(getItem(position))
     }
 
-    inner class RepositoryItemViewHolder(private val binding: RecommendRankingItemBinding) :
+    class RepositoryItemViewHolder(private val binding: RecommendRankingItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RankingItem) {

@@ -20,7 +20,7 @@ class Pick10ViewPagerAdapter :
         holder.bind(getItem(position))
     }
 
-    inner class Pick10ItemViewHolder(private val binding: RecommendPick10ItemBinding) :
+    class Pick10ItemViewHolder(private val binding: RecommendPick10ItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Pick10Item) {
