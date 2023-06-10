@@ -31,7 +31,7 @@ class NotificationListAdapter :
 
 private class NotificationItemDiffCallback : DiffUtil.ItemCallback<NotificationItem>() {
     override fun areItemsTheSame(oldItem: NotificationItem, newItem: NotificationItem): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: NotificationItem, newItem: NotificationItem): Boolean {

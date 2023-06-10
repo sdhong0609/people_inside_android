@@ -38,7 +38,7 @@ class RankingRecyclerViewAdapter(private val onRankingItemClick: (item: RankingI
 
 private class RankingItemDiffCallback : DiffUtil.ItemCallback<RankingItem>() {
     override fun areItemsTheSame(oldItem: RankingItem, newItem: RankingItem): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: RankingItem, newItem: RankingItem): Boolean {

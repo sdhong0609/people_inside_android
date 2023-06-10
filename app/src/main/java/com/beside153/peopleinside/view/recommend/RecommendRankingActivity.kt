@@ -20,8 +20,10 @@ class RecommendRankingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.recommend_ranking_activity)
 
+        @Suppress("MagicNumber")
         val rankingList = listOf(
             RankingItem(
+                1,
                 "1",
                 "어느 날 우리 집 현관으로 멸망이 들어왔다.",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
@@ -29,6 +31,7 @@ class RecommendRankingActivity : AppCompatActivity() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                2,
                 "2",
                 "그 해 우리는",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미...",
@@ -36,6 +39,7 @@ class RecommendRankingActivity : AppCompatActivity() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                3,
                 "3",
                 "브람스를 좋아하세요?",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
@@ -43,6 +47,7 @@ class RecommendRankingActivity : AppCompatActivity() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                4,
                 "1",
                 "어느 날 우리 집 현관으로 멸망이 들어왔다.",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
@@ -50,16 +55,10 @@ class RecommendRankingActivity : AppCompatActivity() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                5,
                 "2",
                 "그 해 우리는",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            ),
-            RankingItem(
-                "3",
-                "브람스를 좋아하세요?",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
                 "전체 4.3점",
                 "ISTJ 4.5점"
             )
