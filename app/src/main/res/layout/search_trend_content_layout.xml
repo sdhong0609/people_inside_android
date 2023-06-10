@@ -6,7 +6,7 @@
 
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -27,5 +27,5 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/search_trend_item" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 </layout>
