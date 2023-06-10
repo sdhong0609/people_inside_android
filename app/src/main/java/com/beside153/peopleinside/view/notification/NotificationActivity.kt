@@ -76,7 +76,7 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun notificationIntent(context: Context): Intent {
+        fun newIntent(context: Context): Intent {
             return Intent(context, NotificationActivity::class.java)
         }
     }

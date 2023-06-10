@@ -81,7 +81,7 @@ class RecommendRankingActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun recommendRankingIntent(context: Context): Intent {
+        fun newIntent(context: Context): Intent {
             return Intent(context, RecommendRankingActivity::class.java)
         }
     }

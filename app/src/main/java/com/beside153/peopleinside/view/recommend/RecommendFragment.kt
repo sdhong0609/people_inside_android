@@ -50,7 +50,7 @@ class RecommendFragment : Fragment() {
         }
 
         binding.recommendAppBar.imageViewNotification.setOnClickListener {
-            startActivity(NotificationActivity.notificationIntent(requireActivity()))
+            startActivity(NotificationActivity.newIntent(requireActivity()))
         }
 
         @Suppress("MagicNumber")
@@ -89,7 +89,7 @@ class RecommendFragment : Fragment() {
 
         binding.imageViewRankingArrow.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
-            startActivity(RecommendRankingActivity.recommendRankingIntent(requireActivity()))
+            startActivity(RecommendRankingActivity.newIntent(requireActivity()))
         }
 
         rankingAdpater.submitList(rankingList)
