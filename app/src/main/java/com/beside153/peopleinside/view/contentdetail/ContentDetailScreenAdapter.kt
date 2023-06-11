@@ -120,7 +120,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         object ReviewView : ContentDetailScreenModel()
         object InfoView : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class CommentItem(val nickname: String, val comment: String) : ContentDetailScreenModel()
+        data class CommentItem(val id: Int, val nickname: String, val comment: String) : ContentDetailScreenModel()
     }
 }
 
@@ -140,7 +140,7 @@ private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDeta
                 newItem is ContentDetailScreenModel.CommentsView -> true
 
             oldItem is ContentDetailScreenModel.CommentItem && newItem is ContentDetailScreenModel.CommentItem ->
-                oldItem.nickname == newItem.nickname
+                oldItem.id == newItem.id
 
             else -> false
         }

@@ -98,7 +98,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
             oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
             oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
             oldItem is SearchScreenModel.TrendContentItem && newItem is SearchScreenModel.TrendContentItem ->
-                oldItem.searchTrendItem.contentTitle == newItem.searchTrendItem.contentTitle
+                oldItem.searchTrendItem.id == newItem.searchTrendItem.id
 
             else -> false
         }
