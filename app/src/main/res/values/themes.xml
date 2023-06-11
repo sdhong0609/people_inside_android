@@ -22,6 +22,12 @@
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
+    <style name="textStyleBoldGray500">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
     <style name="textStyleMediumBlack333333">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/black_333333</item>
@@ -44,6 +50,30 @@
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:letterSpacing">-0.05</item>
+    </style>
+
+    <style name="textStyleMediumGray400">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_400</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleMediumGray500">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleMediumGray700">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleMediumGray800">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="android:letterSpacing">-0.03</item>
     </style>
 </resources>
 

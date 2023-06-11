@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">People-Inside-Android</string>
 
+    <!-- Content Description-->
+    <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
+    <string name="back_button">뒤로 가기 버튼</string>
+    <string name="notification_icon">알림 아이콘</string>
+    <string name="mbti_icon">MBTI 아이콘</string>
+    <string name="poster_image">포스터</string>
+    <string name="bookmark_image">북마크</string>
+    <string name="search_cancel_image">검색 취소</string>
+
     <!-- BNV(GNB) 텍스트 -->
     <string name="recommend">추천</string>
     <string name="search">검색</string>
@@ -11,6 +20,19 @@
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
     <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
+
+    <!-- 검색 화면 텍스트 -->
+    <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
+    <string name="contents_have_seen">내가 둘러본 콘텐츠</string>
+    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없습니다.</string>
+    <string name="contents_trend">인기 급상승 콘텐츠</string>
+
+    <!-- 알림 화면 텍스트 -->
+    <string name="notification">알림</string>
+    <string name="there_is_no_notification">아직 알림이 없어요.</string>
+    <string name="notification_will_be_deleted">알림은 30일 이후 순차적으로 지워집니다.</string>
+    <string name="notification_message_emoji">💌</string>
+    <string name="notification_bulb_emoji">💡</string>
 
     <!-- Common String -->
     <string name="total_rating">전체 %.1f점</string>

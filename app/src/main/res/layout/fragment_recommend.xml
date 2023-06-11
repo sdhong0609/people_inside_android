@@ -10,27 +10,29 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.RecommendFragment">
+        tools:context=".view.recommend.RecommendFragment">
 
-        <include layout="@layout/recommend_appbar_layout" />
+        <include
+            android:id="@+id/recommendAppBar"
+            layout="@layout/layout_recommend_appbar" />
 
         <ScrollView
-            android:id="@+id/recommend_scrollView"
+            android:id="@+id/recommendScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar">
+            app:layout_constraintTop_toBottomOf="@id/recommendAppBar">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <include
-                    android:id="@+id/recommend_pick10_layout"
-                    layout="@layout/recommend_pick10_layout" />
+                    android:id="@+id/layoutRecommendPick10"
+                    layout="@layout/layout_recommend_pick10" />
 
                 <View
                     android:layout_width="match_parent"
@@ -38,8 +40,8 @@
                     android:layout_marginVertical="40dp"
                     android:background="@color/gray_EEEEEE" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/textView_rating_battle"
+                <TextView
+                    android:id="@+id/ratingBattleTextView"
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,26 +51,26 @@
                     android:text="@string/mbti_rating_battle_title"
                     android:textSize="20sp" />
 
-                <include layout="@layout/recommend_mbti_battle_layout" />
+                <include layout="@layout/layout_recommend_mbti_battle" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <include layout="@layout/recommend_mbti_battle_layout" />
+                <include layout="@layout/layout_recommend_mbti_battle" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="60dp" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingHorizontal="15dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                    <TextView
                         style="@style/textStyleBoldBlack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -80,15 +82,16 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageView_ranking_arrow"
+                    <ImageView
+                        android:id="@+id/subRankingArrowImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/sub_ranking_arrow"
                         android:src="@drawable/ic_right_arrow" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </LinearLayout>
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleMediumBlack333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,7 +102,7 @@
                     android:textColor="@color/gray_9B9FA2"
                     android:textSize="16sp" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -131,15 +134,15 @@
 
                     </com.google.android.material.tabs.TabLayout>
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_sub_ranking"
+                    android:id="@+id/subRankingRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/recommend_ranking_item" />
+                    tools:listitem="@layout/item_recommend_sub_ranking" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
         </ScrollView>
 

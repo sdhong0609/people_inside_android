@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view
+package com.beside153.peopleinside.view.recommend
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.service.RetrofitClient.mbtiService
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.view.notification.NotificationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +40,7 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recommendPick10Layout.pick10Viewpager.apply {
+        binding.layoutRecommendPick10.pick10ViewPager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
             adapter = pagerAdapter
@@ -48,8 +49,14 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
+        binding.recommendAppBar.notificationImageView.setOnClickListener {
+            startActivity(NotificationActivity.newIntent(requireActivity()))
+        }
+
+        @Suppress("MagicNumber")
         val rankingList = listOf(
             RankingItem(
+                1,
                 "1",
                 "어느 날 우리 집 현관으로 멸망이 들어왔다.",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
@@ -57,6 +64,7 @@ class RecommendFragment : Fragment() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                2,
                 "2",
                 "그 해 우리는",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미...",
@@ -64,6 +72,7 @@ class RecommendFragment : Fragment() {
                 "ISTJ 4.5점"
             ),
             RankingItem(
+                3,
                 "3",
                 "브람스를 좋아하세요?",
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
@@ -72,13 +81,15 @@ class RecommendFragment : Fragment() {
             )
         )
 
-        binding.recyclerViewSubRanking.apply {
+        binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = object : LinearLayoutManager(requireActivity()) {
+                override fun canScrollVertically(): Boolean = false
+            }
             addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
-        binding.imageViewRankingArrow.setOnClickListener {
+        binding.subRankingArrowImageView.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
             startActivity(RecommendRankingActivity.newIntent(requireActivity()))
         }
