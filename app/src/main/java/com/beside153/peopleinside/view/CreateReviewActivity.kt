@@ -10,14 +10,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.WriteReviewActivityBinding
+import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 
 class CreateReviewActivity : AppCompatActivity() {
-    private lateinit var binding: WriteReviewActivityBinding
+    private lateinit var binding: ActivityCreateReviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.write_review_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_review)
 
         binding.closeButton.setOnClickListener {
             finish()

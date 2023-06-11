@@ -126,7 +126,7 @@ class RecommendFragment : Fragment() {
 
         binding.subRankingArrowImageView.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
-            startActivity(RecommendRankingActivity.newIntent(requireActivity()))
+            startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
             requireActivity().setOpenActivityAnimation()
         }
 

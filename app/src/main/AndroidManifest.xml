@@ -24,7 +24,7 @@
             android:name=".view.notification.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.recommend.RecommendRankingActivity"
+            android:name=".view.recommend.RecommendSubRankingActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

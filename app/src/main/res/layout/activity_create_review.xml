@@ -38,7 +38,7 @@
                     style="@style/textStyleBoldBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/write_review"
+                    android:text="@string/create_review_2"
                     android:textSize="20sp" />
 
                 <Button
@@ -61,7 +61,7 @@
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:gravity="top"
-            android:hint="@string/write_review_hint"
+            android:hint="@string/create_review_hint"
             android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:maxLength="1500"
@@ -83,7 +83,7 @@
             android:layout_marginBottom="28dp"
             android:background="@drawable/background_black_rounded"
             android:gravity="center"
-            android:text="@string/write_review_completed"
+            android:text="@string/create_review_completed"
             android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"

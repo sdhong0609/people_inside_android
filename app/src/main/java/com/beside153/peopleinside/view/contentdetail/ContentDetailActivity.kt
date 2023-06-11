@@ -8,19 +8,19 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.ContentDetailActivityBinding
+import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.CreateReviewActivity
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ContentDetailActivityBinding
+    private lateinit var binding: ActivityContentDetailBinding
     private val contentDetailScreenAdapter = ContentDetailScreenAdapter(::onCreateReviewClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.content_detail_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_content_detail)
 
         addBackPressedCallback()
 

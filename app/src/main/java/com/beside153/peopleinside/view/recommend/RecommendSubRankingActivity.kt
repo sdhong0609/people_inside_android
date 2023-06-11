@@ -9,18 +9,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.RecommendRankingActivityBinding
+import com.beside153.peopleinside.databinding.ActivityRecommendSubRankingBinding
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 
-class RecommendRankingActivity : AppCompatActivity() {
-    private lateinit var binding: RecommendRankingActivityBinding
+class RecommendSubRankingActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRecommendSubRankingBinding
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.recommend_ranking_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend_sub_ranking)
 
         addBackPressedCallback()
 
@@ -70,8 +70,8 @@ class RecommendRankingActivity : AppCompatActivity() {
 
         binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
-            layoutManager = LinearLayoutManager(this@RecommendRankingActivity)
-            addItemDecoration(DividerItemDecoration(this@RecommendRankingActivity, LinearLayoutManager.VERTICAL))
+            layoutManager = LinearLayoutManager(this@RecommendSubRankingActivity)
+            addItemDecoration(DividerItemDecoration(this@RecommendSubRankingActivity, LinearLayoutManager.VERTICAL))
         }
         rankingAdpater.submitList(rankingList)
 
@@ -87,7 +87,7 @@ class RecommendRankingActivity : AppCompatActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, RecommendRankingActivity::class.java)
+            return Intent(context, RecommendSubRankingActivity::class.java)
         }
     }
 }
