@@ -13,8 +13,8 @@
         tools:context=".view.search.SearchFragment">
 
         <include
-            android:id="@+id/searchAppbar"
-            layout="@layout/search_appbar_layout" />
+            android:id="@+id/layoutSearchAppBar"
+            layout="@layout/layout_search_appbar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecyclerView"
@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchAppbar" />
+            app:layout_constraintTop_toBottomOf="@id/layoutSearchAppBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

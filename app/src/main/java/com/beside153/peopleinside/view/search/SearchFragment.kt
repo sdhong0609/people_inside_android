@@ -31,20 +31,20 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchAppbar.searchEditText.apply {
+        binding.layoutSearchAppBar.searchEditText.apply {
             requestFocus()
         }
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.searchAppbar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+        inputMethodManager.showSoftInput(binding.layoutSearchAppBar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
-        binding.searchAppbar.backImageButton.setOnClickListener {
+        binding.layoutSearchAppBar.backImageButton.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
             findNavController().navigate(action)
         }
 
-        binding.searchAppbar.searchCancelImageView.setOnClickListener {
-            binding.searchAppbar.searchEditText.text?.clear()
+        binding.layoutSearchAppBar.searchCancelImageView.setOnClickListener {
+            binding.layoutSearchAppBar.searchEditText.text?.clear()
         }
 
         val searchTrendList = listOf(

@@ -23,7 +23,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/search_trend_item" />
+            tools:listitem="@layout/item_search_trend_content_list" />
 
     </LinearLayout>
 </layout>
