@@ -79,7 +79,7 @@ class RecommendFragment : Fragment() {
             ),
             Pick10Item(
                 2,
-                "어느 날 우리 집 현관으로 멸망이 들어왔다.",
+                "베놈",
                 "어느 날 우리 집 현관으로 멸망이 들어왔다.",
                 "",
                 4.3,
