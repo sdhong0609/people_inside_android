@@ -14,6 +14,8 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.Pick10Item
 import com.beside153.peopleinside.model.RankingItem
+import com.beside153.peopleinside.model.Review
+import com.beside153.peopleinside.model.Writer
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -64,7 +66,16 @@ class RecommendFragment : Fragment() {
                 "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
                 4.3,
                 4.5,
-                true
+                true,
+                Review(
+                    1,
+                    "2023-06-06T14:57:47.063Z",
+                    "너무 감동적이에요 ㅠㅠ 😥",
+                    15,
+                    1,
+                    1,
+                    Writer(1, "2023-06-06T14:57:47.063Z", null, "account", "password", "admin", "admin")
+                )
             ),
             Pick10Item(
                 2,
