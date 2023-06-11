@@ -83,7 +83,9 @@ class RecommendFragment : Fragment() {
 
         binding.recyclerViewSubRanking.apply {
             adapter = rankingAdpater
-            layoutManager = LinearLayoutManager(requireActivity())
+            layoutManager = object : LinearLayoutManager(requireActivity()) {
+                override fun canScrollVertically(): Boolean = false
+            }
             addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
