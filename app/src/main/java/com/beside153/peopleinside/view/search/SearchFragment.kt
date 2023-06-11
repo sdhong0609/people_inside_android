@@ -32,7 +32,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.searchAppbar.searchEditText.apply {
-            setHorizontallyScrolling(true)
             requestFocus()
         }
 
