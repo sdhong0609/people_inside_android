@@ -27,7 +27,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pick10ViewPager"
             android:layout_width="0dp"
-            android:layout_height="520dp"
+            android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"

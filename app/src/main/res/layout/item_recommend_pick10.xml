@@ -100,11 +100,13 @@
             android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
+            android:layout_marginTop="133dp"
+            android:layout_marginBottom="159dp"
             android:background="@drawable/background_poster"
-            app:layout_constraintBottom_toTopOf="@id/mainCommentLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mbtiRatingTextView">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/posterImageView"
@@ -119,14 +121,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainCommentLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="116dp"
             android:layout_marginHorizontal="26dp"
+            android:layout_marginBottom="23dp"
             android:background="@drawable/background_main_comment"
-            app:isVisible="@{item.topLikeReview != null}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pick10PosterCardView">
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/mbtiIconImageView"
@@ -136,6 +137,7 @@
                 android:layout_marginTop="19dp"
                 android:contentDescription="@string/mbti_icon"
                 android:src="@drawable/istj_circle_img"
+                app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,6 +151,7 @@
                 android:maxLines="1"
                 android:text="@{item.topLikeReview.writer.name}"
                 android:textSize="14sp"
+                app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
                 app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
@@ -164,11 +167,26 @@
                 android:maxLines="3"
                 android:text="@{item.topLikeReview.content}"
                 android:textSize="12sp"
+                app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+            <TextView
+                style="@style/textStyleBoldBlack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/could_you_review_first"
+                android:textSize="14sp"
+                app:isVisible="@{item.topLikeReview == null}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
