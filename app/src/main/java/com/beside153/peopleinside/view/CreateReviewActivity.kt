@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
@@ -23,10 +23,10 @@ class CreateReviewActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.completeButton.setOnClickListener {
+        binding.completeTextView.setOnClickListener {
             val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
-            binding.completeReviewTextView.visibility = View.VISIBLE
+            imm.hideSoftInputFromWindow(binding.completeTextView.windowToken, 0)
+            Toast.makeText(this, getString(R.string.create_review_completed), Toast.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed({
                 finish()
             }, DURATION_UNTIL_BACK)
