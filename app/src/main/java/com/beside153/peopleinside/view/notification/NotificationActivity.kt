@@ -66,7 +66,9 @@ class NotificationActivity : AppCompatActivity() {
 
         binding.notificationRecyclerView.apply {
             adapter = notificationAdapter
-            layoutManager = LinearLayoutManager(this@NotificationActivity)
+            layoutManager = object : LinearLayoutManager(this@NotificationActivity) {
+                override fun canScrollVertically(): Boolean = false
+            }
         }
         notificationAdapter.submitList(notificationItemList)
 
