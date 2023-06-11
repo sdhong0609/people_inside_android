@@ -24,16 +24,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_poster"
+                android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_sample_poster" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -41,7 +42,7 @@
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@id/posterCardView">
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumWhite"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -52,7 +53,7 @@
                 android:text="TVING"
                 tools:text="TVING" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -63,7 +64,7 @@
                 android:text="15+"
                 tools:text="15+" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -74,7 +75,7 @@
                 android:text="2022"
                 tools:text="2022" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -85,7 +86,7 @@
                 android:text="드라마"
                 tools:text="드라마" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -97,7 +98,7 @@
                 tools:text="총 8화" />
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

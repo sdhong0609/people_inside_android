@@ -20,9 +20,10 @@
             app:cardCornerRadius="14dp"
             app:cardElevation="0dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/pick10_content_card"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_bg_pick10" />
 

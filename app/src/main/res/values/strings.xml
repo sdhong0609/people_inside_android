@@ -9,6 +9,10 @@
     <string name="poster_image">포스터</string>
     <string name="bookmark_image">북마크</string>
     <string name="search_cancel_image">검색 취소</string>
+    <string name="pick10_content_card">Pick10 콘텐츠 카드</string>
+    <string name="vertical_dots">세로방향 점 세 개</string>
+    <string name="heart_icon">하트 아이콘</string>
+    <string name="close_button">닫기 버튼</string>
 
     <!-- BNV(GNB) 텍스트 -->
     <string name="recommend">추천</string>

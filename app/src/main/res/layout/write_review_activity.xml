@@ -26,21 +26,22 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <ImageButton
                     android:id="@+id/closeButton"
                     android:layout_width="46dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/close_button"
                     android:src="@drawable/ic_close" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/write_review"
                     android:textSize="20sp" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <Button
                     android:id="@+id/completeButton"
                     style="@style/textStyleMediumGray500"
                     android:layout_width="61dp"
@@ -54,13 +55,14 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <EditText
             style="@style/textStyleMediumBlack"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="@string/write_review_hint"
+            android:importantForAutofill="no"
             android:inputType="textMultiLine"
             android:maxLength="1500"
             android:paddingHorizontal="16dp"
@@ -72,7 +74,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/createReviewAppBar" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/completeReviewTextView"
             style="@style/textStyleBoldWhite"
             android:layout_width="0dp"

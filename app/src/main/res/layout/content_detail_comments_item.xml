@@ -20,17 +20,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/mbtiIconImageView"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_marginStart="21dp"
             android:layout_marginTop="19dp"
+            android:contentDescription="@string/mbti_icon"
             android:src="@drawable/istj_circle_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:id="@+id/mbtiNicknameTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="0dp"
@@ -45,16 +46,17 @@
             app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
             tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfadfsasdfasdfsadfs" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
             android:id="@+id/verticalDotsImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
+            android:contentDescription="@string/vertical_dots"
             android:src="@drawable/ic_vertical_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/mbtiNicknameTextView" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             style="@style/textStyleMediumGray800"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -67,28 +69,30 @@
             app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
             tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView">
+            app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+            tools:ignore="UseCompoundDrawables">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/heartIconImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/heart_icon"
                 android:src="@drawable/ic_entp_heart" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="좋아요 5"
                 android:textSize="12sp" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
