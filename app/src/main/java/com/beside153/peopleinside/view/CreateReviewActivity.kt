@@ -36,7 +36,7 @@ class CreateReviewActivity : AppCompatActivity() {
     companion object {
         private const val DURATION_UNTIL_BACK = 2000L
 
-        fun createReviewIntent(context: Context): Intent {
+        fun newIntent(context: Context): Intent {
             return Intent(context, CreateReviewActivity::class.java)
         }
     }

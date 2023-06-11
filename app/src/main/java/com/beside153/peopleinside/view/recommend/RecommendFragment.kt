@@ -142,12 +142,12 @@ class RecommendFragment : Fragment() {
     }
 
     private fun onPick10ItemClick() {
-        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), false))
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), false))
         requireActivity().setOpenActivityAnimation()
     }
 
     private fun onTopCommentClick() {
-        startActivity(ContentDetailActivity.contentDetailIntent(requireActivity(), true))
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), true))
         requireActivity().setOpenActivityAnimation()
     }
 

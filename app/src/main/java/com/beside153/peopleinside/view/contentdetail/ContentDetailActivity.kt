@@ -83,14 +83,14 @@ class ContentDetailActivity : AppCompatActivity() {
     }
 
     private fun onCreateReviewClick() {
-        startActivity(CreateReviewActivity.createReviewIntent(this))
+        startActivity(CreateReviewActivity.newIntent(this))
     }
 
     companion object {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val POSITION_COMMENT_LIST = 3
 
-        fun contentDetailIntent(context: Context, didClickComment: Boolean): Intent {
+        fun newIntent(context: Context, didClickComment: Boolean): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)
             intent.putExtra(DID_CLICK_COMMENT, didClickComment)
             return intent
