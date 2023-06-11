@@ -14,24 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="24dp">
+        android:paddingVertical="22dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardview_poster"
+            android:id="@+id/posterCardView"
             android:layout_width="100dp"
             android:layout_height="140dp"
             app:cardCornerRadius="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_poster"
+                android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_sample_poster" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@color/black"
@@ -44,65 +45,71 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_title"
+        <TextView
+            android:id="@+id/titleTextView"
             style="@style/textStyleBoldBlack"
-            android:layout_width="210dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{item.title}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview_poster"
+            app:layout_constraintStart_toEndOf="@id/posterCardView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다." />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
+            android:id="@+id/descriptionTextView"
             style="@style/textStyleMediumBlack333333"
-            android:layout_width="210dp"
-            android:layout_height="42dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{item.description}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview_poster"
-            app:layout_constraintTop_toBottomOf="@id/textView_title"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
             tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁합니다" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_total_rating"
+        <TextView
+            android:id="@+id/totalRatingTextView"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/background_total_rating"
             android:gravity="center"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
             android:text="@{item.totalRating}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textView_title"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+            app:layout_constraintVertical_bias="1"
             tools:text="전체 4.3점" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:background="@drawable/background_mbti_rating"
-            android:drawableStart="@drawable/ic_clap_hands"
             android:drawablePadding="4dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"
             android:letterSpacing="-0.05"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
             android:text="@{item.mbtiRating}"
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/textView_total_rating"
-            app:layout_constraintTop_toTopOf="@id/textView_total_rating"
+            app:drawableStartCompat="@drawable/ic_clap_hands"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             tools:text="ESFJ 4.5점" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

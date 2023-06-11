@@ -20,13 +20,13 @@
             android:background="@color/white"
             app:contentInsetStart="0dp">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:weightSum="100">
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="70"
@@ -43,21 +43,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="5" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageView_notification"
+                <ImageView
+                    android:id="@+id/notificationImageView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="12.5"
+                    android:contentDescription="@string/notification_icon"
                     android:src="@drawable/ic_notification_on" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageView_mbti"
+                <ImageView
+                    android:id="@+id/mbtiImageView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="12.5"
+                    android:contentDescription="@string/mbti_icon"
                     android:src="@drawable/istj_main_img" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 

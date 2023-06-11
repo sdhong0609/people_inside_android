@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.beside153.peopleinside.databinding.NotificationItemBinding
+import com.beside153.peopleinside.databinding.ItemNotificationBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
 
 class NotificationListAdapter :
     ListAdapter<NotificationItem, NotificationListAdapter.NotificationItemViewHolder>(NotificationItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationItemViewHolder {
-        val binding = NotificationItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemNotificationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NotificationItemViewHolder(binding)
     }
 
@@ -20,7 +20,7 @@ class NotificationListAdapter :
         holder.bind(getItem(position))
     }
 
-    inner class NotificationItemViewHolder(private val binding: NotificationItemBinding) :
+    class NotificationItemViewHolder(private val binding: ItemNotificationBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: NotificationItem) {
@@ -31,7 +31,7 @@ class NotificationListAdapter :
 
 private class NotificationItemDiffCallback : DiffUtil.ItemCallback<NotificationItem>() {
     override fun areItemsTheSame(oldItem: NotificationItem, newItem: NotificationItem): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: NotificationItem, newItem: NotificationItem): Boolean {

@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">People-Inside-Android</string>
 
+    <!-- Content Description-->
+    <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
+    <string name="back_button">뒤로 가기 버튼</string>
+    <string name="notification_icon">알림 아이콘</string>
+    <string name="mbti_icon">MBTI 아이콘</string>
+    <string name="poster_image">포스터</string>
+    <string name="bookmark_image">북마크</string>
+    <string name="search_cancel_image">검색 취소</string>
+
     <!-- BNV(GNB) 텍스트 -->
     <string name="recommend">추천</string>
     <string name="search">검색</string>

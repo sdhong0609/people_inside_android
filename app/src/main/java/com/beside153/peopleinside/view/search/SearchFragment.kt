@@ -31,21 +31,20 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchAppbar.editTextSearch.apply {
-            setHorizontallyScrolling(true)
+        binding.layoutSearchAppBar.searchEditText.apply {
             requestFocus()
         }
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.searchAppbar.editTextSearch, InputMethodManager.SHOW_IMPLICIT)
+        inputMethodManager.showSoftInput(binding.layoutSearchAppBar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
-        binding.searchAppbar.buttonBack.setOnClickListener {
+        binding.layoutSearchAppBar.backImageButton.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
             findNavController().navigate(action)
         }
 
-        binding.searchAppbar.imageViewSearchCancel.setOnClickListener {
-            binding.searchAppbar.editTextSearch.text?.clear()
+        binding.layoutSearchAppBar.searchCancelImageView.setOnClickListener {
+            binding.layoutSearchAppBar.searchEditText.setText("")
         }
 
         val searchTrendList = listOf(
@@ -61,7 +60,7 @@ class SearchFragment : Fragment() {
             SearchTrendItem("10", "분노의 질주: 라이드 오어 다이")
         )
 
-        binding.recyclerViewSearchScreen.apply {
+        binding.searchRecyclerView.apply {
             adapter = searchScreenAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             setOnTouchListener { v, _ ->
