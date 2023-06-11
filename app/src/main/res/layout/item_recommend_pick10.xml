@@ -15,10 +15,14 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:cardCornerRadius="14dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -53,6 +57,7 @@
             android:maxLines="2"
             android:text="@{item.title}"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/totalRatingTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
@@ -74,6 +79,7 @@
             tools:text="전체 4.3점" />
 
         <TextView
+            android:id="@+id/mbtiRatingTextView"
             style="@style/textStyleMediumWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,15 +97,14 @@
             tools:text="ESFJ 4.5점" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="134dp"
-            android:layout_marginBottom="158dp"
             android:background="@drawable/background_poster"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/mainCommentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/mbtiRatingTextView">
 
             <ImageView
                 android:id="@+id/posterImageView"
@@ -114,14 +119,14 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/mainCommentLayout"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="21dp"
             android:background="@drawable/background_main_comment"
             app:isVisible="@{item.topLikeReview != null}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pick10PosterCardView">
 
             <ImageView
                 android:id="@+id/mbtiIconImageView"
