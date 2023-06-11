@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="406dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/img_bg_pick10">
 
         <com.google.android.material.card.MaterialCardView
