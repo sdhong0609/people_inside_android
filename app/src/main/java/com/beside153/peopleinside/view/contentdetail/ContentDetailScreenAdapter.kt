@@ -41,7 +41,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
                     ratingBar.rating = rating
                 }
-                binding.imageButtonCreateReview.setOnClickListener {
+                binding.createReviewImageButton.setOnClickListener {
                     onCreateReviewClick()
                 }
                 ViewHolder.ReviewViewHolder(binding)
@@ -49,7 +49,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
 
             R.layout.content_detail_info_layout -> {
                 val binding = ContentDetailInfoLayoutBinding.inflate(inflater, parent, false)
-                binding.textViewInfoDescription.apply {
+                binding.contentDescriptionTextView.apply {
                     text = text.toString().replace(" ", "\u00A0")
                 }
                 ViewHolder.InfoViewHolder(binding)

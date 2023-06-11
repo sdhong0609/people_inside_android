@@ -13,7 +13,7 @@
         android:background="@drawable/img_bg_pick10">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardview_poster"
+            android:id="@+id/posterCardView"
             android:layout_width="177dp"
             android:layout_height="256dp"
             android:layout_marginTop="52dp"
@@ -39,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/cardview_poster">
+            app:layout_constraintTop_toBottomOf="@id/posterCardView">
 
             <androidx.appcompat.widget.AppCompatTextView
                 style="@style/textStyleMediumWhite"

@@ -19,14 +19,14 @@ class CreateReviewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.write_review_activity)
 
-        binding.buttonClose.setOnClickListener {
+        binding.closeButton.setOnClickListener {
             finish()
         }
 
-        binding.buttonComplete.setOnClickListener {
+        binding.completeButton.setOnClickListener {
             val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(binding.buttonComplete.windowToken, 0)
-            binding.textViewCompleteReview.visibility = View.VISIBLE
+            imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
+            binding.completeReviewTextView.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
                 finish()
             }, DURATION_UNTIL_BACK)

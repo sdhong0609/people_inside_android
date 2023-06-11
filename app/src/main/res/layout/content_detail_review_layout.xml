@@ -11,7 +11,7 @@
         android:layout_height="263dp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_how_about_content"
+            android:id="@+id/howAboutContentTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/rating_bar"
+            android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,15 +34,15 @@
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_how_about_content" />
+            app:layout_constraintTop_toBottomOf="@id/howAboutContentTextView" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingHorizontal="74dp"
-            app:layout_constraintBottom_toTopOf="@id/view_border_line"
-            app:layout_constraintTop_toBottomOf="@id/rating_bar">
+            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/imageButton_create_review"
+                    android:id="@+id/createReviewImageButton"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
@@ -99,7 +99,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <View
-            android:id="@+id/view_border_line"
+            android:id="@+id/bottomLineView"
             android:layout_width="0dp"
             android:layout_height="8dp"
             android:background="@color/gray_200"

@@ -24,12 +24,12 @@ class ContentDetailActivity : AppCompatActivity() {
 
         addBackPressedCallback()
 
-        binding.buttonBack.setOnClickListener {
+        binding.backImageButton.setOnClickListener {
             finish()
             setCloseActivityAnimation()
         }
 
-        binding.recyclerViewDetailScreen.apply {
+        binding.contentDetailRecyclerView.apply {
             adapter = contentDetailScreenAdapter
             layoutManager = LinearLayoutManager(this@ContentDetailActivity)
         }
@@ -78,7 +78,7 @@ class ContentDetailActivity : AppCompatActivity() {
                 override fun getVerticalSnapPreference(): Int = SNAP_TO_START
             }
             smoothScroller.targetPosition = POSITION_COMMENT_LIST
-            binding.recyclerViewDetailScreen.layoutManager?.startSmoothScroll(smoothScroller)
+            binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
         }
     }
 
