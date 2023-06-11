@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view
+package com.beside153.peopleinside.view.contentdetail
 
 import android.content.Context
 import android.content.Intent

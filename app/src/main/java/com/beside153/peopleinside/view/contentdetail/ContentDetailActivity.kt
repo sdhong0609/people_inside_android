@@ -11,7 +11,6 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.CreateReviewActivity
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailActivity : AppCompatActivity() {
