@@ -44,7 +44,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.layoutSearchAppBar.searchCancelImageView.setOnClickListener {
-            binding.layoutSearchAppBar.searchEditText.text?.clear()
+            binding.layoutSearchAppBar.searchEditText.setText("")
         }
 
         val searchTrendList = listOf(
