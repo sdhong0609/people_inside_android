@@ -64,13 +64,13 @@ class NotificationActivity : AppCompatActivity() {
             )
         )
 
-        binding.recyclerViewNotification.apply {
+        binding.notificationRecyclerView.apply {
             adapter = notificationAdapter
             layoutManager = LinearLayoutManager(this@NotificationActivity)
         }
         notificationAdapter.submitList(notificationItemList)
 
-        binding.buttonBack.setOnClickListener {
+        binding.backImageButton.setOnClickListener {
             finish()
         }
     }

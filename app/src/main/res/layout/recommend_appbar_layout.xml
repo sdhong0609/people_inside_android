@@ -44,14 +44,14 @@
                     android:layout_weight="5" />
 
                 <ImageView
-                    android:id="@+id/imageView_notification"
+                    android:id="@+id/notificationImageView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="12.5"
                     android:src="@drawable/ic_notification_on" />
 
                 <ImageView
-                    android:id="@+id/imageView_mbti"
+                    android:id="@+id/mbtiImageView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="12.5"

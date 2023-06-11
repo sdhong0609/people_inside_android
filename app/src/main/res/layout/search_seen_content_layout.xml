@@ -14,10 +14,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_appbar">
+        app:layout_constraintTop_toBottomOf="@id/searchAppbar">
 
         <TextView
-            android:id="@+id/textView_contents_have_seen"
             style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +25,6 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/textView_no_contents"
             style="@style/textStyleMediumGray700"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -64,14 +64,14 @@ class RecommendRankingActivity : AppCompatActivity() {
             )
         )
 
-        binding.recyclerViewRanking.apply {
+        binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
             layoutManager = LinearLayoutManager(this@RecommendRankingActivity)
             addItemDecoration(DividerItemDecoration(this@RecommendRankingActivity, LinearLayoutManager.VERTICAL))
         }
         rankingAdpater.submitList(rankingList)
 
-        binding.buttonBack.setOnClickListener {
+        binding.backImageButton.setOnClickListener {
             finish()
         }
     }

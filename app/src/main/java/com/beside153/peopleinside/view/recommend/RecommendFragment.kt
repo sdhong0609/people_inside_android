@@ -40,7 +40,7 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recommendPick10Layout.pick10Viewpager.apply {
+        binding.recommendPick10Layout.pick10ViewPager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
             adapter = pagerAdapter
@@ -49,7 +49,7 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
-        binding.recommendAppBar.imageViewNotification.setOnClickListener {
+        binding.recommendAppBar.notificationImageView.setOnClickListener {
             startActivity(NotificationActivity.newIntent(requireActivity()))
         }
 
@@ -81,7 +81,7 @@ class RecommendFragment : Fragment() {
             )
         )
 
-        binding.recyclerViewSubRanking.apply {
+        binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
             layoutManager = object : LinearLayoutManager(requireActivity()) {
                 override fun canScrollVertically(): Boolean = false
@@ -89,7 +89,7 @@ class RecommendFragment : Fragment() {
             addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
-        binding.imageViewRankingArrow.setOnClickListener {
+        binding.subRankingArrowImageView.setOnClickListener {
             scrollPosition = binding.recommendScrollView.scrollY
             startActivity(RecommendRankingActivity.newIntent(requireActivity()))
         }

@@ -17,7 +17,7 @@
         android:paddingVertical="22dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cvPoster"
+            android:id="@+id/posterCardView"
             android:layout_width="100dp"
             android:layout_height="140dp"
             app:cardCornerRadius="4dp"
@@ -45,7 +45,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/titleTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,12 +55,12 @@
             android:text="@{item.title}"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cvPoster"
+            app:layout_constraintStart_toEndOf="@id/posterCardView"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다." />
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/descriptionTextView"
             style="@style/textStyleMediumBlack333333"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,12 +70,12 @@
             android:text="@{item.description}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
             tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁합니다" />
 
         <TextView
-            android:id="@+id/tvTotalRating"
+            android:id="@+id/totalRatingTextView"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,8 +86,8 @@
             android:text="@{item.totalRating}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
             app:layout_constraintVertical_bias="1"
             tools:text="전체 4.3점" />
 
@@ -107,8 +107,8 @@
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvTotalRating"
-            app:layout_constraintTop_toTopOf="@id/tvTotalRating"
+            app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             tools:text="ESFJ 4.5점" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

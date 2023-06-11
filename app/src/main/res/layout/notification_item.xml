@@ -18,7 +18,7 @@
         android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/textView_emoji"
+            android:id="@+id/emojiTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.emoji}"
@@ -28,15 +28,15 @@
             tools:text="@string/notification_message_emoji" />
 
         <TextView
-            android:id="@+id/textView_noti_title"
+            android:id="@+id/notiTitleTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:text="@{item.title}"
             android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/textView_emoji"
-            app:layout_constraintTop_toTopOf="@id/textView_emoji"
+            app:layout_constraintStart_toEndOf="@id/emojiTextView"
+            app:layout_constraintTop_toTopOf="@id/emojiTextView"
             tools:text="하트 도착" />
 
         <TextView
@@ -45,20 +45,20 @@
             android:layout_height="wrap_content"
             android:text="@{item.time}"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/textView_noti_description"
+            app:layout_constraintBottom_toTopOf="@id/notiDescriptionTextView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textView_emoji"
+            app:layout_constraintTop_toTopOf="@id/emojiTextView"
             tools:text="2분 전" />
 
         <TextView
-            android:id="@+id/textView_noti_description"
+            android:id="@+id/notiDescriptionTextView"
             style="@style/textStyleMediumGray800"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:text="@{item.description}"
-            app:layout_constraintStart_toStartOf="@id/textView_noti_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_noti_title"
+            app:layout_constraintStart_toStartOf="@id/notiTitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/notiTitleTextView"
             tools:text="ENFJ 미소님이 적어주신 댓글에 ENFP 민지님 외 9명이 하트로 공감했어요." />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

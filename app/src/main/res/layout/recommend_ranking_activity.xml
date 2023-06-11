@@ -13,23 +13,22 @@
         tools:context=".view.RecommendRankingFragment">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/ranking_appbar_layout"
+            android:id="@+id/subRankingAppBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/recyclerView_ranking"
+            app:layout_constraintBottom_toTopOf="@id/subRankingRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/ranking_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
                 <ImageButton
-                    android:id="@+id/button_back"
+                    android:id="@+id/backImageButton"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
@@ -48,13 +47,13 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_ranking"
+            android:id="@+id/subRankingRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ranking_appbar_layout" />
+            app:layout_constraintTop_toBottomOf="@id/subRankingAppBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

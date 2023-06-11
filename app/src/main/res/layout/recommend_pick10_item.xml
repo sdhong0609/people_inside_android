@@ -16,7 +16,7 @@
         android:background="@drawable/img_bg_pick10">
 
         <ImageView
-            android:id="@+id/imageView_bookmark"
+            android:id="@+id/bookmarkImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView_item_title"
+            android:id="@+id/pick10TitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -44,7 +44,7 @@
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
 
         <TextView
-            android:id="@+id/textView_total_rating"
+            android:id="@+id/totalRatingTextView"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,8 +55,8 @@
             android:paddingVertical="5dp"
             android:text="@{@string/total_rating(item.totalRating)}"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/textView_item_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_item_title"
+            app:layout_constraintStart_toStartOf="@id/pick10TitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/pick10TitleTextView"
             tools:text="전체 4.3점" />
 
         <TextView
@@ -72,8 +72,8 @@
             android:text="@{@string/mbti_rating(item.mbtiRating)}"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_clap_hands"
-            app:layout_constraintStart_toEndOf="@id/textView_total_rating"
-            app:layout_constraintTop_toTopOf="@id/textView_total_rating"
+            app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             tools:text="ESFJ 4.5점" />
 
         <com.google.android.material.card.MaterialCardView
@@ -88,7 +88,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView_poster"
+                android:id="@+id/posterImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -97,7 +97,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_main_comment"
+            android:id="@+id/mainCommentLayout"
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:layout_marginHorizontal="26dp"
@@ -109,7 +109,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:id="@+id/imageView_mbti_icon"
+                android:id="@+id/mbtiIconImageView"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="21dp"
@@ -119,7 +119,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView_mbti_nickname"
+                android:id="@+id/mbtiNicknameTextView"
                 style="@style/textStyleBoldBlack"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -128,12 +128,11 @@
                 android:maxLines="1"
                 android:text="@{item.topLikeReview.writer.name}"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/imageView_mbti_icon"
-                app:layout_constraintTop_toTopOf="@id/imageView_mbti_icon"
+                app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
 
             <TextView
-                android:id="@+id/textView_comment"
                 style="@style/textStyleMediumBlack333333"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -146,8 +145,8 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/textView_mbti_nickname"
-                app:layout_constraintTop_toBottomOf="@id/textView_mbti_nickname"
+                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
