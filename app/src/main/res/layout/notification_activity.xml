@@ -31,6 +31,7 @@
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/back_button"
                     android:src="@drawable/ic_left_arrow" />
 
                 <TextView
@@ -54,11 +55,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables"
             tools:visibility="visible">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/notification_icon"
                 android:src="@drawable/ic_notification_on" />
 
             <TextView

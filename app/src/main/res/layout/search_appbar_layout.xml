@@ -22,6 +22,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/back_button"
                 android:src="@drawable/ic_left_arrow" />
 
             <LinearLayout
@@ -40,6 +41,7 @@
                     android:background="@drawable/background_search_edittext"
                     android:hint="@string/search_bar_hint"
                     android:imeOptions="actionSearch"
+                    android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingHorizontal="18dp"
@@ -53,6 +55,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
+                    android:contentDescription="@string/search_cancel_image"
                     android:src="@drawable/ic_search_cancel" />
 
             </LinearLayout>
