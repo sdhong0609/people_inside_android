@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,47 +10,51 @@
             type="com.beside153.peopleinside.model.search.SearchTrendItem" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="vertical">
+        android:paddingHorizontal="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/numberTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingVertical="15dp"
-            android:weightSum="100">
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@{item.ranking}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10" />
 
-            <TextView
-                style="@style/textStyleBoldBlack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:gravity="center"
-                android:text="@{item.ranking}"
-                android:textSize="16sp"
-                tools:text="10" />
-
-            <TextView
-                style="@style/textStyleMediumGray800"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="93"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingHorizontal="6dp"
-                android:text="@{item.contentTitle}"
-                android:textSize="16sp"
-                tools:text="분노의 질주: 라이드 오어 다이" />
-
-        </LinearLayout>
+        <TextView
+            style="@style/textStyleMediumGray800"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingHorizontal="6dp"
+            android:text="@{item.contentTitle}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/numberTextView"
+            app:layout_constraintTop_toTopOf="@id/numberTextView"
+            app:layout_constraintVertical_bias="0"
+            tools:text="분노의 질주: 라이드 오어 다이" />
 
         <View
+            android:id="@+id/bottomLineView"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/gray_EAEAEA" />
+            android:layout_marginTop="15dp"
+            android:background="@color/gray_EAEAEA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/numberTextView" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
