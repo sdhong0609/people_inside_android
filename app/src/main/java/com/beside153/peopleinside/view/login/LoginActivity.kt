@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
-        binding.buttonKakaoLogin.setOnClickListener {
+        binding.kakaoLoginButton.setOnClickListener {
             onKakaoLoginClick()
         }
     }
