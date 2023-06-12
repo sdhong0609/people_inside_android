@@ -19,6 +19,7 @@
     <string name="vertical_dots">세로방향 점 세 개</string>
     <string name="heart_icon">하트 아이콘</string>
     <string name="close_button">닫기 버튼</string>
+    <string name="main_logo_image">메인 로고 이미지</string>
 
     <!-- 로그인 화면 -->
     <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>

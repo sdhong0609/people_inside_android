@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.FragmentOnBoardingUserBinding
+import com.beside153.peopleinside.databinding.FragmentTermsOfUseBinding
 
-class OnBoardingUserFragment : Fragment() {
-    private lateinit var binding: FragmentOnBoardingUserBinding
+class TermsOfUseFragment : Fragment() {
+    private lateinit var binding: FragmentTermsOfUseBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_on_boarding_user, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_terms_of_use, container, false)
         return binding.root
     }
 }

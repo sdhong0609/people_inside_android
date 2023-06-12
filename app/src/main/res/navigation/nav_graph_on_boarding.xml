@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onBoardingUserFragment"
-        android:name="com.beside153.peopleinside.view.login.OnBoardingUserFragment"
+        android:name="com.beside153.peopleinside.view.login.TermsOfUseFragment"
         android:label="on_boarding_user_fragment"
-        tools:layout="@layout/fragment_on_boarding_user" />
+        tools:layout="@layout/fragment_terms_of_use" />
 </navigation>
