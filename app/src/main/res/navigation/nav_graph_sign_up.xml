@@ -3,11 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_on_boarding"
-    app:startDestination="@id/onBoardingUserFragment">
+    app:startDestination="@id/signUpTermsFragment">
 
     <fragment
-        android:id="@+id/onBoardingUserFragment"
+        android:id="@+id/signUpTermsFragment"
         android:name="com.beside153.peopleinside.view.login.SignUpTermsFragment"
         android:label="on_boarding_user_fragment"
-        tools:layout="@layout/fragment_sign_up_terms" />
+        tools:layout="@layout/fragment_sign_up_terms">
+        <action
+            android:id="@+id/action_signUpTermsFragment_to_signUpUserInfoFragment"
+            app:destination="@id/signUpUserInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpUserInfoFragment"
+        android:name="com.beside153.peopleinside.view.login.SignUpUserInfoFragment"
+        android:label="fragment_sign_up_user_info"
+        tools:layout="@layout/fragment_sign_up_user_info">
+        <action
+            android:id="@+id/action_signUpUserInfoFragment_to_signUpTermsFragment"
+            app:destination="@id/signUpTermsFragment" />
+    </fragment>
 </navigation>
