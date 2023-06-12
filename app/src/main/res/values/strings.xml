@@ -39,7 +39,11 @@
     <string name="third_terms">[필수] 본인은 만 14세 이상입니다.</string>
     <string name="see_terms">보기</string>
     <string name="do_agree">동의하기</string>
+    <string name="sign_up">회원가입</string>
     <string name="please_input_user_info">더 정확한 콘텐츠 추천을 위해\n아래 정보를 입력해주세요</string>
+    <string name="nickname">닉네임</string>
+    <string name="please_input_nickname">닉네임을 입력해주세요.</string>
+    <string name="duplicate_check">중복체크</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
