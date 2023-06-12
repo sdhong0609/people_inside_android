@@ -6,15 +6,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.OnBoardingActivityBinding
+import com.beside153.peopleinside.databinding.ActivityOnBoardingBinding
 import com.beside153.peopleinside.model.login.UserInfoModel
 
 class OnBoardingActivity : AppCompatActivity() {
-    private lateinit var binding: OnBoardingActivityBinding
+    private lateinit var binding: ActivityOnBoardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.on_boarding_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_on_boarding)
     }
 
     companion object {

@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.LoginActivityBinding
+import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.model.login.UserInfoModel
 import com.beside153.peopleinside.util.showToast
 import com.kakao.sdk.auth.model.OAuthToken
@@ -17,13 +17,13 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: LoginActivityBinding
+    private lateinit var binding: ActivityLoginBinding
     private val tag = javaClass.simpleName
     private lateinit var kakaoApi: UserApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.login_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance

@@ -9,5 +9,5 @@
         android:id="@+id/onBoardingUserFragment"
         android:name="com.beside153.peopleinside.view.login.OnBoardingUserFragment"
         android:label="on_boarding_user_fragment"
-        tools:layout="@layout/on_boarding_user_fragment" />
+        tools:layout="@layout/fragment_on_boarding_user" />
 </navigation>
