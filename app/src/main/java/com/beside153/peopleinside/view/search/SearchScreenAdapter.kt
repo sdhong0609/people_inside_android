@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.SearchSeenContentLayoutBinding
-import com.beside153.peopleinside.databinding.SearchTrendContentLayoutBinding
-import com.beside153.peopleinside.databinding.SearchTrendItemBinding
+import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
+import com.beside153.peopleinside.databinding.ItemSearchTrendContentBinding
+import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
 import com.beside153.peopleinside.model.search.SearchTrendItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 
@@ -18,9 +18,9 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is SearchScreenModel.SeenViewItem -> R.layout.search_seen_content_layout
-            is SearchScreenModel.TrendViewItem -> R.layout.search_trend_content_layout
-            is SearchScreenModel.TrendContentItem -> R.layout.search_trend_item
+            is SearchScreenModel.SeenViewItem -> R.layout.item_search_seen_content
+            is SearchScreenModel.TrendViewItem -> R.layout.item_search_trend_content
+            is SearchScreenModel.TrendContentItem -> R.layout.item_search_trend_content_list
         }
     }
 
@@ -28,18 +28,18 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            R.layout.search_seen_content_layout -> {
-                val binding = SearchSeenContentLayoutBinding.inflate(inflater, parent, false)
+            R.layout.item_search_seen_content -> {
+                val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 ViewHolder.SeenViewHolder(binding)
             }
 
-            R.layout.search_trend_content_layout -> {
-                val binding = SearchTrendContentLayoutBinding.inflate(inflater, parent, false)
+            R.layout.item_search_trend_content -> {
+                val binding = ItemSearchTrendContentBinding.inflate(inflater, parent, false)
                 ViewHolder.TrendViewHolder(binding)
             }
 
             else -> {
-                val binding = SearchTrendItemBinding.inflate(inflater, parent, false)
+                val binding = ItemSearchTrendContentListBinding.inflate(inflater, parent, false)
                 val viewHolder = ViewHolder.TrenListViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
@@ -63,21 +63,22 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        class SeenViewHolder(binding: SearchSeenContentLayoutBinding) : ViewHolder(binding.root) {
+
+        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class TrendViewHolder(binding: SearchTrendContentLayoutBinding) : ViewHolder(binding.root) {
+        class TrendViewHolder(binding: ItemSearchTrendContentBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class TrenListViewHolder(private val binding: SearchTrendItemBinding) : ViewHolder(binding.root) {
+        class TrenListViewHolder(private val binding: ItemSearchTrendContentListBinding) : ViewHolder(binding.root) {
             fun bind(item: SearchScreenModel.TrendContentItem) {
                 binding.item = item.searchTrendItem
             }
@@ -97,7 +98,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
             oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
             oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
             oldItem is SearchScreenModel.TrendContentItem && newItem is SearchScreenModel.TrendContentItem ->
-                oldItem.searchTrendItem.contentTitle == newItem.searchTrendItem.contentTitle
+                oldItem.searchTrendItem.id == newItem.searchTrendItem.id
 
             else -> false
         }

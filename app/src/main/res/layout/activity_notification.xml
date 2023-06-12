@@ -13,7 +13,7 @@
         tools:context=".view.notification.NotificationActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/notification_appbar_layout"
+            android:id="@+id/notificationAppBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -22,19 +22,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/ranking_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/button_back"
+                <ImageButton
+                    android:id="@+id/backImageButton"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/back_button"
                     android:src="@drawable/ic_left_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -54,14 +54,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables"
+            tools:visibility="visible">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/notification_icon"
                 android:src="@drawable/ic_notification_on" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleBoldGray500"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,32 +72,40 @@
                 android:text="@string/there_is_no_notification"
                 android:textSize="18sp" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_notification"
-            android:layout_width="match_parent"
+        <ScrollView
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textView_notification_delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notification_appbar_layout"
-            tools:listitem="@layout/notification_item" />
+            app:layout_constraintTop_toBottomOf="@id/notificationAppBar">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_notification_delete"
-            style="@style/textStyleMediumGray400"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingVertical="16dp"
-            android:text="@string/notification_will_be_deleted"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView_notification" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notificationRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_notification" />
+
+                <TextView
+                    android:id="@+id/notificationDeleteTextView"
+                    style="@style/textStyleMediumGray400"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingVertical="16dp"
+                    android:text="@string/notification_will_be_deleted"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

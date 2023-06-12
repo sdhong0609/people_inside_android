@@ -10,51 +10,55 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.RecommendRankingFragment">
+        tools:context=".view.contentdetail.ContentDetailActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/ranking_appbar_layout"
+            android:id="@+id/contentDetailAppBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/recyclerView_ranking"
+            app:layout_constraintBottom_toTopOf="@id/contentDetailRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/ranking_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/button_back"
+                <ImageButton
+                    android:id="@+id/backImageButton"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/back_button"
                     android:src="@drawable/ic_left_arrow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ESFJ 몰입러들의 선택"
+                    android:layout_marginEnd="40dp"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text="우리가 사랑했던 모든 것"
                     android:textSize="20sp"
-                    tools:text="ESFJ 몰입러들의 선택" />
+                    tools:text="우리가 사랑했던 모든 것" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_ranking"
-            android:layout_width="match_parent"
+            android:id="@+id/contentDetailRecyclerView"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ranking_appbar_layout" />
+            app:layout_constraintTop_toBottomOf="@id/contentDetailAppBar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

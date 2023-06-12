@@ -7,6 +7,19 @@
     <string name="movie">영화</string>
     <string name="drama">드라마</string>
 
+    <!-- Content Description-->
+    <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
+    <string name="back_button">뒤로 가기 버튼</string>
+    <string name="notification_icon">알림 아이콘</string>
+    <string name="mbti_icon">MBTI 아이콘</string>
+    <string name="poster_image">포스터</string>
+    <string name="bookmark_image">북마크</string>
+    <string name="search_cancel_image">검색 취소</string>
+    <string name="pick10_content_card">Pick10 콘텐츠 카드</string>
+    <string name="vertical_dots">세로방향 점 세 개</string>
+    <string name="heart_icon">하트 아이콘</string>
+    <string name="close_button">닫기 버튼</string>
+
     <!-- 로그인 화면 -->
     <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>
     <string name="will_enter_without_login">로그인 없이 먼저 둘러볼래요</string>
@@ -29,6 +42,7 @@
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
     <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
+    <string name="could_you_review_first">첫번째로 감상을 남겨보시겠어요?</string>
 
     <!-- 작품 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
@@ -38,10 +52,10 @@
     <string name="content_comment_title">몰입러들의 감상</string>
 
     <!-- 감상 작성 화면 -->
-    <string name="write_review">감상 작성</string>
-    <string name="write_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
+    <string name="create_review_2">감상 작성</string>
+    <string name="create_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
     <string name="complete">완료</string>
-    <string name="write_review_completed">감상 작성이 완료되었습니다.</string>
+    <string name="create_review_completed">감상 작성이 완료되었습니다.</string>
 
     <!-- 검색 화면 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>

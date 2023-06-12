@@ -31,37 +31,37 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchAppbar.editTextSearch.apply {
-            setHorizontallyScrolling(true)
+        binding.layoutSearchAppBar.searchEditText.apply {
             requestFocus()
         }
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.searchAppbar.editTextSearch, InputMethodManager.SHOW_IMPLICIT)
+        inputMethodManager.showSoftInput(binding.layoutSearchAppBar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
-        binding.searchAppbar.buttonBack.setOnClickListener {
+        binding.layoutSearchAppBar.backImageButton.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
             findNavController().navigate(action)
         }
 
-        binding.searchAppbar.imageViewSearchCancel.setOnClickListener {
-            binding.searchAppbar.editTextSearch.text?.clear()
+        binding.layoutSearchAppBar.searchCancelImageView.setOnClickListener {
+            binding.layoutSearchAppBar.searchEditText.setText("")
         }
 
+        @Suppress("MagicNumber")
         val searchTrendList = listOf(
-            SearchTrendItem("1", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem("2", "가디언즈 오브 갤럭시: Volume 3"),
-            SearchTrendItem("3", "분노의 질주: 더 얼티메이트"),
-            SearchTrendItem("4", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem("5", "앤트맨과 와스프: 퀀텀매니아"),
-            SearchTrendItem("6", "가디언즈 오브 갤럭시: Volume 3"),
-            SearchTrendItem("7", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem("8", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem("9", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem("10", "분노의 질주: 라이드 오어 다이")
+            SearchTrendItem(1, "1", "분노의 질주: 라이드 오어 다이"),
+            SearchTrendItem(2, "2", "가디언즈 오브 갤럭시: Volume 3"),
+            SearchTrendItem(3, "3", "분노의 질주: 더 얼티메이트"),
+            SearchTrendItem(4, "4", "분노의 질주: 라이드 오어 다이"),
+            SearchTrendItem(5, "5", "앤트맨과 와스프: 퀀텀매니아"),
+            SearchTrendItem(6, "6", "가디언즈 오브 갤럭시: Volume 3"),
+            SearchTrendItem(7, "7", "분노의 질주: 라이드 오어 다이"),
+            SearchTrendItem(8, "8", "분노의 질주: 라이드 오어 다이"),
+            SearchTrendItem(9, "9", "분노의 질주: 라이드 오어 다이"),
+            SearchTrendItem(10, "10", "분노의 질주: 라이드 오어 다이")
         )
 
-        binding.recyclerViewSearchScreen.apply {
+        binding.searchRecyclerView.apply {
             adapter = searchScreenAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             setOnTouchListener { v, _ ->

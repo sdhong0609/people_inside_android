@@ -9,11 +9,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="406dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/img_bg_pick10">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardview_poster"
+            android:id="@+id/posterCardView"
             android:layout_width="177dp"
             android:layout_height="256dp"
             android:layout_marginTop="52dp"
@@ -24,80 +24,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/background_poster"
+                android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_sample_poster" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/cardview_poster">
+            app:layout_constraintTop_toBottomOf="@id/posterCardView">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/textStyleMediumWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/background_black_rounded"
-                android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:text="TVING"
-                tools:text="TVING" />
-
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:text="15+"
-                tools:text="15+" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/textStyleMediumBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/background_white_rounded"
-                android:gravity="center"
-                android:paddingHorizontal="5dp"
+                android:padding="5dp"
                 android:text="2022"
+                android:textSize="12sp"
                 tools:text="2022" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:text="드라마"
-                tools:text="드라마" />
+                android:padding="5dp"
+                android:text="스릴러"
+                android:textSize="12sp"
+                tools:text="스릴러" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <TextView
                 style="@style/textStyleMediumBlack"
                 android:layout_width="wrap_content"
-                android:layout_height="26dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
-                android:paddingHorizontal="5dp"
-                android:text="총 8화"
-                tools:text="총 8화" />
+                android:padding="5dp"
+                android:text="125분"
+                android:textSize="12sp"
+                tools:text="125분" />
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

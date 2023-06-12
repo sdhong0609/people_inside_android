@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_pick10"
+        <TextView
+            android:id="@+id/pick10TextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,14 +25,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pick10_viewpager"
+            android:id="@+id/pick10ViewPager"
             android:layout_width="0dp"
-            android:layout_height="520dp"
+            android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_pick10" />
+            app:layout_constraintTop_toBottomOf="@id/pick10TextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

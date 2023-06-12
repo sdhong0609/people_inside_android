@@ -7,80 +7,83 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.NotificationActivityBinding
+import com.beside153.peopleinside.databinding.ActivityNotificationBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 
 class NotificationActivity : AppCompatActivity() {
-    private lateinit var binding: NotificationActivityBinding
+    private lateinit var binding: ActivityNotificationBinding
     private val notificationAdapter = NotificationListAdapter()
 
+    @Suppress("MagicNumber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.notification_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
 
         addBackPressedCallback()
 
         val notificationItemList = listOf(
             NotificationItem(
+                1,
                 getString(R.string.notification_message_emoji),
                 "하트 도착",
                 "ENFJ 미소님이 적어주신 댓글에 ENFP 민지님 외 9명이 하트로 공감했어요.\uD83E\uDD70",
                 "10분 전"
             ),
             NotificationItem(
+                2,
                 getString(R.string.notification_bulb_emoji),
                 "NEW 추천",
                 "피플인사이드와 몰입러들이 추천하는 새로운 작품이 업로드되었답니다. 한번 확인해보세요.\uD83D\uDE4B\u200D♀️",
                 "20분 전"
             ),
             NotificationItem(
+                3,
                 getString(R.string.notification_message_emoji),
                 "하트 도착",
                 "ENFJ 미소님이 적어주신 댓글에 ENFP 민지님 외 9명이 하트로 공감했어요.\uD83E\uDD70",
                 "2분 전"
             ),
             NotificationItem(
+                4,
                 getString(R.string.notification_bulb_emoji),
                 "NEW 추천",
                 "피플인사이드와 몰입러들이 추천하는 새로운 작품이 업로드되었답니다. 한번 확인해보세요.\uD83D\uDE4B\u200D♀️",
                 "40분 전"
             ),
             NotificationItem(
+                5,
                 getString(R.string.notification_message_emoji),
                 "하트 도착",
                 "ENFJ 미소님이 적어주신 댓글에 ENFP 민지님 외 9명이 하트로 공감했어요.\uD83E\uDD70",
                 "2분 전"
             ),
             NotificationItem(
+                6,
                 getString(R.string.notification_bulb_emoji),
                 "NEW 추천",
                 "피플인사이드와 몰입러들이 추천하는 새로운 작품이 업로드되었답니다. 한번 확인해보세요.\uD83D\uDE4B\u200D♀️",
                 "5분 전"
-            ),
-            NotificationItem(
-                getString(R.string.notification_message_emoji),
-                "하트 도착",
-                "ENFJ 미소님이 적어주신 댓글에 ENFP 민지님 외 9명이 하트로 공감했어요.\uD83E\uDD70",
-                "2분 전"
             )
         )
 
-        binding.recyclerViewNotification.apply {
+        binding.notificationRecyclerView.apply {
             adapter = notificationAdapter
-            layoutManager = LinearLayoutManager(this@NotificationActivity)
+            layoutManager = object : LinearLayoutManager(this@NotificationActivity) {
+                override fun canScrollVertically(): Boolean = false
+            }
         }
         notificationAdapter.submitList(notificationItemList)
 
-        binding.buttonBack.setOnClickListener {
+        binding.backImageButton.setOnClickListener {
             finish()
             setCloseActivityAnimation()
         }
     }
 
     companion object {
-        fun notificationIntent(context: Context): Intent {
+        fun newIntent(context: Context): Intent {
             return Intent(context, NotificationActivity::class.java)
         }
     }

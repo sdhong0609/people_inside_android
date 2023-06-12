@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.WriteReviewActivity"
+            android:name=".view.contentdetail.CreateReviewActivity"
             android:exported="false" />
         <activity
             android:name=".view.contentdetail.ContentDetailActivity"
@@ -40,7 +40,7 @@
             android:name=".view.notification.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.recommend.RecommendRankingActivity"
+            android:name=".view.recommend.RecommendSubRankingActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"

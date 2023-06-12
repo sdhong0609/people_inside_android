@@ -8,10 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="263dp">
+        android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_how_about_content"
+        <TextView
+            android:id="@+id/howAboutContentTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
-            android:id="@+id/rating_bar"
+            android:id="@+id/ratingBar"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,29 +34,34 @@
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_how_about_content" />
+            app:layout_constraintTop_toBottomOf="@id/howAboutContentTextView" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="40dp"
             android:gravity="center_horizontal"
             android:paddingHorizontal="74dp"
-            app:layout_constraintBottom_toTopOf="@id/view_border_line"
-            app:layout_constraintTop_toBottomOf="@id/rating_bar">
+            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageButton
+                <ImageButton
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
+                    android:contentDescription="@string/bookmark_image"
                     android:src="@drawable/ic_bookmark_empty" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,7 +69,7 @@
                     android:text="@string/bookmark"
                     android:textSize="12sp" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -73,20 +78,21 @@
                 android:layout_marginHorizontal="52dp"
                 android:background="@color/gray_400" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/imageButton_create_review"
+                <ImageButton
+                    android:id="@+id/createReviewImageButton"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
+                    android:contentDescription="@string/create_review"
                     android:src="@drawable/ic_pencil" />
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     style="@style/textStyleBoldBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,12 +100,12 @@
                     android:text="@string/create_review"
                     android:textSize="12sp" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
         <View
-            android:id="@+id/view_border_line"
+            android:id="@+id/bottomLineView"
             android:layout_width="0dp"
             android:layout_height="8dp"
             android:background="@color/gray_200"

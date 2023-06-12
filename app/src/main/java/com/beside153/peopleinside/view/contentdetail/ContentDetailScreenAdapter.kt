@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.ContentDetailCommentsItemBinding
-import com.beside153.peopleinside.databinding.ContentDetailCommentsLayoutBinding
-import com.beside153.peopleinside.databinding.ContentDetailInfoLayoutBinding
-import com.beside153.peopleinside.databinding.ContentDetailPosterLayoutBinding
-import com.beside153.peopleinside.databinding.ContentDetailReviewLayoutBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailCommentListBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
@@ -19,11 +19,11 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is ContentDetailScreenModel.PosterView -> R.layout.content_detail_poster_layout
-            is ContentDetailScreenModel.ReviewView -> R.layout.content_detail_review_layout
-            is ContentDetailScreenModel.InfoView -> R.layout.content_detail_info_layout
-            is ContentDetailScreenModel.CommentsView -> R.layout.content_detail_comments_layout
-            is ContentDetailScreenModel.CommentItem -> R.layout.content_detail_comments_item
+            is ContentDetailScreenModel.PosterView -> R.layout.item_content_detail_poster
+            is ContentDetailScreenModel.ReviewView -> R.layout.item_content_detail_review
+            is ContentDetailScreenModel.InfoView -> R.layout.item_content_detail_info
+            is ContentDetailScreenModel.CommentsView -> R.layout.item_content_detail_comments
+            is ContentDetailScreenModel.CommentItem -> R.layout.item_content_detail_comment_list
         }
     }
 
@@ -31,37 +31,37 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            R.layout.content_detail_poster_layout -> {
-                val binding = ContentDetailPosterLayoutBinding.inflate(inflater, parent, false)
+            R.layout.item_content_detail_poster -> {
+                val binding = ItemContentDetailPosterBinding.inflate(inflater, parent, false)
                 ViewHolder.PosterViewHolder(binding)
             }
 
-            R.layout.content_detail_review_layout -> {
-                val binding = ContentDetailReviewLayoutBinding.inflate(inflater, parent, false)
+            R.layout.item_content_detail_review -> {
+                val binding = ItemContentDetailReviewBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
                     ratingBar.rating = rating
                 }
-                binding.imageButtonCreateReview.setOnClickListener {
+                binding.createReviewImageButton.setOnClickListener {
                     onCreateReviewClick()
                 }
                 ViewHolder.ReviewViewHolder(binding)
             }
 
-            R.layout.content_detail_info_layout -> {
-                val binding = ContentDetailInfoLayoutBinding.inflate(inflater, parent, false)
-                binding.textViewInfoDescription.apply {
+            R.layout.item_content_detail_info -> {
+                val binding = ItemContentDetailInfoBinding.inflate(inflater, parent, false)
+                binding.contentDescriptionTextView.apply {
                     text = text.toString().replace(" ", "\u00A0")
                 }
                 ViewHolder.InfoViewHolder(binding)
             }
 
-            R.layout.content_detail_comments_layout -> {
-                val binding = ContentDetailCommentsLayoutBinding.inflate(inflater, parent, false)
+            R.layout.item_content_detail_comments -> {
+                val binding = ItemContentDetailCommentsBinding.inflate(inflater, parent, false)
                 ViewHolder.CommentsViewHolder(binding)
             }
 
             else -> {
-                val binding = ContentDetailCommentsItemBinding.inflate(inflater, parent, false)
+                val binding = ItemContentDetailCommentListBinding.inflate(inflater, parent, false)
                 ViewHolder.CommentItemViewHolder(binding)
             }
         }
@@ -80,35 +80,36 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        class PosterViewHolder(binding: ContentDetailPosterLayoutBinding) : ViewHolder(binding.root) {
+        class PosterViewHolder(binding: ItemContentDetailPosterBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class ReviewViewHolder(binding: ContentDetailReviewLayoutBinding) : ViewHolder(binding.root) {
+        class ReviewViewHolder(binding: ItemContentDetailReviewBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class InfoViewHolder(binding: ContentDetailInfoLayoutBinding) : ViewHolder(binding.root) {
+        class InfoViewHolder(binding: ItemContentDetailInfoBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class CommentsViewHolder(binding: ContentDetailCommentsLayoutBinding) : ViewHolder(binding.root) {
+        class CommentsViewHolder(binding: ItemContentDetailCommentsBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class CommentItemViewHolder(private val binding: ContentDetailCommentsItemBinding) : ViewHolder(binding.root) {
+        class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
+            ViewHolder(binding.root) {
             fun bind(item: ContentDetailScreenModel.CommentItem) {
                 binding.commentItem = item
             }
@@ -120,7 +121,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         object ReviewView : ContentDetailScreenModel()
         object InfoView : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class CommentItem(val nickname: String, val comment: String) : ContentDetailScreenModel()
+        data class CommentItem(val id: Int, val nickname: String, val comment: String) : ContentDetailScreenModel()
     }
 }
 
@@ -140,7 +141,7 @@ private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDeta
                 newItem is ContentDetailScreenModel.CommentsView -> true
 
             oldItem is ContentDetailScreenModel.CommentItem && newItem is ContentDetailScreenModel.CommentItem ->
-                oldItem.nickname == newItem.nickname
+                oldItem.id == newItem.id
 
             else -> false
         }

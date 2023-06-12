@@ -15,31 +15,37 @@
         android:layout_height="match_parent">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:cardCornerRadius="14dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/pick10_content_card"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_bg_pick10" />
 
         </com.google.android.material.card.MaterialCardView>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView_bookmark"
+        <ImageView
+            android:id="@+id/bookmarkImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
+            android:contentDescription="@string/bookmark_image"
             android:src="@drawable/ic_bookmark_empty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_item_title"
+        <TextView
+            android:id="@+id/pick10TitleTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,85 +57,92 @@
             android:maxLines="2"
             android:text="@{item.title}"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/totalRatingTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textView_total_rating"
+        <TextView
+            android:id="@+id/totalRatingTextView"
             style="@style/textStyleMediumBlack"
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/background_total_rating"
             android:gravity="center"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
             android:text="@{@string/total_rating(item.totalRating)}"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/textView_item_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_item_title"
+            app:layout_constraintStart_toStartOf="@id/pick10TitleTextView"
+            app:layout_constraintTop_toBottomOf="@id/pick10TitleTextView"
             tools:text="전체 4.3점" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <TextView
+            android:id="@+id/mbtiRatingTextView"
             style="@style/textStyleMediumWhite"
             android:layout_width="wrap_content"
-            android:layout_height="26dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:background="@drawable/background_mbti_rating"
-            android:drawableStart="@drawable/ic_clap_hands"
             android:drawablePadding="4dp"
             android:gravity="center"
-            android:paddingHorizontal="6dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5dp"
             android:text="@{@string/mbti_rating(item.mbtiRating)}"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/textView_total_rating"
-            app:layout_constraintTop_toTopOf="@id/textView_total_rating"
+            app:drawableStartCompat="@drawable/ic_clap_hands"
+            app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             tools:text="ESFJ 4.5점" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="134dp"
-            android:layout_marginBottom="158dp"
+            android:layout_marginTop="133dp"
+            android:layout_marginBottom="159dp"
             android:background="@drawable/background_poster"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageView_poster"
+            <ImageView
+                android:id="@+id/posterImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 app:posterUrl="@{item.posterPath}" />
 
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_top_comment"
+            android:id="@+id/mainCommentLayout"
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="21dp"
+            android:layout_marginBottom="23dp"
             android:background="@drawable/background_main_comment"
-            app:isVisible="@{item.topLikeReview != null}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageView_mbti_icon"
+            <ImageView
+                android:id="@+id/mbtiIconImageView"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="19dp"
+                android:contentDescription="@string/mbti_icon"
                 android:src="@drawable/istj_circle_img"
+                app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView_mbti_nickname"
+            <TextView
+                android:id="@+id/mbtiNicknameTextView"
                 style="@style/textStyleBoldBlack"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -138,12 +151,12 @@
                 android:maxLines="1"
                 android:text="@{item.topLikeReview.writer.name}"
                 android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/imageView_mbti_icon"
-                app:layout_constraintTop_toTopOf="@id/imageView_mbti_icon"
+                app:isVisible="@{item.topLikeReview != null}"
+                app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/textView_comment"
+            <TextView
                 style="@style/textStyleMediumBlack333333"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -154,11 +167,26 @@
                 android:maxLines="3"
                 android:text="@{item.topLikeReview.content}"
                 android:textSize="12sp"
+                app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/textView_mbti_nickname"
-                app:layout_constraintTop_toBottomOf="@id/textView_mbti_nickname"
+                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+            <TextView
+                style="@style/textStyleBoldBlack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/could_you_review_first"
+                android:textSize="14sp"
+                app:isVisible="@{item.topLikeReview == null}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
