@@ -44,6 +44,11 @@
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
     <string name="duplicate_check">중복체크</string>
+    <string name="gender">성별</string>
+    <string name="man">남자</string>
+    <string name="woman">여자</string>
+    <string name="did_not_choose">선택안함</string>
+    <string name="birth_date">출생년도</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>

@@ -72,11 +72,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/nickname"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signUpSubTitleTextView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/nicknameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -141,6 +143,67 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/genderTextView"
+            style="@style/textStyleMediumGray700"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/gender"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
+
+        <LinearLayout
+            android:id="@+id/genderTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_signup_gender_tab_layout"
+            android:padding="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genderTextView">
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorHeight="0dp"
+                app:tabTextAppearance="@style/textStyleTabLayout"
+                app:tabTextColor="@color/signup_gender_tab_text_color">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/man" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/woman" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/did_not_choose" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/birthDateTextView"
+            style="@style/textStyleMediumGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/birth_date"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genderTabLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
