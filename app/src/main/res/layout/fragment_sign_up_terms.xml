@@ -228,6 +228,7 @@
             android:background="@drawable/background_agree_button"
             android:enabled="true"
             android:text="@string/do_agree"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
