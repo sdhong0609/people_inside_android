@@ -48,7 +48,9 @@
     <string name="man">남자</string>
     <string name="woman">여자</string>
     <string name="did_not_choose">선택안함</string>
-    <string name="birth_date">출생년도</string>
+    <string name="birth_year">출생년도</string>
+    <string name="mbti_type">MBTI 유형</string>
+    <string name="choice">선택</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>

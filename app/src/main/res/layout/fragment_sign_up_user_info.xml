@@ -86,16 +86,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nicknameTextView">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nicknameEditTextLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_nickname_edittext"
                 android:orientation="horizontal"
-                android:weightSum="10"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/duplicateCheckButton"
-                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -104,43 +104,32 @@
                     style="@style/textStyleRegularGray900"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="8"
                     android:background="@drawable/background_search_edittext"
                     android:hint="@string/please_input_nickname"
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLength="10"
                     android:maxLines="1"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="14dp"
                     android:textColorHint="@color/gray_500"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textCountTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:id="@+id/textCountTextView"
                     style="@style/textStyleMediumGray500"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
                     android:text="7/10"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/nicknameEditText"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/duplicateCheckButton"
-                style="@style/textStyleBoldWhite"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/background_black_rounded"
-                android:text="@string/duplicate_check"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="3"
-                app:layout_constraintStart_toEndOf="@id/nicknameEditTextLayout"
-                app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -161,7 +150,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_signup_gender_tab_layout"
+            android:background="@drawable/bg_gray_300_border"
             android:padding="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,16 +183,60 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/birthDateTextView"
+            android:id="@+id/birthYearTextView"
             style="@style/textStyleMediumGray700"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/birth_date"
+            android:text="@string/birth_year"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/genderTabLayout" />
+
+        <TextView
+            android:id="@+id/birthYearChoiceTextView"
+            style="@style/textStyleRegularGray900"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_gray_300_border"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="11.5dp"
+            android:text="1990년"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_down_arrow_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birthYearTextView" />
+
+        <TextView
+            android:id="@+id/mbtiTypeTextView"
+            style="@style/textStyleMediumGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/mbti_type"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/birthYearChoiceTextView" />
+
+        <TextView
+            android:id="@+id/mbtiChoiceTextView"
+            style="@style/textStyleRegularGray900"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_gray_300_border"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="11.5dp"
+            android:text="@string/choice"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_right_arrow_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
