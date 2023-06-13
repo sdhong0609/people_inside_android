@@ -51,6 +51,7 @@
     <string name="birth_year">출생년도</string>
     <string name="mbti_type">MBTI 유형</string>
     <string name="choice">선택</string>
+    <string name="do_sing_up">가입하기</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
