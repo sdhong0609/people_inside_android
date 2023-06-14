@@ -30,8 +30,20 @@ class SignUpMbtiChoiceFragment : Fragment() {
         val mbtiList = listOf(
             MbtiModel(R.drawable.mbti_large_img_infp, "INFP", true),
             MbtiModel(R.drawable.mbti_large_img_enfp, "ENFP", true),
+            MbtiModel(R.drawable.mbti_large_img_esfj, "ENFJ", true),
+            MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", true),
+            MbtiModel(R.drawable.mbti_large_img_isfp, "ISFP", true),
+            MbtiModel(R.drawable.mbti_large_img_esfp, "ESFP", true),
+            MbtiModel(R.drawable.mbti_large_img_intp, "INTP", true),
+            MbtiModel(R.drawable.mbti_large_img_infj, "INFJ", true),
             MbtiModel(R.drawable.mbti_large_img_enfj, "ENFJ", true),
-            MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", true)
+            MbtiModel(R.drawable.mbti_large_img_entp, "ENTP", true),
+            MbtiModel(R.drawable.mbti_large_img_estj, "ESTJ", true),
+            MbtiModel(R.drawable.mbti_large_img_istj, "ISTJ", true),
+            MbtiModel(R.drawable.mbti_large_img_intj, "INTJ", true),
+            MbtiModel(R.drawable.mbti_large_img_istp, "ISTP", true),
+            MbtiModel(R.drawable.mbti_large_img_estp, "ESTP", true),
+            MbtiModel(R.drawable.mbti_large_img_entj, "ENTJ", true)
         )
 
         binding.mbtiChoiceRecyclerView.apply {
