@@ -29,16 +29,14 @@ class SignUpMbtiChoiceFragment : Fragment() {
 
         val mbtiList = listOf(
             MbtiModel(R.drawable.mbti_large_img_infp, "INFP", true),
-            MbtiModel(R.drawable.background_mbti_rating, "ENFP", true),
-            MbtiModel(R.drawable.img_sample_mbti, "ENFF", true),
-            MbtiModel(R.drawable.img_bg_pick10, "1234", true)
+            MbtiModel(R.drawable.mbti_large_img_enfp, "ENFP", true),
+            MbtiModel(R.drawable.mbti_large_img_enfj, "ENFJ", true),
+            MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", true)
         )
 
         binding.mbtiChoiceRecyclerView.apply {
             adapter = mbtiAdapter
-            layoutManager = object : GridLayoutManager(requireActivity(), SPAN_COUNT) {
-                override fun canScrollVertically(): Boolean = false
-            }
+            layoutManager = GridLayoutManager(requireActivity(), SPAN_COUNT)
         }
         mbtiAdapter.submitList(mbtiList)
     }
