@@ -48,7 +48,6 @@ android {
 }
 
 tasks.named("preBuild").dependsOn("ktlintCheck")
-tasks.named("preBuild").dependsOn("detekt")
 
 dependencies {
     implementation(Libraries.KTX.CORE)

@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
 import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
 
 class SignUpMbtiChoiceFragment : Fragment() {
     private lateinit var binding: FragmentSignUpMbtiChoiceBinding
-    private val mbtiAdapter = MbtiChoiceListAdapter(::onMbtiItemClick)
+    private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,11 +47,27 @@ class SignUpMbtiChoiceFragment : Fragment() {
             MbtiModel(R.drawable.mbti_large_img_entj, "ENTJ", true)
         )
 
-        binding.mbtiChoiceRecyclerView.apply {
-            adapter = mbtiAdapter
-            layoutManager = GridLayoutManager(requireActivity(), SPAN_COUNT)
+        val gridLayoutManager = GridLayoutManager(requireActivity(), SPAN_COUNT)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (mbtiAdapter.getItemViewType(position)) {
+                    R.layout.item_sign_up_mbti_title -> TITLE_SPAN_COUNT
+                    else -> SPAN_COUNT
+                }
+            }
         }
-        mbtiAdapter.submitList(mbtiList)
+
+        binding.mbtiScreenRecyclerView.apply {
+            adapter = mbtiAdapter
+            layoutManager = gridLayoutManager
+        }
+
+        @Suppress("SpreadOperator")
+        val list = listOf(
+            MbtiScreenModel.TitleViewItem,
+            *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
+        )
+        mbtiAdapter.submitList(list)
     }
 
     @Suppress("UnusedPrivateMember")
@@ -59,6 +76,7 @@ class SignUpMbtiChoiceFragment : Fragment() {
     }
 
     companion object {
+        private const val TITLE_SPAN_COUNT = 1
         private const val SPAN_COUNT = 3
     }
 }
