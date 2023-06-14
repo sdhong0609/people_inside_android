@@ -14,6 +14,11 @@ fun ImageView.posterUrl(url: String) {
         .into(this)
 }
 
+@BindingAdapter("mbtiImg")
+fun ImageView.mbtiImg(imgId: Int) {
+    Glide.with(this).load(imgId).error(android.R.color.transparent).into(this)
+}
+
 @BindingAdapter("isVisible")
 fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
