@@ -51,8 +51,8 @@ class SignUpMbtiChoiceFragment : Fragment() {
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (mbtiAdapter.getItemViewType(position)) {
-                    R.layout.item_sign_up_mbti_title -> TITLE_SPAN_COUNT
-                    else -> SPAN_COUNT
+                    R.layout.item_sign_up_mbti_title -> SPAN_COUNT
+                    else -> TITLE_SPAN_COUNT
                 }
             }
         }

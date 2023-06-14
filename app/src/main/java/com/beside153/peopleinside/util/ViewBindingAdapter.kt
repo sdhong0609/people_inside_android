@@ -3,6 +3,7 @@ package com.beside153.peopleinside.util
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
@@ -15,8 +16,8 @@ fun ImageView.posterUrl(url: String) {
 }
 
 @BindingAdapter("mbtiImg")
-fun ImageView.mbtiImg(imgId: Int) {
-    Glide.with(this).load(imgId).error(android.R.color.transparent).into(this)
+fun ImageView.mbtiImg(@DrawableRes imgRes: Int) {
+    this.setImageResource(imgRes)
 }
 
 @BindingAdapter("isVisible")
