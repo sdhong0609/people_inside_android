@@ -34,5 +34,10 @@ class SignUpUserInfoFragment : Fragment() {
             val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
             findNavController().navigate(action)
         }
+
+        binding.signUpButton.setOnClickListener {
+            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
+            findNavController().navigate(action)
+        }
     }
 }
