@@ -24,7 +24,16 @@
         android:label="fragment_sign_up_user_info"
         tools:layout="@layout/fragment_sign_up_user_info">
         <action
-            android:id="@+id/action_signUpUserInfoFragment_to_signUpTermsFragment"
-            app:destination="@id/signUpTermsFragment" />
+            android:id="@+id/action_signUpUserInfoFragment_to_signUpMbtiChoiceFragment"
+            app:destination="@id/signUpMbtiChoiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/signUpMbtiChoiceFragment"
+        android:name="com.beside153.peopleinside.view.login.SignUpMbtiChoiceFragment"
+        android:label="fragment_sign_up_mbti_choice"
+        tools:layout="@layout/fragment_sign_up_mbti_choice" />
 </navigation>

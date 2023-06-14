@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
 
@@ -27,6 +28,11 @@ class SignUpUserInfoFragment : Fragment() {
         binding.birthYearChoiceTextView.setOnClickListener {
             val bottomSheet = SignUpBottomSheetFragment(requireActivity())
             bottomSheet.show(requireActivity().supportFragmentManager, bottomSheet.tag)
+        }
+
+        binding.mbtiChoiceTextView.setOnClickListener {
+            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
+            findNavController().navigate(action)
         }
     }
 }
