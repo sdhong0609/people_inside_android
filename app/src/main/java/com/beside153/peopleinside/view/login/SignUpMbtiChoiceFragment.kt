@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
 import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.util.GridSpacingItemDecoration
+import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
 
 class SignUpMbtiChoiceFragment : Fragment() {
@@ -60,6 +62,7 @@ class SignUpMbtiChoiceFragment : Fragment() {
         binding.mbtiScreenRecyclerView.apply {
             adapter = mbtiAdapter
             layoutManager = gridLayoutManager
+            addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
         }
 
         @Suppress("SpreadOperator")
