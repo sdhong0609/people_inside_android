@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.ItemSignUpMbtiBinding
+import com.beside153.peopleinside.databinding.ItemSignUpMbtiListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiTitleBinding
 import com.beside153.peopleinside.model.login.MbtiModel
 import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
@@ -18,7 +18,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is MbtiScreenModel.TitleViewItem -> R.layout.item_sign_up_mbti_title
-            is MbtiScreenModel.MbtiListItem -> R.layout.item_sign_up_mbti
+            is MbtiScreenModel.MbtiListItem -> R.layout.item_sign_up_mbti_list
         }
     }
 
@@ -32,7 +32,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
             }
 
             else -> {
-                val binding = ItemSignUpMbtiBinding.inflate(inflater, parent, false)
+                val binding = ItemSignUpMbtiListBinding.inflate(inflater, parent, false)
                 val viewHolder = ViewHolder.MbtiItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
@@ -62,7 +62,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
             }
         }
 
-        class MbtiItemViewHolder(private val binding: ItemSignUpMbtiBinding) : ViewHolder(binding.root) {
+        class MbtiItemViewHolder(private val binding: ItemSignUpMbtiListBinding) : ViewHolder(binding.root) {
             fun bind(item: MbtiScreenModel.MbtiListItem) {
                 binding.item = item.mbtiModel
             }

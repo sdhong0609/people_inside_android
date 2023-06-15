@@ -58,6 +58,11 @@
     <string name="please_choose_mbti">나의 MBTI를 선택해주세요</string>
     <string name="complete_choose">선택 완료</string>
 
+    <!-- 콘텐츠 선택 -->
+    <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
+    <string name="content_choice_title_2">재밌게 본 콘텐츠를 선택해주세요</string>
+    <string name="content_choice_title_3">즐겁게 감상하신 콘텐츠를 5개만 골라주시면\n회원님께 꼭 맞는 콘텐츠를 추천해드릴게요!</string>
+
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
     <string name="search">검색</string>
