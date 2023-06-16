@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
+import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
     private var year = FIRST_YEAR
+    private val signUpUserInfoViewModel: SignUpUserInfoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +28,11 @@ class SignUpUserInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            viewModel = signUpUserInfoViewModel
+            lifecycleOwner = this@SignUpUserInfoFragment
+        }
 
         childFragmentManager.setFragmentResultListener(
             SignUpBottomSheetFragment::class.java.simpleName,

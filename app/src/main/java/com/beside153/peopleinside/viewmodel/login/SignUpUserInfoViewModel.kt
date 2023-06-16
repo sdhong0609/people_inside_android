@@ -1,0 +1,21 @@
+package com.beside153.peopleinside.viewmodel.login
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
+class SignUpUserInfoViewModel : ViewModel() {
+    val nickname = MutableLiveData("")
+
+    private val _nicknameCount = MutableLiveData(0)
+    val nicknameCount: LiveData<Int> get() = _nicknameCount
+
+//    private val _isDuplicate = MutableLiveData(false)
+//    val isDuplicate: LiveData<Boolean> get() = _isDuplicate
+
+    @Suppress("UnusedPrivateMember")
+    fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        nickname.value = (s ?: "").toString()
+        _nicknameCount.value = s?.length ?: 0
+    }
+}

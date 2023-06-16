@@ -53,6 +53,7 @@
     <string name="choice">선택</string>
     <string name="do_sing_up">가입하기</string>
     <string name="confirm">확인</string>
+    <string name="nickname_count_with_value">%d/10</string>
 
     <!-- MBTI 선택 -->
     <string name="please_choose_mbti">나의 MBTI를 선택해주세요</string>
