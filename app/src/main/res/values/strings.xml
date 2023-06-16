@@ -32,15 +32,15 @@
 
     <!-- 회원가입 화면 -->
     <string name="terms_of_use">이용약관동의</string>
-    <string name="need_agree_terms_of_use">가입을 하시려면 다음의 정책에 대한\n동의가 필요합니다.</string>
+    <string name="please_agree_terms_of_use">만나서 반갑습니다!\n서비스 가입을 위해 다음 항목에 동의해주세요.</string>
     <string name="all_agreed">모두 동의합니다.</string>
     <string name="first_terms">[필수] 이용약관에 동의합니다.</string>
     <string name="second_terms">[필수] 개인정보 수집 및 이용에 동의합니다.</string>
     <string name="third_terms">[필수] 본인은 만 14세 이상입니다.</string>
     <string name="see_terms">보기</string>
-    <string name="do_agree">동의하기</string>
+    <string name="next">다음</string>
     <string name="sign_up">회원가입</string>
-    <string name="please_input_user_info">더 정확한 콘텐츠 추천을 위해\n아래 정보를 입력해주세요</string>
+    <string name="please_input_user_info">회원님에 대해 더 자세히 알고 싶어요!\n아래 간단한 항목에 대해 알려주세요 :)</string>
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
     <string name="duplicate_check">중복체크</string>
@@ -61,7 +61,7 @@
     <!-- 콘텐츠 선택 -->
     <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
     <string name="content_choice_title_2">재밌게 본 콘텐츠를 선택해주세요</string>
-    <string name="content_choice_title_3">즐겁게 감상하신 콘텐츠를 5개만 골라주시면\n회원님께 꼭 맞는 콘텐츠를 추천해드릴게요!</string>
+    <string name="content_choice_title_3">5개 이상 골라주시면 회원님께 꼭 맞는\n콘텐츠를 추천해드릴게요!</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
