@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                     account?.ageRange,
                     account?.birthday
                 )
-                startActivity(SignUpActivity.onBoardingIntent(this, userInfo))
+                startActivity(SignUpActivity.newIntent(this, userInfo))
                 finish()
             }
         }
