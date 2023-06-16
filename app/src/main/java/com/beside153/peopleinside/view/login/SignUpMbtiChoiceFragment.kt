@@ -49,12 +49,12 @@ class SignUpMbtiChoiceFragment : Fragment() {
             MbtiModel(R.drawable.mbti_large_img_entj, "ENTJ", true)
         )
 
-        val gridLayoutManager = GridLayoutManager(requireActivity(), SPAN_COUNT)
+        val gridLayoutManager = GridLayoutManager(requireActivity(), COUNT_THREE)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (mbtiAdapter.getItemViewType(position)) {
-                    R.layout.item_sign_up_mbti_title -> SPAN_COUNT
-                    else -> TITLE_SPAN_COUNT
+                    R.layout.item_sign_up_mbti_title -> COUNT_THREE
+                    else -> COUNT_ONE
                 }
             }
         }
@@ -79,7 +79,7 @@ class SignUpMbtiChoiceFragment : Fragment() {
     }
 
     companion object {
-        private const val TITLE_SPAN_COUNT = 1
-        private const val SPAN_COUNT = 3
+        private const val COUNT_ONE = 1
+        private const val COUNT_THREE = 3
     }
 }

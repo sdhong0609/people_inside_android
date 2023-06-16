@@ -33,7 +33,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
 
             else -> {
                 val binding = ItemSignUpMbtiListBinding.inflate(inflater, parent, false)
-                val viewHolder = ViewHolder.MbtiItemViewHolder(binding)
+                val viewHolder = ViewHolder.MbtiListItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
@@ -50,7 +50,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder.TitleViewHolder -> holder.bind()
-            is ViewHolder.MbtiItemViewHolder -> holder.bind(getItem(position) as MbtiScreenModel.MbtiListItem)
+            is ViewHolder.MbtiListItemViewHolder -> holder.bind(getItem(position) as MbtiScreenModel.MbtiListItem)
         }
     }
 
@@ -62,7 +62,7 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
             }
         }
 
-        class MbtiItemViewHolder(private val binding: ItemSignUpMbtiListBinding) : ViewHolder(binding.root) {
+        class MbtiListItemViewHolder(private val binding: ItemSignUpMbtiListBinding) : ViewHolder(binding.root) {
             fun bind(item: MbtiScreenModel.MbtiListItem) {
                 binding.item = item.mbtiModel
             }
