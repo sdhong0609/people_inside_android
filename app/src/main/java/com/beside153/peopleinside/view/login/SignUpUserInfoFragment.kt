@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
@@ -42,11 +43,6 @@ class SignUpUserInfoFragment : Fragment() {
             binding.birthYearChoiceTextView.text = "${year}년"
         }
 
-        binding.birthYearChoiceTextView.setOnClickListener {
-            val bottomSheet = SignUpBottomSheetFragment.newInstance(year)
-            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-        }
-
         binding.mbtiChoiceTextView.setOnClickListener {
             val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
             findNavController().navigate(action)
@@ -56,6 +52,14 @@ class SignUpUserInfoFragment : Fragment() {
             val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
             findNavController().navigate(action)
         }
+
+        signUpUserInfoViewModel.birthYearClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val bottomSheet = SignUpBottomSheetFragment.newInstance(year)
+                bottomSheet.show(childFragmentManager, bottomSheet.tag)
+            }
+        )
     }
 
     companion object {

@@ -216,6 +216,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onBirthYearClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
                 android:text="1990년"
