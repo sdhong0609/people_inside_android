@@ -219,12 +219,13 @@
                 android:onClick="@{() -> viewModel.onBirthYearClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
-                android:text="1990년"
+                android:text="@{@string/birth_year_with_value(viewModel.selectedYear)}"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_down_arrow_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/birthYearTextView" />
+                app:layout_constraintTop_toBottomOf="@id/birthYearTextView"
+                tools:text="1990년" />
 
             <TextView
                 android:id="@+id/mbtiTypeTextView"

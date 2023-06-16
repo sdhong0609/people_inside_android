@@ -14,6 +14,9 @@ class SignUpUserInfoViewModel : ViewModel() {
     private val _isDuplicate = MutableLiveData(false)
     val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
+    private val _selectedYear = MutableLiveData(0)
+    val selectedYear: LiveData<Int> get() = _selectedYear
+
     private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
     val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
 
@@ -25,5 +28,9 @@ class SignUpUserInfoViewModel : ViewModel() {
 
     fun onBirthYearClick() {
         _birthYearClickEvent.value = Event(Unit)
+    }
+
+    fun setSelectedYear(year: Int) {
+        _selectedYear.value = year
     }
 }

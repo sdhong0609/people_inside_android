@@ -15,7 +15,7 @@ import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
-    private var year = FIRST_YEAR
+    private var year = INITIAL_YEAR
     private val signUpUserInfoViewModel: SignUpUserInfoViewModel by viewModels()
 
     override fun onCreateView(
@@ -35,12 +35,14 @@ class SignUpUserInfoFragment : Fragment() {
             lifecycleOwner = this@SignUpUserInfoFragment
         }
 
+        signUpUserInfoViewModel.setSelectedYear(INITIAL_YEAR)
+
         childFragmentManager.setFragmentResultListener(
             SignUpBottomSheetFragment::class.java.simpleName,
             this
         ) { _, bundle ->
-            year = bundle.getInt("year")
-            binding.birthYearChoiceTextView.text = "${year}년"
+            year = bundle.getInt(YEAR_KEY)
+            signUpUserInfoViewModel.setSelectedYear(year)
         }
 
         binding.mbtiChoiceTextView.setOnClickListener {
@@ -63,6 +65,7 @@ class SignUpUserInfoFragment : Fragment() {
     }
 
     companion object {
-        private const val FIRST_YEAR = 1964
+        private const val INITIAL_YEAR = 1990
+        private const val YEAR_KEY = "year"
     }
 }
