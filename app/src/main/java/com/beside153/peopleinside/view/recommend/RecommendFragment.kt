@@ -136,7 +136,6 @@ class RecommendFragment : Fragment() {
         }
 
         binding.subRankingArrowImageView.setOnClickListener {
-            scrollPosition = binding.recommendScrollView.scrollY
             startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
             requireActivity().setOpenActivityAnimation()
         }
@@ -150,6 +149,11 @@ class RecommendFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         binding.recommendScrollView.post { binding.recommendScrollView.scrollTo(0, scrollPosition) }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        scrollPosition = binding.recommendScrollView.scrollY
     }
 
     private fun onPick10ItemClick() {
