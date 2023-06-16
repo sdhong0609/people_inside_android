@@ -12,6 +12,8 @@ import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
 import com.beside153.peopleinside.model.login.ContentModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
 
 class SignUpContentChoiceFragment : Fragment() {
@@ -31,11 +33,6 @@ class SignUpContentChoiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val contentList = listOf(
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
-                false
-            ),
             ContentModel(
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
                 "스파이더맨: 노웨이 홈",
@@ -95,6 +92,12 @@ class SignUpContentChoiceFragment : Fragment() {
             *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
         )
         contentAdapter.submitList(list)
+
+        binding.chooseButton.setOnClickListener {
+            startActivity(MainActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+            requireActivity().finish()
+        }
     }
 
     @Suppress("UnusedPrivateMember")

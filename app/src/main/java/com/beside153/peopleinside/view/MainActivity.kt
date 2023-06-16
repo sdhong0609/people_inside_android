@@ -1,5 +1,7 @@
 package com.beside153.peopleinside.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -25,6 +27,13 @@ class MainActivity : AppCompatActivity() {
             setOnItemSelectedListener { menuItem ->
                 menuItem.onNavDestinationSelected(navController)
             }
+        }
+    }
+
+    companion object {
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
         }
     }
 }
