@@ -16,9 +16,7 @@ class SignUpBottomSheetFragment(private val context: Context) : BottomSheetDialo
     private lateinit var binding: FragmentSignUpBottomSheetBinding
     private val yearListAdapter = SignUpYearListAdapter(::onYearItemClick)
     private var yearList = mutableListOf<BirthYearModel>()
-
-    // ViewModel 공유해서 값을 공유할 예정
-    private var initialIndex = 0
+    private var selectedYearItem: BirthYearModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_bottom_sheet, container, false)
@@ -28,13 +26,8 @@ class SignUpBottomSheetFragment(private val context: Context) : BottomSheetDialo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        @Suppress("MagicNumber")
-        for (i in 0..49) {
-            if (i == initialIndex) {
-                yearList.add(BirthYearModel(i, true))
-                continue
-            }
-            yearList.add(BirthYearModel(i, false))
+        (0 until MAX_YEAR_COUNT).forEach { index ->
+            yearList.add(BirthYearModel(FIRST_YEAR + index, index == 0))
         }
 
         binding.birthYearRecyclerView.apply {
@@ -49,9 +42,22 @@ class SignUpBottomSheetFragment(private val context: Context) : BottomSheetDialo
     }
 
     private fun onYearItemClick(item: BirthYearModel) {
-        yearList[initialIndex] = BirthYearModel(initialIndex, false)
-        yearList[item.index] = BirthYearModel(item.index, true)
-        yearListAdapter.submitList(yearList.toList())
-        initialIndex = item.index
+        val updatedList = yearList.map {
+            if (it == item) {
+                it.copy(isChosen = true)
+            } else {
+                it.copy(isChosen = false)
+            }
+        }
+
+        yearList.clear()
+        yearList.addAll(updatedList)
+        yearListAdapter.submitList(updatedList)
+        selectedYearItem = item
+    }
+
+    companion object {
+        private const val MAX_YEAR_COUNT = 50
+        private const val FIRST_YEAR = 1964
     }
 }
