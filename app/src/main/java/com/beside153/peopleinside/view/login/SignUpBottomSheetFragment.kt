@@ -18,6 +18,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
     private val yearListAdapter = SignUpYearListAdapter(::onYearItemClick)
     private var yearList = mutableListOf<BirthYearModel>()
     private var selectedYearItem: BirthYearModel? = null
+    private var selectedIndex = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_bottom_sheet, container, false)
@@ -28,6 +29,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val selectedYear = arguments?.getInt("year") ?: FIRST_YEAR
+        selectedIndex = selectedYear - FIRST_YEAR
 
         (0 until MAX_YEAR_COUNT).forEach { index ->
             val year = FIRST_YEAR + index
@@ -37,6 +39,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
         binding.birthYearRecyclerView.apply {
             adapter = yearListAdapter
             layoutManager = LinearLayoutManager(context)
+            scrollToPosition(selectedIndex)
         }
         yearListAdapter.submitList(yearList.toList())
 
