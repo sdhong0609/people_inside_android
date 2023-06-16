@@ -10,8 +10,8 @@ class SignUpUserInfoViewModel : ViewModel() {
     private val _nicknameCount = MutableLiveData(0)
     val nicknameCount: LiveData<Int> get() = _nicknameCount
 
-//    private val _isDuplicate = MutableLiveData(false)
-//    val isDuplicate: LiveData<Boolean> get() = _isDuplicate
+    private val _isDuplicate = MutableLiveData(false)
+    val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {

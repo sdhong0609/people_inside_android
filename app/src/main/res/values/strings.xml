@@ -43,7 +43,7 @@
     <string name="please_input_user_info">회원님에 대해 더 자세히 알고 싶어요!\n아래 간단한 항목에 대해 알려주세요 :)</string>
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
-    <string name="duplicate_check">중복체크</string>
+    <string name="duplicate_nickname">이미 사용중입니다. 다른 닉네임을 사용해주세요.</string>
     <string name="gender">성별</string>
     <string name="man">남자</string>
     <string name="woman">여자</string>

@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
@@ -36,4 +37,11 @@ fun TextView.yearTextColor(isChosen: Boolean) {
         )
     }
     this.setTextColor(textColor)
+}
+
+@BindingAdapter("setGenderTextViewTopToBottom")
+fun View.setGenderTextViewTopToBottom(isDuplicate: Boolean) {
+    val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.topToBottom = if (isDuplicate) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    this.layoutParams = layoutParams
 }

@@ -30,5 +30,7 @@
     <color name="gray_800">#FF424242</color>
     <color name="gray_900">#FF212121</color>
 
+    <color name="red_100">#FFFF5252</color>
+
     <color name="blue_7193ED">#FF7193ED</color>
 </resources>
