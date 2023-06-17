@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:yearTextColor="@{item.isChosen}"
+            app:userInfoTextColor="@{item.isChosen}"
             tools:text="1991" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

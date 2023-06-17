@@ -35,8 +35,8 @@ fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("yearTextColor")
-fun TextView.yearTextColor(isChosen: Boolean) {
+@BindingAdapter("userInfoTextColor")
+fun TextView.userInfoTextColor(isChosen: Boolean) {
     val textColor = if (isChosen) {
         ContextCompat.getColor(context, R.color.black)
     } else {

@@ -160,42 +160,68 @@
                 app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
                 app:setGenderTextViewTopToBottom="@{viewModel.isDuplicate}" />
 
-            <LinearLayout
-                android:id="@+id/genderTabLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/genderChoiceLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
-                android:padding="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/genderTextView">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/manTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabTextAppearance="@style/textStyleTabLayout"
-                    app:tabTextColor="@color/signup_gender_tab_text_color">
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/man)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/man"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/womanTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/man)}"
+                    tools:text="남자" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/man" />
+                <TextView
+                    android:id="@+id/womanTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/woman)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/woman"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/didNotChooseTextView"
+                    app:layout_constraintStart_toEndOf="@id/manTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/woman)}"
+                    tools:text="여자" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/woman" />
+                <TextView
+                    android:id="@+id/didNotChooseTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/did_not_choose)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/did_not_choose"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/womanTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/did_not_choose)}"
+                    tools:text="선택안함" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/did_not_choose" />
-
-                </com.google.android.material.tabs.TabLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/birthYearTextView"
@@ -207,7 +233,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genderTabLayout" />
+                app:layout_constraintTop_toBottomOf="@id/genderChoiceLayout" />
 
             <TextView
                 android:id="@+id/birthYearChoiceTextView"

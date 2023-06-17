@@ -14,17 +14,20 @@ class SignUpUserInfoViewModel : ViewModel() {
     private val _isDuplicate = MutableLiveData(false)
     val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
-    private val _selectedYear = MutableLiveData(0)
-    val selectedYear: LiveData<Int> get() = _selectedYear
-
     private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
     val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
 
-    private val _selectedMbti = MutableLiveData("")
-    val selectedMbti: LiveData<String> get() = _selectedMbti
-
     private val _mbtiChoiceClickEvent = MutableLiveData<Event<Unit>>()
     val mbtiChoiceClickEvent: LiveData<Event<Unit>> get() = _mbtiChoiceClickEvent
+
+    private val _selectedGender = MutableLiveData("")
+    val selectedGender: LiveData<String> get() = _selectedGender
+
+    private val _selectedYear = MutableLiveData(0)
+    val selectedYear: LiveData<Int> get() = _selectedYear
+
+    private val _selectedMbti = MutableLiveData("")
+    val selectedMbti: LiveData<String> get() = _selectedMbti
 
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -36,12 +39,16 @@ class SignUpUserInfoViewModel : ViewModel() {
         _birthYearClickEvent.value = Event(Unit)
     }
 
-    fun setSelectedYear(year: Int) {
-        _selectedYear.value = year
-    }
-
     fun onMbtiChoiceClick() {
         _mbtiChoiceClickEvent.value = Event(Unit)
+    }
+
+    fun setSelectedGender(gender: String) {
+        _selectedGender.value = gender
+    }
+
+    fun setSelectedYear(year: Int) {
+        _selectedYear.value = year
     }
 
     fun setSelectedMbti(mbti: String) {
