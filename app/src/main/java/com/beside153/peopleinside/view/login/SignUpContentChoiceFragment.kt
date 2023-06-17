@@ -56,7 +56,7 @@ class SignUpContentChoiceFragment : Fragment() {
         contentViewModel.completeButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                startActivity(MainActivity.newIntent(requireActivity()))
+                startActivity(MainActivity.newIntent(requireActivity(), true))
                 requireActivity().setOpenActivityAnimation()
                 requireActivity().finish()
             }

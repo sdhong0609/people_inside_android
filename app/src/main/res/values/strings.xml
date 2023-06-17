@@ -66,6 +66,7 @@
     <string name="content_choice_title_3">5개 이상 골라주시면 회원님께 꼭 맞는\n콘텐츠를 추천해드릴게요!</string>
     <string name="content_choice_button">%d개 선택</string>
     <string name="content_choice_button_complete">5개 선택 완료!</string>
+    <string name="welcome">몰입러가 되신 것을 환영합니다!</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
