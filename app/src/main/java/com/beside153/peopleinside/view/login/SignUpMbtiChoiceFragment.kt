@@ -78,6 +78,10 @@ class SignUpMbtiChoiceFragment : Fragment() {
             adapter = mbtiAdapter
             layoutManager = gridLayoutManager
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
+
+            when (selectedMbtiItem?.mbtiText) {
+                "ENTP", "ESTJ", "ISTJ", "INTJ", "ISTP", "ESTP", "ENTJ" -> scrollToPosition(mbtiList.size)
+            }
         }
         mbtiAdapter.submitList(screenList())
 
