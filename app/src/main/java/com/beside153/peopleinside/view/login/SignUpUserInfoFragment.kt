@@ -64,7 +64,8 @@ class SignUpUserInfoFragment : Fragment() {
         signUpUserInfoViewModel.mbtiChoiceClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
+                val action =
+                    SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment(mbti)
                 findNavController().navigate(action)
             }
         )

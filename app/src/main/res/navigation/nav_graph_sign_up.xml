@@ -42,7 +42,11 @@
         android:id="@+id/signUpMbtiChoiceFragment"
         android:name="com.beside153.peopleinside.view.login.SignUpMbtiChoiceFragment"
         android:label="fragment_sign_up_mbti_choice"
-        tools:layout="@layout/fragment_sign_up_mbti_choice" />
+        tools:layout="@layout/fragment_sign_up_mbti_choice">
+        <argument
+            android:name="mbti"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/signUpContentChoiceFragment"
         android:name="com.beside153.peopleinside.view.login.SignUpContentChoiceFragment"
