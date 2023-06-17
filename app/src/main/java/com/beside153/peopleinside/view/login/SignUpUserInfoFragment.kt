@@ -38,22 +38,8 @@ class SignUpUserInfoFragment : Fragment() {
             lifecycleOwner = this@SignUpUserInfoFragment
         }
 
-        signUpUserInfoViewModel.setSelectedYear(year)
-        signUpUserInfoViewModel.setSelectedMbti(mbti)
-        signUpUserInfoViewModel.setSelectedGender(gender)
-
-        childFragmentManager.setFragmentResultListener(
-            SignUpBottomSheetFragment::class.java.simpleName,
-            this
-        ) { _, bundle ->
-            year = bundle.getInt(YEAR_KEY)
-            signUpUserInfoViewModel.setSelectedYear(year)
-        }
-
-        setFragmentResultListener(SignUpMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
-            mbti = bundle.getString(MBTI_KEY) ?: INITIAL_MBTI
-            signUpUserInfoViewModel.setSelectedMbti(mbti)
-        }
+        initSelectedValues()
+        setFragmentsResultListener()
 
         signUpUserInfoViewModel.birthYearClickEvent.observe(
             viewLifecycleOwner,
@@ -72,10 +58,42 @@ class SignUpUserInfoFragment : Fragment() {
             }
         )
 
-        binding.signUpButton.setOnClickListener {
-            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
-            findNavController().navigate(action)
+        signUpUserInfoViewModel.signUpButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val action =
+                    SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
+                findNavController().navigate(action)
+            }
+        )
+
+        signUpUserInfoViewModel.backButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                findNavController().navigateUp()
+            }
+        )
+    }
+
+    private fun setFragmentsResultListener() {
+        childFragmentManager.setFragmentResultListener(
+            SignUpBottomSheetFragment::class.java.simpleName,
+            this
+        ) { _, bundle ->
+            year = bundle.getInt(YEAR_KEY)
+            signUpUserInfoViewModel.setSelectedYear(year)
         }
+
+        setFragmentResultListener(SignUpMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
+            mbti = bundle.getString(MBTI_KEY) ?: INITIAL_MBTI
+            signUpUserInfoViewModel.setSelectedMbti(mbti)
+        }
+    }
+
+    private fun initSelectedValues() {
+        signUpUserInfoViewModel.setSelectedYear(year)
+        signUpUserInfoViewModel.setSelectedMbti(mbti)
+        signUpUserInfoViewModel.setSelectedGender(gender)
     }
 
     companion object {
