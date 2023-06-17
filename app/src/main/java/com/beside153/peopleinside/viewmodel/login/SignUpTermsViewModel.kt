@@ -3,6 +3,7 @@ package com.beside153.peopleinside.viewmodel.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.beside153.peopleinside.util.Event
 
 class SignUpTermsViewModel : ViewModel() {
 
@@ -20,6 +21,9 @@ class SignUpTermsViewModel : ViewModel() {
 
     private val _isNextButtonEnable = MutableLiveData(false)
     val isNextButtonEnable: LiveData<Boolean> get() = _isNextButtonEnable
+
+    private val _nextButtonClickEvent = MutableLiveData<Event<Unit>>()
+    val nextButtonClickEvent: LiveData<Event<Unit>> get() = _nextButtonClickEvent
 
     fun onAllClick() {
         if (_didCheckAll.value == false) {
@@ -59,5 +63,9 @@ class SignUpTermsViewModel : ViewModel() {
         }
         _didCheckAll.value = false
         _isNextButtonEnable.value = false
+    }
+
+    fun onNextButtonClick() {
+        _nextButtonClickEvent.value = Event(Unit)
     }
 }

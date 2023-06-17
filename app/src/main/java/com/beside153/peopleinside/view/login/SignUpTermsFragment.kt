@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel
 
 class SignUpTermsFragment : Fragment() {
@@ -33,9 +34,12 @@ class SignUpTermsFragment : Fragment() {
             lifecycleOwner = this@SignUpTermsFragment
         }
 
-        binding.agreeTermsButton.setOnClickListener {
-            val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
-            findNavController().navigate(action)
-        }
+        signUpTermsViewModel.nextButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
+                findNavController().navigate(action)
+            }
+        )
     }
 }
