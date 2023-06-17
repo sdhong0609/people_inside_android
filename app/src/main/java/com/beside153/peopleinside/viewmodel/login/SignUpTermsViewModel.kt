@@ -19,6 +19,9 @@ class SignUpTermsViewModel : ViewModel() {
     private val _didCheckThird = MutableLiveData(false)
     val didCheckThird: LiveData<Boolean> get() = _didCheckThird
 
+    private val _seeTermsClickEvent = MutableLiveData<Event<Unit>>()
+    val seeTermsClickEvent: LiveData<Event<Unit>> get() = _seeTermsClickEvent
+
     private val _isNextButtonEnable = MutableLiveData(false)
     val isNextButtonEnable: LiveData<Boolean> get() = _isNextButtonEnable
 
@@ -67,5 +70,9 @@ class SignUpTermsViewModel : ViewModel() {
 
     fun onNextButtonClick() {
         _nextButtonClickEvent.value = Event(Unit)
+    }
+
+    fun onSeeTermsClick() {
+        _seeTermsClickEvent.value = Event(Unit)
     }
 }

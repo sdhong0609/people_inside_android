@@ -1,5 +1,7 @@
 package com.beside153.peopleinside.view.login
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +41,15 @@ class SignUpTermsFragment : Fragment() {
             EventObserver {
                 val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
                 findNavController().navigate(action)
+            }
+        )
+
+        signUpTermsViewModel.seeTermsClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://www.naver.com")
+                startActivity(intent)
             }
         )
     }
