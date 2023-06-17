@@ -21,6 +21,15 @@ fun ImageView.mbtiImg(@DrawableRes imgRes: Int) {
     this.setImageResource(imgRes)
 }
 
+@BindingAdapter("checkBoxImg")
+fun ImageView.checkBoxImg(didCheck: Boolean) {
+    if (didCheck) {
+        this.setImageResource(R.drawable.ic_checkbox_checked)
+    } else {
+        this.setImageResource(R.drawable.ic_checkbox_unchecked)
+    }
+}
+
 @BindingAdapter("isVisible")
 fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE

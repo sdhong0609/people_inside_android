@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
+import com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel
 
 class SignUpTermsFragment : Fragment() {
     private lateinit var binding: FragmentSignUpTermsBinding
+    private val signUpTermsViewModel: SignUpTermsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +27,11 @@ class SignUpTermsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            viewModel = signUpTermsViewModel
+            lifecycleOwner = this@SignUpTermsFragment
+        }
 
         binding.agreeTermsButton.setOnClickListener {
             val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()

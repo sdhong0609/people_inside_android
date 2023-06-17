@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,10 +54,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/checkbox"
-                android:src="@drawable/ic_checkbox_unchecked"
+                android:onClick="@{() -> viewModel.onAllClick()}"
+                app:checkBoxImg="@{viewModel.didCheckAll}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_checkbox_unchecked" />
 
             <TextView
                 android:id="@+id/allTermsTextView"
@@ -95,10 +100,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/checkbox"
-                android:src="@drawable/ic_checkbox_unchecked"
+                android:onClick="@{() -> viewModel.onFirstClick()}"
+                app:checkBoxImg="@{viewModel.didCheckFirst}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_checkbox_unchecked" />
 
             <TextView
                 android:id="@+id/firstTermsTextView"
@@ -141,10 +148,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/checkbox"
-                android:src="@drawable/ic_checkbox_unchecked"
+                android:onClick="@{() -> viewModel.onSecondClick()}"
+                app:checkBoxImg="@{viewModel.didCheckSecond}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_checkbox_unchecked" />
 
             <TextView
                 android:id="@+id/secondTermsTextView"
@@ -187,10 +196,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/checkbox"
-                android:src="@drawable/ic_checkbox_unchecked"
+                android:onClick="@{() -> viewModel.onThirdClick()}"
+                app:checkBoxImg="@{viewModel.didCheckThird}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_checkbox_unchecked" />
 
             <TextView
                 android:id="@+id/thirdTermsTextView"
@@ -226,7 +237,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_agree_button"
-            android:enabled="true"
+            android:enabled="@{viewModel.isNextButtonEnable}"
             android:text="@string/next"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
