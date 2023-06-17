@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
@@ -15,8 +16,9 @@ import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
-    private var year = INITIAL_YEAR
     private val signUpUserInfoViewModel: SignUpUserInfoViewModel by viewModels()
+    private var year = INITIAL_YEAR
+    private var mbti = INITIAL_MBTI
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +37,8 @@ class SignUpUserInfoFragment : Fragment() {
             lifecycleOwner = this@SignUpUserInfoFragment
         }
 
-        signUpUserInfoViewModel.setSelectedYear(INITIAL_YEAR)
+        signUpUserInfoViewModel.setSelectedYear(year)
+        signUpUserInfoViewModel.setSelectedMbti(mbti)
 
         childFragmentManager.setFragmentResultListener(
             SignUpBottomSheetFragment::class.java.simpleName,
@@ -45,14 +48,9 @@ class SignUpUserInfoFragment : Fragment() {
             signUpUserInfoViewModel.setSelectedYear(year)
         }
 
-        binding.mbtiChoiceTextView.setOnClickListener {
-            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.signUpButton.setOnClickListener {
-            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
-            findNavController().navigate(action)
+        setFragmentResultListener(SignUpMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
+            mbti = bundle.getString(MBTI_KEY) ?: INITIAL_MBTI
+            signUpUserInfoViewModel.setSelectedMbti(mbti)
         }
 
         signUpUserInfoViewModel.birthYearClickEvent.observe(
@@ -62,10 +60,25 @@ class SignUpUserInfoFragment : Fragment() {
                 bottomSheet.show(childFragmentManager, bottomSheet.tag)
             }
         )
+
+        signUpUserInfoViewModel.mbtiChoiceClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment()
+                findNavController().navigate(action)
+            }
+        )
+
+        binding.signUpButton.setOnClickListener {
+            val action = SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
+            findNavController().navigate(action)
+        }
     }
 
     companion object {
-        private const val INITIAL_YEAR = 1990
         private const val YEAR_KEY = "year"
+        private const val INITIAL_YEAR = 1990
+        private const val MBTI_KEY = "mbti"
+        private const val INITIAL_MBTI = "선택"
     }
 }

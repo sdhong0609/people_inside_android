@@ -246,14 +246,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onMbtiChoiceClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
-                android:text="@string/choice"
+                android:text="@{viewModel.selectedMbti}"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_right_arrow_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView" />
+                app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView"
+                tools:text="선택" />
 
             <Button
                 android:id="@+id/signUpButton"

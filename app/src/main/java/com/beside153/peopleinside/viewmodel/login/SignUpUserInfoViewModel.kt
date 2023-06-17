@@ -20,6 +20,12 @@ class SignUpUserInfoViewModel : ViewModel() {
     private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
     val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
 
+    private val _selectedMbti = MutableLiveData("")
+    val selectedMbti: LiveData<String> get() = _selectedMbti
+
+    private val _mbtiChoiceClickEvent = MutableLiveData<Event<Unit>>()
+    val mbtiChoiceClickEvent: LiveData<Event<Unit>> get() = _mbtiChoiceClickEvent
+
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
@@ -32,5 +38,13 @@ class SignUpUserInfoViewModel : ViewModel() {
 
     fun setSelectedYear(year: Int) {
         _selectedYear.value = year
+    }
+
+    fun onMbtiChoiceClick() {
+        _mbtiChoiceClickEvent.value = Event(Unit)
+    }
+
+    fun setSelectedMbti(mbti: String) {
+        _selectedMbti.value = mbti
     }
 }
