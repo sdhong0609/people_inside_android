@@ -33,7 +33,6 @@ class SignUpContentChoiceFragment : Fragment() {
         return binding.root
     }
 
-    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -44,6 +43,34 @@ class SignUpContentChoiceFragment : Fragment() {
 
         contentViewModel.initContentList()
 
+        initScreenRecyclerView()
+        contentAdapter.submitList(contentViewModel.screenList())
+
+        contentViewModel.contentItemClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                contentAdapter.submitList(contentViewModel.screenList())
+            }
+        )
+
+        contentViewModel.completeButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(MainActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+                requireActivity().finish()
+            }
+        )
+
+        contentViewModel.backButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                findNavController().navigateUp()
+            }
+        )
+    }
+
+    private fun initScreenRecyclerView() {
         val gridLayoutManager = GridLayoutManager(requireActivity(), COUNT_THREE)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -59,27 +86,6 @@ class SignUpContentChoiceFragment : Fragment() {
             layoutManager = gridLayoutManager
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
         }
-        contentAdapter.submitList(contentViewModel.screenList())
-
-        binding.chooseButton.setOnClickListener {
-            startActivity(MainActivity.newIntent(requireActivity()))
-            requireActivity().setOpenActivityAnimation()
-            requireActivity().finish()
-        }
-
-        contentViewModel.contentItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                contentAdapter.submitList(contentViewModel.screenList())
-            }
-        )
-
-        contentViewModel.backButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                findNavController().navigateUp()
-            }
-        )
     }
 
     private fun onContentItemClick(item: ContentModel) {

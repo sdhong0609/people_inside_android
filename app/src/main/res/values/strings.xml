@@ -64,6 +64,8 @@
     <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
     <string name="content_choice_title_2">재밌게 본 콘텐츠를 선택해주세요</string>
     <string name="content_choice_title_3">5개 이상 골라주시면 회원님께 꼭 맞는\n콘텐츠를 추천해드릴게요!</string>
+    <string name="content_choice_button">%d개 선택</string>
+    <string name="content_choice_button_complete">5개 선택 완료!</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>

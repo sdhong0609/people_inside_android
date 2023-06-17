@@ -1,6 +1,7 @@
 package com.beside153.peopleinside.util
 
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
@@ -9,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 import com.bumptech.glide.Glide
+
+private const val MAX_CHOICE_COUNT = 5
 
 @BindingAdapter("posterUrl")
 fun ImageView.posterUrl(url: String) {
@@ -53,4 +56,13 @@ fun View.setGenderTextViewTopToBottom(isDuplicate: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
     layoutParams.topToBottom = if (isDuplicate) R.id.duplicateNicknameTextView else R.id.nicknameLayout
     this.layoutParams = layoutParams
+}
+
+@BindingAdapter("contentChoiceButtonText")
+fun Button.contentChoiceButtonText(choiceCount: Int) {
+    text = if (choiceCount >= MAX_CHOICE_COUNT) {
+        resources.getString(R.string.content_choice_button_complete)
+    } else {
+        resources.getString(R.string.content_choice_button, choiceCount)
+    }
 }

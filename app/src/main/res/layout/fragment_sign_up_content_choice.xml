@@ -60,13 +60,15 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_agree_button"
-            android:enabled="true"
-            android:text="@{Integer.toString(viewModel.choiceCount)}"
+            android:enabled="@{viewModel.isCompleteButtonEnable}"
+            android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
             android:textSize="18sp"
+            app:contentChoiceButtonText="@{viewModel.choiceCount}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contetChoiceScreenRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/contetChoiceScreenRecyclerView"
+            tools:text="0개 선택" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,8 +8,7 @@ import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
 
 class SignUpContentChoiceViewModel : ViewModel() {
-    private val _contentList = MutableLiveData<MutableList<ContentModel>>()
-    val contentList: LiveData<MutableList<ContentModel>> get() = _contentList
+    private var contentList = mutableListOf<ContentModel>()
 
     private val _contentItemClickEvent = MutableLiveData<Event<Unit>>()
     val contentItemClickEvent: LiveData<Event<Unit>> get() = _contentItemClickEvent
@@ -27,7 +26,7 @@ class SignUpContentChoiceViewModel : ViewModel() {
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
     fun onContentItemClick(item: ContentModel) {
-        val updatedList = _contentList.value?.map {
+        val updatedList = contentList.map {
             if (it == item) {
                 if (!it.isChosen) {
                     _choiceCount.value = _choiceCount.value?.plus(1)
@@ -41,21 +40,30 @@ class SignUpContentChoiceViewModel : ViewModel() {
             }
         }
 
-        _contentList.value?.clear()
-        _contentList.value?.addAll(updatedList ?: mutableListOf())
+        contentList.clear()
+        contentList.addAll(updatedList)
         _contentItemClickEvent.value = Event(Unit)
+        checkCompleteButtonEnable()
     }
 
     @Suppress("SpreadOperator")
     fun screenList(): List<ContentScreenModel> {
         return listOf(
             ContentScreenModel.TitleViewItem,
-            *_contentList.value?.map { ContentScreenModel.ContentListItem(it) }?.toTypedArray() ?: arrayOf()
+            *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
         )
     }
 
+    private fun checkCompleteButtonEnable() {
+        _isCompleteButtonEnable.value = (_choiceCount.value ?: 0) >= MAX_CHOICE_COUNT
+    }
+
+    fun onCompleteButtonClick() {
+        _completeButtonClickEvent.value = Event(Unit)
+    }
+
     fun initContentList() {
-        _contentList.value = mutableListOf(
+        contentList = mutableListOf(
             ContentModel(
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
                 "스파이더맨: 노웨이 홈",
@@ -96,5 +104,9 @@ class SignUpContentChoiceViewModel : ViewModel() {
 
     fun onBackButtonClick() {
         _backButtonClickEvent.value = Event(Unit)
+    }
+
+    companion object {
+        private const val MAX_CHOICE_COUNT = 5
     }
 }
