@@ -24,6 +24,7 @@ class SignUpContentChoiceFragment : Fragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
     private val contentViewModel: SignUpContentChoiceViewModel by viewModels()
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
+    private var contentList = mutableListOf<ContentModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,40 +44,40 @@ class SignUpContentChoiceFragment : Fragment() {
             lifecycleOwner = this@SignUpContentChoiceFragment
         }
 
-        val contentList = listOf(
+        contentList = mutableListOf(
             ContentModel(
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
                 "스파이더맨: 노웨이 홈",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ej7Br2B8dkZZBGa6vDE8HqATgU7.jpg",
+                "블랙 미러",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/2ts8XDLOTndAeb1Z7xdNoJX2PJG.jpg",
+                "블랙 클로버: 마법제의 검",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lCUvpSvjAPU82HvJ8XfR74Chv5r.jpg",
+                "그레이 아나토미",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9WF6TxCYwdiZw51NM92ConaQz1w.jpg",
+                "존 윅 4",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wXNihLltMCGR7XepN39syIlCt5X.jpg",
+                "분노의 질주: 라이드 오어 다이",
                 false
             ),
             ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lCanGgsqF4xD2WA5NF8PWeT3IXd.jpg",
+                "칸다하르",
                 false
             )
         )
@@ -96,13 +97,7 @@ class SignUpContentChoiceFragment : Fragment() {
             layoutManager = gridLayoutManager
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
         }
-
-        @Suppress("SpreadOperator")
-        val list = listOf(
-            ContentScreenModel.TitleViewItem,
-            *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
-        )
-        contentAdapter.submitList(list)
+        contentAdapter.submitList(screenList())
 
         binding.chooseButton.setOnClickListener {
             startActivity(MainActivity.newIntent(requireActivity()))
@@ -118,9 +113,30 @@ class SignUpContentChoiceFragment : Fragment() {
         )
     }
 
-    @Suppress("UnusedPrivateMember")
     private fun onContentItemClick(item: ContentModel) {
-        //
+        val updatedList = contentList.map {
+            if (it == item) {
+                if (!it.isChosen) {
+                    it.copy(isChosen = true)
+                } else {
+                    it.copy(isChosen = false)
+                }
+            } else {
+                it
+            }
+        }
+
+        contentList.clear()
+        contentList.addAll(updatedList)
+        contentAdapter.submitList(screenList())
+    }
+
+    @Suppress("SpreadOperator")
+    private fun screenList(): List<ContentScreenModel> {
+        return listOf(
+            ContentScreenModel.TitleViewItem,
+            *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
+        )
     }
 
     companion object {
