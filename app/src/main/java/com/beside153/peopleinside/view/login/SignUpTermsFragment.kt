@@ -17,7 +17,7 @@ import com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel
 
 class SignUpTermsFragment : Fragment() {
     private lateinit var binding: FragmentSignUpTermsBinding
-    private val signUpTermsViewModel: SignUpTermsViewModel by viewModels()
+    private val termsViewModel: SignUpTermsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +32,11 @@ class SignUpTermsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            viewModel = signUpTermsViewModel
+            viewModel = termsViewModel
             lifecycleOwner = this@SignUpTermsFragment
         }
 
-        signUpTermsViewModel.nextButtonClickEvent.observe(
+        termsViewModel.nextButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
@@ -44,7 +44,7 @@ class SignUpTermsFragment : Fragment() {
             }
         )
 
-        signUpTermsViewModel.seeTermsClickEvent.observe(
+        termsViewModel.seeTermsClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 val intent = Intent(Intent.ACTION_VIEW)

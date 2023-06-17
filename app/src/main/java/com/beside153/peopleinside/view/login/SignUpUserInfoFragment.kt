@@ -16,7 +16,7 @@ import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
-    private val signUpUserInfoViewModel: SignUpUserInfoViewModel by viewModels()
+    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels()
     private var year = INITIAL_YEAR
     private var mbti = INITIAL_MBTI
     private var gender = INITIAL_GENDER
@@ -34,14 +34,14 @@ class SignUpUserInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            viewModel = signUpUserInfoViewModel
+            viewModel = userInfoViewModel
             lifecycleOwner = this@SignUpUserInfoFragment
         }
 
         initSelectedValues()
         setFragmentsResultListener()
 
-        signUpUserInfoViewModel.birthYearClickEvent.observe(
+        userInfoViewModel.birthYearClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 val bottomSheet = SignUpBottomSheetFragment.newInstance(year)
@@ -49,7 +49,7 @@ class SignUpUserInfoFragment : Fragment() {
             }
         )
 
-        signUpUserInfoViewModel.mbtiChoiceClickEvent.observe(
+        userInfoViewModel.mbtiChoiceClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 val action =
@@ -58,7 +58,7 @@ class SignUpUserInfoFragment : Fragment() {
             }
         )
 
-        signUpUserInfoViewModel.signUpButtonClickEvent.observe(
+        userInfoViewModel.signUpButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 val action =
@@ -67,7 +67,7 @@ class SignUpUserInfoFragment : Fragment() {
             }
         )
 
-        signUpUserInfoViewModel.backButtonClickEvent.observe(
+        userInfoViewModel.backButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 findNavController().navigateUp()
@@ -81,19 +81,19 @@ class SignUpUserInfoFragment : Fragment() {
             this
         ) { _, bundle ->
             year = bundle.getInt(YEAR_KEY)
-            signUpUserInfoViewModel.setSelectedYear(year)
+            userInfoViewModel.setSelectedYear(year)
         }
 
         setFragmentResultListener(SignUpMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
             mbti = bundle.getString(MBTI_KEY) ?: INITIAL_MBTI
-            signUpUserInfoViewModel.setSelectedMbti(mbti)
+            userInfoViewModel.setSelectedMbti(mbti)
         }
     }
 
     private fun initSelectedValues() {
-        signUpUserInfoViewModel.setSelectedYear(year)
-        signUpUserInfoViewModel.setSelectedMbti(mbti)
-        signUpUserInfoViewModel.setSelectedGender(gender)
+        userInfoViewModel.setSelectedYear(year)
+        userInfoViewModel.setSelectedMbti(mbti)
+        userInfoViewModel.setSelectedGender(gender)
     }
 
     companion object {
