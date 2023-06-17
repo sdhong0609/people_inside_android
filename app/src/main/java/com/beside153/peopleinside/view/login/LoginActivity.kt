@@ -11,7 +11,6 @@ import com.beside153.peopleinside.util.showToast
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthError
-import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
@@ -33,14 +32,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private val didUserCancel: (error: Throwable) -> Boolean = { error ->
+        error is ClientError && error.reason == ClientErrorCause.Cancelled ||
+            error is AuthError && error.msg == "User denied access"
+    }
+
     private fun onKakaoLoginClick() {
         if (kakaoApi.isKakaoTalkLoginAvailable(this)) {
             kakaoApi.loginWithKakaoTalk(this) { token, error ->
                 if (error != null) {
                     Log.e(tag, "$error")
-                    if (error is AuthError && error.reason == AuthErrorCause.AccessDenied) { // 사용자가 취소
-                        return@loginWithKakaoTalk
-                    } else { // 다른 오류
+                    if (!didUserCancel(error)) {
                         showToast(R.string.kakaotalk_login_failed)
                         // 카카오 이메일 로그인
                         kakaoApi.loginWithKakaoAccount(this, callback = kakaoEmailLoginCallbak)
@@ -58,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
     private val kakaoEmailLoginCallbak: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(tag, "$error")
-            if (!(error is ClientError && error.reason == ClientErrorCause.Cancelled)) {
+            if (!didUserCancel(error)) {
                 showToast(R.string.kakao_email_login_failed)
             }
         } else if (token != null) {
