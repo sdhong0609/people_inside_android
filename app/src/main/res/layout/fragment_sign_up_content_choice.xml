@@ -61,7 +61,7 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_agree_button"
             android:enabled="true"
-            android:text="0개 선택"
+            android:text="@{Integer.toString(viewModel.choiceCount)}"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
