@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_left_arrow" />
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -85,59 +89,64 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/nicknameLayout"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@drawable/background_nickname_edittext"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nicknameTextView">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/nicknameEditTextLayout"
+                <EditText
+                    android:id="@+id/nicknameEditText"
+                    style="@style/textStyleRegularGray900"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_nickname_edittext"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="14dp"
+                    android:background="@drawable/background_search_edittext"
+                    android:hint="@string/please_input_nickname"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:onTextChanged="@{viewModel::onNicknameTextChanged}"
+                    android:text="@={viewModel.nickname}"
+                    android:textColorHint="@color/gray_500"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textCountTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textCountTextView"
+                    style="@style/textStyleMediumGray500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/nickname_count_with_value(viewModel.nicknameCount)}"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <EditText
-                        android:id="@+id/nicknameEditText"
-                        style="@style/textStyleRegularGray900"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_search_edittext"
-                        android:hint="@string/please_input_nickname"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:maxLength="10"
-                        android:maxLines="1"
-                        android:textColorHint="@color/gray_500"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/textCountTextView"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/textCountTextView"
-                        style="@style/textStyleMediumGray500"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="7/10"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/nicknameEditText"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintStart_toEndOf="@id/nicknameEditText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="7/10" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/duplicateNicknameTextView"
+                style="@style/textStyleRegularRed100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/duplicate_nickname"
+                android:textSize="12sp"
+                app:isVisible="@{viewModel.isDuplicate}"
+                app:layout_constraintBottom_toTopOf="@id/genderTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
 
             <TextView
                 android:id="@+id/genderTextView"
@@ -149,44 +158,71 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
+                app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
+                app:setGenderTextViewTopToBottom="@{viewModel.isDuplicate}" />
 
-            <LinearLayout
-                android:id="@+id/genderTabLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/genderChoiceLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
-                android:padding="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/genderTextView">
 
-                <com.google.android.material.tabs.TabLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/manTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabTextAppearance="@style/textStyleTabLayout"
-                    app:tabTextColor="@color/signup_gender_tab_text_color">
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/man)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/man"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/womanTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/man)}"
+                    tools:text="남자" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/man" />
+                <TextView
+                    android:id="@+id/womanTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/woman)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/woman"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/didNotChooseTextView"
+                    app:layout_constraintStart_toEndOf="@id/manTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/woman)}"
+                    tools:text="여자" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/woman" />
+                <TextView
+                    android:id="@+id/didNotChooseTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/did_not_choose)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/did_not_choose"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/womanTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/did_not_choose)}"
+                    tools:text="선택안함" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/did_not_choose" />
-
-                </com.google.android.material.tabs.TabLayout>
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/birthYearTextView"
@@ -198,7 +234,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genderTabLayout" />
+                app:layout_constraintTop_toBottomOf="@id/genderChoiceLayout" />
 
             <TextView
                 android:id="@+id/birthYearChoiceTextView"
@@ -207,14 +243,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onBirthYearClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
-                android:text="1990년"
+                android:text="@{@string/birth_year_with_value(viewModel.selectedYear)}"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_down_arrow_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/birthYearTextView" />
+                app:layout_constraintTop_toBottomOf="@id/birthYearTextView"
+                tools:text="1990년" />
 
             <TextView
                 android:id="@+id/mbtiTypeTextView"
@@ -235,14 +273,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onMbtiChoiceClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
-                android:text="@string/choice"
+                android:text="@{viewModel.selectedMbti}"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_right_arrow_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView" />
+                app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView"
+                tools:text="선택" />
 
             <Button
                 android:id="@+id/signUpButton"
@@ -251,7 +291,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/background_agree_button"
-                android:enabled="true"
+                android:enabled="@{viewModel.isSignUpButtonEnable}"
+                android:onClick="@{() -> viewModel.onSignUpButtonClick()}"
                 android:text="@string/do_sing_up"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

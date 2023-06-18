@@ -43,7 +43,7 @@
     <string name="please_input_user_info">회원님에 대해 더 자세히 알고 싶어요!\n아래 간단한 항목에 대해 알려주세요 :)</string>
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
-    <string name="duplicate_check">중복체크</string>
+    <string name="duplicate_nickname">이미 사용중입니다. 다른 닉네임을 사용해주세요.</string>
     <string name="gender">성별</string>
     <string name="man">남자</string>
     <string name="woman">여자</string>
@@ -53,6 +53,8 @@
     <string name="choice">선택</string>
     <string name="do_sing_up">가입하기</string>
     <string name="confirm">확인</string>
+    <string name="nickname_count_with_value">%d/10</string>
+    <string name="birth_year_with_value">%d년</string>
 
     <!-- MBTI 선택 -->
     <string name="please_choose_mbti">나의 MBTI를 선택해주세요</string>
@@ -62,6 +64,9 @@
     <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
     <string name="content_choice_title_2">재밌게 본 콘텐츠를 선택해주세요</string>
     <string name="content_choice_title_3">5개 이상 골라주시면 회원님께 꼭 맞는\n콘텐츠를 추천해드릴게요!</string>
+    <string name="content_choice_button">%d개 선택</string>
+    <string name="content_choice_button_complete">5개 선택 완료!</string>
+    <string name="welcome">몰입러가 되신 것을 환영합니다!</string>
 
     <!-- BNV(GNB) -->
     <string name="recommend">추천</string>

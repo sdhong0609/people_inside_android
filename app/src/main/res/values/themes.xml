@@ -117,5 +117,10 @@
         <item name="android:textColor">@color/gray_900</item>
         <item name="android:letterSpacing">-0.03</item>
     </style>
+
+    <style name="textStyleRegularRed100">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/red_100</item>
+    </style>
 </resources>
 

@@ -20,7 +20,7 @@ class SignUpActivity : AppCompatActivity() {
     companion object {
         private const val USER_INFO = "USER_INFO"
 
-        fun onBoardingIntent(context: Context, userInfo: UserInfoModel): Intent {
+        fun newIntent(context: Context, userInfo: UserInfoModel): Intent {
             val intent = Intent(context, SignUpActivity::class.java)
             intent.putExtra(USER_INFO, userInfo)
             return intent

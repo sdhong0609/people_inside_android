@@ -18,6 +18,7 @@
             android:id="@+id/mbtiImageView"
             android:layout_width="92dp"
             android:layout_height="92dp"
+            android:alpha="@{item.isChosen ? 1.0f : 0.3f}"
             android:contentDescription="@string/mbti_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +28,13 @@
 
         <TextView
             android:id="@+id/mbtiTextView"
-            style="@style/textStyleMediumGray900"
+            style="@style/textStyleMediumGray500"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15.64dp"
             android:gravity="center_horizontal"
             android:text="@{item.mbtiText}"
+            android:textColor="@{item.isChosen ? @color/gray_900 : @color/gray_500}"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

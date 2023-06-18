@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
@@ -17,6 +21,8 @@ import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
 class SignUpMbtiChoiceFragment : Fragment() {
     private lateinit var binding: FragmentSignUpMbtiChoiceBinding
     private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
+    private var mbtiList = mutableListOf<MbtiModel>()
+    private var selectedMbtiItem: MbtiModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,24 +36,33 @@ class SignUpMbtiChoiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mbtiList = listOf(
-            MbtiModel(R.drawable.mbti_large_img_infp, "INFP", true),
-            MbtiModel(R.drawable.mbti_large_img_enfp, "ENFP", true),
-            MbtiModel(R.drawable.mbti_large_img_esfj, "ENFJ", true),
-            MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", true),
-            MbtiModel(R.drawable.mbti_large_img_isfp, "ISFP", true),
-            MbtiModel(R.drawable.mbti_large_img_esfp, "ESFP", true),
-            MbtiModel(R.drawable.mbti_large_img_intp, "INTP", true),
-            MbtiModel(R.drawable.mbti_large_img_infj, "INFJ", true),
-            MbtiModel(R.drawable.mbti_large_img_enfj, "ENFJ", true),
-            MbtiModel(R.drawable.mbti_large_img_entp, "ENTP", true),
-            MbtiModel(R.drawable.mbti_large_img_estj, "ESTJ", true),
-            MbtiModel(R.drawable.mbti_large_img_istj, "ISTJ", true),
-            MbtiModel(R.drawable.mbti_large_img_intj, "INTJ", true),
-            MbtiModel(R.drawable.mbti_large_img_istp, "ISTP", true),
-            MbtiModel(R.drawable.mbti_large_img_estp, "ESTP", true),
-            MbtiModel(R.drawable.mbti_large_img_entj, "ENTJ", true)
+        val args: SignUpMbtiChoiceFragmentArgs by navArgs()
+        val mbti = args.mbti
+
+        mbtiList = mutableListOf(
+            MbtiModel(R.drawable.mbti_large_img_infp, "INFP", mbti == "INFP"),
+            MbtiModel(R.drawable.mbti_large_img_enfp, "ENFP", mbti == "ENFP"),
+            MbtiModel(R.drawable.mbti_large_img_esfj, "ENFJ", mbti == "ENFJ"),
+            MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", mbti == "ISFJ"),
+            MbtiModel(R.drawable.mbti_large_img_isfp, "ISFP", mbti == "ISFP"),
+            MbtiModel(R.drawable.mbti_large_img_esfp, "ESFP", mbti == "ESFP"),
+            MbtiModel(R.drawable.mbti_large_img_intp, "INTP", mbti == "INTP"),
+            MbtiModel(R.drawable.mbti_large_img_infj, "INFJ", mbti == "INFJ"),
+            MbtiModel(R.drawable.mbti_large_img_enfj, "ENFJ", mbti == "ENFJ"),
+            MbtiModel(R.drawable.mbti_large_img_entp, "ENTP", mbti == "ENTP"),
+            MbtiModel(R.drawable.mbti_large_img_estj, "ESTJ", mbti == "ESTJ"),
+            MbtiModel(R.drawable.mbti_large_img_istj, "ISTJ", mbti == "ISTJ"),
+            MbtiModel(R.drawable.mbti_large_img_intj, "INTJ", mbti == "INTJ"),
+            MbtiModel(R.drawable.mbti_large_img_istp, "ISTP", mbti == "ISTP"),
+            MbtiModel(R.drawable.mbti_large_img_estp, "ESTP", mbti == "ESTP"),
+            MbtiModel(R.drawable.mbti_large_img_entj, "ENTJ", mbti == "ENTJ")
         )
+
+        mbtiList.forEach {
+            if (mbti == it.mbtiText) {
+                selectedMbtiItem = it
+            }
+        }
 
         val gridLayoutManager = GridLayoutManager(requireActivity(), COUNT_THREE)
         gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -63,23 +78,53 @@ class SignUpMbtiChoiceFragment : Fragment() {
             adapter = mbtiAdapter
             layoutManager = gridLayoutManager
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
+
+            when (selectedMbtiItem?.mbtiText) {
+                "ENTP", "ESTJ", "ISTJ", "INTJ", "ISTP", "ESTP", "ENTJ" -> scrollToPosition(mbtiList.size)
+            }
+        }
+        mbtiAdapter.submitList(screenList())
+
+        binding.backImageButton.setOnClickListener {
+            findNavController().navigateUp()
         }
 
-        @Suppress("SpreadOperator")
-        val list = listOf(
+        binding.completeChooseButton.setOnClickListener {
+            setFragmentResult(
+                SignUpMbtiChoiceFragment::class.java.simpleName,
+                bundleOf(MBTI_KEY to (selectedMbtiItem?.mbtiText ?: INITIAL_MBTI))
+            )
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun onMbtiItemClick(item: MbtiModel) {
+        val updatedList = mbtiList.map {
+            if (it == item) {
+                it.copy(isChosen = true)
+            } else {
+                it.copy(isChosen = false)
+            }
+        }
+
+        mbtiList.clear()
+        mbtiList.addAll(updatedList)
+        mbtiAdapter.submitList(screenList())
+        selectedMbtiItem = item
+    }
+
+    @Suppress("SpreadOperator")
+    private fun screenList(): List<MbtiScreenModel> {
+        return listOf(
             MbtiScreenModel.TitleViewItem,
             *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
         )
-        mbtiAdapter.submitList(list)
-    }
-
-    @Suppress("UnusedPrivateMember")
-    private fun onMbtiItemClick(item: MbtiModel) {
-        //
     }
 
     companion object {
         private const val COUNT_ONE = 1
         private const val COUNT_THREE = 3
+        private const val MBTI_KEY = "mbti"
+        private const val INITIAL_MBTI = "선택"
     }
 }

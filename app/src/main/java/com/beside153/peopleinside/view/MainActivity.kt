@@ -10,6 +10,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMainBinding
+import com.beside153.peopleinside.util.showToast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -28,12 +29,18 @@ class MainActivity : AppCompatActivity() {
                 menuItem.onNavDestinationSelected(navController)
             }
         }
+
+        val isFirstEnter = intent.getBooleanExtra(FIRST_ENTER, false)
+        if (isFirstEnter) showToast(R.string.welcome)
     }
 
     companion object {
+        private const val FIRST_ENTER = "FIRST_ENTER"
 
-        fun newIntent(context: Context): Intent {
-            return Intent(context, MainActivity::class.java)
+        fun newIntent(context: Context, isFirstEnter: Boolean): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(FIRST_ENTER, isFirstEnter)
+            return intent
         }
     }
 }

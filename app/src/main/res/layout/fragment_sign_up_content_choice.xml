@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_left_arrow" />
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -56,13 +60,15 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_agree_button"
-            android:enabled="true"
-            android:text="0개 선택"
+            android:enabled="@{viewModel.isCompleteButtonEnable}"
+            android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
             android:textSize="18sp"
+            app:contentChoiceButtonText="@{viewModel.choiceCount}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contetChoiceScreenRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/contetChoiceScreenRecyclerView"
+            tools:text="0개 선택" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

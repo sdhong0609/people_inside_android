@@ -76,4 +76,9 @@ dependencies {
 
     // Kakao Login
     implementation("com.kakao.sdk:v2-user:2.14.0")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
 }

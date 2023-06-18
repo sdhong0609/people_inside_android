@@ -28,7 +28,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val selectedYear = arguments?.getInt("year") ?: FIRST_YEAR
+        val selectedYear = arguments?.getInt(YEAR_KEY) ?: FIRST_YEAR
         selectedIndex = selectedYear - FIRST_YEAR
 
         (0 until MAX_YEAR_COUNT).forEach { index ->
@@ -46,7 +46,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
         binding.confirmButton.setOnClickListener {
             setFragmentResult(
                 SignUpBottomSheetFragment::class.java.simpleName,
-                bundleOf("year" to (selectedYearItem?.year ?: FIRST_YEAR))
+                bundleOf(YEAR_KEY to (selectedYearItem?.year ?: FIRST_YEAR))
             )
             dismiss()
         }
@@ -70,9 +70,10 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
     companion object {
         private const val MAX_YEAR_COUNT = 50
         private const val FIRST_YEAR = 1964
+        private const val YEAR_KEY = "year"
 
         fun newInstance(year: Int) = SignUpBottomSheetFragment().apply {
-            arguments = bundleOf("year" to year)
+            arguments = bundleOf(YEAR_KEY to year)
         }
     }
 }
