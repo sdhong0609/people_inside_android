@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -11,10 +12,173 @@
         android:layout_height="match_parent"
         tools:context=".view.mypage.MyPageFragment">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/myPageAppBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp">
+
+                <TextView
+                    style="@style/textStyleBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/my_page"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:contentDescription="@string/setting"
+                    android:paddingHorizontal="16dp"
+                    android:src="@drawable/ic_setting" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/myPageMbtiImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36.53dp"
+            android:contentDescription="@string/mbti_icon"
+            android:src="@drawable/mbti_large_img_enfp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPageAppBar" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/my_page" />
+            android:id="@+id/myPageMbtiTextView"
+            style="@style/textStyleBoldGray800"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16.47dp"
+            android:gravity="center_horizontal"
+            android:text="ENFP"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPageMbtiImageView"
+            tools:text="ENFP" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/myPageNicknameLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_my_page_nickname"
+            android:paddingVertical="11dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPageMbtiTextView">
+
+            <TextView
+                android:id="@+id/nicknameTextView"
+                style="@style/textStyleBoldBlackChangwon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="나는야케찹될거야"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="나는야케찹될거야" />
+
+            <ImageView
+                android:id="@+id/nicknameEditImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/fix_user_info"
+                android:src="@drawable/ic_nickname_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toEndOf="@id/nicknameTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/emailTextView"
+            style="@style/textStyleRegularGray800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="6dp"
+            android:text="peopleinside@gmail.com"
+            app:drawableStartCompat="@drawable/img_kakaotalk_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPageNicknameLayout"
+            tools:text="peopleinside@gmail.com" />
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="62.5dp"
+            android:background="@color/gray_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emailTextView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/savedContentsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="23dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineView">
+
+            <TextView
+                style="@style/textStyleBoldBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/saved_contents"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/savedCountTextView"
+                style="@style/textStyleMediumGray800"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="34개"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rightArrowImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="34개" />
+
+            <ImageView
+                android:id="@+id/rightArrowImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/right_arrow"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

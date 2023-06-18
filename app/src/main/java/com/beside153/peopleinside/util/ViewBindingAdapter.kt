@@ -51,8 +51,8 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
     this.setTextColor(textColor)
 }
 
-@BindingAdapter("setGenderTextViewTopToBottom")
-fun View.setGenderTextViewTopToBottom(isDuplicate: Boolean) {
+@BindingAdapter("setGenderTextViewPlace")
+fun View.setGenderTextViewPlace(isDuplicate: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
     layoutParams.topToBottom = if (isDuplicate) R.id.duplicateNicknameTextView else R.id.nicknameLayout
     this.layoutParams = layoutParams
