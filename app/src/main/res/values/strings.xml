@@ -110,6 +110,6 @@
     <string name="notification_bulb_emoji">💡</string>
 
     <!-- 마이페이지 -->
-    <string name="saved_contents">내가 저장한 콘텐츠</string>
+    <string name="saved_contents">내가 북마크한 콘텐츠</string>
     <string name="reviewd_contents">내가 평가한 콘텐츠</string>
 </resources>
