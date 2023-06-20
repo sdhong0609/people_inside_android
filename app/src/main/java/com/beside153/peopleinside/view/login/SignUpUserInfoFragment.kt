@@ -30,6 +30,7 @@ class SignUpUserInfoFragment : Fragment() {
     )
     private var year = INITIAL_YEAR
     private var mbti = INITIAL_MBTI
+    private var gender = INITIAL_GENDER
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +51,10 @@ class SignUpUserInfoFragment : Fragment() {
 
         initSelectedValues()
         setFragmentsResultListener()
+
+        userInfoViewModel.selectedGender.observe(viewLifecycleOwner) {
+            gender = it
+        }
 
         userInfoViewModel.birthYearClickEvent.observe(
             viewLifecycleOwner,
@@ -103,7 +108,7 @@ class SignUpUserInfoFragment : Fragment() {
     private fun initSelectedValues() {
         userInfoViewModel.setSelectedYear(year)
         userInfoViewModel.setSelectedMbti(mbti)
-        userInfoViewModel.setSelectedGender(INITIAL_GENDER)
+        userInfoViewModel.setSelectedGender(gender)
     }
 
     companion object {
