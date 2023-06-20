@@ -9,5 +9,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AuthRegisterResponse(
     @SerialName("access_token")
-    val accessToken: String
+    val jwtToken: String
 ) : Parcelable
