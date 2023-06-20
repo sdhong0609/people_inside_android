@@ -3,10 +3,17 @@ package com.beside153.peopleinside.viewmodel.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.beside153.peopleinside.model.login.AuthRegisterRequest
+import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
+import kotlinx.coroutines.launch
 
-class SignUpUserInfoViewModel : ViewModel() {
+class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewModel() {
     val nickname = MutableLiveData("")
+
+    private val _authToken = MutableLiveData("")
+    val authToken: LiveData<String> get() = _authToken
 
     private val _nicknameCount = MutableLiveData(0)
     val nicknameCount: LiveData<Int> get() = _nicknameCount
@@ -38,6 +45,10 @@ class SignUpUserInfoViewModel : ViewModel() {
     private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
+    fun setAuthToken(token: String) {
+        _authToken.value = token
+    }
+
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
@@ -68,8 +79,20 @@ class SignUpUserInfoViewModel : ViewModel() {
 
     @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
-        // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 구현 필요
+        // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 및 금칙어 체크 로직 구현 필요
         if (_isDuplicate.value == false) {
+            viewModelScope.launch {
+                signUpService.postAuthRegister(
+                    _authToken.value ?: "",
+                    AuthRegisterRequest(
+                        _selectedMbti.value ?: "",
+                        nickname.value ?: "",
+                        _selectedGender.value ?: "",
+                        (_selectedYear.value ?: 0).toString(),
+                        "kakao"
+                    )
+                )
+            }
             _signUpButtonClickEvent.value = Event(Unit)
         }
     }

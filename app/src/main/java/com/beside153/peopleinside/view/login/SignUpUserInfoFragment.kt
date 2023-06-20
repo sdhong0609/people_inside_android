@@ -6,17 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpUserInfoFragment : Fragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
-    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels()
+    private val userInfoViewModel: SignUpUserInfoViewModel by activityViewModels(
+        factoryProducer = {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return SignUpUserInfoViewModel(RetrofitClient.signUpService) as T
+                }
+            }
+        }
+    )
     private var year = INITIAL_YEAR
     private var mbti = INITIAL_MBTI
     private var gender = INITIAL_GENDER

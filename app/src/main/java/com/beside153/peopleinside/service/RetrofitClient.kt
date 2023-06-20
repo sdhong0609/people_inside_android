@@ -19,5 +19,6 @@ object RetrofitClient {
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .build()
 
+    val signUpService: SignUpService = retrofit.create(SignUpService::class.java)
     val mbtiService: MbtiService = retrofit.create(MbtiService::class.java)
 }
