@@ -48,9 +48,12 @@
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
     <string name="duplicate_nickname">이미 사용중입니다. 다른 닉네임을 사용해주세요.</string>
     <string name="gender">성별</string>
-    <string name="man">남자</string>
-    <string name="woman">여자</string>
-    <string name="did_not_choose">선택안함</string>
+    <string name="man">men</string>
+    <string name="woman">women</string>
+    <string name="other">other</string>
+    <string name="man_korean">남자</string>
+    <string name="woman_korean">여자</string>
+    <string name="other_korean">선택안함</string>
     <string name="birth_year">출생년도</string>
     <string name="mbti_type">MBTI 유형</string>
     <string name="choice">선택</string>

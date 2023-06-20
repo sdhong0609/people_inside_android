@@ -179,14 +179,13 @@
                     android:gravity="center"
                     android:onClick="@{() -> viewModel.setSelectedGender(@string/man)}"
                     android:paddingVertical="15dp"
-                    android:text="@string/man"
+                    android:text="@string/man_korean"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/womanTextView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/man)}"
-                    tools:text="남자" />
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/man)}" />
 
                 <TextView
                     android:id="@+id/womanTextView"
@@ -196,14 +195,13 @@
                     android:gravity="center"
                     android:onClick="@{() -> viewModel.setSelectedGender(@string/woman)}"
                     android:paddingVertical="15dp"
-                    android:text="@string/woman"
+                    android:text="@string/woman_korean"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/didNotChooseTextView"
                     app:layout_constraintStart_toEndOf="@id/manTextView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/woman)}"
-                    tools:text="여자" />
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/woman)}" />
 
                 <TextView
                     android:id="@+id/didNotChooseTextView"
@@ -211,16 +209,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:onClick="@{() -> viewModel.setSelectedGender(@string/did_not_choose)}"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/other)}"
                     android:paddingVertical="15dp"
-                    android:text="@string/did_not_choose"
+                    android:text="@string/other_korean"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/womanTextView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/did_not_choose)}"
-                    tools:text="선택안함" />
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/other)}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

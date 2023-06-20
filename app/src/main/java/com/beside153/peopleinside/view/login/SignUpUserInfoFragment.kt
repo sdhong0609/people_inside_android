@@ -30,7 +30,6 @@ class SignUpUserInfoFragment : Fragment() {
     )
     private var year = INITIAL_YEAR
     private var mbti = INITIAL_MBTI
-    private var gender = INITIAL_GENDER
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -104,7 +103,7 @@ class SignUpUserInfoFragment : Fragment() {
     private fun initSelectedValues() {
         userInfoViewModel.setSelectedYear(year)
         userInfoViewModel.setSelectedMbti(mbti)
-        userInfoViewModel.setSelectedGender(gender)
+        userInfoViewModel.setSelectedGender(INITIAL_GENDER)
     }
 
     companion object {
@@ -112,6 +111,6 @@ class SignUpUserInfoFragment : Fragment() {
         private const val INITIAL_YEAR = 1990
         private const val MBTI_KEY = "mbti"
         private const val INITIAL_MBTI = "선택"
-        private const val INITIAL_GENDER = "여자"
+        private const val INITIAL_GENDER = "women"
     }
 }

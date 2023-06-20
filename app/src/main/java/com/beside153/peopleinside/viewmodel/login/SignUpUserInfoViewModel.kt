@@ -1,5 +1,6 @@
 package com.beside153.peopleinside.viewmodel.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +11,9 @@ import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.launch
 
 class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewModel() {
-    val nickname = MutableLiveData("")
+    private val authToken = MutableLiveData("")
 
-    private val _authToken = MutableLiveData("")
-    val authToken: LiveData<String> get() = _authToken
+    val nickname = MutableLiveData("")
 
     private val _nicknameCount = MutableLiveData(0)
     val nicknameCount: LiveData<Int> get() = _nicknameCount
@@ -46,7 +46,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
     fun setAuthToken(token: String) {
-        _authToken.value = token
+        authToken.value = token
     }
 
     @Suppress("UnusedPrivateMember")
@@ -82,8 +82,8 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
         // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 및 금칙어 체크 로직 구현 필요
         if (_isDuplicate.value == false) {
             viewModelScope.launch {
-                signUpService.postAuthRegister(
-                    _authToken.value ?: "",
+                val response = signUpService.postAuthRegister(
+                    "Bearer ${authToken.value}",
                     AuthRegisterRequest(
                         _selectedMbti.value ?: "",
                         nickname.value ?: "",
@@ -92,6 +92,8 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
                         "kakao"
                     )
                 )
+
+                Log.d("response.accessToken", response.accessToken)
             }
             _signUpButtonClickEvent.value = Event(Unit)
         }
