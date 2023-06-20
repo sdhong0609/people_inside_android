@@ -1,5 +1,6 @@
 package com.beside153.peopleinside.viewmodel.login
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.model.login.AuthRegisterRequest
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.view.App.Companion.sharedPreferences
+import com.beside153.peopleinside.view.App
 import kotlinx.coroutines.launch
 
 class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewModel() {
@@ -98,7 +99,8 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
                     )
                 )
 
-                sharedPreferences.edit().putString("JWT_TOKEN", response.jwtToken).apply()
+                App.instance.getSharedPreferences("PREFS_KEY", Context.MODE_PRIVATE).edit()
+                    .putString("JWT_TOKEN", response.jwtToken).apply()
             }
             _signUpButtonClickEvent.value = Event(Unit)
         }

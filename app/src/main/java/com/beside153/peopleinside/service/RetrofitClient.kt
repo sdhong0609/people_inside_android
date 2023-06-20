@@ -1,6 +1,7 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.view.App.Companion.sharedPreferences
+import android.content.Context
+import com.beside153.peopleinside.view.App
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
@@ -38,7 +39,9 @@ object RetrofitClient {
     class AppInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-            val jwtToken = sharedPreferences.getString("JWT_TOKEN", "").toString()
+            val jwtToken =
+                App.instance.getSharedPreferences("PREFS_KEY", Context.MODE_PRIVATE).getString("JWT_TOKEN", "")
+                    .toString()
             val newRequest = request().newBuilder()
                 .addHeader("authorization", "Bearer $jwtToken")
                 .build()
