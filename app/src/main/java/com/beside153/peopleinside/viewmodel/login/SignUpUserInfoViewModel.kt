@@ -1,6 +1,5 @@
 package com.beside153.peopleinside.viewmodel.login
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -99,8 +98,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
                     )
                 )
 
-                App.instance.getSharedPreferences("PREFS_KEY", Context.MODE_PRIVATE).edit()
-                    .putString("JWT_TOKEN", response.jwtToken).apply()
+                App.prefs.setString("JWT_TOKEN", response.jwtToken)
             }
             _signUpButtonClickEvent.value = Event(Unit)
         }

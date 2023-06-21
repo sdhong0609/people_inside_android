@@ -66,3 +66,14 @@ fun Button.contentChoiceButtonText(choiceCount: Int) {
         resources.getString(R.string.content_choice_button, choiceCount)
     }
 }
+
+@BindingAdapter("bookmarkImg")
+fun ImageView.bookmarkImg(bookmarked: Boolean) {
+    if (bookmarked) {
+        setImageResource(R.drawable.ic_bookmark_filled_gray)
+    } else {
+        setImageResource(
+            R.drawable.ic_bookmark_empty_gray
+        )
+    }
+}

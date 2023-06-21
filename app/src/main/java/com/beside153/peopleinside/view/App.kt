@@ -2,15 +2,16 @@ package com.beside153.peopleinside.view
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.beside153.peopleinside.util.PreferenceUtil
 
 class App : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        instance = this
+    companion object {
+        lateinit var prefs: PreferenceUtil
     }
 
-    companion object {
-        lateinit var instance: App
+    override fun onCreate() {
+        prefs = PreferenceUtil(applicationContext)
+        super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }

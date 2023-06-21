@@ -59,7 +59,7 @@
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
                     android:contentDescription="@string/bookmark_image"
-                    android:src="@drawable/ic_bookmark_empty" />
+                    android:src="@drawable/ic_bookmark_empty_gray" />
 
                 <TextView
                     style="@style/textStyleBoldBlack"

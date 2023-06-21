@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.Pick10Item" />
+            type="com.beside153.peopleinside.model.recommend.Pick10Model" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,9 +40,10 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
             android:contentDescription="@string/bookmark_image"
-            android:src="@drawable/ic_bookmark_empty"
+            app:bookmarkImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_bookmark_empty_gray" />
 
         <TextView
             android:id="@+id/pick10TitleTextView"
@@ -149,7 +150,7 @@
                 android:layout_marginStart="7dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.topLikeReview.writer.name}"
+                android:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs"
                 android:textSize="14sp"
                 app:isVisible="@{item.topLikeReview != null}"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"

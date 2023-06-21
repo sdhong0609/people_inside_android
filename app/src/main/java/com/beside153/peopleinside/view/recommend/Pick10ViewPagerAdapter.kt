@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemRecommendPick10Binding
-import com.beside153.peopleinside.model.Pick10Item
+import com.beside153.peopleinside.model.recommend.Pick10Model
 
 class Pick10ViewPagerAdapter(private val onPick10ItemClick: () -> Unit, private val onTopCommentClick: () -> Unit) :
-    ListAdapter<Pick10Item, Pick10ViewPagerAdapter.Pick10ItemViewHolder>(Pick10ItemDiffCallback()) {
+    ListAdapter<Pick10Model, Pick10ViewPagerAdapter.Pick10ItemViewHolder>(Pick10ItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pick10ItemViewHolder {
         val binding = ItemRecommendPick10Binding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,18 +33,18 @@ class Pick10ViewPagerAdapter(private val onPick10ItemClick: () -> Unit, private 
     class Pick10ItemViewHolder(private val binding: ItemRecommendPick10Binding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Pick10Item) {
+        fun bind(item: Pick10Model) {
             binding.item = item
         }
     }
 }
 
-private class Pick10ItemDiffCallback : DiffUtil.ItemCallback<Pick10Item>() {
-    override fun areItemsTheSame(oldItem: Pick10Item, newItem: Pick10Item): Boolean {
+private class Pick10ItemDiffCallback : DiffUtil.ItemCallback<Pick10Model>() {
+    override fun areItemsTheSame(oldItem: Pick10Model, newItem: Pick10Model): Boolean {
         return oldItem.contentId == newItem.contentId
     }
 
-    override fun areContentsTheSame(oldItem: Pick10Item, newItem: Pick10Item): Boolean {
+    override fun areContentsTheSame(oldItem: Pick10Model, newItem: Pick10Model): Boolean {
         return oldItem == newItem
     }
 }
