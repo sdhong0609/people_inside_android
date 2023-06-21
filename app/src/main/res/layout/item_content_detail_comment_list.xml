@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="commentItem"
-            type="com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel.CommentItem" />
+            name="item"
+            type="com.beside153.peopleinside.model.contentdetail.CommentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             android:layout_marginHorizontal="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{commentItem.nickname}"
+            android:text="@{item.nickname}"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
@@ -65,7 +65,7 @@
             android:layout_marginTop="9dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="@{commentItem.comment}"
+            android:text="@{item.comment}"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/layoutHearLike"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"

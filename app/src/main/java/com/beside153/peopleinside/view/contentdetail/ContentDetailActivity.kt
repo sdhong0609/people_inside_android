@@ -16,7 +16,6 @@ import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
 class ContentDetailActivity : AppCompatActivity() {
@@ -60,43 +59,9 @@ class ContentDetailActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ContentDetailActivity)
         }
 
-        @Suppress("MagicNumber")
-        val commentList = listOf(
-            ContentDetailScreenModel.CommentItem(
-                1,
-                "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
-            ),
-            ContentDetailScreenModel.CommentItem(
-                2,
-                "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어."
-            ),
-            ContentDetailScreenModel.CommentItem(
-                3,
-                "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰"
-            ),
-            ContentDetailScreenModel.CommentItem(
-                4,
-                "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
-            ),
-            ContentDetailScreenModel.CommentItem(
-                5,
-                "ENTP / 미소님",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출됩니다다다다다"
-            )
-        )
-
-        val list = mutableListOf(
-            ContentDetailScreenModel.PosterView,
-            ContentDetailScreenModel.ReviewView,
-            ContentDetailScreenModel.InfoView,
-            ContentDetailScreenModel.CommentsView
-        )
-        list += commentList
-        contentDetailScreenAdapter.submitList(list)
+        contentDetailViewModel.screenList.observe(this) { screenList ->
+            contentDetailScreenAdapter.submitList(screenList)
+        }
 
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         if (didClickComment) {

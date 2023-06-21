@@ -12,6 +12,8 @@ import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
+import com.beside153.peopleinside.model.contentdetail.CommentModel
+import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
@@ -69,7 +71,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
-            is ViewHolder.PosterViewHolder -> holder.bind()
+            is ViewHolder.PosterViewHolder -> holder.bind(getItem(position) as ContentDetailScreenModel.PosterView)
             is ViewHolder.ReviewViewHolder -> holder.bind()
             is ViewHolder.InfoViewHolder -> holder.bind()
             is ViewHolder.CommentsViewHolder -> holder.bind()
@@ -80,10 +82,10 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        class PosterViewHolder(binding: ItemContentDetailPosterBinding) : ViewHolder(binding.root) {
+        class PosterViewHolder(private val binding: ItemContentDetailPosterBinding) : ViewHolder(binding.root) {
 
-            fun bind() {
-                // binding 없음
+            fun bind(item: ContentDetailScreenModel.PosterView) {
+                binding.item = item.contentDetailItem
             }
         }
 
@@ -111,25 +113,25 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
             ViewHolder(binding.root) {
             fun bind(item: ContentDetailScreenModel.CommentItem) {
-                binding.commentItem = item
+                binding.item = item.commentItem
             }
         }
     }
 
     sealed class ContentDetailScreenModel {
-        object PosterView : ContentDetailScreenModel()
+        data class PosterView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object ReviewView : ContentDetailScreenModel()
         object InfoView : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class CommentItem(val id: Int, val nickname: String, val comment: String) : ContentDetailScreenModel()
+        data class CommentItem(val commentItem: CommentModel) : ContentDetailScreenModel()
     }
 }
 
 private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDetailScreenModel>() {
     override fun areItemsTheSame(oldItem: ContentDetailScreenModel, newItem: ContentDetailScreenModel): Boolean {
         return when {
-            oldItem is ContentDetailScreenModel.PosterView &&
-                newItem is ContentDetailScreenModel.PosterView -> true
+            oldItem is ContentDetailScreenModel.PosterView && newItem is ContentDetailScreenModel.PosterView ->
+                oldItem.contentDetailItem.contentId == newItem.contentDetailItem.contentId
 
             oldItem is ContentDetailScreenModel.ReviewView &&
                 newItem is ContentDetailScreenModel.ReviewView -> true
@@ -141,7 +143,7 @@ private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDeta
                 newItem is ContentDetailScreenModel.CommentsView -> true
 
             oldItem is ContentDetailScreenModel.CommentItem && newItem is ContentDetailScreenModel.CommentItem ->
-                oldItem.id == newItem.id
+                oldItem.commentItem.id == newItem.commentItem.id
 
             else -> false
         }
