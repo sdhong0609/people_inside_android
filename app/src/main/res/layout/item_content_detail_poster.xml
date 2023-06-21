@@ -54,7 +54,7 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@{item.networks[0].name}"
+                android:text="@{item.networks[0].networkId}"
                 android:textSize="12sp"
                 tools:text="2022" />
 
