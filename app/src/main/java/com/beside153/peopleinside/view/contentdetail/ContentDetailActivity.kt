@@ -87,11 +87,13 @@ class ContentDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
+        private const val CONTENT_ID = "CONTENT_ID"
         private const val POSITION_COMMENT_LIST = 3
 
-        fun newIntent(context: Context, didClickComment: Boolean): Intent {
+        fun newIntent(context: Context, didClickComment: Boolean, contentId: Int): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)
             intent.putExtra(DID_CLICK_COMMENT, didClickComment)
+            intent.putExtra(CONTENT_ID, contentId)
             return intent
         }
     }

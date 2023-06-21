@@ -16,7 +16,9 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.RankingItem
+import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -63,9 +65,17 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.loadPick10List()
 
-        recommendViewModel.pick10List.observe(viewLifecycleOwner) {
-            pagerAdapter.submitList(it)
+        recommendViewModel.pick10List.observe(viewLifecycleOwner) { list ->
+            pagerAdapter.submitList(list)
         }
+
+        recommendViewModel.pick10ItemClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { item ->
+                startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
 
         binding.recommendAppBar.notificationImageView.setOnClickListener {
             startActivity(NotificationActivity.newIntent(requireActivity()))
@@ -126,13 +136,12 @@ class RecommendFragment : Fragment() {
         scrollPosition = binding.recommendScrollView.scrollY
     }
 
-    private fun onPick10ItemClick() {
-        startActivity(ContentDetailActivity.newIntent(requireActivity(), false))
-        requireActivity().setOpenActivityAnimation()
+    private fun onPick10ItemClick(item: Pick10Model) {
+        recommendViewModel.onPick10ItemClick(item)
     }
 
     private fun onTopCommentClick() {
-        startActivity(ContentDetailActivity.newIntent(requireActivity(), true))
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), true, 1))
         requireActivity().setOpenActivityAnimation()
     }
 
