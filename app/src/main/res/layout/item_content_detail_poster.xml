@@ -54,7 +54,7 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="2022"
+                android:text="@{item.networks[0].name}"
                 android:textSize="12sp"
                 tools:text="2022" />
 
@@ -66,7 +66,7 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="스릴러"
+                android:text="@{item.releaseDate.substring(0, 4)}"
                 android:textSize="12sp"
                 tools:text="스릴러" />
 
@@ -78,7 +78,7 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="125분"
+                android:text="@{item.genres[0].name}"
                 android:textSize="12sp"
                 tools:text="125분" />
 
