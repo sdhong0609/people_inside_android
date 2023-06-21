@@ -80,7 +80,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
     @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
         // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 및 금칙어 체크 로직 구현 필요
-        // TODO: exceptionHandler 구현 필요
+        // TODO: 로딩 및 exceptionHandler 구현 필요
 //        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, t ->
 //
 //        }

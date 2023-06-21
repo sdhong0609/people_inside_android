@@ -17,7 +17,7 @@ class RecommendViewModel(private val recommendService: RecommendService) : ViewM
     val pick10ItemClickEvent: LiveData<Event<Pick10Model>> get() = _pick10ItemClickEvent
 
     fun loadPick10List() {
-        // ExceptionHandler 구현 필요
+        // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
             _pick10List.value = recommendService.getPick10List()

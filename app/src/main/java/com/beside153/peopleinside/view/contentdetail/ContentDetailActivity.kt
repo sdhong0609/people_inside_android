@@ -3,30 +3,57 @@ package com.beside153.peopleinside.view.contentdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
+import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
+import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
 class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContentDetailBinding
     private val contentDetailScreenAdapter = ContentDetailScreenAdapter(::onCreateReviewClick)
+    private val contentDetailViewModel: ContentDetailViewModel by viewModels(
+        factoryProducer = {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return ContentDetailViewModel(RetrofitClient.contentDetailService) as T
+                }
+            }
+        }
+    )
 
+    @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_content_detail)
 
+        binding.apply {
+            viewModel = contentDetailViewModel
+            lifecycleOwner = this@ContentDetailActivity
+        }
+
         addBackPressedCallback()
 
-        binding.backImageButton.setOnClickListener {
-            finish()
-            setCloseActivityAnimation()
-        }
+        val contentId = intent.getIntExtra(CONTENT_ID, 0)
+        contentDetailViewModel.loadContentDetail(contentId)
+
+        contentDetailViewModel.backButtonClickEvent.observe(
+            this,
+            EventObserver {
+                finish()
+                setCloseActivityAnimation()
+            }
+        )
 
         binding.contentDetailRecyclerView.apply {
             adapter = contentDetailScreenAdapter
