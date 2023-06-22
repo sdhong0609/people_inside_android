@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.contentdetail.CommentModel" />
+            type="com.beside153.peopleinside.model.contentdetail.ContentReviewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             android:layout_marginHorizontal="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{item.nickname}"
+            android:text="@{@string/mbti_and_nickname(item.writer.mbti, item.writer.nickName)}"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
@@ -65,7 +65,7 @@
             android:layout_marginTop="9dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="@{item.comment}"
+            android:text="@{item.content}"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/layoutHearLike"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
@@ -96,8 +96,9 @@
                 style="@style/textStyleMediumBlack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="좋아요 5"
-                android:textSize="12sp" />
+                android:text="@{@string/like_count_with_value(item.likeCount)}"
+                android:textSize="12sp"
+                tools:text="좋아요 5" />
 
         </LinearLayout>
 

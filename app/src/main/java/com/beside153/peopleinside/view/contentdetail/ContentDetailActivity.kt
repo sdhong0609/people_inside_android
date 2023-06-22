@@ -44,7 +44,7 @@ class ContentDetailActivity : AppCompatActivity() {
         addBackPressedCallback()
 
         val contentId = intent.getIntExtra(CONTENT_ID, 0)
-        contentDetailViewModel.loadContentDetail(contentId)
+        contentDetailViewModel.initAllData(contentId)
 
         contentDetailViewModel.backButtonClickEvent.observe(
             this,

@@ -12,8 +12,8 @@ import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
-import com.beside153.peopleinside.model.contentdetail.CommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
+import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
@@ -27,7 +27,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
             is ContentDetailScreenModel.ReviewView -> R.layout.item_content_detail_review
             is ContentDetailScreenModel.InfoView -> R.layout.item_content_detail_info
             is ContentDetailScreenModel.CommentsView -> R.layout.item_content_detail_comments
-            is ContentDetailScreenModel.CommentItem -> R.layout.item_content_detail_comment_list
+            is ContentDetailScreenModel.ContentReviewItem -> R.layout.item_content_detail_comment_list
         }
     }
 
@@ -78,7 +78,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
             is ViewHolder.InfoViewHolder -> holder.bind(getItem(position) as ContentDetailScreenModel.InfoView)
             is ViewHolder.CommentsViewHolder -> holder.bind()
             is ViewHolder.CommentItemViewHolder -> holder.bind(
-                getItem(position) as ContentDetailScreenModel.CommentItem
+                getItem(position) as ContentDetailScreenModel.ContentReviewItem
             )
         }
     }
@@ -114,8 +114,8 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
 
         class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
             ViewHolder(binding.root) {
-            fun bind(item: ContentDetailScreenModel.CommentItem) {
-                binding.item = item.commentItem
+            fun bind(item: ContentDetailScreenModel.ContentReviewItem) {
+                binding.item = item.contentReviewItem
             }
         }
     }
@@ -125,7 +125,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         object ReviewView : ContentDetailScreenModel()
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class CommentItem(val commentItem: CommentModel) : ContentDetailScreenModel()
+        data class ContentReviewItem(val contentReviewItem: ContentReviewModel) : ContentDetailScreenModel()
     }
 }
 
@@ -144,8 +144,9 @@ private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<Conte
             oldItem is ContentDetailScreenModel.CommentsView &&
                 newItem is ContentDetailScreenModel.CommentsView -> true
 
-            oldItem is ContentDetailScreenModel.CommentItem && newItem is ContentDetailScreenModel.CommentItem ->
-                oldItem.commentItem.id == newItem.commentItem.id
+            oldItem is ContentDetailScreenModel.ContentReviewItem &&
+                newItem is ContentDetailScreenModel.ContentReviewItem ->
+                oldItem.contentReviewItem.id == newItem.contentReviewItem.id
 
             else -> false
         }
