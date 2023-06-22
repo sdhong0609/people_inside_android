@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.databinding.ItemSearchNoResultBinding
 import com.beside153.peopleinside.databinding.ItemSearchSearchedContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
@@ -27,6 +28,7 @@ class SearchScreenAdapter(
         return when (getItem(position)) {
             is SearchScreenModel.SearchingTitleItem -> R.layout.item_search_searching_title
             is SearchScreenModel.SearchedContentItem -> R.layout.item_search_searched_content
+            is SearchScreenModel.NoResultView -> R.layout.item_search_no_result
             is SearchScreenModel.SeenViewItem -> R.layout.item_search_seen_content
             is SearchScreenModel.TrendViewItem -> R.layout.item_search_trend_content
             is SearchScreenModel.TrendContentItem -> R.layout.item_search_trend_content_list
@@ -54,6 +56,11 @@ class SearchScreenAdapter(
             R.layout.item_search_searched_content -> {
                 val binding = ItemSearchSearchedContentBinding.inflate(inflater, parent, false)
                 ViewHolder.SearchedContentItemViewHolder(binding)
+            }
+
+            R.layout.item_search_no_result -> {
+                val binding = ItemSearchNoResultBinding.inflate(inflater, parent, false)
+                ViewHolder.NoResultViewHolder(binding)
             }
 
             R.layout.item_search_seen_content -> {
@@ -92,6 +99,7 @@ class SearchScreenAdapter(
                 getItem(position) as SearchScreenModel.SearchedContentItem
             )
 
+            is ViewHolder.NoResultViewHolder -> holder.bind()
             is ViewHolder.SeenViewHolder -> holder.bind()
             is ViewHolder.TrendViewHolder -> holder.bind()
             is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)
@@ -110,6 +118,12 @@ class SearchScreenAdapter(
             ViewHolder(binding.root) {
             fun bind(item: SearchScreenModel.SearchedContentItem) {
                 binding.item = item.searchedContentItem
+            }
+        }
+
+        class NoResultViewHolder(binding: ItemSearchNoResultBinding) : ViewHolder(binding.root) {
+            fun bind() {
+                // binding 없음
             }
         }
 
@@ -137,6 +151,7 @@ class SearchScreenAdapter(
     sealed class SearchScreenModel {
         data class SearchingTitleItem(val searchingTitleItem: SearchingTitleModel) : SearchScreenModel()
         data class SearchedContentItem(val searchedContentItem: SearchedContentModel) : SearchScreenModel()
+        object NoResultView : SearchScreenModel()
         object SeenViewItem : SearchScreenModel()
         object TrendViewItem : SearchScreenModel()
         data class TrendContentItem(val searchTrendItem: SearchTrendItem) : SearchScreenModel()
@@ -152,6 +167,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
             oldItem is SearchScreenModel.SearchedContentItem && newItem is SearchScreenModel.SearchedContentItem ->
                 oldItem.searchedContentItem.contentId == newItem.searchedContentItem.contentId
 
+            oldItem is SearchScreenModel.NoResultView && newItem is SearchScreenModel.NoResultView -> true
             oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
             oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
             oldItem is SearchScreenModel.TrendContentItem && newItem is SearchScreenModel.TrendContentItem ->

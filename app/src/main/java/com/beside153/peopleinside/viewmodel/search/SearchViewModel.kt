@@ -10,6 +10,7 @@ import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.SearchService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchService: SearchService) : ViewModel() {
@@ -24,6 +25,9 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
 
     private val _screenList = MutableLiveData<List<SearchScreenModel>>()
     val screenList: LiveData<List<SearchScreenModel>> get() = _screenList
+
+    private val _hideKeyboard = MutableLiveData<Event<Unit>>()
+    val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
 
     @Suppress("MagicNumber")
     private val searchTrendList = listOf(
@@ -70,11 +74,17 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
     }
 
     fun searchContentAction() {
-        // exceptionHandler 구현 필요
+        val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+            changeScreenWhenNoResult()
+        }
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             if (keyword.value?.isNotEmpty() == true) {
                 searchedContentList.value = searchService.getSearchedContentList(keyword.value ?: "", 1)
+                if ((searchedContentList.value ?: emptyList()).isEmpty()) {
+                    changeScreenWhenNoResult()
+                    return@launch
+                }
                 changeScreenWhenSearchedContent()
             }
         }
@@ -94,6 +104,11 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
             *searchedContentList.value?.map { SearchScreenModel.SearchedContentItem(it) }?.toTypedArray()
                 ?: emptyArray()
         )
+        _hideKeyboard.value = Event(Unit)
+    }
+
+    private fun changeScreenWhenNoResult() {
+        _screenList.value = listOf(SearchScreenModel.NoResultView)
     }
 
     fun onSearchingTitleItemClick(item: SearchingTitleModel) {

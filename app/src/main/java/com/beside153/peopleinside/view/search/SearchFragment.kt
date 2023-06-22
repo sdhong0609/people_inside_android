@@ -35,6 +35,7 @@ class SearchFragment : Fragment() {
         }
     )
     private val searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchTrendItemClick)
+    private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +48,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         binding.apply {
             viewModel = searchViewModel
@@ -56,7 +58,6 @@ class SearchFragment : Fragment() {
         binding.searchEditText.requestFocus()
         searchViewModel.initSearchScreen()
 
-        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
         binding.searchScreenRecyclerView.apply {
@@ -91,6 +92,13 @@ class SearchFragment : Fragment() {
         searchViewModel.keyword.observe(viewLifecycleOwner) {
             searchViewModel.loadSearchingTitle()
         }
+
+        searchViewModel.hideKeyboard.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                inputMethodManager.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+            }
+        )
     }
 
     private fun onSearchingTitleItemClick(item: SearchingTitleModel) {
