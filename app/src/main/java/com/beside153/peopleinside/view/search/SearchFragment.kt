@@ -9,14 +9,30 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
+
+    @Suppress("UnusedPrivateMember")
+    private val searchViewModel: SearchViewModel by viewModels(
+        factoryProducer = {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return SearchViewModel(RetrofitClient.searchService) as T
+                }
+            }
+        }
+    )
     private val searchScreenAdapter = SearchScreenAdapter(::onSearchTrendItemClick)
 
     override fun onCreateView(
@@ -31,20 +47,20 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.layoutSearchAppBar.searchEditText.apply {
+        binding.searchEditText.apply {
             requestFocus()
         }
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.layoutSearchAppBar.searchEditText, InputMethodManager.SHOW_IMPLICIT)
+        inputMethodManager.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
-        binding.layoutSearchAppBar.backImageButton.setOnClickListener {
+        binding.backImageButton.setOnClickListener {
             val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
             findNavController().navigate(action)
         }
 
-        binding.layoutSearchAppBar.searchCancelImageView.setOnClickListener {
-            binding.layoutSearchAppBar.searchEditText.setText("")
+        binding.searchCancelImageView.setOnClickListener {
+            binding.searchEditText.setText("")
         }
 
         @Suppress("MagicNumber")
@@ -61,7 +77,7 @@ class SearchFragment : Fragment() {
             SearchTrendItem(10, "10", "분노의 질주: 라이드 오어 다이")
         )
 
-        binding.searchRecyclerView.apply {
+        binding.searchScreenRecyclerView.apply {
             adapter = searchScreenAdapter
             layoutManager = LinearLayoutManager(requireActivity())
             setOnTouchListener { v, _ ->

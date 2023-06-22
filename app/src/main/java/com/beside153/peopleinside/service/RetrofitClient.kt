@@ -50,4 +50,5 @@ object RetrofitClient {
     val signUpService: SignUpService = signUpRetrofit.create(SignUpService::class.java)
     val recommendService: RecommendService = retrofit.create(RecommendService::class.java)
     val contentDetailService: ContentDetailService = retrofit.create(ContentDetailService::class.java)
+    val searchService: SearchService = retrofit.create(SearchService::class.java)
 }
