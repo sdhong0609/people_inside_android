@@ -44,7 +44,8 @@ class ContentDetailActivity : AppCompatActivity() {
         addBackPressedCallback()
 
         val contentId = intent.getIntExtra(CONTENT_ID, 0)
-        contentDetailViewModel.initAllData(contentId)
+        val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
+        contentDetailViewModel.initAllData(contentId, didClickComment)
 
         contentDetailViewModel.backButtonClickEvent.observe(
             this,
@@ -63,14 +64,16 @@ class ContentDetailActivity : AppCompatActivity() {
             contentDetailScreenAdapter.submitList(screenList)
         }
 
-        val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
-        if (didClickComment) {
-            val smoothScroller = object : LinearSmoothScroller(this) {
-                override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+        contentDetailViewModel.scrollEvent.observe(
+            this,
+            EventObserver {
+                val smoothScroller = object : LinearSmoothScroller(this) {
+                    override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+                }
+                smoothScroller.targetPosition = POSITION_COMMENT_LIST
+                binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
             }
-            smoothScroller.targetPosition = POSITION_COMMENT_LIST
-            binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
-        }
+        )
     }
 
     private fun onCreateReviewClick() {
@@ -80,7 +83,7 @@ class ContentDetailActivity : AppCompatActivity() {
     companion object {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val CONTENT_ID = "CONTENT_ID"
-        private const val POSITION_COMMENT_LIST = 3
+        private const val POSITION_COMMENT_LIST = 4
 
         fun newIntent(context: Context, didClickComment: Boolean, contentId: Int): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)

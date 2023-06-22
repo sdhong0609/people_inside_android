@@ -19,17 +19,19 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
     val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
 
-    private val _reviewList = MutableLiveData<List<ContentReviewModel>>()
-    val reviewList: LiveData<List<ContentReviewModel>> get() = _reviewList
+    private val reviewList = MutableLiveData<List<ContentReviewModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
+
+    private val _scrollEvent = MutableLiveData<Event<Unit>>()
+    val scrollEvent: LiveData<Event<Unit>> get() = _scrollEvent
 
     fun onBackButtonClick() {
         _backButtonClickEvent.value = Event(Unit)
     }
 
-    fun initAllData(contentId: Int) {
+    fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
@@ -37,7 +39,7 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
             val reviewListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
-            _reviewList.value = reviewListDeferred.await()
+            reviewList.value = reviewListDeferred.await()
 
             @Suppress("SpreadOperator")
             _screenList.value = listOf(
@@ -45,9 +47,10 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
                 ContentDetailScreenModel.ReviewView,
                 ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
                 ContentDetailScreenModel.CommentsView,
-                *_reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
+                *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
                     ?: emptyArray()
             )
+            if (didClickComment) _scrollEvent.value = Event(Unit)
         }
     }
 }
