@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -64,6 +65,15 @@ class SearchFragment : Fragment() {
             setOnTouchListener { v, _ ->
                 v.performClick()
                 inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+            }
+        }
+
+        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchViewModel.searchContentAction()
+                true
+            } else {
+                false
             }
         }
 

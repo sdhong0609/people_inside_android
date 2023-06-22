@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.SearchService
 import com.beside153.peopleinside.util.Event
@@ -19,6 +20,7 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
+    private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
 
     private val _screenList = MutableLiveData<List<SearchScreenModel>>()
     val screenList: LiveData<List<SearchScreenModel>> get() = _screenList
@@ -67,10 +69,29 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
         }
     }
 
+    fun searchContentAction() {
+        // exceptionHandler 구현 필요
+
+        viewModelScope.launch {
+            if (keyword.value?.isNotEmpty() == true) {
+                searchedContentList.value = searchService.getSearchedContentList(keyword.value ?: "", 1)
+                changeScreenWhenSearchedContent()
+            }
+        }
+    }
+
     @Suppress("SpreadOperator")
     private fun changeScreenWhenSearching() {
         _screenList.value = listOf(
             *searchingTitleList.value?.map { SearchScreenModel.SearchingTitleItem(it) }?.toTypedArray()
+                ?: emptyArray()
+        )
+    }
+
+    @Suppress("SpreadOperator")
+    private fun changeScreenWhenSearchedContent() {
+        _screenList.value = listOf(
+            *searchedContentList.value?.map { SearchScreenModel.SearchedContentItem(it) }?.toTypedArray()
                 ?: emptyArray()
         )
     }
