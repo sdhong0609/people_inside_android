@@ -15,7 +15,10 @@ import com.beside153.peopleinside.model.search.SearchTrendItem
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 
-class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrendItem) -> Unit) :
+class SearchScreenAdapter(
+    private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
+    private val onSearchTrendItemClick: (item: SearchTrendItem) -> Unit
+) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
@@ -33,7 +36,16 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
         return when (viewType) {
             R.layout.item_search_searching_title -> {
                 val binding = ItemSearchSearchingTitleBinding.inflate(inflater, parent, false)
-                ViewHolder.SearchingTitleItemViewHolder(binding)
+                val viewHolder = ViewHolder.SearchingTitleItemViewHolder(binding)
+                viewHolder.itemView.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onSearchingTitleItemClick(
+                            (getItem(position) as SearchScreenModel.SearchingTitleItem).searchingTitleItem
+                        )
+                    }
+                }
+                viewHolder
             }
 
             R.layout.item_search_seen_content -> {
@@ -67,6 +79,7 @@ class SearchScreenAdapter(private val onSearchTrendItemClick: (item: SearchTrend
             is ViewHolder.SearchingTitleItemViewHolder -> holder.bind(
                 getItem(position) as SearchScreenModel.SearchingTitleItem
             )
+
             is ViewHolder.SeenViewHolder -> holder.bind()
             is ViewHolder.TrendViewHolder -> holder.bind()
             is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)

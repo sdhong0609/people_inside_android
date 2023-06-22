@@ -74,4 +74,8 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
                 ?: emptyArray()
         )
     }
+
+    fun onSearchingTitleItemClick(item: SearchingTitleModel) {
+        keyword.value = item.title
+    }
 }

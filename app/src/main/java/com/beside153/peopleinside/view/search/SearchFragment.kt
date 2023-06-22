@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
@@ -32,7 +33,7 @@ class SearchFragment : Fragment() {
             }
         }
     )
-    private val searchScreenAdapter = SearchScreenAdapter(::onSearchTrendItemClick)
+    private val searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchTrendItemClick)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,6 +81,10 @@ class SearchFragment : Fragment() {
         searchViewModel.keyword.observe(viewLifecycleOwner) {
             searchViewModel.loadSearchingTitle()
         }
+    }
+
+    private fun onSearchingTitleItemClick(item: SearchingTitleModel) {
+        searchViewModel.onSearchingTitleItemClick(item)
     }
 
     private fun onSearchTrendItemClick(item: SearchTrendItem) {
