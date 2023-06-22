@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +20,8 @@ import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -106,6 +107,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun onSearchHotItemClick(item: SearchHotModel) {
-        Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.id))
+        requireActivity().setOpenActivityAnimation()
     }
 }
