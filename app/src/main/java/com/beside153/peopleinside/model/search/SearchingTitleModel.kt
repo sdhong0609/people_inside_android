@@ -1,6 +1,6 @@
 package com.beside153.peopleinside.model.search
 
-data class SearchTitleModel(
+data class SearchingTitleModel(
     val id: Int,
     val title: String
 )
