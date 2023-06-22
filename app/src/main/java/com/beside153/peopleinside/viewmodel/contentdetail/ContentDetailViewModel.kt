@@ -64,7 +64,7 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
             _screenList.value = listOf(
                 ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
                 ContentDetailScreenModel.ReviewView,
-                ContentDetailScreenModel.InfoView,
+                ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
                 ContentDetailScreenModel.CommentsView,
                 *commentList.map { ContentDetailScreenModel.CommentItem(it) }.toTypedArray()
             )

@@ -73,7 +73,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
         when (holder) {
             is ViewHolder.PosterViewHolder -> holder.bind(getItem(position) as ContentDetailScreenModel.PosterView)
             is ViewHolder.ReviewViewHolder -> holder.bind()
-            is ViewHolder.InfoViewHolder -> holder.bind()
+            is ViewHolder.InfoViewHolder -> holder.bind(getItem(position) as ContentDetailScreenModel.InfoView)
             is ViewHolder.CommentsViewHolder -> holder.bind()
             is ViewHolder.CommentItemViewHolder -> holder.bind(
                 getItem(position) as ContentDetailScreenModel.CommentItem
@@ -96,10 +96,10 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
             }
         }
 
-        class InfoViewHolder(binding: ItemContentDetailInfoBinding) : ViewHolder(binding.root) {
+        class InfoViewHolder(private val binding: ItemContentDetailInfoBinding) : ViewHolder(binding.root) {
 
-            fun bind() {
-                // binding 없음
+            fun bind(item: ContentDetailScreenModel.InfoView) {
+                binding.item = item.contentDetailItem
             }
         }
 
@@ -121,7 +121,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
     sealed class ContentDetailScreenModel {
         data class PosterView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object ReviewView : ContentDetailScreenModel()
-        object InfoView : ContentDetailScreenModel()
+        data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
         data class CommentItem(val commentItem: CommentModel) : ContentDetailScreenModel()
     }
@@ -136,8 +136,8 @@ private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDeta
             oldItem is ContentDetailScreenModel.ReviewView &&
                 newItem is ContentDetailScreenModel.ReviewView -> true
 
-            oldItem is ContentDetailScreenModel.InfoView &&
-                newItem is ContentDetailScreenModel.InfoView -> true
+            oldItem is ContentDetailScreenModel.InfoView && newItem is ContentDetailScreenModel.InfoView ->
+                oldItem.contentDetailItem.contentId == newItem.contentDetailItem.contentId
 
             oldItem is ContentDetailScreenModel.CommentsView &&
                 newItem is ContentDetailScreenModel.CommentsView -> true
