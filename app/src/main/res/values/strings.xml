@@ -6,6 +6,8 @@
     <string name="total">전체</string>
     <string name="movie">영화</string>
     <string name="drama">드라마</string>
+    <string name="tv_english">tv</string>
+    <string name="movie_english">movie</string>
 
     <!-- Content Description-->
     <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
@@ -92,6 +94,7 @@
     <string name="create_review">감상 남기기</string>
     <string name="content_information">작품 정보</string>
     <string name="content_comment_title">몰입러들의 감상</string>
+    <string name="runtime_with_value">%d분</string>
 
     <!-- 감상 작성 화면 -->
     <string name="create_review_2">감상 작성</string>

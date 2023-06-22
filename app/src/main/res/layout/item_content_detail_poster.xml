@@ -51,11 +51,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@{item.networks[0].name}"
                 android:textSize="12sp"
+                app:contentKeywordBackground="@{item.mediaType}"
+                app:contentKeywordTextColor="@{item.mediaType}"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{item.releaseDate.substring(0, 4)}"
+                app:tvKeyword='@{item.networks.size > 0 ? item.networks[0].name : ""}'
+                tools:background="@drawable/background_white_rounded"
                 tools:text="2022" />
 
             <TextView
@@ -66,8 +70,10 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@{item.releaseDate.substring(0, 4)}"
                 android:textSize="12sp"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{item.genres[0].name}"
+                app:tvKeyword="@{item.releaseDate.substring(0, 4)}"
                 tools:text="스릴러" />
 
             <TextView
@@ -78,8 +84,10 @@
                 android:background="@drawable/background_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
-                android:text="@{item.genres[0].name}"
                 android:textSize="12sp"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{@string/runtime_with_value(item.runtime)}"
+                app:tvKeyword="@{item.genres[0].name}"
                 tools:text="125분" />
 
 
