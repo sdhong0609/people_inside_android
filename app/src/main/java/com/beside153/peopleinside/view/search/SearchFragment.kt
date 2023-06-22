@@ -18,6 +18,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.search.SearchTrendItem
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchFragment : Fragment() {
@@ -47,21 +48,15 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.searchEditText.apply {
-            requestFocus()
+        binding.apply {
+            viewModel = searchViewModel
+            lifecycleOwner = this@SearchFragment
         }
+
+        binding.searchEditText.requestFocus()
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
-
-        binding.backImageButton.setOnClickListener {
-            val action = SearchFragmentDirections.actionSearchFragmentToRecommendFragment()
-            findNavController().navigate(action)
-        }
-
-        binding.searchCancelImageView.setOnClickListener {
-            binding.searchEditText.setText("")
-        }
 
         @Suppress("MagicNumber")
         val searchTrendList = listOf(
@@ -93,6 +88,20 @@ class SearchFragment : Fragment() {
             *searchTrendList.map { SearchScreenAdapter.SearchScreenModel.TrendContentItem(it) }.toTypedArray()
         )
         searchScreenAdapter.submitList(list)
+
+        searchViewModel.backButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                findNavController().navigateUp()
+            }
+        )
+
+        searchViewModel.searchCancelClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                binding.searchEditText.setText("")
+            }
+        )
     }
 
     private fun onSearchTrendItemClick(item: SearchTrendItem) {

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_left_arrow" />
 
                 <LinearLayout
@@ -63,11 +67,13 @@
                     <ImageView
                         android:id="@+id/searchCancelImageView"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:contentDescription="@string/search_cancel_image"
+                        android:onClick="@{() -> viewModel.onSearchCancelClick()}"
+                        android:paddingVertical="12dp"
                         android:src="@drawable/ic_search_cancel" />
 
                 </LinearLayout>
