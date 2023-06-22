@@ -15,7 +15,8 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
     private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
-    private val contentDetailItem = MutableLiveData<ContentDetailModel>()
+    private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
+    val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
@@ -58,10 +59,10 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
 
         @Suppress("SpreadOperator")
         viewModelScope.launch {
-            contentDetailItem.value = contentDetailService.getContentDetail(contentId)
+            _contentDetailItem.value = contentDetailService.getContentDetail(contentId)
 
             _screenList.value = listOf(
-                ContentDetailScreenModel.PosterView(contentDetailItem.value!!),
+                ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
                 ContentDetailScreenModel.ReviewView,
                 ContentDetailScreenModel.InfoView,
                 ContentDetailScreenModel.CommentsView,
