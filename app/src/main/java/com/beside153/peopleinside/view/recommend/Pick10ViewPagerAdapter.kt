@@ -14,7 +14,8 @@ import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10Vi
 
 class Pick10ViewPagerAdapter(
     private val onPick10ItemClick: (item: Pick10Model) -> Unit,
-    private val onTopCommentClick: () -> Unit
+    private val onTopCommentClick: () -> Unit,
+    private val onRefreshClick: () -> Unit
 ) :
     ListAdapter<Pick10ViewPagerModel, Pick10ViewPagerAdapter.ViewHolder>(Pick10ViewPagerModelDiffCallback()) {
 
@@ -46,6 +47,9 @@ class Pick10ViewPagerAdapter(
 
             else -> {
                 val binding = ItemRecommendPick10RefreshBinding.inflate(inflater, parent, false)
+                binding.refreshLayout.setOnClickListener {
+                    onRefreshClick()
+                }
                 ViewHolder.RefreshViewHolder(binding)
             }
         }

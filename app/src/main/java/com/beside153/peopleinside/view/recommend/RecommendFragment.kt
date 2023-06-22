@@ -37,7 +37,7 @@ class RecommendFragment : Fragment() {
         }
     )
 
-    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopCommentClick)
+    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopCommentClick, ::onRefreshClick)
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
     private var scrollPosition: Int = 0
 
@@ -143,6 +143,10 @@ class RecommendFragment : Fragment() {
     private fun onTopCommentClick() {
         startActivity(ContentDetailActivity.newIntent(requireActivity(), true, 1))
         requireActivity().setOpenActivityAnimation()
+    }
+
+    private fun onRefreshClick() {
+        recommendViewModel.loadPick10List()
     }
 
     private fun onRankingItemClick(item: RankingItem) {
