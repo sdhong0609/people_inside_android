@@ -60,7 +60,6 @@
                         android:importantForAutofill="no"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:onTextChanged="@{viewModel::onKeywordTextChanged}"
                         android:paddingHorizontal="18dp"
                         android:text="@={viewModel.keyword}"
                         android:textColorHint="@color/gray_400"

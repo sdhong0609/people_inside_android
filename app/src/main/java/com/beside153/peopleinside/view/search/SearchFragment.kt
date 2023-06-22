@@ -23,8 +23,6 @@ import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-
-    @Suppress("UnusedPrivateMember")
     private val searchViewModel: SearchViewModel by viewModels(
         factoryProducer = {
             object : ViewModelProvider.Factory {
@@ -54,23 +52,10 @@ class SearchFragment : Fragment() {
         }
 
         binding.searchEditText.requestFocus()
+        searchViewModel.initSearchScreen()
 
         val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
-
-        @Suppress("MagicNumber")
-        val searchTrendList = listOf(
-            SearchTrendItem(1, "1", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem(2, "2", "가디언즈 오브 갤럭시: Volume 3"),
-            SearchTrendItem(3, "3", "분노의 질주: 더 얼티메이트"),
-            SearchTrendItem(4, "4", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem(5, "5", "앤트맨과 와스프: 퀀텀매니아"),
-            SearchTrendItem(6, "6", "가디언즈 오브 갤럭시: Volume 3"),
-            SearchTrendItem(7, "7", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem(8, "8", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem(9, "9", "분노의 질주: 라이드 오어 다이"),
-            SearchTrendItem(10, "10", "분노의 질주: 라이드 오어 다이")
-        )
 
         binding.searchScreenRecyclerView.apply {
             adapter = searchScreenAdapter
@@ -81,13 +66,9 @@ class SearchFragment : Fragment() {
             }
         }
 
-        @Suppress("SpreadOperator")
-        val list = listOf(
-            SearchScreenAdapter.SearchScreenModel.SeenViewItem,
-            SearchScreenAdapter.SearchScreenModel.TrendViewItem,
-            *searchTrendList.map { SearchScreenAdapter.SearchScreenModel.TrendContentItem(it) }.toTypedArray()
-        )
-        searchScreenAdapter.submitList(list)
+        searchViewModel.screenList.observe(viewLifecycleOwner) { list ->
+            searchScreenAdapter.submitList(list)
+        }
 
         searchViewModel.backButtonClickEvent.observe(
             viewLifecycleOwner,
@@ -96,12 +77,9 @@ class SearchFragment : Fragment() {
             }
         )
 
-        searchViewModel.searchCancelClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                binding.searchEditText.setText("")
-            }
-        )
+        searchViewModel.keyword.observe(viewLifecycleOwner) {
+            searchViewModel.loadSearchingTitle()
+        }
     }
 
     private fun onSearchTrendItemClick(item: SearchTrendItem) {
