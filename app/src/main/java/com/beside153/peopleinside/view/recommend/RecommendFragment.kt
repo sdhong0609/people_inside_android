@@ -22,7 +22,6 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
-import com.beside153.peopleinside.view.notification.NotificationActivity
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 
 class RecommendFragment : Fragment() {
@@ -76,11 +75,6 @@ class RecommendFragment : Fragment() {
                 requireActivity().setOpenActivityAnimation()
             }
         )
-
-        binding.recommendAppBar.notificationImageView.setOnClickListener {
-            startActivity(NotificationActivity.newIntent(requireActivity()))
-            requireActivity().setOpenActivityAnimation()
-        }
 
         @Suppress("MagicNumber")
         val rankingList = listOf(

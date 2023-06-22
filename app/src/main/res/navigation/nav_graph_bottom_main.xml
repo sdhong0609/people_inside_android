@@ -19,11 +19,11 @@
             android:id="@+id/action_searchFragment_to_recommendFragment"
             app:popUpTo="@id/recommendFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/communityFragment"
-        android:name="com.beside153.peopleinside.view.CommunityFragment"
-        android:label="fragment_community"
-        tools:layout="@layout/fragment_community" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/communityFragment"-->
+    <!--        android:name="com.beside153.peopleinside.view.CommunityFragment"-->
+    <!--        android:label="fragment_community"-->
+    <!--        tools:layout="@layout/fragment_community" />-->
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.beside153.peopleinside.view.mypage.MyPageFragment"

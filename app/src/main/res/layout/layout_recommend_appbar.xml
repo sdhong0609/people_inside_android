@@ -20,46 +20,46 @@
             android:background="@color/white"
             app:contentInsetStart="0dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:weightSum="100">
+                android:paddingHorizontal="16dp">
 
                 <TextView
+                    android:id="@+id/nickNameTextView"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="70"
+                    android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:fontFamily="@font/changwondangamasac_bold"
-                    android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="ISTJ 피즈강아아 피즈강아아"
                     android:textColor="@color/black"
-                    android:textSize="22sp" />
+                    android:textSize="22sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/mbtiImageView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5" />
-
-                <ImageView
-                    android:id="@+id/notificationImageView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="12.5"
-                    android:contentDescription="@string/notification_icon"
-                    android:src="@drawable/ic_notification_on" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/notificationImageView"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_weight="12.5"-->
+                <!--                    android:contentDescription="@string/notification_icon"-->
+                <!--                    android:src="@drawable/ic_notification_on" />-->
 
                 <ImageView
                     android:id="@+id/mbtiImageView"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="12.5"
+                    android:layout_gravity="end"
                     android:contentDescription="@string/mbti_icon"
-                    android:src="@drawable/istj_main_img" />
+                    android:src="@drawable/istj_main_img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
 
