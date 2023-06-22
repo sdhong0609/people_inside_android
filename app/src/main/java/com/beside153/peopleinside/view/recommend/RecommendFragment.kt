@@ -134,8 +134,8 @@ class RecommendFragment : Fragment() {
         recommendViewModel.onPick10ItemClick(item)
     }
 
-    private fun onTopCommentClick() {
-        startActivity(ContentDetailActivity.newIntent(requireActivity(), true, 1))
+    private fun onTopCommentClick(item: Pick10Model) {
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), true, item.contentId))
         requireActivity().setOpenActivityAnimation()
     }
 
