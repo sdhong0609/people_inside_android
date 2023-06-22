@@ -7,7 +7,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface SignUpService {
-    @POST("auth/register")
+    @POST("/api/auth/register")
     suspend fun postAuthRegister(
         @Header("authorization") authToken: String,
         @Body userInfo: AuthRegisterRequest

@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ContentDetailService {
-    @GET("media-content/detail/{contentId}")
+    @GET("/api/media-content/detail/{contentId}")
     suspend fun getContentDetail(@Path("contentId") contentId: Int): ContentDetailModel
 }
