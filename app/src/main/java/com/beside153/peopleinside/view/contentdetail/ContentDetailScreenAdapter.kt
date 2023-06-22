@@ -17,7 +17,9 @@ import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
-    ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(ContentDetailModelDiffCallback()) {
+    ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(
+        ContentDetailScreenModelDiffCallback()
+    ) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
@@ -127,7 +129,7 @@ class ContentDetailScreenAdapter(private val onCreateReviewClick: () -> Unit) :
     }
 }
 
-private class ContentDetailModelDiffCallback : DiffUtil.ItemCallback<ContentDetailScreenModel>() {
+private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<ContentDetailScreenModel>() {
     override fun areItemsTheSame(oldItem: ContentDetailScreenModel, newItem: ContentDetailScreenModel): Boolean {
         return when {
             oldItem is ContentDetailScreenModel.PosterView && newItem is ContentDetailScreenModel.PosterView ->

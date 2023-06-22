@@ -87,6 +87,7 @@
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
     <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
     <string name="could_you_review_first">첫번째로 감상을 남겨보시겠어요?</string>
+    <string name="recommend_refresh">새로 추천받기</string>
 
     <!-- 작품 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>

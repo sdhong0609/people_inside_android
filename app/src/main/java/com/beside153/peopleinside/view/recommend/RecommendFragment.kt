@@ -65,7 +65,7 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.loadPick10List()
 
-        recommendViewModel.pick10List.observe(viewLifecycleOwner) { list ->
+        recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
             pagerAdapter.submitList(list)
         }
 
