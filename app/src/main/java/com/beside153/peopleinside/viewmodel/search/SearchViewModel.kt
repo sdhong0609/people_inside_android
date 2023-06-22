@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.SearchService
@@ -22,26 +22,13 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
 
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
     private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
+    private val searchHotList = MutableLiveData<List<SearchHotModel>>()
 
     private val _screenList = MutableLiveData<List<SearchScreenModel>>()
     val screenList: LiveData<List<SearchScreenModel>> get() = _screenList
 
     private val _hideKeyboard = MutableLiveData<Event<Unit>>()
     val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
-
-    @Suppress("MagicNumber")
-    private val searchTrendList = listOf(
-        SearchTrendItem(1, "1", "분노의 질주: 라이드 오어 다이"),
-        SearchTrendItem(2, "2", "가디언즈 오브 갤럭시: Volume 3"),
-        SearchTrendItem(3, "3", "분노의 질주: 더 얼티메이트"),
-        SearchTrendItem(4, "4", "분노의 질주: 라이드 오어 다이"),
-        SearchTrendItem(5, "5", "앤트맨과 와스프: 퀀텀매니아"),
-        SearchTrendItem(6, "6", "가디언즈 오브 갤럭시: Volume 3"),
-        SearchTrendItem(7, "7", "분노의 질주: 라이드 오어 다이"),
-        SearchTrendItem(8, "8", "분노의 질주: 라이드 오어 다이"),
-        SearchTrendItem(9, "9", "분노의 질주: 라이드 오어 다이"),
-        SearchTrendItem(10, "10", "분노의 질주: 라이드 오어 다이")
-    )
 
     fun onBackButtonClick() {
         _backButtonClickEvent.value = Event(Unit)
@@ -53,11 +40,21 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
 
     @Suppress("SpreadOperator")
     fun initSearchScreen() {
-        _screenList.value = listOf(
-            SearchScreenModel.SeenViewItem,
-            SearchScreenModel.TrendViewItem,
-            *searchTrendList.map { SearchScreenModel.TrendContentItem(it) }.toTypedArray()
-        )
+        // exceptionHandler 구현 필요
+
+        viewModelScope.launch {
+            searchHotList.value = searchService.getHotContentList()
+            val updatedList = searchHotList.value?.mapIndexed { index, item ->
+                item.copy(rank = index + 1)
+            }
+            searchHotList.value = updatedList ?: emptyList()
+
+            _screenList.value = listOf(
+                SearchScreenModel.SeenViewItem,
+                SearchScreenModel.TrendViewItem,
+                *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
+            )
+        }
     }
 
     fun loadSearchingTitle() {
@@ -65,7 +62,7 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
 
         viewModelScope.launch {
             if (keyword.value?.isNotEmpty() == true) {
-                searchingTitleList.value = searchService.getSearchedTitleList(keyword.value ?: "")
+                searchingTitleList.value = searchService.getSearchingTitleList(keyword.value ?: "")
                 changeScreenWhenSearching()
                 return@launch
             }

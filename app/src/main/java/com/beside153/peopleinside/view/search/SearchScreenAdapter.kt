@@ -13,14 +13,14 @@ import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
-import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
-    private val onSearchTrendItemClick: (item: SearchTrendItem) -> Unit
+    private val onSearchHotItemClick: (item: SearchHotModel) -> Unit
 ) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
 
@@ -31,7 +31,7 @@ class SearchScreenAdapter(
             is SearchScreenModel.NoResultView -> R.layout.item_search_no_result
             is SearchScreenModel.SeenViewItem -> R.layout.item_search_seen_content
             is SearchScreenModel.TrendViewItem -> R.layout.item_search_trend_content
-            is SearchScreenModel.TrendContentItem -> R.layout.item_search_trend_content_list
+            is SearchScreenModel.SearchHotItem -> R.layout.item_search_trend_content_list
         }
     }
 
@@ -79,8 +79,8 @@ class SearchScreenAdapter(
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onSearchTrendItemClick(
-                            (getItem(position) as SearchScreenModel.TrendContentItem).searchTrendItem
+                        onSearchHotItemClick(
+                            (getItem(position) as SearchScreenModel.SearchHotItem).searchHotItem
                         )
                     }
                 }
@@ -102,7 +102,7 @@ class SearchScreenAdapter(
             is ViewHolder.NoResultViewHolder -> holder.bind()
             is ViewHolder.SeenViewHolder -> holder.bind()
             is ViewHolder.TrendViewHolder -> holder.bind()
-            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.TrendContentItem)
+            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.SearchHotItem)
         }
     }
 
@@ -142,8 +142,8 @@ class SearchScreenAdapter(
         }
 
         class TrenListViewHolder(private val binding: ItemSearchTrendContentListBinding) : ViewHolder(binding.root) {
-            fun bind(item: SearchScreenModel.TrendContentItem) {
-                binding.item = item.searchTrendItem
+            fun bind(item: SearchScreenModel.SearchHotItem) {
+                binding.item = item.searchHotItem
             }
         }
     }
@@ -154,7 +154,7 @@ class SearchScreenAdapter(
         object NoResultView : SearchScreenModel()
         object SeenViewItem : SearchScreenModel()
         object TrendViewItem : SearchScreenModel()
-        data class TrendContentItem(val searchTrendItem: SearchTrendItem) : SearchScreenModel()
+        data class SearchHotItem(val searchHotItem: SearchHotModel) : SearchScreenModel()
     }
 }
 
@@ -170,8 +170,8 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
             oldItem is SearchScreenModel.NoResultView && newItem is SearchScreenModel.NoResultView -> true
             oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
             oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
-            oldItem is SearchScreenModel.TrendContentItem && newItem is SearchScreenModel.TrendContentItem ->
-                oldItem.searchTrendItem.id == newItem.searchTrendItem.id
+            oldItem is SearchScreenModel.SearchHotItem && newItem is SearchScreenModel.SearchHotItem ->
+                oldItem.searchHotItem.id == newItem.searchHotItem.id
 
             else -> false
         }

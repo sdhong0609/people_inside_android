@@ -17,7 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
-import com.beside153.peopleinside.model.search.SearchTrendItem
+import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
@@ -34,7 +34,7 @@ class SearchFragment : Fragment() {
             }
         }
     )
-    private val searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchTrendItemClick)
+    private val searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchHotItemClick)
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreateView(
@@ -105,7 +105,7 @@ class SearchFragment : Fragment() {
         searchViewModel.onSearchingTitleItemClick(item)
     }
 
-    private fun onSearchTrendItemClick(item: SearchTrendItem) {
-        Toast.makeText(requireActivity(), item.contentTitle, Toast.LENGTH_SHORT).show()
+    private fun onSearchHotItemClick(item: SearchHotModel) {
+        Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
     }
 }
