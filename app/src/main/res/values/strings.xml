@@ -2,7 +2,7 @@
     <!-- Common String -->
     <string name="app_name">피플인사이드</string>
     <string name="total_rating">전체 %.1f점</string>
-    <string name="mbti_rating">ESFJ %.1f점</string>
+    <string name="mbti_rating">%s %.1f점</string>
     <string name="total">전체</string>
     <string name="movie">영화</string>
     <string name="drama">드라마</string>

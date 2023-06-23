@@ -38,55 +38,93 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
             android:background="@drawable/background_card_shadow"
+            android:minHeight="116dp"
+            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/mbtiIconImageView"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="19dp"
-                android:contentDescription="@string/mbti_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
-                tools:src="@drawable/istj_circle_img" />
-
-            <TextView
-                android:id="@+id/mbtiNicknameTextView"
-                style="@style/textStyleBoldBlack"
-                android:layout_width="200dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mbtiLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
-                tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/mbtiIconImageView"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                    tools:src="@drawable/istj_circle_img" />
+
+                <TextView
+                    android:id="@+id/mbtiRatingTextView"
+                    style="@style/textStyleMediumWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:background="@drawable/background_mbti_rating"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="5dp"
+                    android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
+                    android:textSize="12sp"
+                    app:drawableStartCompat="@drawable/ic_clap_hands"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="ESFJ 4.5점" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/likeCountTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiHeartImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                    tools:src="@drawable/mbti_heart_icon_enfj" />
+
+                <TextView
+                    android:id="@+id/likeCountTextView"
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="245" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 style="@style/textStyleMediumBlack333333"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..."
+                android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
-                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
+                app:layout_constraintStart_toStartOf="@id/mbtiLayout"
+                app:layout_constraintTop_toBottomOf="@id/mbtiLayout"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

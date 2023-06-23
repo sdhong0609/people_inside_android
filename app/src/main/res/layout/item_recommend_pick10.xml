@@ -90,7 +90,7 @@
             android:gravity="center"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
-            android:text="@{@string/mbti_rating(item.mbtiRating)}"
+            android:text='@{@string/mbti_rating("ESFJ", item.mbtiRating)}'
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
