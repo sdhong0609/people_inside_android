@@ -3,16 +3,23 @@ package com.beside153.peopleinside.viewmodel.contentdetail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
+import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class ContentDetailViewModel(private val contentDetailService: ContentDetailService) : ViewModel() {
+class ContentDetailViewModel(
+    private val contentDetailService: ContentDetailService,
+    private val bookmarkService: BookmarkService
+) : ViewModel() {
     private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
@@ -37,9 +44,11 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
         viewModelScope.launch {
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val reviewListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
+            val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             reviewList.value = reviewListDeferred.await()
+            bookmarkStatusDeferred.await()
 
             @Suppress("SpreadOperator")
             _screenList.value = listOf(
@@ -51,6 +60,20 @@ class ContentDetailViewModel(private val contentDetailService: ContentDetailServ
                     ?: emptyArray()
             )
             if (didClickComment) _scrollEvent.value = Event(Unit)
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                val contentDetailService = RetrofitClient.contentDetailService
+                val bookmarkService = RetrofitClient.bookmarkService
+                return ContentDetailViewModel(contentDetailService, bookmarkService) as T
+            }
         }
     }
 }

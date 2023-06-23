@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.common
+package com.beside153.peopleinside.model.bookmark
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
