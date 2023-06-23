@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
-                app:posterUrl='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.posterPath : ""}'
+                app:posterUrl='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.posterPath : ""}'
                 tools:src="@drawable/img_sample_poster" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -64,7 +64,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                    app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
                     tools:src="@drawable/istj_circle_img" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -85,10 +85,10 @@
                         android:gravity="center"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="5dp"
-                        android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
+                        android:text="@{@string/mbti_rating(viewModel.tvBattleItem.topMbtiRating.mbti, viewModel.tvBattleItem.topMbtiRating.ratingAvg)}"
                         android:textSize="12sp"
                         app:drawableStartCompat="@drawable/ic_clap_hands"
-                        app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                        app:mbtiBackground='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
                         tools:text="ESFJ 4.5점" />
 
@@ -102,7 +102,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/likeCountTextView"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiHeartImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                    app:mbtiHeartImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
                     tools:src="@drawable/mbti_heart_icon_enfj" />
 
                 <TextView
@@ -110,7 +110,7 @@
                     style="@style/textStyleMediumBlack"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:text="@{Integer.toString(viewModel.tvBattleItem.topMbtiRating.reviewLikeCount)}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
+                android:text="@{viewModel.tvBattleItem.topMbtiRating.reviewContent}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -165,7 +165,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
+                    app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
                     tools:src="@drawable/istj_circle_img" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -186,10 +186,10 @@
                         android:gravity="center"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="5dp"
-                        android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
+                        android:text="@{@string/mbti_rating(viewModel.tvBattleItem.bottomMbtiRating.mbti, viewModel.tvBattleItem.bottomMbtiRating.ratingAvg)}"
                         android:textSize="12sp"
                         app:drawableStartCompat="@drawable/ic_clap_hands"
-                        app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                        app:mbtiBackground='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
                         tools:text="ESFJ 4.5점" />
 
@@ -203,7 +203,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/likeCountTextView2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiHeartImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                    app:mbtiHeartImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
                     tools:src="@drawable/mbti_heart_icon_enfj" />
 
                 <TextView
@@ -211,7 +211,7 @@
                     style="@style/textStyleMediumBlack"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:text="@{Integer.toString(viewModel.tvBattleItem.topMbtiRating.reviewLikeCount)}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +228,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
+                android:text="@{viewModel.tvBattleItem.topMbtiRating.reviewContent}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

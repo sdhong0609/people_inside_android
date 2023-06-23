@@ -57,15 +57,16 @@
                     android:textSize="20sp" />
 
                 <include
-                    android:id="@+id/movieBattleLayout"
-                    layout="@layout/layout_recommend_mbti_battle_movie"
+                    layout="@layout/layout_recommend_battle_movie"
                     bind:viewModel="@{viewModel}" />
 
                 <Space
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
-                <include layout="@layout/layout_recommend_mbti_battle_movie" />
+                <include
+                    layout="@layout/layout_recommend_battle_tv"
+                    bind:viewModel="@{viewModel}" />
 
                 <Space
                     android:layout_width="match_parent"
