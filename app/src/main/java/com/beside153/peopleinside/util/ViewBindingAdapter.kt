@@ -19,8 +19,8 @@ fun ImageView.posterUrl(url: String) {
         .into(this)
 }
 
-@BindingAdapter("mbtiImg")
-fun ImageView.mbtiImg(@DrawableRes imgRes: Int) {
+@BindingAdapter("setImgRes")
+fun ImageView.setImgRes(@DrawableRes imgRes: Int) {
     this.setImageResource(imgRes)
 }
 

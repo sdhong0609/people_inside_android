@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:mbtiImg="@{item.imgId}"
+            app:setImgRes="@{item.imgId}"
             tools:src="@drawable/mbti_large_img_infp" />
 
         <TextView

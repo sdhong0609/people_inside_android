@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
-                app:posterUrl='@{viewModel.movieBattleItem.posterPath != null ? viewModel.movieBattleItem.posterPath : ""}'
+                app:posterUrl='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.posterPath : ""}'
                 tools:src="@drawable/img_sample_poster" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -53,9 +53,10 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="19dp"
                 android:contentDescription="@string/mbti_icon"
-                android:src="@drawable/istj_circle_img"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                tools:src="@drawable/istj_circle_img" />
 
             <TextView
                 android:id="@+id/mbtiNicknameTextView"
@@ -107,9 +108,10 @@
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="19dp"
                 android:contentDescription="@string/mbti_icon"
-                android:src="@drawable/istj_circle_img"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
+                tools:src="@drawable/istj_circle_img" />
 
             <TextView
                 android:id="@+id/mbtiNicknameTextView2"
