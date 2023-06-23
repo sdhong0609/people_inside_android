@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
@@ -88,7 +87,6 @@ class RecommendFragment : Fragment() {
             layoutManager = object : LinearLayoutManager(requireActivity()) {
                 override fun canScrollVertically(): Boolean = false
             }
-            addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
         }
 
         binding.subRankingArrowImageView.setOnClickListener {
