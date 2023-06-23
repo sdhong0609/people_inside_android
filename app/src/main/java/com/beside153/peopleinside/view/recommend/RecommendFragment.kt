@@ -52,7 +52,7 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
-        recommendViewModel.loadPick10List()
+        recommendViewModel.initAllData()
 
         recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
             pagerAdapter.submitList(list)
@@ -141,7 +141,7 @@ class RecommendFragment : Fragment() {
     }
 
     private fun onRefreshClick() {
-        recommendViewModel.loadPick10List()
+        recommendViewModel.initAllData()
     }
 
     private fun onRankingItemClick(item: RankingItem) {

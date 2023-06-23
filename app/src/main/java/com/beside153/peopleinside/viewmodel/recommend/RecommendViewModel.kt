@@ -7,16 +7,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.model.recommend.Pick10Model
+import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class RecommendViewModel(private val recommendService: RecommendService, private val bookmarkService: BookmarkService) :
     ViewModel() {
     private val pick10List = MutableLiveData<List<Pick10Model>>()
+
+    private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
+    val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
+
+    private val _tvBattleItem = MutableLiveData<RatingBattleModel>()
+    val tvBattleItem: LiveData<RatingBattleModel> get() = _tvBattleItem
 
     private val _viewPagerList = MutableLiveData<List<Pick10ViewPagerModel>>()
     val viewPagerList: LiveData<List<Pick10ViewPagerModel>> get() = _viewPagerList
@@ -27,11 +35,17 @@ class RecommendViewModel(private val recommendService: RecommendService, private
     private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
     val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
 
-    fun loadPick10List() {
+    fun initAllData() {
         // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
-            pick10List.value = recommendService.getPick10List()
+            val pick10ListDeferred = async { recommendService.getPick10List() }
+            val movieBattleItemDeferred = async { recommendService.getRatingBattleItem("movie") }
+            val tvBattleItemDeferred = async { recommendService.getRatingBattleItem("tv") }
+
+            pick10List.value = pick10ListDeferred.await()
+            _movieBattleItem.value = movieBattleItemDeferred.await()
+            _tvBattleItem.value = tvBattleItemDeferred.await()
 
             _viewPagerList.value = viewPagerList()
         }
