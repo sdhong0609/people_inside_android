@@ -14,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.recommend.RecommendFragment">
+        tools:context=".view.recommend.RecommendFragment"
+        tools:layout_marginTop="-1500dp">
 
         <include
             android:id="@+id/recommendAppBar"
@@ -110,45 +111,96 @@
 
                 </LinearLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:background="@drawable/background_battle_rating"
-                    android:padding="4dp">
+                    android:padding="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/genderTextView">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="42dp"
-                        app:tabBackground="@drawable/bg_recommend_tab_layout"
-                        app:tabIndicatorHeight="0dp"
-                        app:tabTextAppearance="@style/textStyleTabLayout"
-                        app:tabTextColor="@color/recommend_tab_text_color">
+                    <TextView
+                        android:id="@+id/totalTextView"
+                        style="@style/textStyleBoldGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/all)}"
+                        android:paddingVertical="7dp"
+                        android:text="@string/all_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/movieTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/all)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/all)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/total" />
+                    <TextView
+                        android:id="@+id/movieTextView"
+                        style="@style/textStyleBoldGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/movie)}"
+                        android:paddingVertical="7dp"
+                        android:text="@string/movie_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/dramaTextView"
+                        app:layout_constraintStart_toEndOf="@id/totalTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/movie)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/movie)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/movie" />
+                    <TextView
+                        android:id="@+id/dramaTextView"
+                        style="@style/textStyleBoldGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/tv_english)}"
+                        android:paddingVertical="7dp"
+                        android:text="@string/drama_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/movieTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/tv_english)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/tv_english)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/drama" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </com.google.android.material.tabs.TabLayout>
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/subRankingRecyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_recommend_sub_ranking" />
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/subRankingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isVisible="@{!viewModel.subRankingProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_recommend_sub_ranking" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/black"
+                        app:isVisible="@{viewModel.subRankingProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

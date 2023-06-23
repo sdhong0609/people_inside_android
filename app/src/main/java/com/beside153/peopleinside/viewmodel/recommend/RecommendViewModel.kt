@@ -45,6 +45,12 @@ class RecommendViewModel(
     private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
     val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
 
+    private val _subRankingProgressBarVisible = MutableLiveData(false)
+    val subRankingProgressBarVisible: LiveData<Boolean> get() = _subRankingProgressBarVisible
+
+    private val _selectedTab = MutableLiveData("all")
+    val selectedTab: LiveData<String> get() = _selectedTab
+
     fun initAllData() {
         // 로딩 및 ExceptionHandler 구현 필요
 
@@ -91,6 +97,28 @@ class RecommendViewModel(
 
     fun onTopReviewClick(item: Pick10Model) {
         _topReviewClickEvent.value = Event(item)
+    }
+
+    private fun onSubRankingTabClick() {
+        _subRankingProgressBarVisible.value = true
+
+        viewModelScope.launch {
+            val subrankingListDeferred =
+                async { recommendService.getSubRankingItem(_selectedTab.value ?: "all", MAX_TAKE) }
+            _subRankingList.value = subrankingListDeferred.await()
+
+            val updatedList = _subRankingList.value?.mapIndexed { index, item ->
+                item.copy(rank = index + 1)
+            }
+            _subRankingList.value = updatedList ?: emptyList()
+
+            _subRankingProgressBarVisible.value = false
+        }
+    }
+
+    fun setSelectedTab(tab: String) {
+        _selectedTab.value = tab
+        onSubRankingTabClick()
     }
 
     companion object {

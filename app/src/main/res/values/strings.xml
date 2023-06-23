@@ -3,9 +3,11 @@
     <string name="app_name">피플인사이드</string>
     <string name="total_rating">전체 %.1f점</string>
     <string name="mbti_rating">%s %.1f점</string>
-    <string name="total">전체</string>
-    <string name="movie">영화</string>
-    <string name="drama">드라마</string>
+    <string name="all">all</string>
+    <string name="movie">movie</string>
+    <string name="all_korean">전체</string>
+    <string name="movie_korean">영화</string>
+    <string name="drama_korean">드라마</string>
     <string name="tv_english">tv</string>
     <string name="movie_english">movie</string>
     <string name="mbti_and_nickname">%s / %s</string>
