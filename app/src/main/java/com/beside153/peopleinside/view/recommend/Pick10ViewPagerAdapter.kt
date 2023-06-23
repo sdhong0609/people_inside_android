@@ -14,7 +14,8 @@ import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10Vi
 
 class Pick10ViewPagerAdapter(
     private val onPick10ItemClick: (item: Pick10Model) -> Unit,
-    private val onTopCommentClick: (item: Pick10Model) -> Unit,
+    private val onTopReviewClick: (item: Pick10Model) -> Unit,
+    private val onBookmarkClick: (item: Pick10Model) -> Unit,
     private val onRefreshClick: () -> Unit
 ) :
     ListAdapter<Pick10ViewPagerModel, Pick10ViewPagerAdapter.ViewHolder>(Pick10ViewPagerModelDiffCallback()) {
@@ -42,7 +43,13 @@ class Pick10ViewPagerAdapter(
                 binding.mainCommentLayout.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onTopCommentClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
+                        onTopReviewClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
+                    }
+                }
+                binding.bookmarkImageView.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onBookmarkClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
                     }
                 }
                 viewHolder

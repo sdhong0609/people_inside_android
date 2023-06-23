@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -17,7 +15,6 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.model.recommend.Pick10Model
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -26,17 +23,10 @@ import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 
 class RecommendFragment : Fragment() {
     private lateinit var binding: FragmentRecommendBinding
-    private val recommendViewModel: RecommendViewModel by viewModels(
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return RecommendViewModel(RetrofitClient.recommendService) as T
-                }
-            }
-        }
-    )
+    private val recommendViewModel: RecommendViewModel by viewModels { RecommendViewModel.Factory }
 
-    private val pagerAdapter = Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopCommentClick, ::onRefreshClick)
+    private val pagerAdapter =
+        Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopReviewClick, ::onBookmarkClick, ::onRefreshClick)
     private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
     private var scrollPosition: Int = 0
 
@@ -72,6 +62,14 @@ class RecommendFragment : Fragment() {
             viewLifecycleOwner,
             EventObserver { item ->
                 startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
+
+        recommendViewModel.topReviewClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { item ->
+                startActivity(ContentDetailActivity.newIntent(requireActivity(), true, item.contentId))
                 requireActivity().setOpenActivityAnimation()
             }
         )
@@ -134,9 +132,12 @@ class RecommendFragment : Fragment() {
         recommendViewModel.onPick10ItemClick(item)
     }
 
-    private fun onTopCommentClick(item: Pick10Model) {
-        startActivity(ContentDetailActivity.newIntent(requireActivity(), true, item.contentId))
-        requireActivity().setOpenActivityAnimation()
+    private fun onTopReviewClick(item: Pick10Model) {
+        recommendViewModel.onTopReviewClick(item)
+    }
+
+    private fun onBookmarkClick(item: Pick10Model) {
+        recommendViewModel.onBookmarkClick(item)
     }
 
     private fun onRefreshClick() {
