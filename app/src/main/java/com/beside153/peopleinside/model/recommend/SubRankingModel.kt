@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class SubRankingModel(
+    val rank: Int = 1,
     @SerialName("content_id") val contentId: Int,
     @SerialName("poster_path") val posterPath: String,
     @SerialName("title") val title: String,

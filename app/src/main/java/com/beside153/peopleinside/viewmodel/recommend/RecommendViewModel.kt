@@ -59,6 +59,11 @@ class RecommendViewModel(
             _tvBattleItem.value = tvBattleItemDeferred.await()
             _subRankingList.value = subrankingListDeferred.await()
 
+            val updatedList = _subRankingList.value?.mapIndexed { index, item ->
+                item.copy(rank = index + 1)
+            }
+            _subRankingList.value = updatedList ?: emptyList()
+
             _viewPagerList.value = viewPagerList()
             _progressBarVisible.value = false
         }
