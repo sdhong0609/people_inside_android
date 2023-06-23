@@ -1,6 +1,7 @@
 package com.beside153.peopleinside.util
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 
@@ -58,4 +59,32 @@ fun ImageView.mbtiHeartImg(mbti: String) {
     }
 
     setImageResource(imgRes)
+}
+
+@Suppress("CyclomaticComplexMethod")
+@BindingAdapter("mbtiBackground")
+fun TextView.mbtiBackground(mbti: String) {
+    val background = when (mbti) {
+        "ENFJ" -> R.drawable.ENFJ
+        "ENFP" -> R.drawable.ENFP
+        "ENTJ" -> R.drawable.ENTJ
+        "ENTP" -> R.drawable.ENTP
+        "ESFJ" -> R.drawable.ESFJ
+        "ESFP" -> R.drawable.ESFP
+        "ESTJ" -> R.drawable.ESTJ
+        "ESTP" -> R.drawable.ESTP
+
+        "INFJ" -> R.drawable.INFJ
+        "INFP" -> R.drawable.INFP
+        "INTJ" -> R.drawable.INTJ
+        "INTP" -> R.drawable.INTP
+        "ISFJ" -> R.drawable.ISFJ
+        "ISFP" -> R.drawable.ISFP
+        "ISTJ" -> R.drawable.ISTJ
+        "ISTP" -> R.drawable.ISTP
+
+        else -> R.drawable.ENFJ
+    }
+
+    setBackgroundResource(background)
 }

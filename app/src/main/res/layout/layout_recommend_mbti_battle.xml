@@ -67,24 +67,32 @@
                     app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                     tools:src="@drawable/istj_circle_img" />
 
-                <TextView
-                    android:id="@+id/mbtiRatingTextView"
-                    style="@style/textStyleMediumWhite"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:background="@drawable/background_mbti_rating"
-                    android:drawablePadding="4dp"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="5dp"
-                    android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
-                    android:textSize="12sp"
-                    app:drawableStartCompat="@drawable/ic_clap_hands"
+                    app:cardCornerRadius="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="ESFJ 4.5점" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/mbtiRatingTextView"
+                        style="@style/textStyleMediumWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="5dp"
+                        android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_clap_hands"
+                        app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                        tools:background="@drawable/ENFJ"
+                        tools:text="ESFJ 4.5점" />
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <ImageView
                     android:layout_width="22dp"
