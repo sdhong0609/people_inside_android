@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
-import com.beside153.peopleinside.model.RankingItem
 import com.beside153.peopleinside.model.recommend.Pick10Model
+import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -27,7 +27,7 @@ class RecommendFragment : Fragment() {
 
     private val pagerAdapter =
         Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopReviewClick, ::onBookmarkClick, ::onRefreshClick)
-    private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
+    private val rankingAdpater = RankingRecyclerViewAdapter(::onSubRankingItemClick)
     private var scrollPosition: Int = 0
 
     override fun onCreateView(
@@ -79,33 +79,9 @@ class RecommendFragment : Fragment() {
             }
         )
 
-        @Suppress("MagicNumber")
-        val rankingList = listOf(
-            RankingItem(
-                1,
-                "1",
-                "어느 날 우리 집 현관으로 멸망이 들어왔다.",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            ),
-            RankingItem(
-                2,
-                "2",
-                "그 해 우리는",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            ),
-            RankingItem(
-                3,
-                "3",
-                "브람스를 좋아하세요?",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            )
-        )
+        recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
+            rankingAdpater.submitList(list)
+        }
 
         binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
@@ -119,8 +95,6 @@ class RecommendFragment : Fragment() {
             startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
             requireActivity().setOpenActivityAnimation()
         }
-
-        rankingAdpater.submitList(rankingList)
     }
 
     override fun onResume() {
@@ -149,7 +123,7 @@ class RecommendFragment : Fragment() {
         recommendViewModel.initAllData()
     }
 
-    private fun onRankingItemClick(item: RankingItem) {
+    private fun onSubRankingItemClick(item: SubRankingModel) {
         Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
     }
 }

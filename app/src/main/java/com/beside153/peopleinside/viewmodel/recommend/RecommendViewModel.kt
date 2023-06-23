@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
+import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -38,6 +39,9 @@ class RecommendViewModel(
     private val _pick10ItemClickEvent = MutableLiveData<Event<Pick10Model>>()
     val pick10ItemClickEvent: LiveData<Event<Pick10Model>> get() = _pick10ItemClickEvent
 
+    private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
+    val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
+
     private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
     val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
 
@@ -48,10 +52,12 @@ class RecommendViewModel(
             val pick10ListDeferred = async { recommendService.getPick10List() }
             val movieBattleItemDeferred = async { recommendService.getRatingBattleItem("movie") }
             val tvBattleItemDeferred = async { recommendService.getRatingBattleItem("tv") }
+            val subrankingListDeferred = async { recommendService.getSubRankingItem("all", MAX_TAKE) }
 
             pick10List.value = pick10ListDeferred.await()
             _movieBattleItem.value = movieBattleItemDeferred.await()
             _tvBattleItem.value = tvBattleItemDeferred.await()
+            _subRankingList.value = subrankingListDeferred.await()
 
             _viewPagerList.value = viewPagerList()
             _progressBarVisible.value = false
@@ -94,5 +100,7 @@ class RecommendViewModel(
                 return RecommendViewModel(recommendService, bookmarkService) as T
             }
         }
+
+        private const val MAX_TAKE = 3
     }
 }
