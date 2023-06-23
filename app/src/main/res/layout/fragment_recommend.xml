@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +24,7 @@
             android:id="@+id/recommendScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:isVisible="@{!viewModel.progressBarVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +56,10 @@
                     android:text="@string/mbti_rating_battle_title"
                     android:textSize="20sp" />
 
-                <include layout="@layout/layout_recommend_mbti_battle" />
+                <include
+                    android:id="@+id/movieBattleLayout"
+                    layout="@layout/layout_recommend_mbti_battle"
+                    bind:viewModel="@{viewModel}" />
 
                 <Space
                     android:layout_width="match_parent"
@@ -145,6 +153,16 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/black"
+            app:isVisible="@{viewModel.progressBarVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

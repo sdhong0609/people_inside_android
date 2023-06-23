@@ -16,8 +16,14 @@ import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10Vi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class RecommendViewModel(private val recommendService: RecommendService, private val bookmarkService: BookmarkService) :
-    ViewModel() {
+class RecommendViewModel(
+    private val recommendService: RecommendService,
+    private val bookmarkService: BookmarkService
+) : ViewModel() {
+
+    private val _progressBarVisible = MutableLiveData(true)
+    val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
+
     private val pick10List = MutableLiveData<List<Pick10Model>>()
 
     private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
@@ -48,6 +54,7 @@ class RecommendViewModel(private val recommendService: RecommendService, private
             _tvBattleItem.value = tvBattleItemDeferred.await()
 
             _viewPagerList.value = viewPagerList()
+            _progressBarVisible.value = false
         }
     }
 

@@ -43,6 +43,11 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.apply {
+            viewModel = recommendViewModel
+            lifecycleOwner = this@RecommendFragment
+        }
+
         binding.layoutRecommendPick10.pick10ViewPager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
