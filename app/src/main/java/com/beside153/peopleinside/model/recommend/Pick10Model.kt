@@ -12,8 +12,8 @@ data class Pick10Model(
     @SerialName("title") val title: String,
     @SerialName("overview") val overview: String,
     @SerialName("poster_path") val posterPath: String,
-    @SerialName("total_rating") val totalRating: Double,
-    @SerialName("mbti_rating") val mbtiRating: Double,
+    @SerialName("total_rating") val totalRating: Double = 0.0,
+    @SerialName("mbti_rating") val mbtiRating: Double = 0.0,
     @SerialName("bookmarked") val bookmarked: Boolean,
     @SerialName("top_like_review") val topLikeReview: TopLikeReview? = null
 ) : Parcelable

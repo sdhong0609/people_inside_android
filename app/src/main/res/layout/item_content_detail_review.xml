@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.bookmark.BookmarkModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

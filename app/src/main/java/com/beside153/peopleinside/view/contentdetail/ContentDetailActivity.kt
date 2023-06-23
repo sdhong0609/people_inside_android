@@ -32,7 +32,7 @@ class ContentDetailActivity : AppCompatActivity() {
 
         addBackPressedCallback()
 
-        val contentId = intent.getIntExtra(CONTENT_ID, 0)
+        val contentId = intent.getIntExtra(CONTENT_ID, 1)
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         contentDetailViewModel.initAllData(contentId, didClickComment)
 

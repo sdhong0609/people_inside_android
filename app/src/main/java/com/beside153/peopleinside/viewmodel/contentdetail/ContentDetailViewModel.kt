@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.beside153.peopleinside.model.bookmark.BookmarkModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
@@ -28,6 +29,8 @@ class ContentDetailViewModel(
 
     private val reviewList = MutableLiveData<List<ContentReviewModel>>()
 
+    private val bookmarkItem = MutableLiveData<BookmarkModel>()
+
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
 
@@ -48,12 +51,12 @@ class ContentDetailViewModel(
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             reviewList.value = reviewListDeferred.await()
-            bookmarkStatusDeferred.await()
+            bookmarkItem.value = bookmarkStatusDeferred.await()
 
             @Suppress("SpreadOperator")
             _screenList.value = listOf(
                 ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
-                ContentDetailScreenModel.ReviewView,
+                ContentDetailScreenModel.ReviewView(bookmarkItem.value!!),
                 ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
                 ContentDetailScreenModel.CommentsView,
                 *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
