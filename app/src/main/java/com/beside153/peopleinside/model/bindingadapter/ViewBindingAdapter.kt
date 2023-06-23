@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.util
+package com.beside153.peopleinside.model.bindingadapter
 
 import android.view.View
 import android.widget.Button
@@ -38,6 +38,11 @@ fun View.isVisible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("isVisibleInVisible")
+fun View.isVisibleInVisible(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+}
+
 @BindingAdapter("userInfoTextColor")
 fun TextView.userInfoTextColor(isChosen: Boolean) {
     val textColor = if (isChosen) {
@@ -49,29 +54,6 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
         )
     }
     setTextColor(textColor)
-}
-
-@BindingAdapter("recommendTabTextColor")
-fun TextView.recommendTabTextColor(isChosen: Boolean) {
-    val textColor = if (isChosen) {
-        ContextCompat.getColor(context, R.color.white)
-    } else {
-        ContextCompat.getColor(
-            context,
-            R.color.gray_500
-        )
-    }
-    setTextColor(textColor)
-}
-
-@BindingAdapter("recommendTabBackground")
-fun TextView.recommendTabBackground(isChosen: Boolean) {
-    val background = if (isChosen) {
-        ContextCompat.getDrawable(context, R.drawable.bg_recommend_tab_layout)
-    } else {
-        null
-    }
-    setBackground(background)
 }
 
 @BindingAdapter("setGenderTextViewPlace")

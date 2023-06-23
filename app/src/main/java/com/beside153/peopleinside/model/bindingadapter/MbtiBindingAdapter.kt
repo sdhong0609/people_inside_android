@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.util
+package com.beside153.peopleinside.model.bindingadapter
 
 import android.widget.ImageView
 import android.widget.TextView
