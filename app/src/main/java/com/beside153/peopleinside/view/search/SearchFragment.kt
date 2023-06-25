@@ -90,10 +90,6 @@ class SearchFragment : Fragment() {
             }
         )
 
-        searchViewModel.keyword.observe(viewLifecycleOwner) {
-            searchViewModel.loadSearchingTitle()
-        }
-
         searchViewModel.hideKeyboard.observe(
             viewLifecycleOwner,
             EventObserver {

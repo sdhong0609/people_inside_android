@@ -1,5 +1,6 @@
 package com.beside153.peopleinside.viewmodel.search
 
+import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchService: SearchService) : ViewModel() {
 
-    val keyword = MutableLiveData("")
+    private val _keyword = MutableLiveData("")
+    val keyword: LiveData<String> get() = _keyword
 
     private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
     val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
@@ -30,12 +32,19 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
     private val _hideKeyboard = MutableLiveData<Event<Unit>>()
     val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
 
+    private var isSearching = false
+
+    fun afterKeywordTextChanged(editable: Editable?) {
+        _keyword.value = editable.toString()
+        loadSearchingTitle()
+    }
+
     fun onBackButtonClick() {
         _backButtonClickEvent.value = Event(Unit)
     }
 
     fun onSearchCancelClick() {
-        keyword.value = ""
+        _keyword.value = ""
     }
 
     @Suppress("SpreadOperator")
@@ -57,12 +66,17 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
         }
     }
 
-    fun loadSearchingTitle() {
+    private fun loadSearchingTitle() {
+        if (isSearching) {
+            isSearching = false
+            return
+        }
+
         // exceptionHandler 구현 필요
 
         viewModelScope.launch {
-            if (keyword.value?.isNotEmpty() == true) {
-                searchingTitleList.value = searchService.getSearchingTitleList(keyword.value ?: "")
+            if (_keyword.value?.isNotEmpty() == true) {
+                searchingTitleList.value = searchService.getSearchingTitleList(_keyword.value ?: "")
                 changeScreenWhenSearching()
                 return@launch
             }
@@ -76,8 +90,8 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
         }
 
         viewModelScope.launch(exceptionHandler) {
-            if (keyword.value?.isNotEmpty() == true) {
-                searchedContentList.value = searchService.getSearchedContentList(keyword.value ?: "", 1)
+            if (_keyword.value?.isNotEmpty() == true) {
+                searchedContentList.value = searchService.getSearchedContentList(_keyword.value ?: "", 1)
                 if ((searchedContentList.value ?: emptyList()).isEmpty()) {
                     changeScreenWhenNoResult()
                     return@launch
@@ -109,6 +123,8 @@ class SearchViewModel(private val searchService: SearchService) : ViewModel() {
     }
 
     fun onSearchingTitleItemClick(item: SearchingTitleModel) {
-        keyword.value = item.title
+        isSearching = true
+        _keyword.value = item.title
+        searchContentAction()
     }
 }

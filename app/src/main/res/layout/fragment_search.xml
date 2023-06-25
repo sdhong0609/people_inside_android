@@ -54,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="9"
+                        android:afterTextChanged="@{viewModel::afterKeywordTextChanged}"
                         android:background="@drawable/background_search_edittext"
                         android:hint="@string/search_bar_hint"
                         android:imeOptions="actionSearch"
@@ -61,7 +62,7 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingHorizontal="18dp"
-                        android:text="@={viewModel.keyword}"
+                        android:text="@{viewModel.keyword}"
                         android:textColorHint="@color/gray_400"
                         android:textSize="16sp" />
 
