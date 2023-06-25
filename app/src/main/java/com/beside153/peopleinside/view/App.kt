@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.beside153.peopleinside.util.PreferenceUtil
+import timber.log.Timber
 
 class App : Application() {
     companion object {
@@ -13,5 +14,6 @@ class App : Application() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        Timber.plant(Timber.DebugTree())
     }
 }
