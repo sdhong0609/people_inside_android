@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class PreferenceUtil(context: Context) {
+    val jwtTokenKey = "JWT_TOKEN"
+    val userIdKey = "USER_ID"
+
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
 
