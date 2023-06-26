@@ -97,10 +97,13 @@ class RecommendFragment : Fragment() {
             }
         }
 
-        binding.subRankingArrowImageView.setOnClickListener {
-            startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
-            requireActivity().setOpenActivityAnimation()
-        }
+        recommendViewModel.subRankingArrowClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
     }
 
     override fun onResume() {

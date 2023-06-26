@@ -54,6 +54,9 @@ class RecommendViewModel(
     private val _selectedTab = MutableLiveData("all")
     val selectedTab: LiveData<String> get() = _selectedTab
 
+    private val _subRankingArrowClickEvent = MutableLiveData<Event<Unit>>()
+    val subRankingArrowClickEvent: LiveData<Event<Unit>> get() = _subRankingArrowClickEvent
+
     fun initAllData() {
         // 로딩 및 ExceptionHandler 구현 필요
 
@@ -106,6 +109,15 @@ class RecommendViewModel(
         _battleItemClickEvent.value = Event(item)
     }
 
+    fun onSubRankingArrowClick() {
+        _subRankingArrowClickEvent.value = Event(Unit)
+    }
+
+    fun setSelectedTab(tab: String) {
+        _selectedTab.value = tab
+        onSubRankingTabClick()
+    }
+
     private fun onSubRankingTabClick() {
         _subRankingProgressBarVisible.value = true
 
@@ -121,11 +133,6 @@ class RecommendViewModel(
 
             _subRankingProgressBarVisible.value = false
         }
-    }
-
-    fun setSelectedTab(tab: String) {
-        _selectedTab.value = tab
-        onSubRankingTabClick()
     }
 
     companion object {

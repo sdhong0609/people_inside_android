@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.recommend.RecommendFragment"
-        tools:layout_marginTop="-1500dp">
+        tools:layout_marginTop="-1400dp">
 
         <include
             android:id="@+id/recommendAppBar"
@@ -73,43 +73,52 @@
                     android:layout_width="match_parent"
                     android:layout_height="44dp" />
 
-                <TextView
-                    style="@style/textStyleMediumBlack333333"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="15dp"
-                    android:text="치즈님과 같은 MBTI가 선택한"
-                    android:textColor="@color/gray_9B9FA2"
-                    android:textSize="12sp" />
-
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp">
 
                     <TextView
+                        android:id="@+id/subRankingSubtitleTextView"
+                        style="@style/textStyleRegularGray700"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="치즈님과 같은 MBTI가 선택한"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@id/subRankingSubtitleTextView"
+                        app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/subRankingTitleTextView"
                         style="@style/textStyleBoldBlack"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/same_mbti_ranking_title"
-                        android:textSize="20sp" />
-
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/subRankingSubtitleTextView" />
 
                     <ImageView
                         android:id="@+id/subRankingArrowImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sub_ranking_arrow"
-                        android:src="@drawable/ic_right_arrow" />
+                        android:onClick="@{() -> viewModel.onSubRankingArrowClick()}"
+                        android:src="@drawable/ic_right_arrow_48x48"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/subRankingTitleTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
