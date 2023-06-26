@@ -16,6 +16,7 @@
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/background_battle_rating"
         android:gravity="center_horizontal"
+        android:onClick="@{() -> viewModel.onBattleItemClick(viewModel.tvBattleItem)}"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView

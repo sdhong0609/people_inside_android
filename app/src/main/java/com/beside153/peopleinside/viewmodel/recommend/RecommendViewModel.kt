@@ -86,6 +86,21 @@ class RecommendViewModel(
 
         viewModelScope.launch {
             bookmarkService.postBookmarkStatus(item.contentId)
+
+            val updatedList = pick10List.value?.map {
+                if (item == it) {
+                    if (it.bookmarked) {
+                        it.copy(bookmarked = false)
+                    } else {
+                        it.copy(bookmarked = true)
+                    }
+                } else {
+                    it
+                }
+            }
+
+            pick10List.value = updatedList ?: emptyList()
+            _viewPagerList.value = viewPagerList()
         }
     }
 
