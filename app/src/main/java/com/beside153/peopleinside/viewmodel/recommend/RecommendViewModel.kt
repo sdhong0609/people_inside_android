@@ -27,23 +27,26 @@ class RecommendViewModel(
 
     private val pick10List = MutableLiveData<List<Pick10Model>>()
 
-    private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
-    val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
-
-    private val _tvBattleItem = MutableLiveData<RatingBattleModel>()
-    val tvBattleItem: LiveData<RatingBattleModel> get() = _tvBattleItem
-
     private val _viewPagerList = MutableLiveData<List<Pick10ViewPagerModel>>()
     val viewPagerList: LiveData<List<Pick10ViewPagerModel>> get() = _viewPagerList
 
     private val _pick10ItemClickEvent = MutableLiveData<Event<Pick10Model>>()
     val pick10ItemClickEvent: LiveData<Event<Pick10Model>> get() = _pick10ItemClickEvent
 
-    private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
-    val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
-
     private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
     val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
+
+    private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
+    val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
+
+    private val _tvBattleItem = MutableLiveData<RatingBattleModel>()
+    val tvBattleItem: LiveData<RatingBattleModel> get() = _tvBattleItem
+
+    private val _battleItemClickEvent = MutableLiveData<Event<RatingBattleModel>>()
+    val battleItemClickEvent: LiveData<Event<RatingBattleModel>> get() = _battleItemClickEvent
+
+    private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
+    val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
 
     private val _subRankingProgressBarVisible = MutableLiveData(false)
     val subRankingProgressBarVisible: LiveData<Boolean> get() = _subRankingProgressBarVisible
@@ -97,6 +100,10 @@ class RecommendViewModel(
 
     fun onTopReviewClick(item: Pick10Model) {
         _topReviewClickEvent.value = Event(item)
+    }
+
+    fun onBattleItemClick(item: RatingBattleModel) {
+        _battleItemClickEvent.value = Event(item)
     }
 
     private fun onSubRankingTabClick() {

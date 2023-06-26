@@ -16,6 +16,7 @@
         android:layout_marginHorizontal="16dp"
         android:background="@drawable/background_battle_rating"
         android:gravity="center_horizontal"
+        android:onClick="@{() -> viewModel.onBattleItemClick(viewModel.movieBattleItem)}"
         android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
@@ -211,7 +212,7 @@
                     style="@style/textStyleMediumBlack"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:text="@{Integer.toString(viewModel.movieBattleItem.bottomMbtiRating.reviewLikeCount)}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +229,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
+                android:text="@{viewModel.movieBattleItem.bottomMbtiRating.reviewContent}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
