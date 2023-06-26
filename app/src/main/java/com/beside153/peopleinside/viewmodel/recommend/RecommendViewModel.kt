@@ -36,6 +36,9 @@ class RecommendViewModel(
     private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
     val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
 
+    private val _pick10ProgressBarVisible = MutableLiveData(false)
+    val pick10ProgressBarVisible: LiveData<Boolean> get() = _pick10ProgressBarVisible
+
     private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
     val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
 
@@ -85,8 +88,10 @@ class RecommendViewModel(
 
     fun refreshPick10List() {
         viewModelScope.launch {
+            _pick10ProgressBarVisible.value = true
             pick10List.value = recommendService.getPick10List(++pageCount)
             _viewPagerList.value = viewPagerList()
+            _pick10ProgressBarVisible.value = false
         }
     }
 

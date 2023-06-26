@@ -47,7 +47,7 @@ class RecommendFragment : Fragment() {
             lifecycleOwner = this@RecommendFragment
         }
 
-        binding.layoutRecommendPick10.pick10ViewPager.apply {
+        binding.pick10ViewPager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
             adapter = pagerAdapter
@@ -67,7 +67,7 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
             pagerAdapter.submitList(list)
-            binding.layoutRecommendPick10.pick10ViewPager.currentItem = 0
+            binding.pick10ViewPager.currentItem = 0
         }
 
         recommendViewModel.pick10ItemClickEvent.observe(

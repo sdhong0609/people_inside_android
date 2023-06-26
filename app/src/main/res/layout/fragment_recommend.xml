@@ -36,9 +36,46 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include
-                    android:id="@+id/layoutRecommendPick10"
-                    layout="@layout/layout_recommend_pick10" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/pick10TextView"
+                        style="@style/textStyleBoldBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="15.72dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/pick10_title"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pick10ViewPager"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        app:isVisibleInVisible="@{!viewModel.pick10ProgressBarVisible}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pick10TextView" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/black"
+                        app:isVisible="@{viewModel.pick10ProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pick10TextView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
