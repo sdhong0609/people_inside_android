@@ -35,7 +35,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp">
+                    android:paddingStart="16dp"
+                    android:paddingEnd="3dp">
 
                     <TextView
                         android:id="@+id/nickNameTextView"
@@ -44,13 +45,14 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/changwondangamasac_bold"
                         android:maxLines="1"
-                        android:text="ISTJ 피즈강아아 피즈강아아"
+                        android:text="@{@string/mbti_nickname(viewModel.userInfo.mbti, viewModel.userInfo.nickName)}"
                         android:textColor="@color/black"
                         android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/mbtiImageView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="ISTJ 피즈강아아 피즈강아아" />
 
                     <!--                <ImageView-->
                     <!--                    android:id="@+id/notificationImageView"-->
@@ -62,14 +64,17 @@
 
                     <ImageView
                         android:id="@+id/mbtiImageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_gravity="end"
                         android:contentDescription="@string/mbti_icon"
-                        android:src="@drawable/istj_main_img"
+                        android:padding="12dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@id/nickNameTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:mbtiLargeImg='@{viewModel.userInfo != null ? viewModel.userInfo.mbti : ""}'
+                        tools:src="@drawable/mbti_large_img_infp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

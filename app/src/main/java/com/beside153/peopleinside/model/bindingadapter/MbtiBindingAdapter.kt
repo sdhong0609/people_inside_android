@@ -6,6 +6,34 @@ import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 
 @Suppress("CyclomaticComplexMethod")
+@BindingAdapter("mbtiLargeImg")
+fun ImageView.mbtiLargeImg(mbti: String) {
+    val imgRes = when (mbti) {
+        "ENFJ" -> R.drawable.mbti_large_img_enfj
+        "ENFP" -> R.drawable.mbti_large_img_enfp
+        "ENTJ" -> R.drawable.mbti_large_img_entj
+        "ENTP" -> R.drawable.mbti_large_img_entp
+        "ESFJ" -> R.drawable.mbti_large_img_esfj
+        "ESFP" -> R.drawable.mbti_large_img_esfp
+        "ESTJ" -> R.drawable.mbti_large_img_estj
+        "ESTP" -> R.drawable.mbti_large_img_estp
+
+        "INFJ" -> R.drawable.mbti_large_img_infj
+        "INFP" -> R.drawable.mbti_large_img_infp
+        "INTJ" -> R.drawable.mbti_large_img_intj
+        "INTP" -> R.drawable.mbti_large_img_intp
+        "ISFJ" -> R.drawable.mbti_large_img_isfj
+        "ISFP" -> R.drawable.mbti_large_img_isfp
+        "ISTJ" -> R.drawable.mbti_large_img_istj
+        "ISTP" -> R.drawable.mbti_large_img_istp
+
+        else -> R.drawable.mbti_large_img_enfj
+    }
+
+    setImageResource(imgRes)
+}
+
+@Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiCircleImg")
 fun ImageView.mbtiCircleImg(mbti: String) {
     val imgRes = when (mbti) {
