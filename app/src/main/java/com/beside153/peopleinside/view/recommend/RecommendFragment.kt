@@ -56,10 +56,18 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
+        binding.subRankingRecyclerView.apply {
+            adapter = rankingAdpater
+            layoutManager = object : LinearLayoutManager(requireActivity()) {
+                override fun canScrollVertically(): Boolean = false
+            }
+        }
+
         recommendViewModel.initAllData()
 
         recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
             pagerAdapter.submitList(list)
+            binding.layoutRecommendPick10.pick10ViewPager.currentItem = 0
         }
 
         recommendViewModel.pick10ItemClickEvent.observe(
@@ -88,13 +96,6 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
             rankingAdpater.submitList(list)
-        }
-
-        binding.subRankingRecyclerView.apply {
-            adapter = rankingAdpater
-            layoutManager = object : LinearLayoutManager(requireActivity()) {
-                override fun canScrollVertically(): Boolean = false
-            }
         }
 
         recommendViewModel.subRankingArrowClickEvent.observe(
@@ -129,7 +130,7 @@ class RecommendFragment : Fragment() {
     }
 
     private fun onRefreshClick() {
-        recommendViewModel.initAllData()
+        recommendViewModel.refreshPick10List()
     }
 
     private fun onSubRankingItemClick(item: SubRankingModel) {

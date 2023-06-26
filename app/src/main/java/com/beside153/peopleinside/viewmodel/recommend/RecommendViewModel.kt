@@ -57,11 +57,13 @@ class RecommendViewModel(
     private val _subRankingArrowClickEvent = MutableLiveData<Event<Unit>>()
     val subRankingArrowClickEvent: LiveData<Event<Unit>> get() = _subRankingArrowClickEvent
 
+    private var pageCount = 1
+
     fun initAllData() {
         // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
-            val pick10ListDeferred = async { recommendService.getPick10List() }
+            val pick10ListDeferred = async { recommendService.getPick10List(pageCount) }
             val movieBattleItemDeferred = async { recommendService.getRatingBattleItem("movie") }
             val tvBattleItemDeferred = async { recommendService.getRatingBattleItem("tv") }
             val subrankingListDeferred = async { recommendService.getSubRankingItem("all", MAX_TAKE) }
@@ -78,6 +80,13 @@ class RecommendViewModel(
 
             _viewPagerList.value = viewPagerList()
             _progressBarVisible.value = false
+        }
+    }
+
+    fun refreshPick10List() {
+        viewModelScope.launch {
+            pick10List.value = recommendService.getPick10List(++pageCount)
+            _viewPagerList.value = viewPagerList()
         }
     }
 
