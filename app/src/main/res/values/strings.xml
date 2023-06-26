@@ -88,10 +88,11 @@
     <!-- 추천 화면 -->
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
-    <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
     <string name="could_you_review_first">첫번째로 감상을 남겨보시겠어요?</string>
     <string name="recommend_refresh">새로 추천받기</string>
     <string name="mbti_nickname">%s %s</string>
+    <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
+    <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
 
     <!-- 작품 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>

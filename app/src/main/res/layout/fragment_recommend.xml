@@ -185,24 +185,26 @@
                         style="@style/textStyleRegularGray700"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="치즈님과 같은 MBTI가 선택한"
+                        android:text="@{@string/sub_ranking_subtitle(viewModel.userInfo.nickName)}"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toTopOf="@id/subRankingSubtitleTextView"
                         app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="치즈님과 같은 MBTI가 선택한" />
 
                     <TextView
                         android:id="@+id/subRankingTitleTextView"
                         style="@style/textStyleBoldBlack"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/same_mbti_ranking_title"
+                        android:text="@{@string/sub_ranking_title(viewModel.userInfo.mbti)}"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/subRankingSubtitleTextView" />
+                        app:layout_constraintTop_toBottomOf="@id/subRankingSubtitleTextView"
+                        tools:text="ESFJ핍사이더들의 선택" />
 
                     <ImageView
                         android:id="@+id/subRankingArrowImageView"
