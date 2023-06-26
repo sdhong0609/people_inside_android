@@ -1,7 +1,6 @@
 package com.beside153.peopleinside.view.login
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
@@ -13,10 +12,10 @@ import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val tag = javaClass.simpleName
     private lateinit var kakaoApi: UserApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,14 +32,14 @@ class LoginActivity : AppCompatActivity() {
 
     private val didUserCancel: (error: Throwable) -> Boolean = { error ->
         error is ClientError && error.reason == ClientErrorCause.Cancelled ||
-            error is AuthError && error.msg == "User denied access"
+            error is AuthError && error.msg == "UserInfo denied access"
     }
 
     private fun onKakaoLoginClick() {
         if (kakaoApi.isKakaoTalkLoginAvailable(this)) {
             kakaoApi.loginWithKakaoTalk(this) { token, error ->
                 if (error != null) {
-                    Log.e(tag, "$error")
+                    Timber.e(error)
                     if (!didUserCancel(error)) {
                         showToast(R.string.kakaotalk_login_failed)
                         // 카카오 이메일 로그인
@@ -58,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val kakaoEmailLoginCallbak: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
-            Log.e(tag, "$error")
+            Timber.e(error)
             if (!didUserCancel(error)) {
                 showToast(R.string.kakao_email_login_failed)
             }
@@ -70,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getKakaoAccountInfo(authToken: String) {
         kakaoApi.me { user, error ->
             if (error != null) {
-                Log.e(tag, "$error")
+                Timber.e(error)
                 showToast(R.string.kakao_user_info_load_failed)
             } else if (user != null) {
                 startActivity(SignUpActivity.newIntent(this, authToken))

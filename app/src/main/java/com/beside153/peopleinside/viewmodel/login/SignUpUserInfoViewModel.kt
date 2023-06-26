@@ -99,8 +99,9 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
                 )
 
                 App.prefs.setString("JWT_TOKEN", response.jwtToken)
+                App.prefs.setInt("USER_ID", response.user.id)
+                _signUpButtonClickEvent.value = Event(Unit)
             }
-            _signUpButtonClickEvent.value = Event(Unit)
         }
     }
 

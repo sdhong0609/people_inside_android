@@ -7,7 +7,10 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class AuthRegisterResponse(
-    @SerialName("access_token") val jwtToken: String,
-    @SerialName("user") val user: UserInfo
+data class UserInfo(
+    @SerialName("id") val id: Int,
+    @SerialName("nickName") val nickName: String,
+    @SerialName("mbti") val mbti: String,
+    @SerialName("birth") val birth: String,
+    @SerialName("sex") val sex: String
 ) : Parcelable

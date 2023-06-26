@@ -12,12 +12,14 @@ import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class RecommendViewModel(
+    private val userService: UserService,
     private val recommendService: RecommendService,
     private val bookmarkService: BookmarkService
 ) : ViewModel() {
@@ -171,9 +173,10 @@ class RecommendViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
+                val userService = RetrofitClient.userService
                 val recommendService = RetrofitClient.recommendService
                 val bookmarkService = RetrofitClient.bookmarkService
-                return RecommendViewModel(recommendService, bookmarkService) as T
+                return RecommendViewModel(userService, recommendService, bookmarkService) as T
             }
         }
 
