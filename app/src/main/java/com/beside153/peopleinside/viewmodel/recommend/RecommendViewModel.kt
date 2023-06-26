@@ -85,10 +85,15 @@ class RecommendViewModel(
             _tvBattleItem.value = tvBattleItemDeferred.await()
             _subRankingList.value = subrankingListDeferred.await()
 
-            val updatedList = _subRankingList.value?.mapIndexed { index, item ->
+            val updatedPick10List = pick10List.value?.map {
+                it.copy(mbti = _userInfo.value?.mbti ?: "")
+            }
+            pick10List.value = updatedPick10List ?: emptyList()
+
+            val updatedSubRankingList = _subRankingList.value?.mapIndexed { index, item ->
                 item.copy(rank = index + 1)
             }
-            _subRankingList.value = updatedList ?: emptyList()
+            _subRankingList.value = updatedSubRankingList ?: emptyList()
 
             _viewPagerList.value = viewPagerList()
             _progressBarVisible.value = false
@@ -98,7 +103,13 @@ class RecommendViewModel(
     fun refreshPick10List() {
         viewModelScope.launch {
             _pick10ProgressBarVisible.value = true
+
             pick10List.value = recommendService.getPick10List(++pageCount)
+            val updatedPick10List = pick10List.value?.map {
+                it.copy(mbti = _userInfo.value?.mbti ?: "")
+            }
+            pick10List.value = updatedPick10List ?: emptyList()
+
             _viewPagerList.value = viewPagerList()
             _pick10ProgressBarVisible.value = false
         }
