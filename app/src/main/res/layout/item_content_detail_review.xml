@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="item"
-            type="com.beside153.peopleinside.model.bookmark.BookmarkModel" />
+            name="bookmarked"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,7 +63,8 @@
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
                     android:contentDescription="@string/bookmark_image"
-                    android:src="@drawable/ic_bookmark_empty_gray" />
+                    app:bookmarkImg="@{bookmarked}"
+                    tools:src="@drawable/ic_bookmark_empty_gray" />
 
                 <TextView
                     style="@style/textStyleBoldBlack"

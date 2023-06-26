@@ -1,6 +1,5 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.model.bookmark.BookmarkModel
 import com.beside153.peopleinside.model.bookmark.BookmarkToggleResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -11,5 +10,5 @@ interface BookmarkService {
     suspend fun postBookmarkStatus(@Path("contentId") contentId: Int): BookmarkToggleResponse
 
     @GET("/api/media-content/{contentId}/bookmark")
-    suspend fun getBookmarkStatus(@Path("contentId") contentId: Int): BookmarkModel
+    suspend fun getBookmarkStatus(@Path("contentId") contentId: Int): Boolean
 }
