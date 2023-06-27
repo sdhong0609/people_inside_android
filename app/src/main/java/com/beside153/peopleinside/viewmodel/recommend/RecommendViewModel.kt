@@ -17,6 +17,7 @@ import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10Vi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
+@Suppress("TooManyFunctions")
 class RecommendViewModel(
     private val recommendService: RecommendService,
     private val bookmarkService: BookmarkService
@@ -62,6 +63,9 @@ class RecommendViewModel(
 
     private val _subRankingArrowClickEvent = MutableLiveData<Event<String>>()
     val subRankingArrowClickEvent: LiveData<Event<String>> get() = _subRankingArrowClickEvent
+
+    private val _subRankingItemClickEvent = MutableLiveData<Event<SubRankingModel>>()
+    val subRankingItemClickEvent: LiveData<Event<SubRankingModel>> get() = _subRankingItemClickEvent
 
     private var pageCount = 1
 
@@ -144,6 +148,10 @@ class RecommendViewModel(
 
     fun onSubRankingArrowClick() {
         _subRankingArrowClickEvent.value = Event(_selectedTab.value ?: "all")
+    }
+
+    fun onSubRankingItemClick(item: SubRankingModel) {
+        _subRankingItemClickEvent.value = Event(item)
     }
 
     fun setSelectedTab(tab: String) {

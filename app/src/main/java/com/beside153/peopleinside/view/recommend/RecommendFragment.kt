@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -111,6 +110,14 @@ class RecommendFragment : Fragment() {
                 requireActivity().setOpenActivityAnimation()
             }
         )
+
+        recommendViewModel.subRankingItemClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { item ->
+                startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
     }
 
     override fun onResume() {
@@ -140,6 +147,6 @@ class RecommendFragment : Fragment() {
     }
 
     private fun onSubRankingItemClick(item: SubRankingModel) {
-        Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
+        recommendViewModel.onSubRankingItemClick(item)
     }
 }
