@@ -8,7 +8,6 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class Pick10Model(
-    val mbti: String = "",
     @SerialName("content_id") val contentId: Int,
     @SerialName("title") val title: String,
     @SerialName("overview") val overview: String,

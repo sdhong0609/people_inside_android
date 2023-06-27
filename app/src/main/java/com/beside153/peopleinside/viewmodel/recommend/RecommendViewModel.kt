@@ -6,28 +6,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
-import com.beside153.peopleinside.model.login.UserInfo
 import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
-import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.view.App
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class RecommendViewModel(
-    private val userService: UserService,
     private val recommendService: RecommendService,
     private val bookmarkService: BookmarkService
 ) : ViewModel() {
-
-    private val _userInfo = MutableLiveData<UserInfo>()
-    val userInfo: LiveData<UserInfo> get() = _userInfo
 
     private val _progressBarVisible = MutableLiveData(true)
     val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
@@ -76,22 +69,15 @@ class RecommendViewModel(
         // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
-            val userInfoDeferred = async { userService.getUserInfo(App.prefs.getInt(App.prefs.userIdKey)) }
             val pick10ListDeferred = async { recommendService.getPick10List(pageCount) }
             val movieBattleItemDeferred = async { recommendService.getRatingBattleItem("movie") }
             val tvBattleItemDeferred = async { recommendService.getRatingBattleItem("tv") }
             val subrankingListDeferred = async { recommendService.getSubRankingItem("all", MAX_TAKE) }
 
-            _userInfo.value = userInfoDeferred.await()
             pick10List.value = pick10ListDeferred.await()
             _movieBattleItem.value = movieBattleItemDeferred.await()
             _tvBattleItem.value = tvBattleItemDeferred.await()
             _subRankingList.value = subrankingListDeferred.await()
-
-            val updatedPick10List = pick10List.value?.map {
-                it.copy(mbti = _userInfo.value?.mbti ?: "")
-            }
-            pick10List.value = updatedPick10List ?: emptyList()
 
             val updatedSubRankingList = _subRankingList.value?.mapIndexed { index, item ->
                 item.copy(rank = index + 1)
@@ -106,13 +92,7 @@ class RecommendViewModel(
     fun refreshPick10List() {
         viewModelScope.launch {
             _pick10ProgressBarVisible.value = true
-
             pick10List.value = recommendService.getPick10List(++pageCount)
-            val updatedPick10List = pick10List.value?.map {
-                it.copy(mbti = _userInfo.value?.mbti ?: "")
-            }
-            pick10List.value = updatedPick10List ?: emptyList()
-
             _viewPagerList.value = viewPagerList()
             _pick10ProgressBarVisible.value = false
             _refreshPick10ClickEvent.value = Event(Unit)
@@ -195,10 +175,9 @@ class RecommendViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val userService = RetrofitClient.userService
                 val recommendService = RetrofitClient.recommendService
                 val bookmarkService = RetrofitClient.bookmarkService
-                return RecommendViewModel(userService, recommendService, bookmarkService) as T
+                return RecommendViewModel(recommendService, bookmarkService) as T
             }
         }
 

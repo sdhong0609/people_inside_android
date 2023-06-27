@@ -144,7 +144,7 @@
                 app:layout_constraintEnd_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:mbtiCircleImg="@{item.mbti}"
+                app:mbtiCircleImg="@{app.prefs.mbti}"
                 tools:src="@drawable/istj_circle_img" />
 
             <TextView
@@ -155,7 +155,7 @@
                 android:layout_marginStart="7dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs"
+                android:text="@{item.topLikeReview != null ? @string/mbti_nickname_slash(item.topLikeReview.writer.nickName, item.topLikeReview.writer.mbti) : @string/mbti_pipsider}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"

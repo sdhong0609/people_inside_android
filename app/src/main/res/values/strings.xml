@@ -91,6 +91,7 @@
     <string name="could_you_review_first">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
     <string name="recommend_refresh">새로 추천받기</string>
     <string name="mbti_nickname">%s %s</string>
+    <string name="mbti_nickname_slash">%s / %s</string>
     <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
     <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
     <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
