@@ -12,6 +12,14 @@
         <variable
             name="app"
             type="com.beside153.peopleinside.view.App" />
+
+        <variable
+            name="writer"
+            type="com.beside153.peopleinside.model.recommend.Writer" />
+
+        <variable
+            name="hasReview"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -155,7 +163,7 @@
                 android:layout_marginStart="7dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.topLikeReview != null ? @string/mbti_nickname_slash(item.topLikeReview.writer.nickName, item.topLikeReview.writer.mbti) : @string/mbti_pipsider}"
+                android:text="@{hasReview ? @string/mbti_nickname_slash(writer.nickName, writer.mbti) : @string/mbti_pipsider}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
@@ -169,7 +177,7 @@
                 android:layout_marginTop="9dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{item.topLikeReview != null ? item.topLikeReview.content : @string/could_you_review_first}"
+                android:text="@{hasReview ? item.topLikeReview.content : @string/could_you_review_first}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

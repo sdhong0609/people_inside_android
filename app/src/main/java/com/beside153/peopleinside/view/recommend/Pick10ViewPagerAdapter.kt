@@ -77,6 +77,8 @@ class Pick10ViewPagerAdapter(
 
             fun bind(item: Pick10ViewPagerModel.Pick10Item) {
                 binding.item = item.pick10Item
+                binding.writer = item.pick10Item.topLikeReview?.writer
+                binding.hasReview = item.pick10Item.topLikeReview != null
             }
         }
 
