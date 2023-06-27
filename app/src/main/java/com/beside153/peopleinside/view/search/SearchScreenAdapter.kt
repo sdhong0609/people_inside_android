@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemSearchNoResultBinding
+import com.beside153.peopleinside.databinding.ItemSearchNoViewLogBinding
 import com.beside153.peopleinside.databinding.ItemSearchSearchedContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
@@ -21,6 +22,7 @@ import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.HotView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoResultView
+import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoViewLogView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchHotItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchedContentItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchingTitleItem
@@ -39,6 +41,7 @@ class SearchScreenAdapter(
             is SearchedContentItem -> R.layout.item_search_searched_content
             is NoResultView -> R.layout.item_search_no_result
             is SeenView -> R.layout.item_search_seen_content
+            is NoViewLogView -> R.layout.item_search_no_view_log
             is ViewLogItem -> R.layout.item_search_view_log
             is HotView -> R.layout.item_search_trend_content
             is SearchHotItem -> R.layout.item_search_trend_content_list
@@ -76,6 +79,11 @@ class SearchScreenAdapter(
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 ViewHolder.SeenViewHolder(binding)
+            }
+
+            R.layout.item_search_no_view_log -> {
+                val binding = ItemSearchNoViewLogBinding.inflate(inflater, parent, false)
+                ViewHolder.NoViewLogViewHolder(binding)
             }
 
             R.layout.item_search_view_log -> {
@@ -116,6 +124,7 @@ class SearchScreenAdapter(
 
             is ViewHolder.NoResultViewHolder -> holder.bind()
             is ViewHolder.SeenViewHolder -> holder.bind()
+            is ViewHolder.NoViewLogViewHolder -> holder.bind()
             is ViewHolder.ViewLogItemViewHolder -> holder.bind(getItem(position) as ViewLogItem)
             is ViewHolder.HotViewHolder -> holder.bind()
             is ViewHolder.SearchHotItemViewHolder -> holder.bind(getItem(position) as SearchHotItem)
@@ -149,6 +158,12 @@ class SearchScreenAdapter(
             }
         }
 
+        class NoViewLogViewHolder(binding: ItemSearchNoViewLogBinding) : ViewHolder(binding.root) {
+            fun bind() {
+                // binding 없음
+            }
+        }
+
         class ViewLogItemViewHolder(private val binding: ItemSearchViewLogBinding) : ViewHolder(binding.root) {
             fun bind(item: ViewLogItem) {
                 binding.item = item.viewLogItem
@@ -175,6 +190,7 @@ class SearchScreenAdapter(
         data class SearchedContentItem(val searchedContentItem: SearchedContentModel) : SearchScreenModel()
         object NoResultView : SearchScreenModel()
         object SeenView : SearchScreenModel()
+        object NoViewLogView : SearchScreenModel()
         data class ViewLogItem(val viewLogItem: ViewLogContentModel) : SearchScreenModel()
         object HotView : SearchScreenModel()
         data class SearchHotItem(val searchHotItem: SearchHotModel) : SearchScreenModel()
@@ -193,6 +209,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
 
             oldItem is NoResultView && newItem is NoResultView -> true
             oldItem is SeenView && newItem is SeenView -> true
+            oldItem is NoViewLogView && newItem is NoViewLogView -> true
             oldItem is ViewLogItem && newItem is ViewLogItem ->
                 oldItem.viewLogItem.contentId == newItem.viewLogItem.contentId
 

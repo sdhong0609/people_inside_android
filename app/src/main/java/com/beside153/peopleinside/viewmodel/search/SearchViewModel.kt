@@ -34,6 +34,35 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
     private var isSearching = false
 
+    @Suppress("MagicNumber")
+    private val exampleList = listOf(
+        ViewLogContentModel(
+            1,
+            "스파이더맨: 노웨이 홈",
+            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+        ),
+        ViewLogContentModel(
+            2,
+            "스파이더맨: 노웨이 홈",
+            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+        ),
+        ViewLogContentModel(
+            3,
+            "스파이더맨: 노웨이 홈",
+            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+        ),
+        ViewLogContentModel(
+            4,
+            "스파이더맨: 노웨이 홈",
+            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+        ),
+        ViewLogContentModel(
+            5,
+            "스파이더맨: 노웨이 홈",
+            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+        )
+    )
+
     fun afterKeywordTextChanged(editable: Editable?) {
         _keyword.value = editable.toString()
         loadSearchingTitle()
@@ -61,6 +90,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
             _screenList.value = listOf(
                 SearchScreenModel.SeenView,
+                *exampleList.map { SearchScreenModel.ViewLogItem(it) }.toTypedArray(),
                 SearchScreenModel.HotView,
                 *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
             )
