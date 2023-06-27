@@ -38,8 +38,8 @@ class SearchScreenAdapter(
             is SearchingTitleItem -> R.layout.item_search_searching_title
             is SearchedContentItem -> R.layout.item_search_searched_content
             is NoResultView -> R.layout.item_search_no_result
-            is ViewLogItem -> R.layout.item_search_view_log
             is SeenView -> R.layout.item_search_seen_content
+            is ViewLogItem -> R.layout.item_search_view_log
             is HotView -> R.layout.item_search_trend_content
             is SearchHotItem -> R.layout.item_search_trend_content_list
         }
@@ -73,14 +73,14 @@ class SearchScreenAdapter(
                 ViewHolder.NoResultViewHolder(binding)
             }
 
-            R.layout.item_search_view_log -> {
-                val binding = ItemSearchViewLogBinding.inflate(inflater, parent, false)
-                ViewHolder.ViewLogItemViewHolder(binding)
-            }
-
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 ViewHolder.SeenViewHolder(binding)
+            }
+
+            R.layout.item_search_view_log -> {
+                val binding = ItemSearchViewLogBinding.inflate(inflater, parent, false)
+                ViewHolder.ViewLogItemViewHolder(binding)
             }
 
             R.layout.item_search_trend_content -> {
@@ -115,8 +115,8 @@ class SearchScreenAdapter(
             )
 
             is ViewHolder.NoResultViewHolder -> holder.bind()
-            is ViewHolder.ViewLogItemViewHolder -> holder.bind(getItem(position) as ViewLogItem)
             is ViewHolder.SeenViewHolder -> holder.bind()
+            is ViewHolder.ViewLogItemViewHolder -> holder.bind(getItem(position) as ViewLogItem)
             is ViewHolder.HotViewHolder -> holder.bind()
             is ViewHolder.SearchHotItemViewHolder -> holder.bind(getItem(position) as SearchHotItem)
         }
@@ -143,16 +143,15 @@ class SearchScreenAdapter(
             }
         }
 
-        class ViewLogItemViewHolder(private val binding: ItemSearchViewLogBinding) : ViewHolder(binding.root) {
-            fun bind(item: ViewLogItem) {
-                binding.item = item.viewLogItem
+        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
+            fun bind() {
+                // binding 없음
             }
         }
 
-        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
-
-            fun bind() {
-                // binding 없음
+        class ViewLogItemViewHolder(private val binding: ItemSearchViewLogBinding) : ViewHolder(binding.root) {
+            fun bind(item: ViewLogItem) {
+                binding.item = item.viewLogItem
             }
         }
 
@@ -175,8 +174,8 @@ class SearchScreenAdapter(
         data class SearchingTitleItem(val searchingTitleItem: SearchingTitleModel) : SearchScreenModel()
         data class SearchedContentItem(val searchedContentItem: SearchedContentModel) : SearchScreenModel()
         object NoResultView : SearchScreenModel()
-        data class ViewLogItem(val viewLogItem: ViewLogContentModel) : SearchScreenModel()
         object SeenView : SearchScreenModel()
+        data class ViewLogItem(val viewLogItem: ViewLogContentModel) : SearchScreenModel()
         object HotView : SearchScreenModel()
         data class SearchHotItem(val searchHotItem: SearchHotModel) : SearchScreenModel()
     }
@@ -193,11 +192,10 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
                 oldItem.searchedContentItem.contentId == newItem.searchedContentItem.contentId
 
             oldItem is NoResultView && newItem is NoResultView -> true
-
+            oldItem is SeenView && newItem is SeenView -> true
             oldItem is ViewLogItem && newItem is ViewLogItem ->
                 oldItem.viewLogItem.contentId == newItem.viewLogItem.contentId
 
-            oldItem is SeenView && newItem is SeenView -> true
             oldItem is HotView && newItem is HotView -> true
             oldItem is SearchHotItem && newItem is SearchHotItem ->
                 oldItem.searchHotItem.id == newItem.searchHotItem.id
