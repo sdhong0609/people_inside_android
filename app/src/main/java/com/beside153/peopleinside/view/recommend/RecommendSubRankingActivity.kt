@@ -48,10 +48,13 @@ class RecommendSubRankingActivity : AppCompatActivity() {
             }
         )
 
-        binding.backImageButton.setOnClickListener {
-            finish()
-            setCloseActivityAnimation()
-        }
+        subRankingViewModel.backButtonClickEvent.observe(
+            this,
+            EventObserver {
+                finish()
+                setCloseActivityAnimation()
+            }
+        )
     }
 
     private fun onSubRankingItemClick(item: SubRankingModel) {

@@ -10,9 +10,10 @@ import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
+import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
-class SubRankingViewModel(private val recommendService: RecommendService) : ViewModel() {
+class SubRankingViewModel(private val recommendService: RecommendService) : BaseViewModel() {
 
     private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
     val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
