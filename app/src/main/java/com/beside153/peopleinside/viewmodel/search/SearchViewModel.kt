@@ -7,11 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.service.SearchService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val searchService: SearchService) : BaseViewModel() {
@@ -19,6 +21,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
 
+    private val viewLogList = MutableLiveData<List<ViewLogContentModel>>()
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
     private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
     private val searchHotList = MutableLiveData<List<SearchHotModel>>()
@@ -45,7 +48,12 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
         // exceptionHandler 구현 필요
 
         viewModelScope.launch {
-            searchHotList.value = searchService.getHotContentList()
+            val viwLogListDeferred = async { searchService.getViewLogList() }
+            val searchHotListDeferred = async { searchService.getHotContentList() }
+
+            viewLogList.value = viwLogListDeferred.await()
+            searchHotList.value = searchHotListDeferred.await()
+
             val updatedList = searchHotList.value?.mapIndexed { index, item ->
                 item.copy(rank = index + 1)
             }

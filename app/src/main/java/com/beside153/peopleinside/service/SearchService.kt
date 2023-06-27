@@ -3,6 +3,7 @@ package com.beside153.peopleinside.service
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.search.ViewLogContentModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,4 +20,7 @@ interface SearchService {
 
     @GET("/api/media-content/hot")
     suspend fun getHotContentList(): List<SearchHotModel>
+
+    @GET("/api/media-content/view-log")
+    suspend fun getViewLogList(): List<ViewLogContentModel>
 }
