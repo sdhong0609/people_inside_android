@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.view.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +42,7 @@
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ESFJ 몰입러들의 선택"
+                    android:text="@{@string/choice_of_pipsider(app.prefs.mbti)}"
                     android:textSize="20sp"
                     tools:text="ESFJ 몰입러들의 선택" />
 

@@ -6,12 +6,14 @@ import android.content.SharedPreferences
 class PreferenceUtil(context: Context) {
     val jwtTokenKey = "JWT_TOKEN"
     val userIdKey = "USER_ID"
+    val userMbtiKey = "USER_MBTI"
+    val userNicknameKey = "USER_NICKNAME"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
 
-    fun getString(key: String, defValue: String): String {
-        return prefs.getString(key, defValue).toString()
+    fun getString(key: String): String {
+        return prefs.getString(key, "").toString()
     }
 
     fun setString(key: String, str: String) {
@@ -24,5 +26,13 @@ class PreferenceUtil(context: Context) {
 
     fun setInt(key: String, i: Int) {
         prefs.edit().putInt(key, i).apply()
+    }
+
+    fun getMbti(): String {
+        return prefs.getString(userMbtiKey, "").toString()
+    }
+
+    fun getNickname(): String {
+        return prefs.getString(userNicknameKey, "").toString()
     }
 }

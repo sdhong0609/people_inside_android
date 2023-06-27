@@ -27,7 +27,7 @@ fun ImageView.mbtiLargeImg(mbti: String) {
         "ISTJ" -> R.drawable.mbti_large_img_istj
         "ISTP" -> R.drawable.mbti_large_img_istp
 
-        else -> R.drawable.mbti_large_img_enfj
+        else -> R.color.white
     }
 
     setImageResource(imgRes)

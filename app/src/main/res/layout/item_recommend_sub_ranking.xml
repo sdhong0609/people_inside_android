@@ -8,6 +8,10 @@
         <variable
             name="item"
             type="com.beside153.peopleinside.model.recommend.SubRankingModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.view.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -96,14 +100,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:background="@drawable/background_mbti_rating"
             android:drawablePadding="4dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"
             android:letterSpacing="-0.05"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
-            android:text='@{@string/mbti_rating("ISTJ", item.mbtiRating)}'
+            android:text="@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_clap_hands"
@@ -111,6 +114,8 @@
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
             app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
             app:layout_constraintVertical_bias="0.5"
+            app:mbtiBackground="@{app.prefs.mbti}"
+            tools:background="@drawable/background_mbti_rating"
             tools:text="ESFJ 4.5점" />
 
         <View

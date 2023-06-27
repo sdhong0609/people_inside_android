@@ -39,7 +39,7 @@ object RetrofitClient {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val jwtToken =
-                App.prefs.getString(App.prefs.jwtTokenKey, "")
+                App.prefs.getString(App.prefs.jwtTokenKey)
             val newRequest = request().newBuilder()
                 .addHeader("authorization", "Bearer $jwtToken")
                 .build()

@@ -93,6 +93,7 @@
     <string name="mbti_nickname">%s %s</string>
     <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
     <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
+    <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
     <string name="mbti_pipsider">MBTI / 핍사이더</string>
 
     <!-- 작품 상세페이지 -->
