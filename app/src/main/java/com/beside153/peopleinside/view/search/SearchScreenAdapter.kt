@@ -13,9 +13,11 @@ import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
+import com.beside153.peopleinside.databinding.ItemSearchViewLogBinding
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 
 class SearchScreenAdapter(
@@ -29,8 +31,9 @@ class SearchScreenAdapter(
             is SearchScreenModel.SearchingTitleItem -> R.layout.item_search_searching_title
             is SearchScreenModel.SearchedContentItem -> R.layout.item_search_searched_content
             is SearchScreenModel.NoResultView -> R.layout.item_search_no_result
-            is SearchScreenModel.SeenViewItem -> R.layout.item_search_seen_content
-            is SearchScreenModel.TrendViewItem -> R.layout.item_search_trend_content
+            is SearchScreenModel.ViewLogItem -> R.layout.item_search_view_log
+            is SearchScreenModel.SeenView -> R.layout.item_search_seen_content
+            is SearchScreenModel.HotView -> R.layout.item_search_trend_content
             is SearchScreenModel.SearchHotItem -> R.layout.item_search_trend_content_list
         }
     }
@@ -63,6 +66,11 @@ class SearchScreenAdapter(
                 ViewHolder.NoResultViewHolder(binding)
             }
 
+            R.layout.item_search_view_log -> {
+                val binding = ItemSearchViewLogBinding.inflate(inflater, parent, false)
+                ViewHolder.ViewLogItemViewHolder(binding)
+            }
+
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 ViewHolder.SeenViewHolder(binding)
@@ -70,12 +78,12 @@ class SearchScreenAdapter(
 
             R.layout.item_search_trend_content -> {
                 val binding = ItemSearchTrendContentBinding.inflate(inflater, parent, false)
-                ViewHolder.TrendViewHolder(binding)
+                ViewHolder.HotViewHolder(binding)
             }
 
             else -> {
                 val binding = ItemSearchTrendContentListBinding.inflate(inflater, parent, false)
-                val viewHolder = ViewHolder.TrenListViewHolder(binding)
+                val viewHolder = ViewHolder.SearchHotItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
@@ -100,9 +108,10 @@ class SearchScreenAdapter(
             )
 
             is ViewHolder.NoResultViewHolder -> holder.bind()
+            is ViewHolder.ViewLogItemViewHolder -> holder.bind(getItem(position) as SearchScreenModel.ViewLogItem)
             is ViewHolder.SeenViewHolder -> holder.bind()
-            is ViewHolder.TrendViewHolder -> holder.bind()
-            is ViewHolder.TrenListViewHolder -> holder.bind(getItem(position) as SearchScreenModel.SearchHotItem)
+            is ViewHolder.HotViewHolder -> holder.bind()
+            is ViewHolder.SearchHotItemViewHolder -> holder.bind(getItem(position) as SearchScreenModel.SearchHotItem)
         }
     }
 
@@ -127,6 +136,12 @@ class SearchScreenAdapter(
             }
         }
 
+        class ViewLogItemViewHolder(private val binding: ItemSearchViewLogBinding) : ViewHolder(binding.root) {
+            fun bind(item: SearchScreenModel.ViewLogItem) {
+                binding.item = item.viewLogItem
+            }
+        }
+
         class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
 
             fun bind() {
@@ -134,14 +149,15 @@ class SearchScreenAdapter(
             }
         }
 
-        class TrendViewHolder(binding: ItemSearchTrendContentBinding) : ViewHolder(binding.root) {
+        class HotViewHolder(binding: ItemSearchTrendContentBinding) : ViewHolder(binding.root) {
 
             fun bind() {
                 // binding 없음
             }
         }
 
-        class TrenListViewHolder(private val binding: ItemSearchTrendContentListBinding) : ViewHolder(binding.root) {
+        class SearchHotItemViewHolder(private val binding: ItemSearchTrendContentListBinding) :
+            ViewHolder(binding.root) {
             fun bind(item: SearchScreenModel.SearchHotItem) {
                 binding.item = item.searchHotItem
             }
@@ -152,12 +168,14 @@ class SearchScreenAdapter(
         data class SearchingTitleItem(val searchingTitleItem: SearchingTitleModel) : SearchScreenModel()
         data class SearchedContentItem(val searchedContentItem: SearchedContentModel) : SearchScreenModel()
         object NoResultView : SearchScreenModel()
-        object SeenViewItem : SearchScreenModel()
-        object TrendViewItem : SearchScreenModel()
+        data class ViewLogItem(val viewLogItem: ViewLogContentModel) : SearchScreenModel()
+        object SeenView : SearchScreenModel()
+        object HotView : SearchScreenModel()
         data class SearchHotItem(val searchHotItem: SearchHotModel) : SearchScreenModel()
     }
 }
 
+@Suppress("CyclomaticComplexMethod")
 private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreenModel>() {
     override fun areItemsTheSame(oldItem: SearchScreenModel, newItem: SearchScreenModel): Boolean {
         return when {
@@ -168,8 +186,12 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
                 oldItem.searchedContentItem.contentId == newItem.searchedContentItem.contentId
 
             oldItem is SearchScreenModel.NoResultView && newItem is SearchScreenModel.NoResultView -> true
-            oldItem is SearchScreenModel.SeenViewItem && newItem is SearchScreenModel.SeenViewItem -> true
-            oldItem is SearchScreenModel.TrendViewItem && newItem is SearchScreenModel.TrendViewItem -> true
+
+            oldItem is SearchScreenModel.ViewLogItem && newItem is SearchScreenModel.ViewLogItem ->
+                oldItem.viewLogItem.contentId == newItem.viewLogItem.contentId
+
+            oldItem is SearchScreenModel.SeenView && newItem is SearchScreenModel.SeenView -> true
+            oldItem is SearchScreenModel.HotView && newItem is SearchScreenModel.HotView -> true
             oldItem is SearchScreenModel.SearchHotItem && newItem is SearchScreenModel.SearchHotItem ->
                 oldItem.searchHotItem.id == newItem.searchHotItem.id
 

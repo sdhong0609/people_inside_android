@@ -102,7 +102,7 @@
     <string name="bookmark">북마크</string>
     <string name="create_review">감상 남기기</string>
     <string name="content_information">작품 정보</string>
-    <string name="content_comment_title">몰입러들의 감상</string>
+    <string name="content_comment_title">핍사이더들의 감상</string>
     <string name="runtime_with_value">%d분</string>
     <string name="like_count_with_value">좋아요 %d</string>
 
