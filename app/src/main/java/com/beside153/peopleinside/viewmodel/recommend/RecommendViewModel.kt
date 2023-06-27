@@ -67,8 +67,8 @@ class RecommendViewModel(
     private val _selectedTab = MutableLiveData("all")
     val selectedTab: LiveData<String> get() = _selectedTab
 
-    private val _subRankingArrowClickEvent = MutableLiveData<Event<Unit>>()
-    val subRankingArrowClickEvent: LiveData<Event<Unit>> get() = _subRankingArrowClickEvent
+    private val _subRankingArrowClickEvent = MutableLiveData<Event<String>>()
+    val subRankingArrowClickEvent: LiveData<Event<String>> get() = _subRankingArrowClickEvent
 
     private var pageCount = 1
 
@@ -163,7 +163,7 @@ class RecommendViewModel(
     }
 
     fun onSubRankingArrowClick() {
-        _subRankingArrowClickEvent.value = Event(Unit)
+        _subRankingArrowClickEvent.value = Event(_selectedTab.value ?: "all")
     }
 
     fun setSelectedTab(tab: String) {

@@ -106,8 +106,8 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.subRankingArrowClickEvent.observe(
             viewLifecycleOwner,
-            EventObserver {
-                startActivity(RecommendSubRankingActivity.newIntent(requireActivity()))
+            EventObserver { mediaType ->
+                startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), mediaType))
                 requireActivity().setOpenActivityAnimation()
             }
         )
