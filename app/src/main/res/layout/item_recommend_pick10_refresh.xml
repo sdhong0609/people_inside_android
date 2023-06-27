@@ -33,7 +33,7 @@
             android:id="@+id/refreshLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_main_comment"
+            android:background="@drawable/bg_pick10_refresh"
             android:paddingHorizontal="32dp"
             android:paddingVertical="80dp"
             app:layout_constraintBottom_toBottomOf="parent"

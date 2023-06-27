@@ -25,17 +25,16 @@ data class TopLikeReview(
     @SerialName("content_id") val contentId: Int,
     @SerialName("review_id") val reviewId: Int,
     @SerialName("content") val content: String,
-    @SerialName("like_count") val likeCount: Int
+    @SerialName("like_count") val likeCount: Int,
+    @SerialName("writer") val writer: Writer
 ) : Parcelable
 
-// @Parcelize
-// @Serializable
-// data class Writer(
-//    @SerialName("id") val id: Int,
-//    @SerialName("created_at") val createdAt: String,
-//    @SerialName("updated_at") val updatedAt: String? = null,
-//    @SerialName("account") val account: String,
-//    @SerialName("password") val password: String,
-//    @SerialName("name") val name: String,
-//    @SerialName("role") val role: String
-// ) : Parcelable
+@Parcelize
+@Serializable
+data class Writer(
+    @SerialName("id") val id: Int,
+    @SerialName("nickName") val nickName: String,
+    @SerialName("mbti") val mbti: String,
+    @SerialName("birth") val birth: String,
+    @SerialName("sex") val sex: String
+) : Parcelable
