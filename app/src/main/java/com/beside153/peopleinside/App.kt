@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view
+package com.beside153.peopleinside
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate

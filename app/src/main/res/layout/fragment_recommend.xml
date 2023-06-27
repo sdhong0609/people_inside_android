@@ -12,7 +12,7 @@
 
         <variable
             name="app"
-            type="com.beside153.peopleinside.view.App" />
+            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

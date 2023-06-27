@@ -1,6 +1,6 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.view.App
+import com.beside153.peopleinside.App
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor

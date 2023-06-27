@@ -11,7 +11,7 @@
 
         <variable
             name="app"
-            type="com.beside153.peopleinside.view.App" />
+            type="com.beside153.peopleinside.App" />
 
         <variable
             name="writer"
