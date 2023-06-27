@@ -46,6 +46,9 @@ class RecommendViewModel(
     private val _pick10ProgressBarVisible = MutableLiveData(false)
     val pick10ProgressBarVisible: LiveData<Boolean> get() = _pick10ProgressBarVisible
 
+    private val _refreshPick10ClickEvent = MutableLiveData<Event<Unit>>()
+    val refreshPick10ClickEvent: LiveData<Event<Unit>> get() = _refreshPick10ClickEvent
+
     private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
     val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
 
@@ -112,6 +115,7 @@ class RecommendViewModel(
 
             _viewPagerList.value = viewPagerList()
             _pick10ProgressBarVisible.value = false
+            _refreshPick10ClickEvent.value = Event(Unit)
         }
     }
 

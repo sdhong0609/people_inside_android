@@ -67,7 +67,6 @@ class RecommendFragment : Fragment() {
 
         recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
             pagerAdapter.submitList(list)
-            binding.pick10ViewPager.currentItem = 0
         }
 
         recommendViewModel.pick10ItemClickEvent.observe(
@@ -83,6 +82,13 @@ class RecommendFragment : Fragment() {
             EventObserver { item ->
                 startActivity(ContentDetailActivity.newIntent(requireActivity(), true, item.contentId))
                 requireActivity().setOpenActivityAnimation()
+            }
+        )
+
+        recommendViewModel.refreshPick10ClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                binding.pick10ViewPager.currentItem = 0
             }
         )
 

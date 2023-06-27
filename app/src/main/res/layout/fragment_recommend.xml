@@ -45,7 +45,7 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/changwondangamasac_bold"
                         android:maxLines="1"
-                        android:text="@{@string/mbti_nickname(viewModel.userInfo.mbti, viewModel.userInfo.nickName)}"
+                        android:text='@{@string/mbti_nickname(viewModel.userInfo.mbti ?? "", viewModel.userInfo.nickName ?? "")}'
                         android:textColor="@color/black"
                         android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
