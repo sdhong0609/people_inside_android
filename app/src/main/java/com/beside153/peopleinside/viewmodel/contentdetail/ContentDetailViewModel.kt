@@ -13,15 +13,14 @@ import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
+import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ContentDetailViewModel(
     private val contentDetailService: ContentDetailService,
     private val bookmarkService: BookmarkService
-) : ViewModel() {
-    private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
+) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
     val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
@@ -35,10 +34,6 @@ class ContentDetailViewModel(
 
     private val _scrollEvent = MutableLiveData<Event<Unit>>()
     val scrollEvent: LiveData<Event<Unit>> get() = _scrollEvent
-
-    fun onBackButtonClick() {
-        _backButtonClickEvent.value = Event(Unit)
-    }
 
     fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요

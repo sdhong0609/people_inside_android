@@ -2,15 +2,15 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.model.login.AuthRegisterRequest
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
+import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
-class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewModel() {
+class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseViewModel() {
     private val authToken = MutableLiveData("")
 
     val nickname = MutableLiveData("")
@@ -41,9 +41,6 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
 
     private val _signUpButtonClickEvent = MutableLiveData<Event<Unit>>()
     val signUpButtonClickEvent: LiveData<Event<Unit>> get() = _signUpButtonClickEvent
-
-    private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
     fun setAuthToken(token: String) {
         authToken.value = token
@@ -105,10 +102,6 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : ViewMo
                 _signUpButtonClickEvent.value = Event(Unit)
             }
         }
-    }
-
-    fun onBackButtonClick() {
-        _backButtonClickEvent.value = Event(Unit)
     }
 
     private fun checkSignUpButtonEnable() {

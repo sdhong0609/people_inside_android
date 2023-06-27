@@ -2,12 +2,12 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.beside153.peopleinside.model.login.ContentModel
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
+import com.beside153.peopleinside.viewmodel.BaseViewModel
 
-class SignUpContentChoiceViewModel : ViewModel() {
+class SignUpContentChoiceViewModel : BaseViewModel() {
     private var contentList = mutableListOf<ContentModel>()
 
     private val _contentItemClickEvent = MutableLiveData<Event<Unit>>()
@@ -21,9 +21,6 @@ class SignUpContentChoiceViewModel : ViewModel() {
 
     private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
     val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
-
-    private val _backButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val backButtonClickEvent: LiveData<Event<Unit>> get() = _backButtonClickEvent
 
     fun onContentItemClick(item: ContentModel) {
         val updatedList = contentList.map {
@@ -100,10 +97,6 @@ class SignUpContentChoiceViewModel : ViewModel() {
                 false
             )
         )
-    }
-
-    fun onBackButtonClick() {
-        _backButtonClickEvent.value = Event(Unit)
     }
 
     companion object {
