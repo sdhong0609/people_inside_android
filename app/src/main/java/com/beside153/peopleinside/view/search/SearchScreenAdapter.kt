@@ -14,11 +14,9 @@ import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
-import com.beside153.peopleinside.databinding.ItemSearchViewLogBinding
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
-import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.HotView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoResultView
@@ -27,7 +25,6 @@ import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenMo
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchedContentItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchingTitleItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SeenView
-import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.ViewLogItem
 
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
@@ -42,7 +39,6 @@ class SearchScreenAdapter(
             is NoResultView -> R.layout.item_search_no_result
             is SeenView -> R.layout.item_search_seen_content
             is NoViewLogView -> R.layout.item_search_no_view_log
-            is ViewLogItem -> R.layout.item_search_view_log
             is HotView -> R.layout.item_search_trend_content
             is SearchHotItem -> R.layout.item_search_trend_content_list
         }
@@ -86,11 +82,6 @@ class SearchScreenAdapter(
                 ViewHolder.NoViewLogViewHolder(binding)
             }
 
-            R.layout.item_search_view_log -> {
-                val binding = ItemSearchViewLogBinding.inflate(inflater, parent, false)
-                ViewHolder.ViewLogItemViewHolder(binding)
-            }
-
             R.layout.item_search_trend_content -> {
                 val binding = ItemSearchTrendContentBinding.inflate(inflater, parent, false)
                 ViewHolder.HotViewHolder(binding)
@@ -125,7 +116,6 @@ class SearchScreenAdapter(
             is ViewHolder.NoResultViewHolder -> holder.bind()
             is ViewHolder.SeenViewHolder -> holder.bind()
             is ViewHolder.NoViewLogViewHolder -> holder.bind()
-            is ViewHolder.ViewLogItemViewHolder -> holder.bind(getItem(position) as ViewLogItem)
             is ViewHolder.HotViewHolder -> holder.bind()
             is ViewHolder.SearchHotItemViewHolder -> holder.bind(getItem(position) as SearchHotItem)
         }
@@ -164,12 +154,6 @@ class SearchScreenAdapter(
             }
         }
 
-        class ViewLogItemViewHolder(private val binding: ItemSearchViewLogBinding) : ViewHolder(binding.root) {
-            fun bind(item: ViewLogItem) {
-                binding.item = item.viewLogItem
-            }
-        }
-
         class HotViewHolder(binding: ItemSearchTrendContentBinding) : ViewHolder(binding.root) {
 
             fun bind() {
@@ -191,7 +175,6 @@ class SearchScreenAdapter(
         object NoResultView : SearchScreenModel()
         object SeenView : SearchScreenModel()
         object NoViewLogView : SearchScreenModel()
-        data class ViewLogItem(val viewLogItem: ViewLogContentModel) : SearchScreenModel()
         object HotView : SearchScreenModel()
         data class SearchHotItem(val searchHotItem: SearchHotModel) : SearchScreenModel()
     }
@@ -210,8 +193,6 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
             oldItem is NoResultView && newItem is NoResultView -> true
             oldItem is SeenView && newItem is SeenView -> true
             oldItem is NoViewLogView && newItem is NoViewLogView -> true
-            oldItem is ViewLogItem && newItem is ViewLogItem ->
-                oldItem.viewLogItem.contentId == newItem.viewLogItem.contentId
 
             oldItem is HotView && newItem is HotView -> true
             oldItem is SearchHotItem && newItem is SearchHotItem ->
