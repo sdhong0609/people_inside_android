@@ -115,7 +115,7 @@
     <!-- 검색 화면 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
     <string name="contents_have_seen">내가 둘러본 콘텐츠</string>
-    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없습니다.</string>
+    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없어요.</string>
     <string name="contents_trend">인기 급상승 콘텐츠</string>
     <string name="preparing_content">해당 콘텐츠는 준비중입니다.</string>
 

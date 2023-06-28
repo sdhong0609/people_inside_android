@@ -61,6 +61,15 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
             }
             searchHotList.value = updatedList ?: emptyList()
 
+            if ((_viewLogList.value ?: emptyList()).isEmpty()) {
+                _screenList.value = listOf(
+                    SearchScreenModel.NoViewLogView,
+                    SearchScreenModel.HotView,
+                    *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
+                )
+                return@launch
+            }
+
             _screenList.value = listOf(
                 SearchScreenModel.SeenView,
                 SearchScreenModel.HotView,
