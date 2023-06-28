@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.DialogCancelReviewBinding
 
-class CancelReviewDialog : DialogFragment() {
+class CancelReviewDialog(private val cancelReviewDialogInterface: CancelReviewDialogInterface) : DialogFragment() {
     private lateinit var binding: DialogCancelReviewBinding
 
     override fun getTheme(): Int = R.style.RoundedCornersDialog
@@ -25,5 +25,14 @@ class CancelReviewDialog : DialogFragment() {
         binding.noButton.setOnClickListener {
             dismiss()
         }
+
+        binding.yesButton.setOnClickListener {
+            cancelReviewDialogInterface.onDialogYesButtonClick()
+            dismiss()
+        }
     }
+}
+
+interface CancelReviewDialogInterface {
+    fun onDialogYesButtonClick()
 }
