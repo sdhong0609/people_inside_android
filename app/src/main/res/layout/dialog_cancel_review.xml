@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp">
+
+        <TextView
+            android:id="@+id/cancelDialogTitleTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="작성을 정말 취소하시겠어요?"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cancelDialogContentTextView"
+            style="@style/textStyleRegularGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="‘예’를 선택 시,\n지금까지 작성하신 글은 저장되지 않아요."
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cancelDialogTitleTextView" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cancelDialogContentTextView">
+
+            <Button
+                android:id="@+id/noButton"
+                style="@style/textStyleBoldGray500"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gray200_rounded"
+                android:minHeight="48dp"
+                android:text="아니오"
+                android:textSize="18sp"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/yesButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/yesButton"
+                style="@style/textStyleBoldWhite"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_black_rounded"
+                android:minWidth="136dp"
+                android:minHeight="48dp"
+                android:text="예"
+                android:textSize="18sp"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/noButton"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
