@@ -17,6 +17,7 @@ import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.HotView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoResultView
@@ -142,9 +143,40 @@ class SearchScreenAdapter(
             }
         }
 
-        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
+        class SeenViewHolder(private val binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
             fun bind() {
-                // binding 없음
+                val viewLogListAdapter = ViewLogListAdapter()
+                binding.viewLogRecyclerView.adapter = viewLogListAdapter
+                viewLogListAdapter.submitList(
+                    @Suppress("MagicNumber")
+                    listOf(
+                        ViewLogContentModel(
+                            1,
+                            "스파이더맨: 노웨이 홈",
+                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+                        ),
+                        ViewLogContentModel(
+                            2,
+                            "스파이더맨: 노웨이 홈",
+                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+                        ),
+                        ViewLogContentModel(
+                            3,
+                            "스파이더맨: 노웨이 홈",
+                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+                        ),
+                        ViewLogContentModel(
+                            4,
+                            "스파이더맨: 노웨이 홈",
+                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+                        ),
+                        ViewLogContentModel(
+                            5,
+                            "스파이더맨: 노웨이 홈",
+                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
+                        )
+                    )
+                )
             }
         }
 

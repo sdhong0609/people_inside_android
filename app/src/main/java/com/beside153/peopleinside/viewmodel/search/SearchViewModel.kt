@@ -21,7 +21,9 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
 
-    private val viewLogList = MutableLiveData<List<ViewLogContentModel>>()
+    private val _viewLogList = MutableLiveData<List<ViewLogContentModel>>()
+    val viewLogList: LiveData<List<ViewLogContentModel>> get() = _viewLogList
+
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
     private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
     private val searchHotList = MutableLiveData<List<SearchHotModel>>()
@@ -33,35 +35,6 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
 
     private var isSearching = false
-
-    @Suppress("MagicNumber")
-    private val exampleList = listOf(
-        ViewLogContentModel(
-            1,
-            "스파이더맨: 노웨이 홈",
-            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-        ),
-        ViewLogContentModel(
-            2,
-            "스파이더맨: 노웨이 홈",
-            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-        ),
-        ViewLogContentModel(
-            3,
-            "스파이더맨: 노웨이 홈",
-            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-        ),
-        ViewLogContentModel(
-            4,
-            "스파이더맨: 노웨이 홈",
-            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-        ),
-        ViewLogContentModel(
-            5,
-            "스파이더맨: 노웨이 홈",
-            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-        )
-    )
 
     fun afterKeywordTextChanged(editable: Editable?) {
         _keyword.value = editable.toString()
@@ -80,7 +53,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
             val viwLogListDeferred = async { searchService.getViewLogList() }
             val searchHotListDeferred = async { searchService.getHotContentList() }
 
-            viewLogList.value = viwLogListDeferred.await()
+            _viewLogList.value = viwLogListDeferred.await()
             searchHotList.value = searchHotListDeferred.await()
 
             val updatedList = searchHotList.value?.mapIndexed { index, item ->
@@ -90,7 +63,6 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
             _screenList.value = listOf(
                 SearchScreenModel.SeenView,
-                *exampleList.map { SearchScreenModel.ViewLogItem(it) }.toTypedArray(),
                 SearchScreenModel.HotView,
                 *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
             )
