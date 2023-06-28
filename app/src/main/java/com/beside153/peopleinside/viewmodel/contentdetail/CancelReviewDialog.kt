@@ -12,8 +12,18 @@ import com.beside153.peopleinside.databinding.DialogCancelReviewBinding
 class CancelReviewDialog : DialogFragment() {
     private lateinit var binding: DialogCancelReviewBinding
 
+    override fun getTheme(): Int = R.style.RoundedCornersDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_cancel_review, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.noButton.setOnClickListener {
+            dismiss()
+        }
     }
 }

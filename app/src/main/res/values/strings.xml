@@ -11,6 +11,8 @@
     <string name="tv_english">tv</string>
     <string name="movie_english">movie</string>
     <string name="mbti_and_nickname">%s / %s</string>
+    <string name="no">아니오</string>
+    <string name="yes">예</string>
 
     <!-- Content Description-->
     <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
@@ -111,6 +113,8 @@
     <string name="create_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
     <string name="complete">완료</string>
     <string name="create_review_completed">감상 작성이 완료되었어요!</string>
+    <string name="will_you_cancel">작성을 정말 취소하시겠어요?</string>
+    <string name="will_you_cancel_content">‘예’를 선택 시,\n지금까지 작성하신 글은 저장되지 않아요.</string>
 
     <!-- 검색 화면 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>

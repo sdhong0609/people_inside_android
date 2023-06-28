@@ -13,6 +13,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.viewmodel.contentdetail.CancelReviewDialog
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
 class CreateReviewActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class CreateReviewActivity : AppCompatActivity() {
         }
 
         createReviewViewModel.backButtonClickEvent.observe(this) {
-            finish()
+            CancelReviewDialog().show(this.supportFragmentManager, CANCEL_REVIEW_DIALOG)
         }
 
         createReviewViewModel.completeButtonClickEvent.observe(
@@ -47,6 +48,7 @@ class CreateReviewActivity : AppCompatActivity() {
 
     companion object {
         private const val DURATION_UNTIL_BACK = 2000L
+        private const val CANCEL_REVIEW_DIALOG = "CANCEL_REVIEW_DIALOG"
 
         fun newIntent(context: Context): Intent {
             return Intent(context, CreateReviewActivity::class.java)
