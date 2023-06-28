@@ -1,9 +1,14 @@
 package com.beside153.peopleinside.service
 
+import com.beside153.peopleinside.model.contentdetail.CreateReviewRequest
+import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
 import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecommendService {
@@ -18,4 +23,7 @@ interface RecommendService {
         @Query("mediaType") mediaType: String,
         @Query("maxTake") maxTake: Int
     ): List<SubRankingModel>
+
+    @POST("/api/media-content/{contentId}/review")
+    suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): CreateReviewResponse
 }

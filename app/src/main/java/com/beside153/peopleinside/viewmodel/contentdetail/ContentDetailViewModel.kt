@@ -35,6 +35,9 @@ class ContentDetailViewModel(
     private val _scrollEvent = MutableLiveData<Event<Unit>>()
     val scrollEvent: LiveData<Event<Unit>> get() = _scrollEvent
 
+    private val _createReviewClickEvent = MutableLiveData<Event<Int>>()
+    val createReviewClickEvent: LiveData<Event<Int>> get() = _createReviewClickEvent
+
     fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
 
@@ -58,6 +61,10 @@ class ContentDetailViewModel(
             )
             if (didClickComment) _scrollEvent.value = Event(Unit)
         }
+    }
+
+    fun onCreateReviewClick(contentId: Int) {
+        _createReviewClickEvent.value = Event(contentId)
     }
 
     companion object {

@@ -19,6 +19,7 @@ class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContentDetailBinding
     private val contentDetailScreenAdapter = ContentDetailScreenAdapter(::onCreateReviewClick)
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
+    private var contentId: Int = 1
 
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class ContentDetailActivity : AppCompatActivity() {
 
         addBackPressedCallback()
 
-        val contentId = intent.getIntExtra(CONTENT_ID, 1)
+        contentId = intent.getIntExtra(CONTENT_ID, 1)
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         contentDetailViewModel.initAllData(contentId, didClickComment)
 
@@ -63,10 +64,17 @@ class ContentDetailActivity : AppCompatActivity() {
                 binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
             }
         )
+
+        contentDetailViewModel.createReviewClickEvent.observe(
+            this,
+            EventObserver { contentId ->
+                startActivity(CreateReviewActivity.newIntent(this, contentId))
+            }
+        )
     }
 
     private fun onCreateReviewClick() {
-        startActivity(CreateReviewActivity.newIntent(this))
+        contentDetailViewModel.onCreateReviewClick(contentId)
     }
 
     companion object {

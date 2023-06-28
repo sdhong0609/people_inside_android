@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -19,7 +20,8 @@ import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
 class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
     private lateinit var binding: ActivityCreateReviewBinding
-    private val createReviewViewModel: CreateReviewViewModel by viewModels()
+    private val createReviewViewModel: CreateReviewViewModel by viewModels { CreateReviewViewModel.Factory }
+    private val cancelReviewDialog = CancelReviewDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +32,8 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
             lifecycleOwner = this@CreateReviewActivity
         }
 
-        createReviewViewModel.backButtonClickEvent.observe(this) {
-            CancelReviewDialog(this).show(this.supportFragmentManager, CANCEL_REVIEW_DIALOG)
-        }
+        val contentId = intent.getIntExtra(CONTENT_ID, 1)
+        createReviewViewModel.setContentId(contentId)
 
         createReviewViewModel.completeButtonClickEvent.observe(
             this,
@@ -45,14 +46,34 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
                 }, DURATION_UNTIL_BACK)
             }
         )
+
+        createReviewViewModel.backButtonClickEvent.observe(this) {
+            showCancelReviewDialog()
+        }
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    showCancelReviewDialog()
+                }
+            }
+        )
+    }
+
+    private fun showCancelReviewDialog() {
+        cancelReviewDialog.show(this.supportFragmentManager, CANCEL_REVIEW_DIALOG)
     }
 
     companion object {
         private const val DURATION_UNTIL_BACK = 2000L
         private const val CANCEL_REVIEW_DIALOG = "CANCEL_REVIEW_DIALOG"
+        private const val CONTENT_ID = "CONTENT_ID"
 
-        fun newIntent(context: Context): Intent {
-            return Intent(context, CreateReviewActivity::class.java)
+        fun newIntent(context: Context, contentId: Int): Intent {
+            val intent = Intent(context, CreateReviewActivity::class.java)
+            intent.putExtra(CONTENT_ID, contentId)
+            return intent
         }
     }
 
