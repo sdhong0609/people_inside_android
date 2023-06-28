@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +35,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/close_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_close" />
 
                 <TextView
@@ -48,6 +52,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
                     android:gravity="center_vertical"
+                    android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
                     android:paddingHorizontal="16dp"
                     android:text="@string/complete"
                     android:textSize="16sp" />
@@ -68,6 +73,7 @@
             android:maxLength="1500"
             android:paddingHorizontal="16dp"
             android:paddingVertical="14dp"
+            android:text="@={viewModel.reviewText}"
             android:textColorHint="@color/gray_400"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

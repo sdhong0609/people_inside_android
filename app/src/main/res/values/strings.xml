@@ -110,7 +110,7 @@
     <string name="create_review_2">감상 작성</string>
     <string name="create_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
     <string name="complete">완료</string>
-    <string name="create_review_completed">감상 작성이 완료되었습니다.</string>
+    <string name="create_review_completed">감상 작성이 완료되었어요!</string>
 
     <!-- 검색 화면 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
