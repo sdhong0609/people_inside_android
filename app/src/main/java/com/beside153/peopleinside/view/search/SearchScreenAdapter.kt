@@ -17,7 +17,6 @@ import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchedContentModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
-import com.beside153.peopleinside.model.search.ViewLogContentModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.HotView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoResultView
@@ -26,10 +25,12 @@ import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenMo
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchedContentItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchingTitleItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SeenView
+import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
-    private val onSearchHotItemClick: (item: SearchHotModel) -> Unit
+    private val onSearchHotItemClick: (item: SearchHotModel) -> Unit,
+    private val searchViewModel: SearchViewModel
 ) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
 
@@ -75,7 +76,7 @@ class SearchScreenAdapter(
 
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
-                ViewHolder.SeenViewHolder(binding)
+                ViewHolder.SeenViewHolder(binding, searchViewModel)
             }
 
             R.layout.item_search_no_view_log -> {
@@ -143,40 +144,14 @@ class SearchScreenAdapter(
             }
         }
 
-        class SeenViewHolder(private val binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
+        class SeenViewHolder(
+            private val binding: ItemSearchSeenContentBinding,
+            private val searchViewModel: SearchViewModel
+        ) : ViewHolder(binding.root) {
             fun bind() {
                 val viewLogListAdapter = ViewLogListAdapter()
                 binding.viewLogRecyclerView.adapter = viewLogListAdapter
-                viewLogListAdapter.submitList(
-                    @Suppress("MagicNumber")
-                    listOf(
-                        ViewLogContentModel(
-                            1,
-                            "스파이더맨: 노웨이 홈",
-                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-                        ),
-                        ViewLogContentModel(
-                            2,
-                            "스파이더맨: 노웨이 홈",
-                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-                        ),
-                        ViewLogContentModel(
-                            3,
-                            "스파이더맨: 노웨이 홈",
-                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-                        ),
-                        ViewLogContentModel(
-                            4,
-                            "스파이더맨: 노웨이 홈",
-                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-                        ),
-                        ViewLogContentModel(
-                            5,
-                            "스파이더맨: 노웨이 홈",
-                            "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg"
-                        )
-                    )
-                )
+                viewLogListAdapter.submitList(searchViewModel.viewLogList.value)
             }
         }
 

@@ -35,7 +35,7 @@ class SearchFragment : Fragment() {
             }
         }
     )
-    private val searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchHotItemClick)
+    private lateinit var searchScreenAdapter: SearchScreenAdapter
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreateView(
@@ -44,6 +44,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
+        searchScreenAdapter = SearchScreenAdapter(::onSearchingTitleItemClick, ::onSearchHotItemClick, searchViewModel)
         return binding.root
     }
 
