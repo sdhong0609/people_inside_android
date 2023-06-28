@@ -50,17 +50,29 @@ class ContentDetailViewModel(
             reviewList.value = reviewListDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
 
-            @Suppress("SpreadOperator")
-            _screenList.value = listOf(
-                ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
-                ContentDetailScreenModel.ReviewView(bookmarked.value!!),
-                ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
-                ContentDetailScreenModel.CommentsView,
-                *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
-                    ?: emptyArray()
-            )
+            _screenList.value = screenList()
             if (didClickComment) _scrollEvent.value = Event(Unit)
         }
+    }
+
+    fun onBookmarkClick(contentId: Int) {
+        bookmarked.value = bookmarked.value != true
+        _screenList.value = screenList()
+        viewModelScope.launch {
+            bookmarkService.postBookmarkStatus(contentId)
+        }
+    }
+
+    @Suppress("SpreadOperator")
+    private fun screenList(): List<ContentDetailScreenModel> {
+        return listOf(
+            ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
+            ContentDetailScreenModel.ReviewView(bookmarked.value!!),
+            ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
+            ContentDetailScreenModel.CommentsView,
+            *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
+                ?: emptyArray()
+        )
     }
 
     fun onCreateReviewClick(contentId: Int) {

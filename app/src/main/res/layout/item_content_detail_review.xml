@@ -59,6 +59,7 @@
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/bookmarkImageButton"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:background="@drawable/background_circle_gray"
