@@ -8,6 +8,7 @@ import com.beside153.peopleinside.model.recommend.SubRankingModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -26,4 +27,7 @@ interface RecommendService {
 
     @POST("/api/media-content/{contentId}/review")
     suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
+
+    @PUT("/api/media-content/{contentId}/review")
+    suspend fun putReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
 }

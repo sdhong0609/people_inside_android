@@ -17,17 +17,21 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
 
     val reviewText = MutableLiveData("")
 
-    private val contentId = MutableLiveData(0)
-
     private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
     val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
 
+    private var contentId = 0
+    private var alreadyHadReview = false
+
     fun setContentId(id: Int) {
-        contentId.value = id
+        contentId = id
     }
 
     fun setContent(content: String) {
         reviewText.value = content
+        if (content.isNotEmpty()) {
+            alreadyHadReview = true
+        }
     }
 
     fun onCompleteButtonClick() {
@@ -35,7 +39,11 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
 
         viewModelScope.launch {
             if ((reviewText.value ?: "").isNotEmpty()) {
-                recommendService.postReview(contentId.value ?: 0, CreateReviewRequest(reviewText.value ?: ""))
+                if (alreadyHadReview) {
+                    recommendService.putReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                } else {
+                    recommendService.postReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                }
                 _completeButtonClickEvent.value = Event(Unit)
             }
         }
