@@ -11,6 +11,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
+import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -34,6 +35,7 @@ class ContentDetailViewModel(
 
     private val contentRatingItem = MutableLiveData<ContentRatingModel>()
     private val bookmarked = MutableLiveData(false)
+    private val writerReviewItem = MutableLiveData<CreateReviewResponse>()
     private val commentList = MutableLiveData<List<ContentCommentModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
@@ -45,6 +47,8 @@ class ContentDetailViewModel(
     private val _createReviewClickEvent = MutableLiveData<Event<Int>>()
     val createReviewClickEvent: LiveData<Event<Int>> get() = _createReviewClickEvent
 
+    private val wwriterHasReview = MutableLiveData(false)
+
     private var currentRating: Float = 0f
     private var currentRatingId: Int = 0
 
@@ -54,18 +58,37 @@ class ContentDetailViewModel(
 
         viewModelScope.launch {
             initRating(contentId).join()
+            initWriterReview(contentId).join()
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
-            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
+            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
-            commentList.value = commentListDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
+            commentList.value = commentListDeferred.await()
 
             _screenList.value = screenList()
             if (didClickComment) _scrollEvent.value = Event(Unit)
         }
     }
+
+    private suspend fun initWriterReview(contentId: Int): Job {
+        val exceptionHandler = CoroutineExceptionHandler { _, t ->
+            when (t) {
+                is HttpException -> {
+                    wwriterHasReview.value = false
+                }
+            }
+        }
+
+        return viewModelScope.launch(exceptionHandler) {
+            val writerReviewDeferred = async { contentDetailService.getWriterReview(contentId, App.prefs.getUserId()) }
+            writerReviewItem.value = writerReviewDeferred.await()
+            wwriterHasReview.value = true
+        }
+    }
+
+    fun getWriterHasReview(): Boolean = wwriterHasReview.value ?: false
 
     private suspend fun initRating(contentId: Int): Job {
         val exceptionHandler = CoroutineExceptionHandler { _, t ->
@@ -80,7 +103,7 @@ class ContentDetailViewModel(
 
         return viewModelScope.launch(exceptionHandler) {
             val contentRatingItemDeferred =
-                async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
+                async { contentDetailService.getContentRating(contentId, App.prefs.getUserId()) }
             contentRatingItem.value = contentRatingItemDeferred.await()
             currentRating = contentRatingItem.value?.rating ?: 0f
             currentRatingId = contentRatingItem.value?.ratingId ?: 0

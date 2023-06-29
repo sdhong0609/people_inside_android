@@ -21,7 +21,8 @@ import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.
 class ContentDetailScreenAdapter(
     private val onBookmarkClick: () -> Unit,
     private val onCreateReviewClick: () -> Unit,
-    private val onRatingChanged: (rating: Float) -> Unit
+    private val onRatingChanged: (rating: Float) -> Unit,
+    private val getWriterHasReview: () -> Boolean
 ) :
     ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(
         ContentDetailScreenModelDiffCallback()
@@ -59,6 +60,7 @@ class ContentDetailScreenAdapter(
                 binding.createReviewImageButton.setOnClickListener {
                     onCreateReviewClick()
                 }
+                binding.hasReview = getWriterHasReview()
                 ViewHolder.ReviewViewHolder(binding)
             }
 

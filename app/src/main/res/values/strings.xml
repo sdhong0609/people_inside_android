@@ -103,6 +103,7 @@
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
     <string name="bookmark">북마크</string>
     <string name="create_review">감상 남기기</string>
+    <string name="fix_review">감상 수정하기</string>
     <string name="content_information">작품 정보</string>
     <string name="content_comment_title">핍사이더들의 감상</string>
     <string name="runtime_with_value">%d분</string>

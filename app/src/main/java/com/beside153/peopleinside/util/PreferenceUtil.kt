@@ -28,6 +28,10 @@ class PreferenceUtil(context: Context) {
         prefs.edit().putInt(key, i).apply()
     }
 
+    fun getUserId(): Int {
+        return prefs.getInt(userIdKey, 0)
+    }
+
     fun getMbti(): String {
         return prefs.getString(userMbtiKey, "").toString()
     }

@@ -4,6 +4,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
+import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -39,4 +40,10 @@ interface ContentDetailService {
 
     @DELETE("/api/media-content/{contentId}/rating/{ratingId}")
     suspend fun deleteContentRating(@Path("contentId") contentId: Int, @Path("ratingId") ratingId: Int): Boolean
+
+    @GET("/api/media-content/{contentId}/review/writer/{writerId}")
+    suspend fun getWriterReview(
+        @Path("contentId") contentId: Int,
+        @Path("writerId") writerId: Int
+    ): CreateReviewResponse
 }

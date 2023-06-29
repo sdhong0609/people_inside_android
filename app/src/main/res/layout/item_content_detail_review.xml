@@ -12,6 +12,10 @@
         <variable
             name="bookmarked"
             type="Boolean" />
+
+        <variable
+            name="hasReview"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,8 +112,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/create_review"
-                    android:textSize="12sp" />
+                    android:text="@{hasReview ? @string/fix_review : @string/create_review}"
+                    android:textSize="12sp"
+                    tools:text="@string/create_review" />
 
             </LinearLayout>
 
