@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class ContentRatingRequest(
-    @SerialName("rating") val rating: Double
+    @SerialName("rating") val rating: Float
 ) : Parcelable

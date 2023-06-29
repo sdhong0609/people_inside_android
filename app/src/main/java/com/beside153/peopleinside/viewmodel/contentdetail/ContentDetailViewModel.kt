@@ -10,14 +10,18 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
+import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
+import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 import com.beside153.peopleinside.viewmodel.BaseViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class ContentDetailViewModel(
     private val contentDetailService: ContentDetailService,
@@ -40,24 +44,70 @@ class ContentDetailViewModel(
     private val _createReviewClickEvent = MutableLiveData<Event<Int>>()
     val createReviewClickEvent: LiveData<Event<Int>> get() = _createReviewClickEvent
 
+    private var currentRating: Float = 0f
+    private var currentRatingId: Int = 0
+
     fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
         // 별점과 감상이 있는지 확인하는 api exceptionhandler는 별점, 감상 정보가 존재하지 않을 때의 분기처리를 해줘야 한다.
 
         viewModelScope.launch {
+            initRating(contentId)
+
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
-            val contentRatingItemDeferred =
-                async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
-            contentRatingItem.value = contentRatingItemDeferred.await()
             commentList.value = commentListDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
 
             _screenList.value = screenList()
             if (didClickComment) _scrollEvent.value = Event(Unit)
+        }
+    }
+
+    private fun initRating(contentId: Int) {
+        val exceptionHandler = CoroutineExceptionHandler { _, t ->
+            when (t) {
+                is HttpException -> {
+                    contentRatingItem.value = ContentRatingModel(contentId, 0, 0f)
+                    currentRating = 0f
+                    currentRatingId = 0
+                }
+            }
+        }
+
+        viewModelScope.launch(exceptionHandler) {
+            val contentRatingItemDeferred =
+                async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
+            contentRatingItem.value = contentRatingItemDeferred.await()
+            currentRating = contentRatingItem.value?.rating ?: 0f
+            currentRatingId = contentRatingItem.value?.ratingId ?: 0
+        }
+    }
+
+    fun onRatingChanged(contentId: Int, rating: Float) {
+        viewModelScope.launch {
+            if (currentRating.roundToHalf() == rating) return@launch
+
+            if (currentRating <= 0) {
+                currentRating = rating
+                contentRatingItem.value =
+                    contentDetailService.postContentRating(contentId, ContentRatingRequest(rating))
+                currentRatingId = contentRatingItem.value?.ratingId ?: 0
+                return@launch
+            }
+            val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
+            if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
+                currentRating = rating
+                contentDetailService.putContentRating(contentId, ContentRatingRequest(rating))
+                return@launch
+            }
+            if (currentRatingHasValue && rating == 0f) {
+                currentRating = rating
+                contentDetailService.deleteContentRating(contentId, currentRatingId)
+            }
         }
     }
 
@@ -93,6 +143,8 @@ class ContentDetailViewModel(
     }
 
     companion object {
+        private const val MAX_RATING = 5
+
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(

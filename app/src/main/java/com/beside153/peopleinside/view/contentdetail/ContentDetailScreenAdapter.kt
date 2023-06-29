@@ -18,7 +18,11 @@ import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
-class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, private val onCreateReviewClick: () -> Unit) :
+class ContentDetailScreenAdapter(
+    private val onBookmarkClick: () -> Unit,
+    private val onCreateReviewClick: () -> Unit,
+    private val onRatingChanged: (rating: Float) -> Unit
+) :
     ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(
         ContentDetailScreenModelDiffCallback()
     ) {
@@ -47,6 +51,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
                 val binding = ItemContentDetailReviewBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
                     ratingBar.rating = rating
+                    onRatingChanged(rating)
                 }
                 binding.bookmarkImageButton.setOnClickListener {
                     onBookmarkClick()

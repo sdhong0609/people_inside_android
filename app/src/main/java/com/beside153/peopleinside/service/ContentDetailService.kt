@@ -38,5 +38,5 @@ interface ContentDetailService {
     ): ContentRatingModel
 
     @DELETE("/api/media-content/{contentId}/rating/{ratingId}")
-    suspend fun deleteContentRating(@Path("contentId") contentId: Int, @Path("raterId") raterId: Int): Boolean
+    suspend fun deleteContentRating(@Path("contentId") contentId: Int, @Path("ratingId") ratingId: Int): Boolean
 }

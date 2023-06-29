@@ -17,7 +17,8 @@ import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
 class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContentDetailBinding
-    private val contentDetailScreenAdapter = ContentDetailScreenAdapter(::onBookmarkClick, ::onCreateReviewClick)
+    private val contentDetailScreenAdapter =
+        ContentDetailScreenAdapter(::onBookmarkClick, ::onCreateReviewClick, ::onRatingChanged)
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
     private var contentId: Int = 1
 
@@ -70,6 +71,10 @@ class ContentDetailActivity : AppCompatActivity() {
                 startActivity(CreateReviewActivity.newIntent(this, contentId))
             }
         )
+    }
+
+    private fun onRatingChanged(rating: Float) {
+        contentDetailViewModel.onRatingChanged(contentId, rating)
     }
 
     private fun onBookmarkClick() {
