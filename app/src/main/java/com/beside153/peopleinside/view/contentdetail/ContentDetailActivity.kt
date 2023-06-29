@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view.contentdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -68,7 +69,7 @@ class ContentDetailActivity : AppCompatActivity() {
         contentDetailViewModel.createReviewClickEvent.observe(
             this,
             EventObserver {
-                startActivity(CreateReviewActivity.newIntent(this, it.first, it.second))
+                createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
             }
         )
     }
@@ -86,6 +87,13 @@ class ContentDetailActivity : AppCompatActivity() {
     private fun onCreateReviewClick() {
         contentDetailViewModel.onCreateReviewClick(contentId)
     }
+
+    private val createReviewActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                contentDetailViewModel.initAllData(contentId, false)
+            }
+        }
 
     companion object {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"

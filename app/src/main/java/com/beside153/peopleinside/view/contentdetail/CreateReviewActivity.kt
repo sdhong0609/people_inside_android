@@ -44,6 +44,7 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
                 imm.hideSoftInputFromWindow(binding.completeTextView.windowToken, 0)
                 showToast(R.string.create_review_completed)
                 Handler(Looper.getMainLooper()).postDelayed({
+                    setResult(RESULT_OK)
                     finish()
                 }, DURATION_UNTIL_BACK)
             }
