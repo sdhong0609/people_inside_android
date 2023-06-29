@@ -11,7 +11,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
-import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
+import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -35,7 +35,7 @@ class ContentDetailViewModel(
 
     private val contentRatingItem = MutableLiveData<ContentRatingModel>()
     private val bookmarked = MutableLiveData(false)
-    private val writerReviewItem = MutableLiveData<CreateReviewResponse>()
+    private val writerReviewItem = MutableLiveData<ContentReviewModel>()
     private val commentList = MutableLiveData<List<ContentCommentModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
@@ -54,7 +54,6 @@ class ContentDetailViewModel(
 
     fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
-        // 별점과 감상이 있는지 확인하는 api exceptionhandler는 별점, 감상 정보가 존재하지 않을 때의 분기처리를 해줘야 한다.
 
         viewModelScope.launch {
             initRating(contentId).join()

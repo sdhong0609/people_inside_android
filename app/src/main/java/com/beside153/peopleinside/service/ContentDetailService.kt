@@ -4,7 +4,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
-import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
+import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -45,5 +45,5 @@ interface ContentDetailService {
     suspend fun getWriterReview(
         @Path("contentId") contentId: Int,
         @Path("writerId") writerId: Int
-    ): CreateReviewResponse
+    ): ContentReviewModel
 }

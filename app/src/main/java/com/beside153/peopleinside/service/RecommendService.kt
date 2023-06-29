@@ -1,7 +1,7 @@
 package com.beside153.peopleinside.service
 
+import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.model.contentdetail.CreateReviewRequest
-import com.beside153.peopleinside.model.contentdetail.CreateReviewResponse
 import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
@@ -25,5 +25,5 @@ interface RecommendService {
     ): List<SubRankingModel>
 
     @POST("/api/media-content/{contentId}/review")
-    suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): CreateReviewResponse
+    suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
 }
