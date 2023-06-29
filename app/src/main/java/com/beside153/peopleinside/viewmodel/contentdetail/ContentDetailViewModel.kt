@@ -44,8 +44,8 @@ class ContentDetailViewModel(
     private val _scrollEvent = MutableLiveData<Event<Unit>>()
     val scrollEvent: LiveData<Event<Unit>> get() = _scrollEvent
 
-    private val _createReviewClickEvent = MutableLiveData<Event<Int>>()
-    val createReviewClickEvent: LiveData<Event<Int>> get() = _createReviewClickEvent
+    private val _createReviewClickEvent = MutableLiveData<Event<Pair<Int, String>>>()
+    val createReviewClickEvent: LiveData<Event<Pair<Int, String>>> get() = _createReviewClickEvent
 
     private val writerHasReview = MutableLiveData(false)
 
@@ -165,7 +165,11 @@ class ContentDetailViewModel(
     }
 
     fun onCreateReviewClick(contentId: Int) {
-        _createReviewClickEvent.value = Event(contentId)
+        if (writerHasReview.value == false) {
+            _createReviewClickEvent.value = Event(Pair(contentId, ""))
+        } else {
+            _createReviewClickEvent.value = Event(Pair(contentId, writerReviewItem.value?.content ?: ""))
+        }
     }
 
     companion object {

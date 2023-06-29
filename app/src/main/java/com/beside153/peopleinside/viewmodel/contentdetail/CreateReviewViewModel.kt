@@ -26,6 +26,10 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
         contentId.value = id
     }
 
+    fun setContent(content: String) {
+        reviewText.value = content
+    }
+
     fun onCompleteButtonClick() {
         // exceptionHandler 구현 필요
 

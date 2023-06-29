@@ -33,7 +33,9 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
         }
 
         val contentId = intent.getIntExtra(CONTENT_ID, 1)
+        val content = intent.getStringExtra(CONTENT)
         createReviewViewModel.setContentId(contentId)
+        createReviewViewModel.setContent(content ?: "")
 
         createReviewViewModel.completeButtonClickEvent.observe(
             this,
@@ -69,10 +71,12 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
         private const val DURATION_UNTIL_BACK = 2000L
         private const val CANCEL_REVIEW_DIALOG = "CANCEL_REVIEW_DIALOG"
         private const val CONTENT_ID = "CONTENT_ID"
+        private const val CONTENT = "CONTENT"
 
-        fun newIntent(context: Context, contentId: Int): Intent {
+        fun newIntent(context: Context, contentId: Int, content: String): Intent {
             val intent = Intent(context, CreateReviewActivity::class.java)
             intent.putExtra(CONTENT_ID, contentId)
+            intent.putExtra(CONTENT, content)
             return intent
         }
     }

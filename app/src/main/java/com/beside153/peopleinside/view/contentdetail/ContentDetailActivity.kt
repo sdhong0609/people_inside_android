@@ -67,8 +67,8 @@ class ContentDetailActivity : AppCompatActivity() {
 
         contentDetailViewModel.createReviewClickEvent.observe(
             this,
-            EventObserver { contentId ->
-                startActivity(CreateReviewActivity.newIntent(this, contentId))
+            EventObserver {
+                startActivity(CreateReviewActivity.newIntent(this, it.first, it.second))
             }
         )
     }
