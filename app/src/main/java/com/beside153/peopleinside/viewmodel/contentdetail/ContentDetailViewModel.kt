@@ -71,14 +71,21 @@ class ContentDetailViewModel(
 
     @Suppress("SpreadOperator")
     private fun screenList(): List<ContentDetailScreenModel> {
+        val commentAreaList = if ((commentList.value ?: emptyList()).isEmpty()) {
+            listOf(ContentDetailScreenModel.NoCommentView)
+        } else {
+            listOf(
+                *commentList.value?.map { ContentDetailScreenModel.ContentCommentItem(it) }?.toTypedArray()
+                    ?: emptyArray()
+            )
+        }
+
         return listOf(
             ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
             ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!),
             ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
-            ContentDetailScreenModel.CommentsView,
-            *commentList.value?.map { ContentDetailScreenModel.ContentCommentItem(it) }?.toTypedArray()
-                ?: emptyArray()
-        )
+            ContentDetailScreenModel.CommentsView
+        ) + commentAreaList
     }
 
     fun onCreateReviewClick(contentId: Int) {

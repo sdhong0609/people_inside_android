@@ -10,6 +10,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemContentDetailCommentListBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
+import com.beside153.peopleinside.databinding.ItemContentDetailNoCommentBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
 import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
@@ -29,6 +30,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
             is ContentDetailScreenModel.InfoView -> R.layout.item_content_detail_info
             is ContentDetailScreenModel.CommentsView -> R.layout.item_content_detail_comments
             is ContentDetailScreenModel.ContentCommentItem -> R.layout.item_content_detail_comment_list
+            is ContentDetailScreenModel.NoCommentView -> R.layout.item_content_detail_no_comment
         }
     }
 
@@ -68,9 +70,14 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
                 ViewHolder.CommentsViewHolder(binding)
             }
 
-            else -> {
+            R.layout.item_content_detail_comment_list -> {
                 val binding = ItemContentDetailCommentListBinding.inflate(inflater, parent, false)
                 ViewHolder.CommentItemViewHolder(binding)
+            }
+
+            else -> {
+                val binding = ItemContentDetailNoCommentBinding.inflate(inflater, parent, false)
+                ViewHolder.NoCommentViewHolder(binding)
             }
         }
     }
@@ -84,6 +91,8 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
             is ViewHolder.CommentItemViewHolder -> holder.bind(
                 getItem(position) as ContentDetailScreenModel.ContentCommentItem
             )
+
+            is ViewHolder.NoCommentViewHolder -> holder.bind()
         }
     }
 
@@ -120,6 +129,12 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
                 binding.item = item.contentCommentItem
             }
         }
+
+        class NoCommentViewHolder(binding: ItemContentDetailNoCommentBinding) : ViewHolder(binding.root) {
+            fun bind() {
+                // binding 없음
+            }
+        }
     }
 
     sealed class ContentDetailScreenModel {
@@ -130,6 +145,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
         data class ContentCommentItem(val contentCommentItem: ContentCommentModel) : ContentDetailScreenModel()
+        object NoCommentView : ContentDetailScreenModel()
     }
 }
 
@@ -151,6 +167,9 @@ private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<Conte
             oldItem is ContentDetailScreenModel.ContentCommentItem &&
                 newItem is ContentDetailScreenModel.ContentCommentItem ->
                 oldItem.contentCommentItem.id == newItem.contentCommentItem.id
+
+            oldItem is ContentDetailScreenModel.NoCommentView &&
+                newItem is ContentDetailScreenModel.NoCommentView -> true
 
             else -> false
         }
