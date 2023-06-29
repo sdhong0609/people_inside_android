@@ -29,7 +29,7 @@ class ContentDetailViewModel(
 
     private val contentRatingItem = MutableLiveData<ContentRatingModel>()
     private val bookmarked = MutableLiveData(false)
-    private val reviewList = MutableLiveData<List<ContentCommentModel>>()
+    private val commentList = MutableLiveData<List<ContentCommentModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
@@ -46,14 +46,14 @@ class ContentDetailViewModel(
 
         viewModelScope.launch {
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
-            val reviewListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
+            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
             val contentRatingItemDeferred =
                 async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             contentRatingItem.value = contentRatingItemDeferred.await()
-            reviewList.value = reviewListDeferred.await()
+            commentList.value = commentListDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
 
             _screenList.value = screenList()
@@ -76,7 +76,7 @@ class ContentDetailViewModel(
             ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!),
             ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
             ContentDetailScreenModel.CommentsView,
-            *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()
+            *commentList.value?.map { ContentDetailScreenModel.ContentCommentItem(it) }?.toTypedArray()
                 ?: emptyArray()
         )
     }

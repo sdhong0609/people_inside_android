@@ -28,7 +28,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
             is ContentDetailScreenModel.ReviewView -> R.layout.item_content_detail_review
             is ContentDetailScreenModel.InfoView -> R.layout.item_content_detail_info
             is ContentDetailScreenModel.CommentsView -> R.layout.item_content_detail_comments
-            is ContentDetailScreenModel.ContentReviewItem -> R.layout.item_content_detail_comment_list
+            is ContentDetailScreenModel.ContentCommentItem -> R.layout.item_content_detail_comment_list
         }
     }
 
@@ -82,7 +82,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
             is ViewHolder.InfoViewHolder -> holder.bind(getItem(position) as ContentDetailScreenModel.InfoView)
             is ViewHolder.CommentsViewHolder -> holder.bind()
             is ViewHolder.CommentItemViewHolder -> holder.bind(
-                getItem(position) as ContentDetailScreenModel.ContentReviewItem
+                getItem(position) as ContentDetailScreenModel.ContentCommentItem
             )
         }
     }
@@ -116,8 +116,8 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
 
         class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
             ViewHolder(binding.root) {
-            fun bind(item: ContentDetailScreenModel.ContentReviewItem) {
-                binding.item = item.contentReviewItem
+            fun bind(item: ContentDetailScreenModel.ContentCommentItem) {
+                binding.item = item.contentCommentItem
             }
         }
     }
@@ -129,7 +129,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
 
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class ContentReviewItem(val contentReviewItem: ContentCommentModel) : ContentDetailScreenModel()
+        data class ContentCommentItem(val contentCommentItem: ContentCommentModel) : ContentDetailScreenModel()
     }
 }
 
@@ -148,9 +148,9 @@ private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<Conte
             oldItem is ContentDetailScreenModel.CommentsView &&
                 newItem is ContentDetailScreenModel.CommentsView -> true
 
-            oldItem is ContentDetailScreenModel.ContentReviewItem &&
-                newItem is ContentDetailScreenModel.ContentReviewItem ->
-                oldItem.contentReviewItem.id == newItem.contentReviewItem.id
+            oldItem is ContentDetailScreenModel.ContentCommentItem &&
+                newItem is ContentDetailScreenModel.ContentCommentItem ->
+                oldItem.contentCommentItem.id == newItem.contentCommentItem.id
 
             else -> false
         }
