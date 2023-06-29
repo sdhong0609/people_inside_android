@@ -53,4 +53,5 @@ object RetrofitClient {
     val contentDetailService: ContentDetailService = retrofit.create(ContentDetailService::class.java)
     val searchService: SearchService = retrofit.create(SearchService::class.java)
     val bookmarkService: BookmarkService = retrofit.create(BookmarkService::class.java)
+    val likeToggleService: LikeToggleService = retrofit.create(LikeToggleService::class.java)
 }

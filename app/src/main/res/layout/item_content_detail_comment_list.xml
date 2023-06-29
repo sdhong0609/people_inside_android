@@ -68,14 +68,14 @@
             android:maxLines="3"
             android:text="@{item.content}"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/layoutHeartLike"
+            app:layout_constraintBottom_toTopOf="@id/heartLikeLayout"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
             app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
             app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
             tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
         <LinearLayout
-            android:id="@+id/layoutHeartLike"
+            android:id="@+id/heartLikeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"

@@ -14,6 +14,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
+import com.beside153.peopleinside.service.LikeToggleService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
@@ -27,7 +28,8 @@ import retrofit2.HttpException
 
 class ContentDetailViewModel(
     private val contentDetailService: ContentDetailService,
-    private val bookmarkService: BookmarkService
+    private val bookmarkService: BookmarkService,
+    private val likeToggleService: LikeToggleService
 ) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
@@ -183,7 +185,8 @@ class ContentDetailViewModel(
             ): T {
                 val contentDetailService = RetrofitClient.contentDetailService
                 val bookmarkService = RetrofitClient.bookmarkService
-                return ContentDetailViewModel(contentDetailService, bookmarkService) as T
+                val likeToggleService = RetrofitClient.likeToggleService
+                return ContentDetailViewModel(contentDetailService, bookmarkService, likeToggleService) as T
             }
         }
     }
