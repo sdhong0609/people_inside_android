@@ -42,6 +42,7 @@ class ContentDetailViewModel(
 
     fun initAllData(contentId: Int, didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
+        // 별점과 감상이 있는지 확인하는 api exceptionhandler는 별점, 감상 정보가 존재하지 않을 때의 분기처리를 해줘야 한다.
 
         viewModelScope.launch {
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }

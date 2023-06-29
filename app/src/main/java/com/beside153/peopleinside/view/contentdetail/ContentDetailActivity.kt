@@ -21,7 +21,6 @@ class ContentDetailActivity : AppCompatActivity() {
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
     private var contentId: Int = 1
 
-    @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_content_detail)

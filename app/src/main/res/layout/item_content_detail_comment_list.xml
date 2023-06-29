@@ -27,9 +27,10 @@
             android:layout_marginStart="21dp"
             android:layout_marginTop="19dp"
             android:contentDescription="@string/mbti_icon"
-            android:src="@drawable/istj_circle_img"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:mbtiCircleImg="@{item.writer.mbti}"
+            tools:src="@drawable/istj_circle_img" />
 
         <TextView
             android:id="@+id/mbtiNicknameTextView"
@@ -89,8 +90,10 @@
                 android:id="@+id/heartIconImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:contentDescription="@string/heart_icon"
-                android:src="@drawable/ic_entp_heart" />
+                app:mbtiHeartImg="@{item.writer.mbti}"
+                tools:src="@drawable/mbti_heart_icon_enfj" />
 
             <TextView
                 style="@style/textStyleMediumBlack"
