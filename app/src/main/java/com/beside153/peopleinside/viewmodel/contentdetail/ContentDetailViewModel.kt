@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
+import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
@@ -25,9 +27,9 @@ class ContentDetailViewModel(
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
     val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
 
-    private val reviewList = MutableLiveData<List<ContentReviewModel>>()
-
+    private val contentRatingItem = MutableLiveData<ContentRatingModel>()
     private val bookmarked = MutableLiveData(false)
+    private val reviewList = MutableLiveData<List<ContentReviewModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
@@ -44,9 +46,12 @@ class ContentDetailViewModel(
         viewModelScope.launch {
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val reviewListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
+            val contentRatingItemDeferred =
+                async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
+            contentRatingItem.value = contentRatingItemDeferred.await()
             reviewList.value = reviewListDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
 
@@ -67,7 +72,7 @@ class ContentDetailViewModel(
     private fun screenList(): List<ContentDetailScreenModel> {
         return listOf(
             ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
-            ContentDetailScreenModel.ReviewView(bookmarked.value!!),
+            ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!),
             ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
             ContentDetailScreenModel.CommentsView,
             *reviewList.value?.map { ContentDetailScreenModel.ContentReviewItem(it) }?.toTypedArray()

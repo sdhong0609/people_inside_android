@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="ratingItem"
+            type="com.beside153.peopleinside.model.contentdetail.ContentRatingModel" />
+
+        <variable
             name="bookmarked"
             type="Boolean" />
     </data>
@@ -35,6 +39,7 @@
             android:numStars="5"
             android:progressBackgroundTint="@color/gray_400"
             android:progressTint="@color/black"
+            android:rating="@{ratingItem.rating}"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

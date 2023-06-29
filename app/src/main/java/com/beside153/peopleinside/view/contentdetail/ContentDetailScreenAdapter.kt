@@ -13,6 +13,7 @@ import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
+import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
@@ -96,6 +97,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
 
         class ReviewViewHolder(private val binding: ItemContentDetailReviewBinding) : ViewHolder(binding.root) {
             fun bind(item: ContentDetailScreenModel.ReviewView) {
+                binding.ratingItem = item.contentRatingItem
                 binding.bookmarked = item.bookmarked
             }
         }
@@ -122,7 +124,9 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
 
     sealed class ContentDetailScreenModel {
         data class PosterView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
-        data class ReviewView(val bookmarked: Boolean) : ContentDetailScreenModel()
+        data class ReviewView(val contentRatingItem: ContentRatingModel, val bookmarked: Boolean) :
+            ContentDetailScreenModel()
+
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
         data class ContentReviewItem(val contentReviewItem: ContentReviewModel) : ContentDetailScreenModel()
@@ -135,7 +139,8 @@ private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<Conte
             oldItem is ContentDetailScreenModel.PosterView && newItem is ContentDetailScreenModel.PosterView ->
                 oldItem.contentDetailItem.contentId == newItem.contentDetailItem.contentId
 
-            oldItem is ContentDetailScreenModel.ReviewView && newItem is ContentDetailScreenModel.ReviewView -> true
+            oldItem is ContentDetailScreenModel.ReviewView && newItem is ContentDetailScreenModel.ReviewView ->
+                oldItem.contentRatingItem.ratingId == newItem.contentRatingItem.ratingId
 
             oldItem is ContentDetailScreenModel.InfoView && newItem is ContentDetailScreenModel.InfoView ->
                 oldItem.contentDetailItem.contentId == newItem.contentDetailItem.contentId
