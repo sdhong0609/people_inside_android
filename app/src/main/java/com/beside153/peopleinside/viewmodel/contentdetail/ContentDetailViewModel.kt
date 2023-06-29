@@ -92,21 +92,21 @@ class ContentDetailViewModel(
             if (currentRating.roundToHalf() == rating) return@launch
 
             if (currentRating <= 0) {
-                currentRating = rating
                 contentRatingItem.value =
                     contentDetailService.postContentRating(contentId, ContentRatingRequest(rating))
+                currentRating = rating
                 currentRatingId = contentRatingItem.value?.ratingId ?: 0
                 return@launch
             }
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
             if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
-                currentRating = rating
                 contentDetailService.putContentRating(contentId, ContentRatingRequest(rating))
+                currentRating = rating
                 return@launch
             }
             if (currentRatingHasValue && rating == 0f) {
-                currentRating = rating
                 contentDetailService.deleteContentRating(contentId, currentRatingId)
+                currentRating = rating
             }
         }
     }
