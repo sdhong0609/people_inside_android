@@ -19,6 +19,7 @@ import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -52,8 +53,7 @@ class ContentDetailViewModel(
         // 별점과 감상이 있는지 확인하는 api exceptionhandler는 별점, 감상 정보가 존재하지 않을 때의 분기처리를 해줘야 한다.
 
         viewModelScope.launch {
-            initRating(contentId)
-
+            initRating(contentId).join()
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
@@ -67,7 +67,7 @@ class ContentDetailViewModel(
         }
     }
 
-    private fun initRating(contentId: Int) {
+    private suspend fun initRating(contentId: Int): Job {
         val exceptionHandler = CoroutineExceptionHandler { _, t ->
             when (t) {
                 is HttpException -> {
@@ -78,7 +78,7 @@ class ContentDetailViewModel(
             }
         }
 
-        viewModelScope.launch(exceptionHandler) {
+        return viewModelScope.launch(exceptionHandler) {
             val contentRatingItemDeferred =
                 async { contentDetailService.getContentRating(contentId, App.prefs.getInt(App.prefs.userIdKey)) }
             contentRatingItem.value = contentRatingItemDeferred.await()
