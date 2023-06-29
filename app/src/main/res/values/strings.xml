@@ -13,6 +13,7 @@
     <string name="mbti_and_nickname">%s / %s</string>
     <string name="no">아니오</string>
     <string name="yes">예</string>
+    <string name="mbti_pipsider">MBTI / 핍사이더</string>
 
     <!-- Content Description-->
     <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
@@ -97,7 +98,6 @@
     <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
     <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
     <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
-    <string name="mbti_pipsider">MBTI / 핍사이더</string>
 
     <!-- 작품 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
@@ -107,6 +107,7 @@
     <string name="content_comment_title">핍사이더들의 감상</string>
     <string name="runtime_with_value">%d분</string>
     <string name="like_count_with_value">좋아요 %d</string>
+    <string name="content_has_no_review">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
 
     <!-- 감상 작성 화면 -->
     <string name="create_review_2">감상 작성</string>
