@@ -47,7 +47,7 @@ class ContentDetailViewModel(
     private val _createReviewClickEvent = MutableLiveData<Event<Int>>()
     val createReviewClickEvent: LiveData<Event<Int>> get() = _createReviewClickEvent
 
-    private val wwriterHasReview = MutableLiveData(false)
+    private val writerHasReview = MutableLiveData(false)
 
     private var currentRating: Float = 0f
     private var currentRatingId: Int = 0
@@ -76,19 +76,21 @@ class ContentDetailViewModel(
         val exceptionHandler = CoroutineExceptionHandler { _, t ->
             when (t) {
                 is HttpException -> {
-                    wwriterHasReview.value = false
+                    writerHasReview.value = false
                 }
+
+                // else -> 처리 필요
             }
         }
 
         return viewModelScope.launch(exceptionHandler) {
             val writerReviewDeferred = async { contentDetailService.getWriterReview(contentId, App.prefs.getUserId()) }
             writerReviewItem.value = writerReviewDeferred.await()
-            wwriterHasReview.value = true
+            writerHasReview.value = true
         }
     }
 
-    fun getWriterHasReview(): Boolean = wwriterHasReview.value ?: false
+    fun getWriterHasReview(): Boolean = writerHasReview.value ?: false
 
     private suspend fun initRating(contentId: Int): Job {
         val exceptionHandler = CoroutineExceptionHandler { _, t ->
@@ -98,6 +100,8 @@ class ContentDetailViewModel(
                     currentRating = 0f
                     currentRatingId = 0
                 }
+
+                // else -> 처리 필요
             }
         }
 
