@@ -12,9 +12,9 @@ import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
+import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
-import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, private val onCreateReviewClick: () -> Unit) :
@@ -129,7 +129,7 @@ class ContentDetailScreenAdapter(private val onBookmarkClick: () -> Unit, privat
 
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
         object CommentsView : ContentDetailScreenModel()
-        data class ContentReviewItem(val contentReviewItem: ContentReviewModel) : ContentDetailScreenModel()
+        data class ContentReviewItem(val contentReviewItem: ContentCommentModel) : ContentDetailScreenModel()
     }
 }
 

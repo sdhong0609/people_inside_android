@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
+import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
-import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -29,7 +29,7 @@ class ContentDetailViewModel(
 
     private val contentRatingItem = MutableLiveData<ContentRatingModel>()
     private val bookmarked = MutableLiveData(false)
-    private val reviewList = MutableLiveData<List<ContentReviewModel>>()
+    private val reviewList = MutableLiveData<List<ContentCommentModel>>()
 
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList

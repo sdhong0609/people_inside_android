@@ -1,8 +1,8 @@
 package com.beside153.peopleinside.service
 
+import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
-import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,7 +15,7 @@ interface ContentDetailService {
     suspend fun getContentReviewList(
         @Path("contentId") contentId: Int,
         @Query("page") page: Int
-    ): List<ContentReviewModel>
+    ): List<ContentCommentModel>
 
     @GET("/api/media-content/{contentId}/rating/rater/{raterId}")
     suspend fun getContentRating(@Path("contentId") contentId: Int, @Path("raterId") raterId: Int): ContentRatingModel

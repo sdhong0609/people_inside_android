@@ -59,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/content_has_no_review"
+                android:text="@string/content_has_no_comment"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@id/layoutHeartLike"
                 app:layout_constraintEnd_toEndOf="parent"

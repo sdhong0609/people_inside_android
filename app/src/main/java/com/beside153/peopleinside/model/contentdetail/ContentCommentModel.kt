@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class ContentReviewModel(
+data class ContentCommentModel(
     @SerialName("id") val id: Int,
     @SerialName("created_at") val createdAt: String,
     @SerialName("content") val content: String,

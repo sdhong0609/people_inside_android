@@ -107,7 +107,7 @@
     <string name="content_comment_title">핍사이더들의 감상</string>
     <string name="runtime_with_value">%d분</string>
     <string name="like_count_with_value">좋아요 %d</string>
-    <string name="content_has_no_review">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
+    <string name="content_has_no_comment">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
 
     <!-- 감상 작성 화면 -->
     <string name="create_review_2">감상 작성</string>
