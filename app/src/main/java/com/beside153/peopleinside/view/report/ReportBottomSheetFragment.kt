@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentReportBottomSheetBinding
@@ -40,10 +42,21 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
         )
 
         reportAdapter.submitList(list)
+
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
     }
 
-    @Suppress("UnusedPrivateMember")
     private fun onReportItemClick(item: ReportModel) {
-        //
+        setFragmentResult(
+            ReportBottomSheetFragment::class.java.simpleName,
+            bundleOf(REPORT_ID to item.id)
+        )
+        dismiss()
+    }
+
+    companion object {
+        private const val REPORT_ID = "REPORT_ID"
     }
 }

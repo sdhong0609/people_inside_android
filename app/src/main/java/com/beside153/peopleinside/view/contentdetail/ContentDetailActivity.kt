@@ -30,6 +30,7 @@ class ContentDetailActivity : AppCompatActivity() {
             ::onThreeDotsClick
         )
     private val bottomSheet = ReportBottomSheetFragment()
+    private var reportId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,14 +47,6 @@ class ContentDetailActivity : AppCompatActivity() {
         contentDetailViewModel.setContentId(contentId)
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         contentDetailViewModel.initAllData(didClickComment)
-
-        contentDetailViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
 
         binding.contentDetailRecyclerView.apply {
             adapter = contentDetailScreenAdapter
@@ -72,6 +65,21 @@ class ContentDetailActivity : AppCompatActivity() {
                 }
             })
         }
+
+        supportFragmentManager.setFragmentResultListener(
+            ReportBottomSheetFragment::class.java.simpleName,
+            this
+        ) { _, bundle ->
+            reportId = bundle.getInt(REPORT_ID)
+        }
+
+        contentDetailViewModel.backButtonClickEvent.observe(
+            this,
+            EventObserver {
+                finish()
+                setCloseActivityAnimation()
+            }
+        )
 
         contentDetailViewModel.screenList.observe(this) { screenList ->
             contentDetailScreenAdapter.submitList(screenList)
@@ -132,6 +140,7 @@ class ContentDetailActivity : AppCompatActivity() {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val CONTENT_ID = "CONTENT_ID"
         private const val POSITION_COMMENT_LIST = 4
+        private const val REPORT_ID = "REPORT_ID"
 
         fun newIntent(context: Context, didClickComment: Boolean, contentId: Int): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)
