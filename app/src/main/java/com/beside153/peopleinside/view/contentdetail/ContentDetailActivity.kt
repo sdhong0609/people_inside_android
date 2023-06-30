@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
+import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
@@ -27,7 +28,7 @@ class ContentDetailActivity : AppCompatActivity() {
             ::onCreateReviewClick,
             ::onRatingChanged,
             ::getWriterHasReview,
-            ::onThreeDotsClick
+            ::onVerticalDotsClick
         )
     private val bottomSheet = ReportBottomSheetFragment()
     private var reportId = 0
@@ -125,8 +126,8 @@ class ContentDetailActivity : AppCompatActivity() {
         contentDetailViewModel.onCreateReviewClick()
     }
 
-    private fun onThreeDotsClick() {
-        contentDetailViewModel.onThreeDotsClick()
+    private fun onVerticalDotsClick(item: ContentCommentModel) {
+        contentDetailViewModel.onVerticalDotsClick(item)
     }
 
     private val createReviewActivityLauncher =

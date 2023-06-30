@@ -23,7 +23,7 @@ class ContentDetailScreenAdapter(
     private val onCreateReviewClick: () -> Unit,
     private val onRatingChanged: (rating: Float) -> Unit,
     private val getWriterHasReview: () -> Boolean,
-    private val onThreeDotsClick: () -> Unit
+    private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit
 ) :
     ListAdapter<ContentDetailScreenModel, ContentDetailScreenAdapter.ViewHolder>(
         ContentDetailScreenModelDiffCallback()
@@ -80,10 +80,7 @@ class ContentDetailScreenAdapter(
 
             R.layout.item_content_detail_comment_list -> {
                 val binding = ItemContentDetailCommentListBinding.inflate(inflater, parent, false)
-                binding.verticalDotsImageView.setOnClickListener {
-                    onThreeDotsClick()
-                }
-                ViewHolder.CommentItemViewHolder(binding)
+                ViewHolder.CommentItemViewHolder(binding, onVerticalDotsClick)
             }
 
             else -> {
@@ -134,10 +131,16 @@ class ContentDetailScreenAdapter(
             }
         }
 
-        class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
+        class CommentItemViewHolder(
+            private val binding: ItemContentDetailCommentListBinding,
+            private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit
+        ) :
             ViewHolder(binding.root) {
             fun bind(item: ContentDetailScreenModel.ContentCommentItem) {
                 binding.item = item.contentCommentItem
+                binding.verticalDotsImageView.setOnClickListener {
+                    onVerticalDotsClick(item.contentCommentItem)
+                }
             }
         }
 

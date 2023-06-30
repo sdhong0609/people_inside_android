@@ -50,8 +50,8 @@ class ContentDetailViewModel(
     private val _createReviewClickEvent = MutableLiveData<Event<Pair<Int, String>>>()
     val createReviewClickEvent: LiveData<Event<Pair<Int, String>>> get() = _createReviewClickEvent
 
-    private val _threeDotsClickEvent = MutableLiveData<Event<Unit>>()
-    val threeDotsClickEvent: LiveData<Event<Unit>> get() = _threeDotsClickEvent
+    private val _threeDotsClickEvent = MutableLiveData<Event<ContentCommentModel>>()
+    val threeDotsClickEvent: LiveData<Event<ContentCommentModel>> get() = _threeDotsClickEvent
 
     private val writerHasReview = MutableLiveData(false)
 
@@ -79,8 +79,8 @@ class ContentDetailViewModel(
         }
     }
 
-    fun onThreeDotsClick() {
-        _threeDotsClickEvent.value = Event(Unit)
+    fun onVerticalDotsClick(item: ContentCommentModel) {
+        _threeDotsClickEvent.value = Event(item)
     }
 
     fun initAllData(didClickComment: Boolean) {
