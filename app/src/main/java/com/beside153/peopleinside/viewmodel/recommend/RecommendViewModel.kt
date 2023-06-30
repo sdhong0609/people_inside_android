@@ -1,5 +1,7 @@
 package com.beside153.peopleinside.viewmodel.recommend
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -97,8 +99,10 @@ class RecommendViewModel(
             _pick10ProgressBarVisible.value = true
             pick10List.value = recommendService.getPick10List(++pageCount)
             _viewPagerList.value = viewPagerList()
-            _pick10ProgressBarVisible.value = false
             _refreshPick10ClickEvent.value = Event(Unit)
+            Handler(Looper.getMainLooper()).postDelayed({
+                _pick10ProgressBarVisible.value = false
+            }, REFRESH_TIME)
         }
     }
 
@@ -174,6 +178,9 @@ class RecommendViewModel(
     }
 
     companion object {
+        private const val MAX_TAKE = 3
+        private const val REFRESH_TIME = 2000L
+
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
@@ -185,7 +192,5 @@ class RecommendViewModel(
                 return RecommendViewModel(recommendService, bookmarkService) as T
             }
         }
-
-        private const val MAX_TAKE = 3
     }
 }
