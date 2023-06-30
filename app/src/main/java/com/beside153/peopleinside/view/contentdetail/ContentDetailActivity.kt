@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.util.EventObserver
@@ -49,6 +50,19 @@ class ContentDetailActivity : AppCompatActivity() {
         binding.contentDetailRecyclerView.apply {
             adapter = contentDetailScreenAdapter
             layoutManager = LinearLayoutManager(this@ContentDetailActivity)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        contentDetailViewModel.loadMoreCommentList()
+                    }
+                }
+            })
         }
 
         contentDetailViewModel.screenList.observe(this) { screenList ->

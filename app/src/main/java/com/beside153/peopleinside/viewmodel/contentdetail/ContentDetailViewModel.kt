@@ -54,9 +54,25 @@ class ContentDetailViewModel(
     private var contentId = 0
     private var currentRating = 0f
     private var currentRatingId = 0
+    private var page = 1
 
     fun setContentId(id: Int) {
         contentId = id
+    }
+
+    fun loadMoreCommentList() {
+        // ExceptionHandler 구현 필요
+
+        viewModelScope.launch {
+            val newCommentList = contentDetailService.getContentReviewList(contentId, ++page)
+
+            @Suppress("SpreadOperator")
+            _screenList.value = _screenList.value?.plus(
+                listOf(
+                    *newCommentList.map { ContentDetailScreenModel.ContentCommentItem(it) }.toTypedArray()
+                )
+            )
+        }
     }
 
     fun initAllData(didClickComment: Boolean) {
@@ -67,7 +83,7 @@ class ContentDetailViewModel(
             initWriterReview(contentId).join()
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
-            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, 1) }
+            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, page) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
