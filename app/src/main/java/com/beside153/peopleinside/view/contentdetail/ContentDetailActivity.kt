@@ -43,7 +43,7 @@ class ContentDetailActivity : AppCompatActivity() {
             lifecycleOwner = this@ContentDetailActivity
         }
 
-        addBackPressedCallback()
+        addBackPressedCallback { setResult(RESULT_OK) }
 
         val contentId = intent.getIntExtra(CONTENT_ID, 1)
         contentDetailViewModel.setContentId(contentId)
@@ -83,6 +83,7 @@ class ContentDetailActivity : AppCompatActivity() {
         contentDetailViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
+                setResult(RESULT_OK)
                 finish()
                 setCloseActivityAnimation()
             }

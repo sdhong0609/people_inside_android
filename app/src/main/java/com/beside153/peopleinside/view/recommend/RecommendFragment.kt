@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -71,7 +73,13 @@ class RecommendFragment : Fragment() {
         recommendViewModel.pick10ItemClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+                contentDetailActivityLauncher.launch(
+                    ContentDetailActivity.newIntent(
+                        requireActivity(),
+                        false,
+                        item.contentId
+                    )
+                )
                 requireActivity().setOpenActivityAnimation()
             }
         )
@@ -119,6 +127,13 @@ class RecommendFragment : Fragment() {
             }
         )
     }
+
+    private val contentDetailActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                recommendViewModel.initAllData()
+            }
+        }
 
     override fun onResume() {
         super.onResume()
