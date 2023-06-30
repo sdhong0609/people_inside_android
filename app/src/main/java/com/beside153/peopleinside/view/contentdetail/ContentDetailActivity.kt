@@ -21,7 +21,6 @@ class ContentDetailActivity : AppCompatActivity() {
     private val contentDetailScreenAdapter =
         ContentDetailScreenAdapter(::onBookmarkClick, ::onCreateReviewClick, ::onRatingChanged, ::getWriterHasReview)
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
-    private var contentId: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,9 +33,10 @@ class ContentDetailActivity : AppCompatActivity() {
 
         addBackPressedCallback()
 
-        contentId = intent.getIntExtra(CONTENT_ID, 1)
+        val contentId = intent.getIntExtra(CONTENT_ID, 1)
+        contentDetailViewModel.setContentId(contentId)
         val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
-        contentDetailViewModel.initAllData(contentId, didClickComment)
+        contentDetailViewModel.initAllData(didClickComment)
 
         contentDetailViewModel.backButtonClickEvent.observe(
             this,
@@ -75,23 +75,23 @@ class ContentDetailActivity : AppCompatActivity() {
     }
 
     private fun onRatingChanged(rating: Float) {
-        contentDetailViewModel.onRatingChanged(contentId, rating)
+        contentDetailViewModel.onRatingChanged(rating)
     }
 
     private fun onBookmarkClick() {
-        contentDetailViewModel.onBookmarkClick(contentId)
+        contentDetailViewModel.onBookmarkClick()
     }
 
     private fun getWriterHasReview(): Boolean = contentDetailViewModel.getWriterHasReview()
 
     private fun onCreateReviewClick() {
-        contentDetailViewModel.onCreateReviewClick(contentId)
+        contentDetailViewModel.onCreateReviewClick()
     }
 
     private val createReviewActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                contentDetailViewModel.initAllData(contentId, false)
+                contentDetailViewModel.initAllData(false)
             }
         }
 

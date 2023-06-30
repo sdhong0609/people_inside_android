@@ -51,10 +51,15 @@ class ContentDetailViewModel(
 
     private val writerHasReview = MutableLiveData(false)
 
-    private var currentRating: Float = 0f
-    private var currentRatingId: Int = 0
+    private var contentId = 0
+    private var currentRating = 0f
+    private var currentRatingId = 0
 
-    fun initAllData(contentId: Int, didClickComment: Boolean) {
+    fun setContentId(id: Int) {
+        contentId = id
+    }
+
+    fun initAllData(didClickComment: Boolean) {
         // 로딩 및 ExceptionHandler 구현 필요
 
         viewModelScope.launch {
@@ -115,7 +120,7 @@ class ContentDetailViewModel(
         }
     }
 
-    fun onRatingChanged(contentId: Int, rating: Float) {
+    fun onRatingChanged(rating: Float) {
         viewModelScope.launch {
             if (currentRating.roundToHalf() == rating) return@launch
 
@@ -139,7 +144,7 @@ class ContentDetailViewModel(
         }
     }
 
-    fun onBookmarkClick(contentId: Int) {
+    fun onBookmarkClick() {
         bookmarked.value = bookmarked.value != true
         _screenList.value = screenList()
         viewModelScope.launch {
@@ -166,7 +171,7 @@ class ContentDetailViewModel(
         ) + commentAreaList
     }
 
-    fun onCreateReviewClick(contentId: Int) {
+    fun onCreateReviewClick() {
         if (writerHasReview.value == false) {
             _createReviewClickEvent.value = Event(Pair(contentId, ""))
         } else {
