@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class SubRankingViewModel(private val recommendService: RecommendService) : BaseViewModel() {

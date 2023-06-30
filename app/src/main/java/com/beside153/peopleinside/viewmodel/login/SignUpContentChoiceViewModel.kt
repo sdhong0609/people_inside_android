@@ -2,10 +2,10 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.login.ContentModel
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
-import com.beside153.peopleinside.viewmodel.BaseViewModel
 
 class SignUpContentChoiceViewModel : BaseViewModel() {
     private var contentList = mutableListOf<ContentModel>()

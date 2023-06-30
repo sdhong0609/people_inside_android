@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 class RecommendViewModel(
     private val recommendService: RecommendService,
     private val bookmarkService: BookmarkService
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _progressBarVisible = MutableLiveData(true)
     val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible

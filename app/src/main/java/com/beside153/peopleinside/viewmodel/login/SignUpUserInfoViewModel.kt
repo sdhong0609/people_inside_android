@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.App
+import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.login.AuthRegisterRequest
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseViewModel() {
