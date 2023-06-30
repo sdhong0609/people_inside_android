@@ -43,6 +43,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
     fun onSearchCancelClick() {
         _keyword.value = ""
+        initSearchScreen()
     }
 
     @Suppress("SpreadOperator")

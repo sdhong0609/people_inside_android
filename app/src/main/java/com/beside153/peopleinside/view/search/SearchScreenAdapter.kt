@@ -30,6 +30,7 @@ import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
     private val onSearchHotItemClick: (item: SearchHotModel) -> Unit,
+    private val onSearchedContentItemClick: (item: SearchedContentModel) -> Unit,
     private val searchViewModel: SearchViewModel
 ) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
@@ -46,6 +47,7 @@ class SearchScreenAdapter(
         }
     }
 
+    @Suppress("LongMethod")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -66,7 +68,16 @@ class SearchScreenAdapter(
 
             R.layout.item_search_searched_content -> {
                 val binding = ItemSearchSearchedContentBinding.inflate(inflater, parent, false)
-                ViewHolder.SearchedContentItemViewHolder(binding)
+                val viewHolder = ViewHolder.SearchedContentItemViewHolder(binding)
+                viewHolder.itemView.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onSearchedContentItemClick(
+                            (getItem(position) as SearchedContentItem).searchedContentItem
+                        )
+                    }
+                }
+                viewHolder
             }
 
             R.layout.item_search_no_result -> {
