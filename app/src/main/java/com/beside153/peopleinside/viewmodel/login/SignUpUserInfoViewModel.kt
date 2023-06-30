@@ -93,7 +93,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
                 )
 
                 App.prefs.setString(App.prefs.jwtTokenKey, response.jwtToken)
-                App.prefs.setInt(App.prefs.userIdKey, response.user.id)
+                App.prefs.setInt(App.prefs.userIdKey, response.user.userId)
                 App.prefs.setString(App.prefs.userMbtiKey, response.user.mbti)
                 App.prefs.setString(App.prefs.userNicknameKey, response.user.nickName)
                 _signUpButtonClickEvent.value = Event(Unit)

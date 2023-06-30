@@ -8,6 +8,7 @@ class PreferenceUtil(context: Context) {
     val userIdKey = "USER_ID"
     val userMbtiKey = "USER_MBTI"
     val userNicknameKey = "USER_NICKNAME"
+    val reportListKey = "REPORT_LIST"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)

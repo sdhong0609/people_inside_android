@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class UserInfo(
-    @SerialName("id") val id: Int,
+    @SerialName("user_id") val userId: Int,
     @SerialName("nickName") val nickName: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,

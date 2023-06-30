@@ -8,10 +8,12 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentReportBottomSheetBinding
 import com.beside153.peopleinside.model.report.ReportModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.serialization.json.Json
 
 class ReportBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentReportBottomSheetBinding
@@ -36,12 +38,8 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        val list = listOf(
-            ReportModel(1, "MEDIA_CONTENT_REVIEW", "부적절한 내용/스포일러"),
-            ReportModel(2, "MEDIA_CONTENT_REVIEW", "비난 및 비방")
-        )
-
-        reportAdapter.submitList(list)
+        val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getString(App.prefs.reportListKey))
+        reportAdapter.submitList(reportList)
 
         binding.cancelButton.setOnClickListener {
             dismiss()
