@@ -85,7 +85,7 @@ class ContentDetailViewModel(
 
     fun onVerticalDotsClick(item: ContentCommentModel) {
         _verticalDotsClickEvent.value = Event(Unit)
-        commentIdForReport = item.id
+        commentIdForReport = item.reviewId
     }
 
     fun reportComment(reportId: Int) {

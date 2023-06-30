@@ -180,7 +180,7 @@ private class ContentDetailScreenModelDiffCallback : DiffUtil.ItemCallback<Conte
 
             oldItem is ContentDetailScreenModel.ContentCommentItem &&
                 newItem is ContentDetailScreenModel.ContentCommentItem ->
-                oldItem.contentCommentItem.id == newItem.contentCommentItem.id
+                oldItem.contentCommentItem.reviewId == newItem.contentCommentItem.reviewId
 
             oldItem is ContentDetailScreenModel.NoCommentView &&
                 newItem is ContentDetailScreenModel.NoCommentView -> true

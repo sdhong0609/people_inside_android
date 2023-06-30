@@ -8,25 +8,19 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class ContentCommentModel(
-    @SerialName("id") val id: Int,
-    @SerialName("created_at") val createdAt: String,
+    @SerialName("content_id") val contentId: Int,
+    @SerialName("review_id") val reviewId: Int,
     @SerialName("content") val content: String,
     @SerialName("like_count") val likeCount: Int,
-    @SerialName("writer_id") val writerId: Int,
-    @SerialName("content_id") val contentId: Int,
     @SerialName("writer") val writer: Writer
 ) : Parcelable
 
 @Parcelize
 @Serializable
 data class Writer(
-    @SerialName("id") val id: Int,
-    @SerialName("social") val social: String?,
-    @SerialName("account") val account: String,
+    @SerialName("user_id") val userId: Int,
     @SerialName("nickName") val nickName: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,
-    @SerialName("sex") val sex: String?,
-    @SerialName("created_at") val createdAt: String,
-    @SerialName("updated_at") val updatedAt: String?
+    @SerialName("sex") val sex: String?
 ) : Parcelable

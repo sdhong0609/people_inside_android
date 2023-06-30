@@ -31,7 +31,7 @@ data class TopLikeReview(
 @Parcelize
 @Serializable
 data class Writer(
-    @SerialName("id") val id: Int,
+    @SerialName("user_id") val userId: Int,
     @SerialName("nickName") val nickName: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,
