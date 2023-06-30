@@ -8,6 +8,6 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class SearchingTitleModel(
-    @SerialName("id") val id: Int,
+    @SerialName("content_id") val contentId: Int,
     @SerialName("title") val title: String
 ) : Parcelable

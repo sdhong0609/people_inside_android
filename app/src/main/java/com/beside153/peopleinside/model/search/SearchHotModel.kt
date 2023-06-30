@@ -9,6 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SearchHotModel(
     val rank: Int = 1,
-    @SerialName("id") val id: Int,
+    @SerialName("content_id") val contentId: Int,
     @SerialName("title") val title: String
 ) : Parcelable

@@ -111,7 +111,7 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun onSearchHotItemClick(item: SearchHotModel) {
-        startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.id))
+        startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
         requireActivity().setOpenActivityAnimation()
     }
 }

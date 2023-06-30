@@ -192,7 +192,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
     override fun areItemsTheSame(oldItem: SearchScreenModel, newItem: SearchScreenModel): Boolean {
         return when {
             oldItem is SearchingTitleItem && newItem is SearchingTitleItem ->
-                oldItem.searchingTitleItem.id == newItem.searchingTitleItem.id
+                oldItem.searchingTitleItem.contentId == newItem.searchingTitleItem.contentId
 
             oldItem is SearchedContentItem && newItem is SearchedContentItem ->
                 oldItem.searchedContentItem.contentId == newItem.searchedContentItem.contentId
@@ -203,7 +203,7 @@ private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreen
 
             oldItem is HotView && newItem is HotView -> true
             oldItem is SearchHotItem && newItem is SearchHotItem ->
-                oldItem.searchHotItem.id == newItem.searchHotItem.id
+                oldItem.searchHotItem.contentId == newItem.searchHotItem.contentId
 
             else -> false
         }
