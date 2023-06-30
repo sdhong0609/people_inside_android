@@ -31,7 +31,8 @@ class ContentDetailActivity : BaseActivity() {
             ::onCreateReviewClick,
             ::onRatingChanged,
             ::getWriterHasReview,
-            ::onVerticalDotsClick
+            ::onVerticalDotsClick,
+            ::onCommentLikeClick
         )
     private val bottomSheet = ReportBottomSheetFragment()
     private var reportId = 0
@@ -156,6 +157,10 @@ class ContentDetailActivity : BaseActivity() {
 
     private fun onVerticalDotsClick(item: ContentCommentModel) {
         contentDetailViewModel.onVerticalDotsClick(item)
+    }
+
+    private fun onCommentLikeClick(item: ContentCommentModel) {
+        contentDetailViewModel.onCommentLikeClick(item)
     }
 
     private val createReviewActivityLauncher =

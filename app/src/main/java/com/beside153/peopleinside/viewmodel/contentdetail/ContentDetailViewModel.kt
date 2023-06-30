@@ -73,6 +73,7 @@ class ContentDetailViewModel(
     fun loadMoreCommentList() {
         viewModelScope.launch(exceptionHandler) {
             val newCommentList = contentDetailService.getContentReviewList(contentId, ++page)
+            commentList.value = commentList.value?.plus(newCommentList)
 
             @Suppress("SpreadOperator")
             _screenList.value = _screenList.value?.plus(
@@ -86,6 +87,34 @@ class ContentDetailViewModel(
     fun onVerticalDotsClick(item: ContentCommentModel) {
         _verticalDotsClickEvent.value = Event(Unit)
         commentIdForReport = item.reviewId
+    }
+
+    fun onCommentLikeClick(item: ContentCommentModel) {
+        viewModelScope.launch(exceptionHandler) {
+            val statusItem = likeToggleService.postLikeToggle(contentId, item.reviewId)
+
+            val updatedList: List<ContentCommentModel>?
+            if (statusItem.toggleStatus == CREATED) {
+                updatedList = commentList.value?.map {
+                    if (item == it) {
+                        it.copy(likeCount = it.likeCount + 1)
+                    } else {
+                        it
+                    }
+                }
+            } else {
+                updatedList = commentList.value?.map {
+                    if (item == it) {
+                        it.copy(likeCount = it.likeCount - 1)
+                    } else {
+                        it
+                    }
+                }
+            }
+
+            commentList.value = updatedList ?: emptyList()
+            _screenList.value = screenList()
+        }
     }
 
     fun reportComment(reportId: Int) {
@@ -225,6 +254,7 @@ class ContentDetailViewModel(
         private const val MAX_RATING = 5
         private const val ENTER = "enter"
         private const val STAY = "stay"
+        private const val CREATED = "created"
 
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
