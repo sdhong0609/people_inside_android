@@ -3,6 +3,8 @@ package com.beside153.peopleinside.view.contentdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -76,6 +78,10 @@ class ContentDetailActivity : BaseActivity() {
             reportId = bundle.getInt(REPORT_ID)
             contentDetailViewModel.reportComment(reportId)
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            contentDetailViewModel.postViewLogStay()
+        }, STAY_TIME)
 
         initObserver()
     }
@@ -164,6 +170,7 @@ class ContentDetailActivity : BaseActivity() {
         private const val CONTENT_ID = "CONTENT_ID"
         private const val POSITION_COMMENT_LIST = 4
         private const val REPORT_ID = "REPORT_ID"
+        private const val STAY_TIME = 3000L
 
         fun newIntent(context: Context, didClickComment: Boolean, contentId: Int): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)

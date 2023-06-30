@@ -102,13 +102,21 @@ class ContentDetailViewModel(
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
             val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, page) }
+            val postViewLogDeferred = async { contentDetailService.postViewLog(contentId, ENTER) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
             commentList.value = commentListDeferred.await()
+            postViewLogDeferred.await()
 
             _screenList.value = screenList()
             if (didClickComment) _scrollEvent.value = Event(Unit)
+        }
+    }
+
+    fun postViewLogStay() {
+        viewModelScope.launch(exceptionHandler) {
+            contentDetailService.postViewLog(contentId, STAY)
         }
     }
 
@@ -215,6 +223,8 @@ class ContentDetailViewModel(
 
     companion object {
         private const val MAX_RATING = 5
+        private const val ENTER = "enter"
+        private const val STAY = "stay"
 
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

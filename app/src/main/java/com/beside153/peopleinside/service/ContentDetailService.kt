@@ -46,4 +46,7 @@ interface ContentDetailService {
         @Path("contentId") contentId: Int,
         @Path("writerId") writerId: Int
     ): ContentReviewModel
+
+    @POST("/api/media-content/{contentId}/view-log")
+    suspend fun postViewLog(@Path("contentId") contentId: Int, @Path("logType") logType: String): String
 }
