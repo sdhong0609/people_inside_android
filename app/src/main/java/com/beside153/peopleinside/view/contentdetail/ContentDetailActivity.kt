@@ -16,6 +16,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
@@ -72,8 +73,13 @@ class ContentDetailActivity : AppCompatActivity() {
             this
         ) { _, bundle ->
             reportId = bundle.getInt(REPORT_ID)
+            contentDetailViewModel.reportComment(reportId)
         }
 
+        initObserver()
+    }
+
+    private fun initObserver() {
         contentDetailViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -104,10 +110,17 @@ class ContentDetailActivity : AppCompatActivity() {
             }
         )
 
-        contentDetailViewModel.threeDotsClickEvent.observe(
+        contentDetailViewModel.verticalDotsClickEvent.observe(
             this,
             EventObserver {
                 bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+            }
+        )
+
+        contentDetailViewModel.reportSuccessEvent.observe(
+            this,
+            EventObserver {
+                showToast(R.string.report_success)
             }
         )
     }

@@ -15,6 +15,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.LikeToggleService
+import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
@@ -30,7 +31,8 @@ import retrofit2.HttpException
 class ContentDetailViewModel(
     private val contentDetailService: ContentDetailService,
     private val bookmarkService: BookmarkService,
-    private val likeToggleService: LikeToggleService
+    private val likeToggleService: LikeToggleService,
+    private val reportService: ReportService
 ) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
@@ -50,10 +52,14 @@ class ContentDetailViewModel(
     private val _createReviewClickEvent = MutableLiveData<Event<Pair<Int, String>>>()
     val createReviewClickEvent: LiveData<Event<Pair<Int, String>>> get() = _createReviewClickEvent
 
-    private val _threeDotsClickEvent = MutableLiveData<Event<ContentCommentModel>>()
-    val threeDotsClickEvent: LiveData<Event<ContentCommentModel>> get() = _threeDotsClickEvent
+    private val _verticalDotsClickEvent = MutableLiveData<Event<Unit>>()
+    val verticalDotsClickEvent: LiveData<Event<Unit>> get() = _verticalDotsClickEvent
+
+    private val _reportSuccessEvent = MutableLiveData<Event<Unit>>()
+    val reportSuccessEvent: LiveData<Event<Unit>> get() = _reportSuccessEvent
 
     private val writerHasReview = MutableLiveData(false)
+    private var commentIdForReport = 0
 
     private var contentId = 0
     private var currentRating = 0f
@@ -80,7 +86,17 @@ class ContentDetailViewModel(
     }
 
     fun onVerticalDotsClick(item: ContentCommentModel) {
-        _threeDotsClickEvent.value = Event(item)
+        _verticalDotsClickEvent.value = Event(Unit)
+        commentIdForReport = item.id
+    }
+
+    fun reportComment(reportId: Int) {
+        // exceptionHandler 구현
+
+        viewModelScope.launch {
+            reportService.postReport(contentId, commentIdForReport, reportId)
+            _reportSuccessEvent.value = Event(Unit)
+        }
     }
 
     fun initAllData(didClickComment: Boolean) {
@@ -215,7 +231,13 @@ class ContentDetailViewModel(
                 val contentDetailService = RetrofitClient.contentDetailService
                 val bookmarkService = RetrofitClient.bookmarkService
                 val likeToggleService = RetrofitClient.likeToggleService
-                return ContentDetailViewModel(contentDetailService, bookmarkService, likeToggleService) as T
+                val reportServie = RetrofitClient.reportService
+                return ContentDetailViewModel(
+                    contentDetailService,
+                    bookmarkService,
+                    likeToggleService,
+                    reportServie
+                ) as T
             }
         }
     }
