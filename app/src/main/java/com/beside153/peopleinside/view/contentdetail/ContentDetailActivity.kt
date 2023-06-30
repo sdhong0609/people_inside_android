@@ -15,13 +15,21 @@ import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
 class ContentDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContentDetailBinding
-    private val contentDetailScreenAdapter =
-        ContentDetailScreenAdapter(::onBookmarkClick, ::onCreateReviewClick, ::onRatingChanged, ::getWriterHasReview)
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
+    private val contentDetailScreenAdapter =
+        ContentDetailScreenAdapter(
+            ::onBookmarkClick,
+            ::onCreateReviewClick,
+            ::onRatingChanged,
+            ::getWriterHasReview,
+            ::onThreeDotsClick
+        )
+    private val bottomSheet = ReportBottomSheetFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +94,13 @@ class ContentDetailActivity : AppCompatActivity() {
                 createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
             }
         )
+
+        contentDetailViewModel.threeDotsClickEvent.observe(
+            this,
+            EventObserver {
+                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+            }
+        )
     }
 
     private fun onRatingChanged(rating: Float) {
@@ -100,6 +115,10 @@ class ContentDetailActivity : AppCompatActivity() {
 
     private fun onCreateReviewClick() {
         contentDetailViewModel.onCreateReviewClick()
+    }
+
+    private fun onThreeDotsClick() {
+        contentDetailViewModel.onThreeDotsClick()
     }
 
     private val createReviewActivityLauncher =

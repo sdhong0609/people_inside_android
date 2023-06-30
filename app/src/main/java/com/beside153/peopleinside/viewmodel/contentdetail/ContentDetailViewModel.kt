@@ -26,6 +26,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
+@Suppress("TooManyFunctions")
 class ContentDetailViewModel(
     private val contentDetailService: ContentDetailService,
     private val bookmarkService: BookmarkService,
@@ -48,6 +49,9 @@ class ContentDetailViewModel(
 
     private val _createReviewClickEvent = MutableLiveData<Event<Pair<Int, String>>>()
     val createReviewClickEvent: LiveData<Event<Pair<Int, String>>> get() = _createReviewClickEvent
+
+    private val _threeDotsClickEvent = MutableLiveData<Event<Unit>>()
+    val threeDotsClickEvent: LiveData<Event<Unit>> get() = _threeDotsClickEvent
 
     private val writerHasReview = MutableLiveData(false)
 
@@ -73,6 +77,10 @@ class ContentDetailViewModel(
                 )
             )
         }
+    }
+
+    fun onThreeDotsClick() {
+        _threeDotsClickEvent.value = Event(Unit)
     }
 
     fun initAllData(didClickComment: Boolean) {

@@ -15,6 +15,8 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentReportBottomSheetBinding
     private val reportAdapter = ReportListAdapter(::onReportItemClick)
 
+    override fun getTheme(): Int = R.style.CustomBottomSheetDialog
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +33,13 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
             adapter = reportAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
+        val list = listOf(
+            ReportModel(1, "MEDIA_CONTENT_REVIEW", "부적절한 내용/스포일러"),
+            ReportModel(2, "MEDIA_CONTENT_REVIEW", "비난 및 비방")
+        )
+
+        reportAdapter.submitList(list)
     }
 
     @Suppress("UnusedPrivateMember")
