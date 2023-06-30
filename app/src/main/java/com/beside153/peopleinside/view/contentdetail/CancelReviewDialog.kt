@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.viewmodel.contentdetail
+package com.beside153.peopleinside.view.contentdetail
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -13,7 +13,7 @@ open class BaseViewModel : ViewModel() {
     private val _error = MutableLiveData<Event<Int>>()
     val error: LiveData<Event<Int>> get() = _error
 
-    protected fun onBackButtonClick() {
+    fun onBackButtonClick() {
         backButtonClickEvent.value = Event(Unit)
     }
 

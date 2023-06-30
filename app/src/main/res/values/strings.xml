@@ -35,7 +35,9 @@
     <string name="right_arrow">오른쪽 화살표</string>
 
     <!-- 오류 메시지 -->
+    <string name="error_happend">오류가 발생했어요</string>
     <string name="not_found_page">주소가 잘못 입력되거나\n변경 혹은 삭제되어 페이지를 찾을 수 없어요</string>
+    <string name="refresh">새로고침</string>
 
     <!-- 로그인 화면 -->
     <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>

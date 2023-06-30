@@ -14,8 +14,6 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.showToast
-import com.beside153.peopleinside.viewmodel.contentdetail.CancelReviewDialog
-import com.beside153.peopleinside.viewmodel.contentdetail.CancelReviewDialogInterface
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
 class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
