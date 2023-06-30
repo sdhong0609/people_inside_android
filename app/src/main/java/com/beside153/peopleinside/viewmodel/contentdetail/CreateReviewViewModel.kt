@@ -35,9 +35,7 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
     }
 
     fun onCompleteButtonClick() {
-        // exceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             if ((reviewText.value ?: "").isNotEmpty()) {
                 if (alreadyHadReview) {
                     recommendService.putReview(contentId, CreateReviewRequest(reviewText.value ?: ""))

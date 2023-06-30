@@ -47,9 +47,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
     @Suppress("SpreadOperator")
     fun initSearchScreen() {
-        // exceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val viwLogListDeferred = async { searchService.getViewLogList() }
             val searchHotListDeferred = async { searchService.getHotContentList() }
 
@@ -84,9 +82,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
             return
         }
 
-        // exceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
                 searchingTitleList.value = searchService.getSearchingTitleList(_keyword.value ?: "")
                 changeScreenWhenSearching()

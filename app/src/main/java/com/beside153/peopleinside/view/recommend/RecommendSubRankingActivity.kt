@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityRecommendSubRankingBinding
 import com.beside153.peopleinside.model.recommend.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
@@ -17,10 +17,11 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.recommend.SubRankingViewModel
 
-class RecommendSubRankingActivity : AppCompatActivity() {
+class RecommendSubRankingActivity : BaseActivity() {
     private lateinit var binding: ActivityRecommendSubRankingBinding
     private val subRankingViewModel: SubRankingViewModel by viewModels { SubRankingViewModel.Factory }
     private val rankingAdpater = RankingRecyclerViewAdapter(::onSubRankingItemClick)
+    private var mediaType = "all"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,8 @@ class RecommendSubRankingActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@RecommendSubRankingActivity)
         }
 
-        val mediaType = intent.getStringExtra(MEDIA_TYPE)
-        subRankingViewModel.initData(mediaType ?: "all")
+        mediaType = intent.getStringExtra(MEDIA_TYPE) ?: "all"
+        subRankingViewModel.initData(mediaType)
 
         subRankingViewModel.subRankingList.observe(this) { list ->
             rankingAdpater.submitList(list)
@@ -53,6 +54,13 @@ class RecommendSubRankingActivity : AppCompatActivity() {
             EventObserver {
                 finish()
                 setCloseActivityAnimation()
+            }
+        )
+
+        subRankingViewModel.error.observe(
+            this,
+            EventObserver {
+                showErrorDialog { subRankingViewModel.initData(mediaType) }
             }
         )
     }

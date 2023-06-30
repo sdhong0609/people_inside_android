@@ -22,9 +22,7 @@ class SubRankingViewModel(private val recommendService: RecommendService) : Base
     val subRankingItemClickEvent: LiveData<Event<SubRankingModel>> get() = _subRankingItemClickEvent
 
     fun initData(mediaType: String) {
-        // exceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _subRankingList.value = recommendService.getSubRankingItem(mediaType, MAX_TAKE)
 
             val updatedSubRankingList = _subRankingList.value?.mapIndexed { index, item ->

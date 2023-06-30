@@ -71,9 +71,7 @@ class ContentDetailViewModel(
     }
 
     fun loadMoreCommentList() {
-        // ExceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val newCommentList = contentDetailService.getContentReviewList(contentId, ++page)
 
             @Suppress("SpreadOperator")
@@ -91,18 +89,14 @@ class ContentDetailViewModel(
     }
 
     fun reportComment(reportId: Int) {
-        // exceptionHandler 구현
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             reportService.postReport(contentId, commentIdForReport, reportId)
             _reportSuccessEvent.value = Event(Unit)
         }
     }
 
     fun initAllData(didClickComment: Boolean) {
-        // 로딩 및 ExceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             initRating(contentId).join()
             initWriterReview(contentId).join()
             val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
@@ -161,7 +155,7 @@ class ContentDetailViewModel(
     }
 
     fun onRatingChanged(rating: Float) {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             if (currentRating.roundToHalf() == rating) return@launch
 
             if (currentRating <= 0) {
@@ -187,7 +181,7 @@ class ContentDetailViewModel(
     fun onBookmarkClick() {
         bookmarked.value = bookmarked.value != true
         _screenList.value = screenList()
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             bookmarkService.postBookmarkStatus(contentId)
         }
     }

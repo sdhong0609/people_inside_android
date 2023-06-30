@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
-class SignUpUserInfoFragment : Fragment() {
+class SignUpUserInfoFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
     private val userInfoViewModel: SignUpUserInfoViewModel by activityViewModels(
         factoryProducer = {
@@ -86,6 +86,13 @@ class SignUpUserInfoFragment : Fragment() {
             viewLifecycleOwner,
             EventObserver {
                 findNavController().navigateUp()
+            }
+        )
+
+        userInfoViewModel.error.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                showErrorDialog { userInfoViewModel.onSignUpButtonClick() }
             }
         )
     }

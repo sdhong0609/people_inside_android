@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.search.SearchHotModel
 import com.beside153.peopleinside.model.search.SearchingTitleModel
@@ -24,7 +24,7 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel: SearchViewModel by viewModels(
         factoryProducer = {
@@ -95,6 +95,13 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner,
             EventObserver {
                 inputMethodManager.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+            }
+        )
+
+        searchViewModel.error.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                showErrorDialog { searchViewModel.initSearchScreen() }
             }
         )
     }

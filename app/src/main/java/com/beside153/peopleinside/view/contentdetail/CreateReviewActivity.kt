@@ -8,15 +8,15 @@ import android.os.Looper
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
-class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
+class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
     private lateinit var binding: ActivityCreateReviewBinding
     private val createReviewViewModel: CreateReviewViewModel by viewModels { CreateReviewViewModel.Factory }
     private val cancelReviewDialog = CancelReviewDialog(this)
@@ -48,16 +48,23 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
             }
         )
 
-        createReviewViewModel.backButtonClickEvent.observe(this) {
-            showCancelReviewDialog()
-        }
-
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     showCancelReviewDialog()
                 }
+            }
+        )
+
+        createReviewViewModel.backButtonClickEvent.observe(this) {
+            showCancelReviewDialog()
+        }
+
+        createReviewViewModel.error.observe(
+            this,
+            EventObserver {
+                showErrorDialog { createReviewViewModel.onCompleteButtonClick() }
             }
         )
     }

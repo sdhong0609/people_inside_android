@@ -77,13 +77,10 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
     @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
         // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 및 금칙어 체크 로직 구현 필요
-        // TODO: 로딩 및 exceptionHandler 구현 필요
-//        val exceptionHandler = CoroutineExceptionHandler { coroutineContext, t ->
-//
-//        }
+        // TODO: 로딩 구현 필요
 
         if (_isDuplicate.value == false) {
-            viewModelScope.launch {
+            viewModelScope.launch(exceptionHandler) {
                 val response = signUpService.postAuthRegister(
                     "Bearer ${authToken.value}",
                     AuthRegisterRequest(

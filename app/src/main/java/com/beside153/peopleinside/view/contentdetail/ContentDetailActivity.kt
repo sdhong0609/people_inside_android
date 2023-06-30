@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.util.EventObserver
@@ -20,7 +20,7 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
-class ContentDetailActivity : AppCompatActivity() {
+class ContentDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityContentDetailBinding
     private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
     private val contentDetailScreenAdapter =
@@ -33,6 +33,7 @@ class ContentDetailActivity : AppCompatActivity() {
         )
     private val bottomSheet = ReportBottomSheetFragment()
     private var reportId = 0
+    private var didClickComment = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,7 @@ class ContentDetailActivity : AppCompatActivity() {
 
         val contentId = intent.getIntExtra(CONTENT_ID, 1)
         contentDetailViewModel.setContentId(contentId)
-        val didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
+        didClickComment = intent.getBooleanExtra(DID_CLICK_COMMENT, false)
         contentDetailViewModel.initAllData(didClickComment)
 
         binding.contentDetailRecyclerView.apply {
@@ -122,6 +123,13 @@ class ContentDetailActivity : AppCompatActivity() {
             this,
             EventObserver {
                 showToast(R.string.report_success)
+            }
+        )
+
+        contentDetailViewModel.error.observe(
+            this,
+            EventObserver {
+                showErrorDialog { contentDetailViewModel.initAllData(didClickComment) }
             }
         )
     }
