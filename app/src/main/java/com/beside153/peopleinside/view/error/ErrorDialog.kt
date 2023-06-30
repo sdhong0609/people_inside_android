@@ -16,6 +16,8 @@ class ErrorDialog : DialogFragment() {
     var description: Int? = null
     var listener: ErrorDialogListener? = null
 
+    override fun getTheme(): Int = R.style.RoundedCornersDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_error, container, false)
         return binding.root
@@ -25,6 +27,10 @@ class ErrorDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.errorDialogContentTextView.text = getString(description ?: R.string.not_found_page)
+        binding.refreshButton.setOnClickListener {
+            dismiss()
+            listener?.onClickRefreshButton()
+        }
     }
 
     class ErrorDialogBuilder {
