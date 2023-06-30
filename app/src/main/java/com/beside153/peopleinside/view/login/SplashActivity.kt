@@ -13,10 +13,12 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import timber.log.Timber
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : BaseActivity() {
-    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, t ->
+        Timber.e(t.message)
         showErrorDialog { getReportList() }
     }
 

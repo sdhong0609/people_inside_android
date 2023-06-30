@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.bindingadapter
+package com.beside153.peopleinside.bindingadapter
 
 import android.view.View
 import android.widget.Button

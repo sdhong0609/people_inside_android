@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.bindingadapter
+package com.beside153.peopleinside.bindingadapter
 
 import android.widget.TextView
 import androidx.core.content.ContextCompat
