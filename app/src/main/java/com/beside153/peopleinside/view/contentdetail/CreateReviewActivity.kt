@@ -63,12 +63,11 @@ class CreateReviewActivity : AppCompatActivity(), CancelReviewDialogInterface {
     }
 
     private fun showCancelReviewDialog() {
-        cancelReviewDialog.show(this.supportFragmentManager, CANCEL_REVIEW_DIALOG)
+        cancelReviewDialog.show(this.supportFragmentManager, cancelReviewDialog.tag)
     }
 
     companion object {
         private const val DURATION_UNTIL_BACK = 2000L
-        private const val CANCEL_REVIEW_DIALOG = "CANCEL_REVIEW_DIALOG"
         private const val CONTENT_ID = "CONTENT_ID"
         private const val CONTENT = "CONTENT"
 

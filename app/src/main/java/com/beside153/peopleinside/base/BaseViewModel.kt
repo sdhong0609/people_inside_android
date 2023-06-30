@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.util.Event
+import kotlinx.coroutines.CoroutineExceptionHandler
 
 open class BaseViewModel : ViewModel() {
 
@@ -17,7 +18,7 @@ open class BaseViewModel : ViewModel() {
         backButtonClickEvent.value = Event(Unit)
     }
 
-    protected fun handleException(t: Throwable) {
+    protected val exceptionHandler = CoroutineExceptionHandler { _, t ->
         when (t) {
             is Exception -> {
                 _error.value = Event(R.string.not_found_page)

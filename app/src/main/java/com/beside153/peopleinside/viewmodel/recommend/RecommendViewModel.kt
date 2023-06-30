@@ -71,9 +71,7 @@ class RecommendViewModel(
     private var pageCount = 1
 
     fun initAllData() {
-        // 로딩 및 ExceptionHandler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val pick10ListDeferred = async { recommendService.getPick10List(pageCount) }
             val movieBattleItemDeferred = async { recommendService.getRatingBattleItem("movie") }
             val tvBattleItemDeferred = async { recommendService.getRatingBattleItem("tv") }
@@ -95,7 +93,7 @@ class RecommendViewModel(
     }
 
     fun refreshPick10List() {
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             _pick10ProgressBarVisible.value = true
             pick10List.value = recommendService.getPick10List(++pageCount)
             _viewPagerList.value = viewPagerList()
@@ -105,9 +103,7 @@ class RecommendViewModel(
     }
 
     fun onBookmarkClick(item: Pick10Model) {
-        // exceptionHandeler 구현 필요
-
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             bookmarkService.postBookmarkStatus(item.contentId)
 
             val updatedList = pick10List.value?.map {
@@ -163,7 +159,7 @@ class RecommendViewModel(
     private fun onSubRankingTabClick() {
         _subRankingProgressBarVisible.value = true
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val subrankingListDeferred =
                 async { recommendService.getSubRankingItem(_selectedTab.value ?: "all", MAX_TAKE) }
             _subRankingList.value = subrankingListDeferred.await()

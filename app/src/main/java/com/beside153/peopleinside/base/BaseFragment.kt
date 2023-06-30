@@ -1,22 +1,17 @@
 package com.beside153.peopleinside.base
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.view.error.ErrorDialog
 
 open class BaseFragment : Fragment() {
 
-    private val baseViewModel: BaseViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        baseViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                // 다이얼로그 띄우기!!!!!
-            }
-        )
+    protected fun showErrorDialog(onClickRefreshButton: () -> Unit) {
+        val errorDialog = ErrorDialog.ErrorDialogBuilder()
+            .setButtonClickListener(object : ErrorDialog.ErrorDialogListener {
+                override fun onClickRefreshButton() {
+                    onClickRefreshButton()
+                }
+            }).create()
+        errorDialog.show(childFragmentManager, errorDialog.tag)
     }
 }
