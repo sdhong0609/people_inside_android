@@ -67,3 +67,5 @@
 
 -keep class com.beside153.peopleinside.service.* { *; }
 -keep class com.beside153.peopleinside.model.bookmark.BookmarkToggleResponse { *; }
+
+-keep class com.kakao.sdk.**.model.* { *; }
