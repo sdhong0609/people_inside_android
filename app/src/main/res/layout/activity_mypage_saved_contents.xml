@@ -43,7 +43,7 @@
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="1"
-                    android:text="@string/saved_contents"
+                    android:text="@string/bookmarked_contents"
                     android:textSize="20sp" />
 
             </com.google.android.material.appbar.MaterialToolbar>

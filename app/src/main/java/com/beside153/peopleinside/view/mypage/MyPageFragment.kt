@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentMyPageBinding
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
+    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModel.Factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,9 +29,19 @@ class MyPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.savedContentsLayout.setOnClickListener {
-            startActivity(SavedContentsActivity.newIntent(requireActivity()))
-            requireActivity().setOpenActivityAnimation()
+        binding.apply {
+            viewModel = myPageViewModel
+            lifecycleOwner = this@MyPageFragment
         }
+
+        myPageViewModel.initAllData()
+
+        myPageViewModel.bookmarkContentsClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(SavedContentsActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
     }
 }

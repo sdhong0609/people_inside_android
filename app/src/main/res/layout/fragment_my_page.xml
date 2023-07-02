@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -153,9 +156,10 @@
             app:layout_constraintTop_toBottomOf="@id/emailTextView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/savedContentsLayout"
+            android:id="@+id/bookmarkContentsLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onBookmarkContentsClick()}"
             android:paddingVertical="20dp"
             android:paddingStart="16dp"
             android:paddingEnd="8dp"
@@ -164,26 +168,26 @@
             app:layout_constraintTop_toBottomOf="@id/lineView">
 
             <TextView
-                android:id="@+id/savedContentsTextView"
+                android:id="@+id/boomarkContentsTextView"
                 style="@style/textStyleBoldBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/saved_contents"
+                android:text="@string/bookmarked_contents"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/savedCountTextView"
+                app:layout_constraintEnd_toStartOf="@id/bookmarkCountTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/savedCountTextView"
+                android:id="@+id/bookmarkCountTextView"
                 style="@style/textStyleMediumGray700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="34개"
+                android:text="@{Integer.toString(viewModel.bookmarkCount)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rightArrowImageView"
-                app:layout_constraintStart_toEndOf="@id/savedContentsTextView"
+                app:layout_constraintStart_toEndOf="@id/boomarkContentsTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="34개" />
 
@@ -197,7 +201,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/savedCountTextView"
+                app:layout_constraintStart_toEndOf="@id/bookmarkCountTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -209,7 +213,7 @@
             android:background="@color/gray_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/savedContentsLayout" />
+            app:layout_constraintTop_toBottomOf="@id/bookmarkContentsLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reviewedContentsLayout"
@@ -239,7 +243,7 @@
                 style="@style/textStyleMediumGray700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="111개"
+                android:text="@{Integer.toString(viewModel.ratingCount)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rightArrowImageView2"
                 app:layout_constraintStart_toEndOf="@id/reviewedContentsTextView"
