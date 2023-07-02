@@ -32,6 +32,13 @@ class BookmarkedContentsViewModel(private val myContentService: MyContentService
         }
     }
 
+    fun loadMoreData() {
+        viewModelScope.launch(exceptionHandler) {
+            val newContentList = myContentService.getBookmarkedContents(++page)
+            _contentList.value = _contentList.value?.plus(newContentList)
+        }
+    }
+
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

@@ -7,6 +7,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
@@ -39,6 +41,19 @@ class BookmarkContentsActivity : AppCompatActivity() {
             adapter = contentsAdapter
             layoutManager = GridLayoutManager(this@BookmarkContentsActivity, SPAN_COUNT)
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        contentsViewModel.loadMoreData()
+                    }
+                }
+            })
         }
 
         contentsViewModel.contentList.observe(this) { list ->
