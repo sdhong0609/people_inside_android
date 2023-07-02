@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.recommend.RecommendFragment"
-        tools:layout_marginTop="0dp">
+        tools:layout_marginTop="-1400dp">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/recommendAppBar"
@@ -179,8 +179,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
                     android:paddingStart="16dp"
                     android:paddingEnd="0dp">
 
@@ -216,7 +214,9 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sub_ranking_arrow"
                         android:onClick="@{() -> viewModel.onSubRankingArrowClick()}"
-                        android:src="@drawable/ic_right_arrow_48x48"
+                        android:paddingHorizontal="8dp"
+                        android:paddingTop="22dp"
+                        android:src="@drawable/ic_right_arrow_24x24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/subRankingTitleTextView"
