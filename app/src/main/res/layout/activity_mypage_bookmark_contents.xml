@@ -5,12 +5,15 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.mypage.SavedContentsActivity">
+        tools:context=".view.mypage.BookmarkContentsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/savedContentsAppBar"

@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.mypage.SavedContentModel" />
+            type="com.beside153.peopleinside.model.mypage.BookmarkedContentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
-                app:posterUrl="@{item.posterUrl}"
+                app:posterUrl="@{item.posterPath}"
                 tools:src="@drawable/img_sample_poster" />
 
             <ImageView

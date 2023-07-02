@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.mypage.SavedContentsActivity"
+            android:name=".view.mypage.BookmarkContentsActivity"
             android:exported="false" />
         <activity
             android:name=".view.login.SignUpActivity"

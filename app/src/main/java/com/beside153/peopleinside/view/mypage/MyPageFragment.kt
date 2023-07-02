@@ -39,7 +39,7 @@ class MyPageFragment : Fragment() {
         myPageViewModel.bookmarkContentsClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                startActivity(SavedContentsActivity.newIntent(requireActivity()))
+                startActivity(BookmarkContentsActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
             }
         )
