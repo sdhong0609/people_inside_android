@@ -40,4 +40,12 @@ class PreferenceUtil(context: Context) {
     fun getNickname(): String {
         return prefs.getString(userNicknameKey, "").toString()
     }
+
+    fun setEmail(str: String) {
+        prefs.edit().putString("email", str).apply()
+    }
+
+    fun getEmail(): String {
+        return prefs.getString("email", "").toString()
+    }
 }

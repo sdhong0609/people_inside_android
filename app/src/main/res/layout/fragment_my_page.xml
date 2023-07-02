@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:drawablePadding="6dp"
-            android:text="peopleinside@gmail.com"
+            android:text="@{app.prefs.email}"
             app:drawableStartCompat="@drawable/img_kakaotalk_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

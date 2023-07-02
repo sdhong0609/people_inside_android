@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view.login
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.util.showToast
@@ -72,6 +73,7 @@ class LoginActivity : AppCompatActivity() {
                 Timber.e(error)
                 showToast(R.string.kakao_user_info_load_failed)
             } else if (user != null) {
+                App.prefs.setEmail(user.kakaoAccount?.email ?: "")
                 startActivity(SignUpActivity.newIntent(this, authToken))
                 finish()
             }
