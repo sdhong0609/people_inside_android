@@ -82,3 +82,14 @@ fun ImageView.bookmarkImg(bookmarked: Boolean) {
         )
     }
 }
+
+@BindingAdapter("bookmarkWhiteImg")
+fun ImageView.bookmarkWhiteImg(bookmarked: Boolean) {
+    if (bookmarked) {
+        setImageResource(R.drawable.ic_bookmark_filled)
+    } else {
+        setImageResource(
+            R.drawable.ic_bookmark_empty
+        )
+    }
+}

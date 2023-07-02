@@ -8,30 +8,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageBookmarkContentBinding
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
 
-class BookmarkContentsListAdapter(private val onContentItemClick: (item: BookmarkedContentModel) -> Unit) :
+class BookmarkContentsListAdapter(private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit) :
     ListAdapter<BookmarkedContentModel, BookmarkContentsListAdapter.ContentItemViewHolder>(ContentItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageBookmarkContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = ContentItemViewHolder(binding)
-        viewHolder.itemView.setOnClickListener {
-            val position = viewHolder.adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
-                onContentItemClick(getItem(position))
-            }
-        }
-        return viewHolder
+        return ContentItemViewHolder(binding, onBookmarkClick)
     }
 
     override fun onBindViewHolder(holder: ContentItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ContentItemViewHolder(private val binding: ItemMypageBookmarkContentBinding) :
+    class ContentItemViewHolder(
+        private val binding: ItemMypageBookmarkContentBinding,
+        private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BookmarkedContentModel) {
             binding.item = item
+            binding.bookmarkImageView.setOnClickListener {
+                onBookmarkClick(item)
+            }
         }
     }
 }

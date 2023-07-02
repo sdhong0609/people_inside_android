@@ -8,19 +8,23 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
+import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class BookmarkedContentsViewModel(private val myContentService: MyContentService) : BaseViewModel() {
+class BookmarkedContentsViewModel(
+    private val myContentService: MyContentService,
+    private val bookmarkService: BookmarkService
+) : BaseViewModel() {
     private val _bookmarkCount = MutableLiveData(0)
     val bookmarkCount: LiveData<Int> get() = _bookmarkCount
 
     private val _contentList = MutableLiveData<List<BookmarkedContentModel>>()
     val contentList: LiveData<List<BookmarkedContentModel>> get() = _contentList
 
-    var page = 1
+    private var page = 1
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
@@ -39,7 +43,36 @@ class BookmarkedContentsViewModel(private val myContentService: MyContentService
         }
     }
 
+    fun onBookmarkClick(item: BookmarkedContentModel) {
+        viewModelScope.launch(exceptionHandler) {
+            val response = bookmarkService.postBookmarkStatus(item.contentId)
+
+            val updatedList: List<BookmarkedContentModel>?
+            if (response.toggleStatus == CREATED) {
+                updatedList = _contentList.value?.map {
+                    if (item == it) {
+                        it.copy(bookmarked = true)
+                    } else {
+                        it
+                    }
+                }
+            } else {
+                updatedList = _contentList.value?.map {
+                    if (item == it) {
+                        it.copy(bookmarked = false)
+                    } else {
+                        it
+                    }
+                }
+            }
+
+            _contentList.value = updatedList ?: emptyList()
+        }
+    }
+
     companion object {
+        private const val CREATED = "created"
+
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
@@ -47,7 +80,8 @@ class BookmarkedContentsViewModel(private val myContentService: MyContentService
                 extras: CreationExtras
             ): T {
                 val myContentService = RetrofitClient.myContentService
-                return BookmarkedContentsViewModel(myContentService) as T
+                val bookmarkService = RetrofitClient.bookmarkService
+                return BookmarkedContentsViewModel(myContentService, bookmarkService) as T
             }
         }
     }

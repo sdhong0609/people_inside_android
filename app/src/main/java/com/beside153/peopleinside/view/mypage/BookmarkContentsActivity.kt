@@ -21,7 +21,7 @@ import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
 
 class BookmarkContentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageBookmarkContentsBinding
-    private val contentsAdapter = BookmarkContentsListAdapter(::onContentItemClick)
+    private val contentsAdapter = BookmarkContentsListAdapter(::onBookmarkClick)
     private val contentsViewModel: BookmarkedContentsViewModel by viewModels { BookmarkedContentsViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +69,8 @@ class BookmarkContentsActivity : AppCompatActivity() {
         )
     }
 
-    @Suppress("UnusedPrivateMember")
-    private fun onContentItemClick(item: BookmarkedContentModel) {
-        //
+    private fun onBookmarkClick(item: BookmarkedContentModel) {
+        contentsViewModel.onBookmarkClick(item)
     }
 
     companion object {
