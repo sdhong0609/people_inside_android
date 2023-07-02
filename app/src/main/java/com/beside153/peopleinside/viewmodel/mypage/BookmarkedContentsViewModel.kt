@@ -67,6 +67,7 @@ class BookmarkedContentsViewModel(
             }
 
             _contentList.value = updatedList ?: emptyList()
+            _bookmarkCount.value = myContentService.getBookmarkCount()
         }
     }
 
