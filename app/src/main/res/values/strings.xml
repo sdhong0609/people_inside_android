@@ -141,7 +141,7 @@
 
     <!-- 마이페이지 -->
     <string name="bookmarked_contents">내가 북마크한 콘텐츠</string>
-    <string name="reviewd_contents">내가 평가한 콘텐츠</string>
+    <string name="rating_contents">내가 평가한 콘텐츠</string>
     <string name="count_with_value">%d개</string>
     <string name="total_count_with_value">총 %d개</string>
 </resources>

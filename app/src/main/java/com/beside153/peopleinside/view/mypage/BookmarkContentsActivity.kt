@@ -37,7 +37,7 @@ class BookmarkContentsActivity : AppCompatActivity() {
             lifecycleOwner = this@BookmarkContentsActivity
         }
 
-        binding.savedContentsRecyclerView.apply {
+        binding.bookmarkContentsRecyclerView.apply {
             adapter = contentsAdapter
             layoutManager = GridLayoutManager(this@BookmarkContentsActivity, SPAN_COUNT)
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
