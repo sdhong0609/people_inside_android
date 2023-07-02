@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.mypage.RatingContentModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/posterCardView"
+            android:layout_width="104dp"
+            android:layout_height="146dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/poster_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_sample_poster"
+                app:posterUrl="@{item.posterPath}"
+                tools:background="@drawable/background_poster" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.title}"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/ratingBar"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@id/posterCardView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="그 해 우리는" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray_400"
+            android:progressTint="@color/black"
+            android:rating="@{item.rating.rating}"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="@id/titleTextView"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView" />
+
+        <ImageView
+            android:id="@+id/verticalDotsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/vertical_dots"
+            android:paddingTop="9dp"
+            android:src="@drawable/ic_vertical_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/titleTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/lineView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginVertical="12dp"
+            android:background="@color/gray_300"
+            app:layout_constraintBottom_toTopOf="@id/reviewTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/posterCardView" />
+
+        <TextView
+            android:id="@+id/reviewTextView"
+            style="@style/textStyleMediumGray800"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{item.review.content}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lineView"
+            tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어. 펼쳐보기를 만드는게 좋을까요? 감상은 그냥 전체가 보여지게 하는 것도 나쁘지 않을 것 같습니다. 줄 수 제한이 없는 경우 문제가 생길까?" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
