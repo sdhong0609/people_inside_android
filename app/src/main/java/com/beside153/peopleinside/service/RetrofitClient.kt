@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import java.io.IOException
 
 object RetrofitClient {
-    private const val baseUrl = "http://27.96.131.197"
+    private const val baseUrl = "https://people-inside.com"
     private const val contentType = "application/json"
 
     private val json = Json {
