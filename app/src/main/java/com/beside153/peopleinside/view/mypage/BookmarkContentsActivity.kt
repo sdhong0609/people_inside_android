@@ -28,7 +28,7 @@ class BookmarkContentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mypage_bookmark_contents)
 
-        addBackPressedCallback()
+        addBackPressedCallback { setResult(RESULT_OK) }
 
         contentsViewModel.initAllData()
 
@@ -63,6 +63,7 @@ class BookmarkContentsActivity : AppCompatActivity() {
         contentsViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
+                setResult(RESULT_OK)
                 finish()
                 setCloseActivityAnimation()
             }

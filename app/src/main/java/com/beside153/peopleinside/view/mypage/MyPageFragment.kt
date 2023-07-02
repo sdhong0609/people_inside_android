@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,9 +41,16 @@ class MyPageFragment : Fragment() {
         myPageViewModel.bookmarkContentsClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                startActivity(BookmarkContentsActivity.newIntent(requireActivity()))
+                bookmarkContentsActivityLauncher.launch(BookmarkContentsActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
             }
         )
     }
+
+    private val bookmarkContentsActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                myPageViewModel.initAllData()
+            }
+        }
 }
