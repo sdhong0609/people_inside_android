@@ -17,6 +17,7 @@ import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
 
 class BookmarkContentsActivity : AppCompatActivity() {
@@ -59,6 +60,17 @@ class BookmarkContentsActivity : AppCompatActivity() {
         contentsViewModel.contentList.observe(this) { list ->
             contentsAdapter.submitList(list)
         }
+
+        contentsViewModel.bookmarkCreatedEvent.observe(
+            this,
+            EventObserver { bookmarkCreated ->
+                if (bookmarkCreated) {
+                    showToast(R.string.bookmark_created)
+                    return@EventObserver
+                }
+                showToast(R.string.bookmark_deleted)
+            }
+        )
 
         contentsViewModel.backButtonClickEvent.observe(
             this,
