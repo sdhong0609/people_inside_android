@@ -9,7 +9,9 @@ import com.beside153.peopleinside.databinding.ItemMypageBookmarkContentBinding
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
 
 class BookmarkContentsListAdapter(private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit) :
-    ListAdapter<BookmarkedContentModel, BookmarkContentsListAdapter.ContentItemViewHolder>(ContentItemDiffCallback()) {
+    ListAdapter<BookmarkedContentModel, BookmarkContentsListAdapter.ContentItemViewHolder>(
+        BookmarkContentItemDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageBookmarkContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,7 +37,7 @@ class BookmarkContentsListAdapter(private val onBookmarkClick: (item: Bookmarked
     }
 }
 
-private class ContentItemDiffCallback : DiffUtil.ItemCallback<BookmarkedContentModel>() {
+private class BookmarkContentItemDiffCallback : DiffUtil.ItemCallback<BookmarkedContentModel>() {
     override fun areItemsTheSame(oldItem: BookmarkedContentModel, newItem: BookmarkedContentModel): Boolean {
         return oldItem.contentId == newItem.contentId
     }

@@ -27,8 +27,8 @@ class RatingContentsViewModel(private val myContentService: MyContentService) : 
             val ratingCountDeferred = async { myContentService.getRatingCount() }
             val contentListDeferred = async { myContentService.getRatingContents(page) }
 
-            ratingCountDeferred.await()
-            contentListDeferred.await()
+            _ratingCount.value = ratingCountDeferred.await()
+            _contentList.value = contentListDeferred.await()
         }
     }
 
