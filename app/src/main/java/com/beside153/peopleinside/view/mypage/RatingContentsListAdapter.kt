@@ -8,23 +8,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageRatingContentBinding
 import com.beside153.peopleinside.model.mypage.RatingContentModel
 
-class RatingContentsListAdapter :
+class RatingContentsListAdapter(private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit) :
     ListAdapter<RatingContentModel, RatingContentsListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageRatingContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ContentItemViewHolder(binding)
+        return ContentItemViewHolder(binding, onRatingChanged)
     }
 
     override fun onBindViewHolder(holder: ContentItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ContentItemViewHolder(private val binding: ItemMypageRatingContentBinding) :
+    class ContentItemViewHolder(
+        private val binding: ItemMypageRatingContentBinding,
+        private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RatingContentModel) {
             binding.item = item
+            binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+                if (fromUser) {
+                    ratingBar.rating = rating
+                    onRatingChanged(ratingBar.rating, item)
+                }
+            }
         }
     }
 }

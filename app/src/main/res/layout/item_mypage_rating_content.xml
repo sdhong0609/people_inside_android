@@ -51,25 +51,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="그 해 우리는" />
 
-        <com.willy.ratingbar.BaseRatingBar
+        <RatingBar
             android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray_400"
+            android:progressTint="@color/black"
+            android:rating="@{item.rating.rating}"
+            android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
-            app:layout_constraintTop_toBottomOf="@id/titleTextView"
-            app:rating="@{item.rating.rating}"
-            app:srb_clearRatingEnabled="true"
-            app:srb_clickable="true"
-            app:srb_drawableEmpty="@drawable/rating_empty"
-            app:srb_drawableFilled="@drawable/rating_filled"
-            app:srb_isIndicator="false"
-            app:srb_numStars="5"
-            app:srb_scrollable="true"
-            app:srb_starHeight="22dp"
-            app:srb_starPadding="2dp"
-            app:srb_starWidth="22dp"
-            app:srb_stepSize="0.5" />
+            app:layout_constraintTop_toBottomOf="@id/titleTextView" />
 
         <ImageView
             android:id="@+id/verticalDotsImageView"

@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMypageRatingContentsBinding
+import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
@@ -20,7 +21,7 @@ import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 class RatingContentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
     private val contentsViewModel: RatingContentsViewModel by viewModels { RatingContentsViewModel.Factory }
-    private val contentListAdapter = RatingContentsListAdapter()
+    private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +60,10 @@ class RatingContentsActivity : AppCompatActivity() {
                 setCloseActivityAnimation()
             }
         )
+    }
+
+    private fun onRatingChanged(rating: Float, item: RatingContentModel) {
+        contentsViewModel.onRatingChanged(rating, item)
     }
 
     companion object {
