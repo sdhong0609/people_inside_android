@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMypageRatingContentsBinding
 import com.beside153.peopleinside.model.mypage.RatingContentModel
@@ -46,6 +47,19 @@ class RatingContentsActivity : AppCompatActivity() {
                     ContextCompat.getColor(this@RatingContentsActivity, R.color.gray_300)
                 )
             )
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        contentsViewModel.loadMoreData()
+                    }
+                }
+            })
         }
 
         contentsViewModel.contentList.observe(this) { list ->

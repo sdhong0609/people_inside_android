@@ -39,6 +39,13 @@ class RatingContentsViewModel(
         }
     }
 
+    fun loadMoreData() {
+        viewModelScope.launch(exceptionHandler) {
+            val newContentList = myContentService.getRatingContents(++page)
+            _contentList.value = _contentList.value?.plus(newContentList)
+        }
+    }
+
     fun onRatingChanged(rating: Float, item: RatingContentModel) {
         viewModelScope.launch(exceptionHandler) {
             val currentRating = item.rating.rating
