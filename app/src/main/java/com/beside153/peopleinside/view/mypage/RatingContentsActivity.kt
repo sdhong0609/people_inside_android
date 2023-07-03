@@ -3,6 +3,11 @@ package com.beside153.peopleinside.view.mypage
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,7 +27,9 @@ import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 class RatingContentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
     private val contentsViewModel: RatingContentsViewModel by viewModels { RatingContentsViewModel.Factory }
-    private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged)
+    private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged, ::onVerticalDotsClick)
+    private lateinit var popupView: View
+    private lateinit var popupWindow: PopupWindow
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +73,15 @@ class RatingContentsActivity : AppCompatActivity() {
             contentListAdapter.submitList(list)
         }
 
+        popupView = layoutInflater.inflate(R.layout.popup_window_rating_content, null)
+
+        popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
         contentsViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -76,11 +92,37 @@ class RatingContentsActivity : AppCompatActivity() {
         )
     }
 
+    private fun onVerticalDotsClick(imageView: ImageView) {
+        val location = IntArray(2)
+        imageView.getLocationOnScreen(location)
+        val x = location[0]
+        val width = imageView.width
+
+        // 팝업 창의 너비와 높이를 가져옵니다.
+        popupView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        val popupWidth = popupView.measuredWidth
+
+        // 디바이스 화면의 가로 크기를 가져옵니다.
+        val screenWidth = DisplayMetrics().widthPixels
+
+        // 팝업 창을 표시할 위치를 계산합니다.
+        val offsetX = if (x + width + popupWidth > screenWidth) {
+            // 오른쪽으로 넘어가는 경우
+            -(popupWidth - width)
+        } else {
+            // 오른쪽으로 넘어가지 않는 경우
+            0
+        }
+
+        popupWindow.showAsDropDown(imageView, offsetX - OFFSET, 0)
+    }
+
     private fun onRatingChanged(rating: Float, item: RatingContentModel) {
         contentsViewModel.onRatingChanged(rating, item)
     }
 
     companion object {
+        private const val OFFSET = 15
 
         fun newIntent(context: Context): Intent {
             return Intent(context, RatingContentsActivity::class.java)
