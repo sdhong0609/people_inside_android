@@ -53,13 +53,13 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleIndicator"
+            style="@style/CustomRatingBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:isIndicator="false"
             android:numStars="5"
-            android:progressBackgroundTint="@color/gray_400"
+            android:progressBackgroundTint="@color/gray_300"
             android:progressTint="@color/black"
             android:rating="@{item.rating.rating}"
             android:stepSize="0.5"
