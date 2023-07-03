@@ -34,6 +34,7 @@ class RatingContentsListAdapter(private val onRatingChanged: (rating: Float, ite
                     onRatingChanged(ratingBar.rating, item)
                 }
             }
+            binding.executePendingBindings()
         }
     }
 }
