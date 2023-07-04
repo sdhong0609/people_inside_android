@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.beside153.peopleinside.viewmodel.mypage.FixReviewViewModel" />
@@ -80,7 +82,8 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/background_agree_button"
-            android:enabled="true"
+            android:enabled="@{!TextUtils.isEmpty(viewModel.reviewText)}"
+            android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
             android:text="@string/complete_fix"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

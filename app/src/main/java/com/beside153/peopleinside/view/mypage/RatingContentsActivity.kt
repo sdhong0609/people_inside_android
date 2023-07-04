@@ -25,7 +25,6 @@ import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
-import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
 import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 
 class RatingContentsActivity : AppCompatActivity() {
@@ -103,8 +102,8 @@ class RatingContentsActivity : AppCompatActivity() {
         contentsViewModel.reviewFixClickEvent.observe(
             this,
             EventObserver { item ->
-                createReviewActivityLauncher.launch(
-                    CreateReviewActivity.newIntent(
+                fixReviewActivityLauncher.launch(
+                    FixReviewActivity.newIntent(
                         this,
                         item.contentId,
                         item.review?.content ?: ""
@@ -116,7 +115,7 @@ class RatingContentsActivity : AppCompatActivity() {
         )
     }
 
-    private val createReviewActivityLauncher =
+    private val fixReviewActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 //                contentsViewModel.initAllData()
