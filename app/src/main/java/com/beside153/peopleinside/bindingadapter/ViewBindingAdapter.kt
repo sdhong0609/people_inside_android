@@ -15,7 +15,8 @@ private const val MAX_CHOICE_COUNT = 5
 
 @BindingAdapter("posterUrl")
 fun ImageView.posterUrl(url: String) {
-    Glide.with(this).load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2$url").error(R.drawable.background_poster)
+    Glide.with(this).load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2$url")
+        .error(R.drawable.background_white_rounded)
         .into(this)
 }
 

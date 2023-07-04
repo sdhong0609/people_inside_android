@@ -45,9 +45,24 @@ class MyPageFragment : Fragment() {
                 requireActivity().setOpenActivityAnimation()
             }
         )
+
+        myPageViewModel.ratingContentsClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                ratingContentsActivityLauncher.launch(RatingContentsActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
     }
 
     private val bookmarkContentsActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                myPageViewModel.initAllData()
+            }
+        }
+
+    private val ratingContentsActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 myPageViewModel.initAllData()

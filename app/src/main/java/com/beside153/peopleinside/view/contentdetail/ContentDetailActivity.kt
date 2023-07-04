@@ -18,6 +18,7 @@ import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
@@ -116,6 +117,7 @@ class ContentDetailActivity : BaseActivity() {
             this,
             EventObserver {
                 createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
+                setOpenActivityAnimation()
             }
         )
 

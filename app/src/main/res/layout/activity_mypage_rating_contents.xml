@@ -7,16 +7,16 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.mypage.BookmarkContentsActivity">
+        tools:context=".view.mypage.RatingContentsActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/bookmarkContentsAppBar"
+            android:id="@+id/ratingContentsAppBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -44,10 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"
-                    android:ellipsize="end"
                     android:gravity="center_horizontal"
-                    android:maxLines="1"
-                    android:text="@string/bookmarked_contents"
+                    android:text="@string/rating_contents"
                     android:textSize="20sp" />
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -62,15 +60,15 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:gravity="end"
-            android:text="@{@string/total_count_with_value(viewModel.bookmarkCount)}"
+            android:text="@{@string/total_count_with_value(viewModel.ratingCount)}"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bookmarkContentsAppBar"
-            tools:text="총 34개" />
+            app:layout_constraintTop_toBottomOf="@id/ratingContentsAppBar"
+            tools:text="총 111개" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bookmarkContentsRecyclerView"
+            android:id="@+id/ratingContentsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:isVisible="@{!viewModel.contentList.empty}"
@@ -89,29 +87,29 @@
             app:layout_constraintTop_toBottomOf="@id/countTextView">
 
             <ImageView
-                android:id="@+id/emptyBookmarksImageView"
+                android:id="@+id/emptyReviewsImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/bookmark"
-                android:src="@drawable/ic_empty_bookmarks"
-                app:layout_constraintBottom_toTopOf="@id/emptyBookmarksTextView"
+                android:src="@drawable/ic_empty_reviews"
+                app:layout_constraintBottom_toTopOf="@id/emptyReviewsTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/emptyBookmarksTextView"
+                android:id="@+id/emptyReviewsTextView"
                 style="@style/textStyleBoldGray500"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center_horizontal"
-                android:text="@string/no_bookmark_contents"
+                android:text="@string/no_review_contents"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/emptyBookmarksImageView" />
+                app:layout_constraintTop_toBottomOf="@id/emptyReviewsImageView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.FixReviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +85,7 @@
             android:background="@drawable/background_agree_button"
             android:enabled="@{!TextUtils.isEmpty(viewModel.reviewText)}"
             android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
-            android:text="@string/complete"
+            android:text="@string/complete_fix"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

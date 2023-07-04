@@ -11,6 +11,7 @@ import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,9 @@ class BookmarkedContentsViewModel(
 
     private val _contentList = MutableLiveData<List<BookmarkedContentModel>>()
     val contentList: LiveData<List<BookmarkedContentModel>> get() = _contentList
+
+    private val _bookmarkCreatedEvent = MutableLiveData<Event<Boolean>>()
+    val bookmarkCreatedEvent: LiveData<Event<Boolean>> get() = _bookmarkCreatedEvent
 
     private var page = 1
 
@@ -56,6 +60,7 @@ class BookmarkedContentsViewModel(
                         it
                     }
                 }
+                _bookmarkCreatedEvent.value = Event(true)
             } else {
                 updatedList = _contentList.value?.map {
                     if (item == it) {
@@ -64,6 +69,7 @@ class BookmarkedContentsViewModel(
                         it
                     }
                 }
+                _bookmarkCreatedEvent.value = Event(false)
             }
 
             _contentList.value = updatedList ?: emptyList()

@@ -6,6 +6,7 @@ import com.beside153.peopleinside.model.recommend.Pick10Model
 import com.beside153.peopleinside.model.recommend.RatingBattleModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -30,4 +31,7 @@ interface RecommendService {
 
     @PUT("/api/media-content/{contentId}/review")
     suspend fun putReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
+
+    @DELETE("/api/media-content/{contentId}/review/{reviewId}")
+    suspend fun deleteReview(@Path("contentId") content: Int, @Path("reviewId") reviewId: Int): Boolean
 }

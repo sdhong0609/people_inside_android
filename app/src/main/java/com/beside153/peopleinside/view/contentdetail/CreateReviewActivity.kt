@@ -13,7 +13,11 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.commonview.CancelReviewDialog
+import com.beside153.peopleinside.view.commonview.CancelReviewDialogInterface
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
 class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
@@ -24,6 +28,8 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_review)
+
+        addBackPressedCallback()
 
         binding.apply {
             viewModel = createReviewViewModel
@@ -39,11 +45,12 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
             this,
             EventObserver {
                 val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.completeTextView.windowToken, 0)
+                imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
                 showToast(R.string.create_review_completed)
                 Handler(Looper.getMainLooper()).postDelayed({
                     setResult(RESULT_OK)
                     finish()
+                    setCloseActivityAnimation()
                 }, DURATION_UNTIL_BACK)
             }
         )
@@ -88,5 +95,6 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
 
     override fun onDialogYesButtonClick() {
         finish()
+        setCloseActivityAnimation()
     }
 }
