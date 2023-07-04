@@ -149,4 +149,6 @@
     <string name="review_fix">감상 수정</string>
     <string name="review_delete">감상 삭제</string>
     <string name="complete_fix">수정 완료</string>
+    <string name="no_bookmark_contents">아직 북마크한 콘텐츠가 없어요</string>
+    <string name="no_review_contents">아직 평가한 콘텐츠가 없어요</string>
 </resources>
