@@ -16,6 +16,8 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.commonview.CancelReviewDialog
+import com.beside153.peopleinside.view.commonview.CancelReviewDialogInterface
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
 class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
