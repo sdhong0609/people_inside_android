@@ -2,6 +2,7 @@ package com.beside153.peopleinside.view.mypage
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityFixReviewBinding
+import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
@@ -28,13 +30,6 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
 
         addBackPressedCallback()
 
-        binding.apply {
-            viewModel = fixReviewViewModel
-            lifecycleOwner = this@FixReviewActivity
-        }
-
-//        fixReviewViewModel.setContent(content ?: "")
-
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -43,6 +38,19 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
                 }
             }
         )
+
+        binding.apply {
+            viewModel = fixReviewViewModel
+            lifecycleOwner = this@FixReviewActivity
+        }
+
+        val contentItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(CONTENT_ITEM, RatingContentModel::class.java)
+        } else {
+            intent.getParcelableExtra(CONTENT_ITEM)
+        }
+
+        fixReviewViewModel.initContentItem(contentItem)
 
         fixReviewViewModel.completeButtonClickEvent.observe(
             this,
@@ -76,13 +84,11 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
     }
 
     companion object {
-        private const val CONTENT_ID = "CONTENT_ID"
-        private const val CONTENT = "CONTENT"
+        private const val CONTENT_ITEM = "CONTENT_ITEM"
 
-        fun newIntent(context: Context, contentId: Int, content: String): Intent {
+        fun newIntent(context: Context, item: RatingContentModel): Intent {
             val intent = Intent(context, FixReviewActivity::class.java)
-            intent.putExtra(CONTENT_ID, contentId)
-            intent.putExtra(CONTENT, content)
+            intent.putExtra(CONTENT_ITEM, item)
             return intent
         }
     }

@@ -103,11 +103,7 @@ class RatingContentsActivity : AppCompatActivity() {
             this,
             EventObserver { item ->
                 fixReviewActivityLauncher.launch(
-                    FixReviewActivity.newIntent(
-                        this,
-                        item.contentId,
-                        item.review?.content ?: ""
-                    )
+                    FixReviewActivity.newIntent(this, item)
                 )
                 setOpenActivityAnimation()
                 popupWindow.dismiss()
