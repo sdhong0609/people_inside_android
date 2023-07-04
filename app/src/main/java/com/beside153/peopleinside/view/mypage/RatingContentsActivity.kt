@@ -45,17 +45,7 @@ class RatingContentsActivity : AppCompatActivity() {
 
         contentsViewModel.initAllData()
 
-        popupView = layoutInflater.inflate(R.layout.popup_window_rating_content, null)
-
-        popupWindow = PopupWindow(
-            popupView,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            true
-        )
-
-        reviewFixTextView = popupView.findViewById(R.id.reviewFixTextView)
-        reviewDeleteTextView = popupView.findViewById(R.id.reviewDeleteTextView)
+        initPopupWindow()
 
         binding.apply {
             viewModel = contentsViewModel
@@ -118,6 +108,20 @@ class RatingContentsActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             }
         )
+    }
+
+    private fun initPopupWindow() {
+        popupView = layoutInflater.inflate(R.layout.popup_window_rating_content, null)
+
+        popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        reviewFixTextView = popupView.findViewById(R.id.reviewFixTextView)
+        reviewDeleteTextView = popupView.findViewById(R.id.reviewDeleteTextView)
     }
 
     private val fixReviewActivityLauncher =
