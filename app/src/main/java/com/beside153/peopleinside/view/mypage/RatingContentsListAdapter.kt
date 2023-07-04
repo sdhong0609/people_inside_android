@@ -11,7 +11,7 @@ import com.beside153.peopleinside.model.mypage.RatingContentModel
 
 class RatingContentsListAdapter(
     private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit,
-    private val onVerticalDotsClick: (imageView: ImageView) -> Unit
+    private val onVerticalDotsClick: (imageView: ImageView, item: RatingContentModel) -> Unit
 ) :
     ListAdapter<RatingContentModel, RatingContentsListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
 
@@ -27,7 +27,7 @@ class RatingContentsListAdapter(
     class ContentItemViewHolder(
         private val binding: ItemMypageRatingContentBinding,
         private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit,
-        private val onVerticalDotsClick: (imageView: ImageView) -> Unit
+        private val onVerticalDotsClick: (imageView: ImageView, item: RatingContentModel) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -40,7 +40,7 @@ class RatingContentsListAdapter(
                 }
             }
             binding.verticalDotsImageView.setOnClickListener {
-                onVerticalDotsClick(binding.verticalDotsImageView)
+                onVerticalDotsClick(binding.verticalDotsImageView, item)
             }
             binding.executePendingBindings()
         }

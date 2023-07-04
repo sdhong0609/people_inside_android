@@ -13,6 +13,7 @@ import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -26,6 +27,9 @@ class RatingContentsViewModel(
 
     private val _contentList = MutableLiveData<List<RatingContentModel>>()
     val contentList: LiveData<List<RatingContentModel>> get() = _contentList
+
+    private val _reviewFixClickEvent = MutableLiveData<Event<RatingContentModel>>()
+    val reviewFixClickEvent: LiveData<Event<RatingContentModel>> get() = _reviewFixClickEvent
 
     private var page = 1
 
@@ -70,6 +74,10 @@ class RatingContentsViewModel(
             _contentList.value = updatedList ?: emptyList()
             _ratingCount.value = myContentService.getRatingCount()
         }
+    }
+
+    fun onReviewFixClick(item: RatingContentModel) {
+        _reviewFixClickEvent.value = Event(item)
     }
 
     companion object {

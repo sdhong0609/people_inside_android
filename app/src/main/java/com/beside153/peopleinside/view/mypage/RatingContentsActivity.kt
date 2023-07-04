@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,6 +24,7 @@ import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
 import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 
 class RatingContentsActivity : AppCompatActivity() {
@@ -30,6 +33,8 @@ class RatingContentsActivity : AppCompatActivity() {
     private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged, ::onVerticalDotsClick)
     private lateinit var popupView: View
     private lateinit var popupWindow: PopupWindow
+    private lateinit var reviewFixTextView: TextView
+    private lateinit var reviewDeleteTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,18 @@ class RatingContentsActivity : AppCompatActivity() {
         addBackPressedCallback { setResult(RESULT_OK) }
 
         contentsViewModel.initAllData()
+
+        popupView = layoutInflater.inflate(R.layout.popup_window_rating_content, null)
+
+        popupWindow = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+
+        reviewFixTextView = popupView.findViewById(R.id.reviewFixTextView)
+        reviewDeleteTextView = popupView.findViewById(R.id.reviewDeleteTextView)
 
         binding.apply {
             viewModel = contentsViewModel
@@ -73,15 +90,6 @@ class RatingContentsActivity : AppCompatActivity() {
             contentListAdapter.submitList(list)
         }
 
-        popupView = layoutInflater.inflate(R.layout.popup_window_rating_content, null)
-
-        popupWindow = PopupWindow(
-            popupView,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            true
-        )
-
         contentsViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -90,9 +98,30 @@ class RatingContentsActivity : AppCompatActivity() {
                 setCloseActivityAnimation()
             }
         )
+
+        contentsViewModel.reviewFixClickEvent.observe(
+            this,
+            EventObserver { item ->
+                createReviewActivityLauncher.launch(
+                    CreateReviewActivity.newIntent(
+                        this,
+                        item.contentId,
+                        item.review?.content ?: ""
+                    )
+                )
+                popupWindow.dismiss()
+            }
+        )
     }
 
-    private fun onVerticalDotsClick(imageView: ImageView) {
+    private val createReviewActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+//                contentsViewModel.initAllData()
+            }
+        }
+
+    private fun onVerticalDotsClick(imageView: ImageView, item: RatingContentModel) {
         val location = IntArray(2)
         imageView.getLocationOnScreen(location)
         val x = location[0]
@@ -112,6 +141,10 @@ class RatingContentsActivity : AppCompatActivity() {
         } else {
             // 오른쪽으로 넘어가지 않는 경우
             0
+        }
+
+        reviewFixTextView.setOnClickListener {
+            contentsViewModel.onReviewFixClick(item)
         }
 
         popupWindow.showAsDropDown(imageView, offsetX - OFFSET, 0)
