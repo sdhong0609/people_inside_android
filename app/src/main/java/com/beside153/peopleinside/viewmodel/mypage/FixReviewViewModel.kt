@@ -24,6 +24,7 @@ class FixReviewViewModel(private val recommendService: RecommendService) : BaseV
 
     fun initContentItem(contentItem: RatingContentModel?) {
         this.contentItem.value = contentItem
+        reviewText.value = contentItem?.review?.content ?: ""
     }
 
     fun onCompleteButtonClick() {
@@ -33,10 +34,14 @@ class FixReviewViewModel(private val recommendService: RecommendService) : BaseV
                     contentItem.value?.contentId ?: 0,
                     CreateReviewRequest(reviewText.value ?: "")
                 )
+                val updatedReview = contentItem.value?.review?.copy(content = reviewText.value!!)
+                contentItem.value = contentItem.value?.copy(review = updatedReview)
                 _completeButtonClickEvent.value = Event(contentItem.value!!)
             }
         }
     }
+
+    fun getFixedItem(): RatingContentModel = contentItem.value!!
 
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {

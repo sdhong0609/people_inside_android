@@ -10,6 +10,7 @@ import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
 import com.beside153.peopleinside.model.mypage.Rating
 import com.beside153.peopleinside.model.mypage.RatingContentModel
+import com.beside153.peopleinside.model.mypage.Review
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -78,6 +79,27 @@ class RatingContentsViewModel(
 
     fun onReviewFixClick(item: RatingContentModel) {
         _reviewFixClickEvent.value = Event(item)
+    }
+
+    fun updateContentList(fixedItem: RatingContentModel) {
+        val updatedList = _contentList.value?.map {
+            val review = fixedItem.review
+            if (fixedItem.contentId == it.contentId) {
+                it.copy(
+                    contentId = fixedItem.contentId,
+                    review = Review(
+                        review?.contentId!!,
+                        review.reviewId,
+                        review.content,
+                        review.likeCount,
+                        review.writer
+                    )
+                )
+            } else {
+                it
+            }
+        }
+        _contentList.value = updatedList ?: emptyList()
     }
 
     companion object {

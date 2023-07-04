@@ -57,8 +57,12 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
             EventObserver {
                 val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
-                setResult(RESULT_OK)
+
+                val intent = Intent(this, RatingContentsActivity::class.java)
+                intent.putExtra(FIXED_ITEM, fixReviewViewModel.getFixedItem())
+                setResult(RESULT_OK, intent)
                 finish()
+                setCloseActivityAnimation()
             }
         )
 
@@ -85,6 +89,7 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
 
     companion object {
         private const val CONTENT_ITEM = "CONTENT_ITEM"
+        private const val FIXED_ITEM = "FIXED_ITEM"
 
         fun newIntent(context: Context, item: RatingContentModel): Intent {
             val intent = Intent(context, FixReviewActivity::class.java)

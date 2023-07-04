@@ -2,6 +2,7 @@ package com.beside153.peopleinside.view.mypage
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
@@ -114,7 +115,13 @@ class RatingContentsActivity : AppCompatActivity() {
     private val fixReviewActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-//                contentsViewModel.initAllData()
+                val fixedItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.getParcelableExtra(FIXED_ITEM, RatingContentModel::class.java)
+                } else {
+                    result.data?.getParcelableExtra(FIXED_ITEM)
+                }
+
+                contentsViewModel.updateContentList(fixedItem!!)
             }
         }
 
@@ -153,6 +160,7 @@ class RatingContentsActivity : AppCompatActivity() {
 
     companion object {
         private const val OFFSET = 15
+        private const val FIXED_ITEM = "FIXED_ITEM"
 
         fun newIntent(context: Context): Intent {
             return Intent(context, RatingContentsActivity::class.java)

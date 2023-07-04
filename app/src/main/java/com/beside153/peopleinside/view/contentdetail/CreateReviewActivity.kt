@@ -50,6 +50,7 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
                 Handler(Looper.getMainLooper()).postDelayed({
                     setResult(RESULT_OK)
                     finish()
+                    setCloseActivityAnimation()
                 }, DURATION_UNTIL_BACK)
             }
         )
