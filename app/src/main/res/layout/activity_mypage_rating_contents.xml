@@ -44,9 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"
-                    android:ellipsize="end"
                     android:gravity="center_horizontal"
-                    android:maxLines="1"
                     android:text="@string/rating_contents"
                     android:textSize="20sp" />
 

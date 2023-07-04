@@ -24,6 +24,7 @@ import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
 import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 
@@ -109,6 +110,7 @@ class RatingContentsActivity : AppCompatActivity() {
                         item.review?.content ?: ""
                     )
                 )
+                setOpenActivityAnimation()
                 popupWindow.dismiss()
             }
         )
