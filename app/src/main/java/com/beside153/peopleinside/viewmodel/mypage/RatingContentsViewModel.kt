@@ -13,6 +13,7 @@ import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.model.mypage.Review
 import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.MyContentService
+import com.beside153.peopleinside.service.RecommendService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
 
 class RatingContentsViewModel(
     private val myContentService: MyContentService,
-    private val contentDetailService: ContentDetailService
+    private val contentDetailService: ContentDetailService,
+    private val recommendService: RecommendService
 ) : BaseViewModel() {
     private val _ratingCount = MutableLiveData(0)
     val ratingCount: LiveData<Int> get() = _ratingCount
@@ -31,6 +33,9 @@ class RatingContentsViewModel(
 
     private val _reviewFixClickEvent = MutableLiveData<Event<RatingContentModel>>()
     val reviewFixClickEvent: LiveData<Event<RatingContentModel>> get() = _reviewFixClickEvent
+
+    private val _reviewDeleteClickEvent = MutableLiveData<Event<RatingContentModel>>()
+    val reviewDeleteClickEvent: LiveData<Event<RatingContentModel>> get() = _reviewDeleteClickEvent
 
     private var page = 1
 
@@ -81,7 +86,7 @@ class RatingContentsViewModel(
         _reviewFixClickEvent.value = Event(item)
     }
 
-    fun updateContentList(fixedItem: RatingContentModel) {
+    fun updateFixedReview(fixedItem: RatingContentModel) {
         val updatedList = _contentList.value?.map {
             val review = fixedItem.review
             if (fixedItem.contentId == it.contentId) {
@@ -102,6 +107,25 @@ class RatingContentsViewModel(
         _contentList.value = updatedList ?: emptyList()
     }
 
+    fun onReviewDeleteClick(item: RatingContentModel) {
+        _reviewDeleteClickEvent.value = Event(item)
+    }
+
+    fun deleteReview(item: RatingContentModel) {
+        viewModelScope.launch(exceptionHandler) {
+            recommendService.deleteReview(item.contentId, item.review?.reviewId ?: 0)
+        }
+        val updatedList = _contentList.value?.map {
+            if (item == it) {
+                it.copy(review = null)
+            } else {
+                it
+            }
+        }
+
+        _contentList.value = updatedList ?: emptyList()
+    }
+
     companion object {
         private const val MAX_RATING = 5
 
@@ -113,7 +137,8 @@ class RatingContentsViewModel(
             ): T {
                 val myContentService = RetrofitClient.myContentService
                 val contentDetailService = RetrofitClient.contentDetailService
-                return RatingContentsViewModel(myContentService, contentDetailService) as T
+                val recommendService = RetrofitClient.recommendService
+                return RatingContentsViewModel(myContentService, contentDetailService, recommendService) as T
             }
         }
     }

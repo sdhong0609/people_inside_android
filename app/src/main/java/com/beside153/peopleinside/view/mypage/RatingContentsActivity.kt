@@ -110,6 +110,14 @@ class RatingContentsActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             }
         )
+
+        contentsViewModel.reviewDeleteClickEvent.observe(
+            this,
+            EventObserver { item ->
+                contentsViewModel.deleteReview(item)
+                popupWindow.dismiss()
+            }
+        )
     }
 
     private val fixReviewActivityLauncher =
@@ -121,7 +129,7 @@ class RatingContentsActivity : AppCompatActivity() {
                     result.data?.getParcelableExtra(FIXED_ITEM)
                 }
 
-                contentsViewModel.updateContentList(fixedItem!!)
+                contentsViewModel.updateFixedReview(fixedItem!!)
             }
         }
 
@@ -149,6 +157,10 @@ class RatingContentsActivity : AppCompatActivity() {
 
         reviewFixTextView.setOnClickListener {
             contentsViewModel.onReviewFixClick(item)
+        }
+
+        reviewDeleteTextView.setOnClickListener {
+            contentsViewModel.onReviewDeleteClick(item)
         }
 
         popupWindow.showAsDropDown(imageView, offsetX - OFFSET, 0)
