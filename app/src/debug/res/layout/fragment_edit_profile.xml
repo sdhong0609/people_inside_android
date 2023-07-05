@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel" />
+
+        <variable
             name="app"
             type="com.beside153.peopleinside.App" />
     </data>
@@ -36,6 +40,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_left_arrow" />
 
                 <TextView
@@ -57,13 +62,245 @@
             android:id="@+id/mbtiImageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginVertical="32dp"
             android:contentDescription="@string/mbti_icon"
+            app:layout_constraintBottom_toTopOf="@id/editProfileLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editProfileAppBar"
             app:mbtiLargeImg="@{app.prefs.mbti}"
             tools:src="@drawable/mbti_large_img_enfp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/editProfileLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingHorizontal="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mbtiImageView">
+
+            <TextView
+                android:id="@+id/mbtiTypeTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/mbti_type"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mbtiChoiceTextView"
+                style="@style/textStyleRegularGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onMbtiChoiceClick()}"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="11.5dp"
+                android:text="@{viewModel.selectedMbti}"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView"
+                tools:text="선택" />
+
+            <TextView
+                android:id="@+id/nicknameTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/nickname"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mbtiChoiceTextView" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/nicknameLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/background_nickname_edittext"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicknameTextView">
+
+                <EditText
+                    android:id="@+id/nicknameEditText"
+                    style="@style/textStyleRegularGray900"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_search_edittext"
+                    android:hint="@string/please_input_nickname"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:onTextChanged="@{viewModel::onNicknameTextChanged}"
+                    android:text="@={viewModel.nickname}"
+                    android:textColorHint="@color/gray_500"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/textCountTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textCountTextView"
+                    style="@style/textStyleMediumGray500"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/nickname_count_with_value(viewModel.nicknameCount)}"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/nicknameEditText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="7/10" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/duplicateNicknameTextView"
+                style="@style/textStyleRegularRed100"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/duplicate_nickname"
+                android:textSize="12sp"
+                app:isVisible="@{viewModel.isDuplicate}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
+
+            <TextView
+                android:id="@+id/genderTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/gender"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
+                app:setGenderTextViewPlace="@{viewModel.isDuplicate}" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/genderChoiceLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_gray_300_border"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genderTextView">
+
+                <TextView
+                    android:id="@+id/manTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/man)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/man_korean"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/womanTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/man)}" />
+
+                <TextView
+                    android:id="@+id/womanTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/woman)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/woman_korean"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/didNotChooseTextView"
+                    app:layout_constraintStart_toEndOf="@id/manTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/woman)}" />
+
+                <TextView
+                    android:id="@+id/didNotChooseTextView"
+                    style="@style/textStyleBoldGray500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setSelectedGender(@string/other)}"
+                    android:paddingVertical="15dp"
+                    android:text="@string/other_korean"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/womanTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:userInfoTextColor="@{viewModel.selectedGender.equals(@string/other)}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/birthYearTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/birth_year"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/genderChoiceLayout" />
+
+            <TextView
+                android:id="@+id/birthYearChoiceTextView"
+                style="@style/textStyleRegularGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_gray_300_border"
+                android:onClick="@{() -> viewModel.onBirthYearClick()}"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="11.5dp"
+                android:text="@{@string/birth_year_with_value(viewModel.selectedYear)}"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_down_arrow_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/birthYearTextView"
+                tools:text="1990년" />
+
+            <Button
+                android:id="@+id/signUpButton"
+                style="@style/textStyleBoldWhite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_agree_button"
+                android:enabled="true"
+                android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
+                android:text="@string/complete_fix"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

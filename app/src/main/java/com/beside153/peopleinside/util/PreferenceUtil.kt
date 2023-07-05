@@ -34,7 +34,7 @@ class PreferenceUtil(context: Context) {
     }
 
     fun getMbti(): String {
-        return prefs.getString(userMbtiKey, "").toString()
+        return prefs.getString(userMbtiKey, "").toString().uppercase()
     }
 
     fun getNickname(): String {

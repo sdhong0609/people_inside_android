@@ -26,6 +26,9 @@ class MyPageViewModel(private val myContentService: MyContentService) : BaseView
     private val _ratingContentsClickEvent = MutableLiveData<Event<Unit>>()
     val ratingContentsClickEvent: LiveData<Event<Unit>> get() = _ratingContentsClickEvent
 
+    private val _editProfileClickEvent = MutableLiveData<Event<Unit>>()
+    val editProfileClickEvent: LiveData<Event<Unit>> get() = _editProfileClickEvent
+
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
             val bookmarkCountDeferred = async { myContentService.getBookmarkCount() }
@@ -42,6 +45,10 @@ class MyPageViewModel(private val myContentService: MyContentService) : BaseView
 
     fun onRatingContentsClick() {
         _ratingContentsClickEvent.value = Event(Unit)
+    }
+
+    fun onEditProfileClick() {
+        _editProfileClickEvent.value = Event(Unit)
     }
 
     companion object {

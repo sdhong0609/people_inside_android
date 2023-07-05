@@ -53,6 +53,14 @@ class MyPageFragment : Fragment() {
                 requireActivity().setOpenActivityAnimation()
             }
         )
+
+        myPageViewModel.editProfileClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                editProfileActivityLauncher.launch(EditProfileActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
     }
 
     private val bookmarkContentsActivityLauncher =
@@ -63,6 +71,13 @@ class MyPageFragment : Fragment() {
         }
 
     private val ratingContentsActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                myPageViewModel.initAllData()
+            }
+        }
+
+    private val editProfileActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 myPageViewModel.initAllData()

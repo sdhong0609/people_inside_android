@@ -4,17 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
+import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
-class EditProfileFragment : Fragment() {
+class EditProfileFragment : BaseFragment() {
+    private lateinit var binding: FragmentEditProfileBinding
+    private val editProfileViewModel: EditProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_profile, container, false)
+    ): View {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            viewModel = editProfileViewModel
+            lifecycleOwner = this@EditProfileFragment
+        }
     }
 }
