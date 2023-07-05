@@ -84,18 +84,18 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
                 val response = signUpService.postAuthRegister(
                     "Bearer ${authToken.value}",
                     AuthRegisterRequest(
-                        _selectedMbti.value ?: "",
+                        "kakao",
                         nickname.value ?: "",
-                        _selectedGender.value ?: "",
+                        _selectedMbti.value?.lowercase() ?: "",
                         (_selectedYear.value ?: 0).toString(),
-                        "kakao"
+                        _selectedGender.value ?: ""
                     )
                 )
 
                 App.prefs.setString(App.prefs.jwtTokenKey, response.jwtToken)
                 App.prefs.setInt(App.prefs.userIdKey, response.user.userId)
                 App.prefs.setString(App.prefs.userMbtiKey, response.user.mbti)
-                App.prefs.setString(App.prefs.userNicknameKey, response.user.nickName)
+                App.prefs.setString(App.prefs.userNicknameKey, response.user.nickname)
                 _signUpButtonClickEvent.value = Event(Unit)
             }
         }
