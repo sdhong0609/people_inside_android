@@ -292,7 +292,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/background_agree_button"
-                android:enabled="true"
+                android:enabled="@{viewModel.nicknameCount > 0}"
                 android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
                 android:text="@string/complete_fix"
                 android:textSize="18sp"

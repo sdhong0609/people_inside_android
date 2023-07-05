@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentMyPageBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : BaseFragment() {
     private lateinit var binding: FragmentMyPageBinding
     private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModel.Factory }
 
@@ -59,6 +59,13 @@ class MyPageFragment : Fragment() {
             EventObserver {
                 editProfileActivityLauncher.launch(EditProfileActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
+            }
+        )
+
+        myPageViewModel.error.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                myPageViewModel.initAllData()
             }
         )
     }

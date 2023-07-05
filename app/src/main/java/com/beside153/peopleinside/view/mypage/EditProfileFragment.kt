@@ -1,5 +1,6 @@
 package com.beside153.peopleinside.view.mypage
 
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.fragment.app.activityViewModels
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
+import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
 class EditProfileFragment : BaseFragment() {
@@ -31,5 +34,14 @@ class EditProfileFragment : BaseFragment() {
             viewModel = editProfileViewModel
             lifecycleOwner = this@EditProfileFragment
         }
+
+        editProfileViewModel.completeButtonClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                requireActivity().finish()
+                requireActivity().setResult(RESULT_OK)
+                requireActivity().setCloseActivityAnimation()
+            }
+        )
     }
 }
