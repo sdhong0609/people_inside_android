@@ -6,9 +6,11 @@ import android.content.SharedPreferences
 @Suppress("TooManyFunctions")
 class PreferenceUtil(context: Context) {
     val jwtTokenKey = "JWT_TOKEN"
-    val userIdKey = "USER_ID"
+    private val userIdKey = "USER_ID"
     private val userMbtiKey = "USER_MBTI"
     private val userNicknameKey = "USER_NICKNAME"
+    private val userGenderKey = "USER_GENDER"
+    private val userBirthKey = "USER_BIRTH"
     val reportListKey = "REPORT_LIST"
 
     private val prefs: SharedPreferences =
@@ -34,6 +36,10 @@ class PreferenceUtil(context: Context) {
         return prefs.getInt(userIdKey, 0)
     }
 
+    fun setUserId(i: Int) {
+        prefs.edit().putInt(userIdKey, i).apply()
+    }
+
     fun getMbti(): String {
         return prefs.getString(userMbtiKey, "").toString().uppercase()
     }
@@ -48,6 +54,22 @@ class PreferenceUtil(context: Context) {
 
     fun setNickname(str: String) {
         prefs.edit().putString(userNicknameKey, str).apply()
+    }
+
+    fun getGender(): String {
+        return prefs.getString(userGenderKey, "").toString()
+    }
+
+    fun setGender(str: String) {
+        prefs.edit().putString(userGenderKey, str).apply()
+    }
+
+    fun getBirth(): String {
+        return prefs.getString(userBirthKey, "").toString()
+    }
+
+    fun setBirth(str: String) {
+        prefs.edit().putString(userBirthKey, str).apply()
     }
 
     fun getEmail(): String {
