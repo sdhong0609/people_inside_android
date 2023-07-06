@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.mypage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,14 +12,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
+import com.beside153.peopleinside.databinding.FragmentMyPageMbtiChoiceBinding
 import com.beside153.peopleinside.model.login.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.view.login.MbtiScreenAdapter
 import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
 
-class SignUpMbtiChoiceFragment : Fragment() {
-    private lateinit var binding: FragmentSignUpMbtiChoiceBinding
+class MyPageMbtiChoiceFragment : Fragment() {
+    private lateinit var binding: FragmentMyPageMbtiChoiceBinding
     private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
     private var mbtiList = mutableListOf<MbtiModel>()
     private var selectedMbtiItem: MbtiModel? = null
@@ -29,14 +30,14 @@ class SignUpMbtiChoiceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_mbti_choice, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page_mbti_choice, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args: SignUpMbtiChoiceFragmentArgs by navArgs()
+        val args: MyPageMbtiChoiceFragmentArgs by navArgs()
         val mbti = args.mbti
 
         mbtiList = mutableListOf(
@@ -91,7 +92,7 @@ class SignUpMbtiChoiceFragment : Fragment() {
 
         binding.completeChooseButton.setOnClickListener {
             setFragmentResult(
-                SignUpMbtiChoiceFragment::class.java.simpleName,
+                MyPageMbtiChoiceFragment::class.java.simpleName,
                 bundleOf(MBTI_KEY to (selectedMbtiItem?.mbtiText ?: INITIAL_MBTI))
             )
             findNavController().navigateUp()
@@ -116,7 +117,6 @@ class SignUpMbtiChoiceFragment : Fragment() {
     @Suppress("SpreadOperator")
     private fun screenList(): List<MbtiScreenModel> {
         return listOf(
-            MbtiScreenModel.TitleViewItem,
             *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
         )
     }

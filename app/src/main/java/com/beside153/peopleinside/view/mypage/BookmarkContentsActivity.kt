@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
 import com.beside153.peopleinside.util.EventObserver
@@ -20,7 +20,7 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
 
-class BookmarkContentsActivity : AppCompatActivity() {
+class BookmarkContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageBookmarkContentsBinding
     private val contentsAdapter = BookmarkContentsListAdapter(::onBookmarkClick)
     private val contentsViewModel: BookmarkedContentsViewModel by viewModels { BookmarkedContentsViewModel.Factory }
@@ -78,6 +78,13 @@ class BookmarkContentsActivity : AppCompatActivity() {
                 setResult(RESULT_OK)
                 finish()
                 setCloseActivityAnimation()
+            }
+        )
+
+        contentsViewModel.error.observe(
+            this,
+            EventObserver {
+                contentsViewModel.initAllData()
             }
         )
     }

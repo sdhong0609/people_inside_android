@@ -108,6 +108,13 @@ class RatingContentsActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             }
         )
+
+        contentsViewModel.error.observe(
+            this,
+            EventObserver {
+                contentsViewModel.initAllData()
+            }
+        )
     }
 
     private fun initPopupWindow() {

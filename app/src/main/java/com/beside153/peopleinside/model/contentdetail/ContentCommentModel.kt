@@ -19,7 +19,7 @@ data class ContentCommentModel(
 @Serializable
 data class Writer(
     @SerialName("user_id") val userId: Int,
-    @SerialName("nickName") val nickName: String,
+    @SerialName("nickname") val nickname: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,
     @SerialName("sex") val sex: String?

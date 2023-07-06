@@ -96,7 +96,4 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
-
-    // SimpleRatingBar
-    implementation("com.github.ome450901:SimpleRatingBar:1.5.1")
 }

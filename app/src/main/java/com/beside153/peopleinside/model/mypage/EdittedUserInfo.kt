@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.login
+package com.beside153.peopleinside.model.mypage
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,8 +7,7 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class UserInfo(
-    @SerialName("user_id") val userId: Int,
+data class EdittedUserInfo(
     @SerialName("nickname") val nickname: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,

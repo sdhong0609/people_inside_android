@@ -38,6 +38,8 @@ object RetrofitClient {
     class AppInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            @Suppress("UnusedPrivateMember")
+            val userId = App.prefs.getUserId()
             val jwtToken =
                 App.prefs.getString(App.prefs.jwtTokenKey)
             val newRequest = request().newBuilder()
