@@ -8,12 +8,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.UserInfo
 import com.beside153.peopleinside.model.mypage.EdittedUserInfo
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val userService: UserService) : BaseViewModel() {
@@ -40,9 +38,6 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
 
     private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
     val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
-
-    private val _userInfo = MutableLiveData<UserInfo>()
-    val userInfo: LiveData<UserInfo> get() = _userInfo
 
     private val _nicknameIsEmpty = MutableLiveData(false)
     val nicknameIsEmpty: LiveData<Boolean> get() = _nicknameIsEmpty
@@ -77,15 +72,8 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
         this.nickname.value = nickname
     }
 
-    fun initAllData() {
-        viewModelScope.launch(exceptionHandler) {
-            val userInfoDeffered = async { userService.getUserInfo(App.prefs.getUserId()) }
-            _userInfo.value = userInfoDeffered.await()
-            setSelectedMbti(_userInfo.value?.mbti ?: "선택")
-            setNickname(_userInfo.value?.nickname ?: "")
-            setSelectedGender(_userInfo.value?.sex ?: "선택안함")
-            setSelectedYear(_userInfo.value?.birth?.toInt() ?: 0)
-        }
+    fun setNicknameCount(count: Int) {
+        _nicknameCount.value = count
     }
 
     fun onCompleteButtonClick() {

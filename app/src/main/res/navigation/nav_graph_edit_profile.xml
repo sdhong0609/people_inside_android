@@ -9,5 +9,21 @@
         android:id="@+id/editProfileFragment"
         android:name="com.beside153.peopleinside.view.mypage.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" />
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_myPageMbtiChoiceFragment"
+            app:destination="@id/myPageMbtiChoiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageMbtiChoiceFragment"
+        android:name="com.beside153.peopleinside.view.mypage.MyPageMbtiChoiceFragment"
+        android:label="MyPageMbtiChoiceFragment">
+        <argument
+            android:name="mbti"
+            app:argType="string" />
+    </fragment>
 </navigation>
