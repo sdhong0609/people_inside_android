@@ -93,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myPageAppBar"
-            app:mbtiLargeImg="@{app.prefs.mbti}"
+            app:mbtiLargeImg='@{viewModel.userInfo != null ? viewModel.userInfo.mbti : ""}'
             tools:src="@drawable/mbti_large_img_enfp" />
 
         <TextView
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="@{app.prefs.mbti}"
+            android:text='@{viewModel.userInfo != null ? viewModel.userInfo.mbti.toUpperCase() : ""}'
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:gravity="center"
-            android:text="@{app.prefs.nickname}"
+            android:text='@{viewModel.userInfo != null ? viewModel.userInfo.nickname : ""}'
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

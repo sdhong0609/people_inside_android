@@ -6,14 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.login.UserInfo
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class MyPageViewModel(private val myContentService: MyContentService) : BaseViewModel() {
+class MyPageViewModel(private val myContentService: MyContentService, private val userService: UserService) :
+    BaseViewModel() {
     private val _bookmarkCount = MutableLiveData(0)
     val bookmarkCount: LiveData<Int> get() = _bookmarkCount
 
@@ -29,13 +33,18 @@ class MyPageViewModel(private val myContentService: MyContentService) : BaseView
     private val _editProfileClickEvent = MutableLiveData<Event<Unit>>()
     val editProfileClickEvent: LiveData<Event<Unit>> get() = _editProfileClickEvent
 
+    private val _userInfo = MutableLiveData<UserInfo>()
+    val userInfo: LiveData<UserInfo> get() = _userInfo
+
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
             val bookmarkCountDeferred = async { myContentService.getBookmarkCount() }
             val ratingCountDeferred = async { myContentService.getRatingCount() }
+            val userInfoDeffered = async { userService.getUserInfo(App.prefs.getUserId()) }
 
             _bookmarkCount.value = bookmarkCountDeferred.await()
             _ratingCount.value = ratingCountDeferred.await()
+            _userInfo.value = userInfoDeffered.await()
         }
     }
 
@@ -59,7 +68,8 @@ class MyPageViewModel(private val myContentService: MyContentService) : BaseView
                 extras: CreationExtras
             ): T {
                 val myContentService = RetrofitClient.myContentService
-                return MyPageViewModel(myContentService) as T
+                val userService = RetrofitClient.userService
+                return MyPageViewModel(myContentService, userService) as T
             }
         }
     }

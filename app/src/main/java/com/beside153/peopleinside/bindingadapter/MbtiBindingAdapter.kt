@@ -8,7 +8,7 @@ import com.beside153.peopleinside.R
 @Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiLargeImg")
 fun ImageView.mbtiLargeImg(mbti: String) {
-    val imgRes = when (mbti) {
+    val imgRes = when (mbti.uppercase()) {
         "ENFJ" -> R.drawable.mbti_large_img_enfj
         "ENFP" -> R.drawable.mbti_large_img_enfp
         "ENTJ" -> R.drawable.mbti_large_img_entj

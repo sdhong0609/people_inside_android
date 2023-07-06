@@ -3,11 +3,12 @@ package com.beside153.peopleinside.util
 import android.content.Context
 import android.content.SharedPreferences
 
+@Suppress("TooManyFunctions")
 class PreferenceUtil(context: Context) {
     val jwtTokenKey = "JWT_TOKEN"
     val userIdKey = "USER_ID"
-    val userMbtiKey = "USER_MBTI"
-    val userNicknameKey = "USER_NICKNAME"
+    private val userMbtiKey = "USER_MBTI"
+    private val userNicknameKey = "USER_NICKNAME"
     val reportListKey = "REPORT_LIST"
 
     private val prefs: SharedPreferences =
@@ -37,15 +38,23 @@ class PreferenceUtil(context: Context) {
         return prefs.getString(userMbtiKey, "").toString().uppercase()
     }
 
+    fun setMbti(str: String) {
+        prefs.edit().putString(userMbtiKey, str).apply()
+    }
+
     fun getNickname(): String {
         return prefs.getString(userNicknameKey, "").toString()
     }
 
-    fun setEmail(str: String) {
-        prefs.edit().putString("email", str).apply()
+    fun setNickname(str: String) {
+        prefs.edit().putString(userNicknameKey, str).apply()
     }
 
     fun getEmail(): String {
         return prefs.getString("email", "").toString()
+    }
+
+    fun setEmail(str: String) {
+        prefs.edit().putString("email", str).apply()
     }
 }

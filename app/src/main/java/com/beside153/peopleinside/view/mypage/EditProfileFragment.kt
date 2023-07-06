@@ -16,7 +16,7 @@ import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
 class EditProfileFragment : BaseFragment() {
     private lateinit var binding: FragmentEditProfileBinding
-    private val editProfileViewModel: EditProfileViewModel by activityViewModels()
+    private val editProfileViewModel: EditProfileViewModel by activityViewModels { EditProfileViewModel.Factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +35,21 @@ class EditProfileFragment : BaseFragment() {
             lifecycleOwner = this@EditProfileFragment
         }
 
+        editProfileViewModel.initAllData()
+
         editProfileViewModel.completeButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 requireActivity().finish()
                 requireActivity().setResult(RESULT_OK)
                 requireActivity().setCloseActivityAnimation()
+            }
+        )
+
+        editProfileViewModel.error.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                showErrorDialog { editProfileViewModel.initAllData() }
             }
         )
     }

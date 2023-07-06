@@ -65,7 +65,7 @@ class MyPageFragment : BaseFragment() {
         myPageViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                myPageViewModel.initAllData()
+                showErrorDialog { myPageViewModel.initAllData() }
             }
         )
     }

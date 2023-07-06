@@ -15,7 +15,7 @@ import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
 class EditProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityEditProfileBinding
-    private val editProfileViewModel: EditProfileViewModel by viewModels()
+    private val editProfileViewModel: EditProfileViewModel by viewModels { EditProfileViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
