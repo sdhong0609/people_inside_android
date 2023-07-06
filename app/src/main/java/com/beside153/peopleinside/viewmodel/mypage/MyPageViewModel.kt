@@ -33,6 +33,9 @@ class MyPageViewModel(private val myContentService: MyContentService, private va
     private val _editProfileClickEvent = MutableLiveData<Event<Unit>>()
     val editProfileClickEvent: LiveData<Event<Unit>> get() = _editProfileClickEvent
 
+    private val _settingClickEvent = MutableLiveData<Event<Unit>>()
+    val settingClickEvent: LiveData<Event<Unit>> get() = _settingClickEvent
+
     private val _userInfo = MutableLiveData<UserInfo>()
     val userInfo: LiveData<UserInfo> get() = _userInfo
 
@@ -58,6 +61,10 @@ class MyPageViewModel(private val myContentService: MyContentService, private va
 
     fun onEditProfileClick() {
         _editProfileClickEvent.value = Event(Unit)
+    }
+
+    fun onSettingClick() {
+        _settingClickEvent.value = Event(Unit)
     }
 
     companion object {

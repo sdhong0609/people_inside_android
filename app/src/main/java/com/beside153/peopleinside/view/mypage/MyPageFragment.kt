@@ -62,6 +62,14 @@ class MyPageFragment : BaseFragment() {
             }
         )
 
+        myPageViewModel.settingClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(SettingActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
+
         myPageViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {

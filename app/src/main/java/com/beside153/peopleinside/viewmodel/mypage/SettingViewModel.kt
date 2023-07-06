@@ -20,4 +20,16 @@ class SettingViewModel : BaseViewModel() {
 
     private val _deleteAccount = MutableLiveData<Event<Unit>>()
     val deleteAccount: LiveData<Event<Unit>> get() = _deleteAccount
+
+    fun onTermsClick() {
+        _termsClickEvent.value = Event(Unit)
+    }
+
+    fun onPrivacyPolicyClick() {
+        _privacyPolicyClickEvent.value = Event(Unit)
+    }
+
+    fun onUpdateClick() {
+        _updateClickEvent.value = Event(Unit)
+    }
 }

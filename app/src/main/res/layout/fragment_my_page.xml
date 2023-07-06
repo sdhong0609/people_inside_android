@@ -70,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:contentDescription="@string/setting"
+                        android:onClick="@{() -> viewModel.onSettingClick()}"
                         android:paddingVertical="14dp"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
