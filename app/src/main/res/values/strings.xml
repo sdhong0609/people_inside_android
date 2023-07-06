@@ -152,4 +152,13 @@
     <string name="no_bookmark_contents">아직 북마크한 콘텐츠가 없어요</string>
     <string name="no_review_contents">아직 평가한 콘텐츠가 없어요</string>
     <string name="edit_profile">프로필 수정</string>
+
+    <!-- 설정 -->
+    <string name="terms_of_service">서비스 이용약관</string>
+    <string name="privacy_policy">개인정보 처리방침</string>
+    <string name="app_version">앱버전 1.0.0</string>
+    <string name="update">업데이트</string>
+    <string name="logout">로그아웃</string>
+    <string name="delete_account">계정탈퇴</string>
+
 </resources>
