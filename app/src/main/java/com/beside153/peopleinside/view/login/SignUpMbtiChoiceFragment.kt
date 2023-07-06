@@ -42,7 +42,7 @@ class SignUpMbtiChoiceFragment : Fragment() {
         mbtiList = mutableListOf(
             MbtiModel(R.drawable.mbti_large_img_infp, "INFP", mbti == "INFP"),
             MbtiModel(R.drawable.mbti_large_img_enfp, "ENFP", mbti == "ENFP"),
-            MbtiModel(R.drawable.mbti_large_img_esfj, "ENFJ", mbti == "ENFJ"),
+            MbtiModel(R.drawable.mbti_large_img_esfj, "ESFJ", mbti == "ESFJ"),
             MbtiModel(R.drawable.mbti_large_img_isfj, "ISFJ", mbti == "ISFJ"),
             MbtiModel(R.drawable.mbti_large_img_isfp, "ISFP", mbti == "ISFP"),
             MbtiModel(R.drawable.mbti_large_img_esfp, "ESFP", mbti == "ESFP"),
