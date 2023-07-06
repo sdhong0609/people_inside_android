@@ -58,9 +58,16 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
 }
 
 @BindingAdapter("setGenderTextViewPlace")
-fun View.setGenderTextViewPlace(isDuplicate: Boolean) {
+fun View.setGenderTextViewPlace(showAlert: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.topToBottom = if (isDuplicate) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    layoutParams.topToBottom = if (showAlert) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    this.layoutParams = layoutParams
+}
+
+@BindingAdapter("setGenderTextViewPlace2")
+fun View.setGenderTextViewPlace2(showAlert: Boolean) {
+    val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.topToBottom = if (showAlert) R.id.plsInputTextView else R.id.editNicknameLayout
     this.layoutParams = layoutParams
 }
 
@@ -70,27 +77,5 @@ fun Button.contentChoiceButtonText(choiceCount: Int) {
         resources.getString(R.string.content_choice_button_complete)
     } else {
         resources.getString(R.string.content_choice_button, choiceCount)
-    }
-}
-
-@BindingAdapter("bookmarkImg")
-fun ImageView.bookmarkImg(bookmarked: Boolean) {
-    if (bookmarked) {
-        setImageResource(R.drawable.ic_bookmark_filled_gray)
-    } else {
-        setImageResource(
-            R.drawable.ic_bookmark_empty_gray
-        )
-    }
-}
-
-@BindingAdapter("bookmarkWhiteImg")
-fun ImageView.bookmarkWhiteImg(bookmarked: Boolean) {
-    if (bookmarked) {
-        setImageResource(R.drawable.ic_bookmark_filled)
-    } else {
-        setImageResource(
-            R.drawable.ic_bookmark_empty
-        )
     }
 }

@@ -8,10 +8,6 @@
         <variable
             name="viewModel"
             type="com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel" />
-
-        <variable
-            name="app"
-            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,19 +54,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageView
-            android:id="@+id/mbtiImageView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="32dp"
-            android:contentDescription="@string/mbti_icon"
-            app:layout_constraintBottom_toTopOf="@id/editProfileLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editProfileAppBar"
-            app:mbtiLargeImg="@{app.prefs.mbti}"
-            tools:src="@drawable/mbti_large_img_enfp" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/editProfileLayout"
             android:layout_width="0dp"
@@ -79,18 +62,32 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mbtiImageView">
+            app:layout_constraintTop_toBottomOf="@id/editProfileAppBar">
+
+            <ImageView
+                android:id="@+id/mbtiImageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/mbti_icon"
+                app:layout_constraintBottom_toTopOf="@id/mbtiTypeTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mbtiLargeImg="@{viewModel.selectedMbti.toUpperCase()}"
+                tools:src="@drawable/mbti_large_img_enfp" />
 
             <TextView
                 android:id="@+id/mbtiTypeTextView"
                 style="@style/textStyleMediumGray700"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:text="@string/mbti_type"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/mbtiImageView" />
 
             <TextView
                 android:id="@+id/mbtiChoiceTextView"
@@ -102,9 +99,10 @@
                 android:onClick="@{() -> viewModel.onMbtiChoiceClick()}"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="11.5dp"
-                android:text="@{viewModel.selectedMbti}"
+                android:text="@{viewModel.selectedMbti.toUpperCase()}"
                 android:textSize="16sp"
                 app:drawableEndCompat="@drawable/ic_right_arrow_gray"
+                app:layout_constraintBottom_toTopOf="@id/nicknameTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mbtiTypeTextView"
@@ -123,7 +121,7 @@
                 app:layout_constraintTop_toBottomOf="@id/mbtiChoiceTextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/nicknameLayout"
+                android:id="@+id/editNicknameLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -170,17 +168,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/duplicateNicknameTextView"
+                android:id="@+id/plsInputTextView"
                 style="@style/textStyleRegularRed100"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="@string/duplicate_nickname"
+                android:text="@string/please_input_nickname"
                 android:textSize="12sp"
-                app:isVisible="@{viewModel.isDuplicate}"
+                app:isVisible="@{viewModel.nicknameIsEmpty}"
+                app:layout_constraintBottom_toTopOf="@id/genderTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
+                app:layout_constraintTop_toBottomOf="@id/editNicknameLayout" />
 
             <TextView
                 android:id="@+id/genderTextView"
@@ -192,8 +191,8 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
-                app:setGenderTextViewPlace="@{viewModel.isDuplicate}" />
+                app:layout_constraintTop_toBottomOf="@id/editNicknameLayout"
+                app:setGenderTextViewPlace2="@{viewModel.nicknameIsEmpty}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/genderChoiceLayout"
@@ -292,7 +291,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/background_agree_button"
-                android:enabled="@{viewModel.nicknameCount > 0}"
+                android:enabled="true"
                 android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
                 android:text="@string/complete_fix"
                 android:textSize="18sp"

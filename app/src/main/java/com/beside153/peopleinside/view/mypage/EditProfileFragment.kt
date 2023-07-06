@@ -46,6 +46,12 @@ class EditProfileFragment : BaseFragment() {
             }
         )
 
+        editProfileViewModel.nickname.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                editProfileViewModel.setNicknameIsEmpty(false)
+            }
+        }
+
         editProfileViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {

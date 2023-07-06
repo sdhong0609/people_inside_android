@@ -23,9 +23,6 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
     private val _nicknameCount = MutableLiveData(0)
     val nicknameCount: LiveData<Int> get() = _nicknameCount
 
-    private val _isDuplicate = MutableLiveData(false)
-    val isDuplicate: LiveData<Boolean> get() = _isDuplicate
-
     private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
     val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
 
@@ -46,6 +43,9 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
 
     private val _userInfo = MutableLiveData<UserInfo>()
     val userInfo: LiveData<UserInfo> get() = _userInfo
+
+    private val _nicknameIsEmpty = MutableLiveData(false)
+    val nicknameIsEmpty: LiveData<Boolean> get() = _nicknameIsEmpty
 
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -73,30 +73,46 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
         _selectedMbti.value = mbti
     }
 
+    fun setNickname(nickname: String) {
+        this.nickname.value = nickname
+    }
+
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
             val userInfoDeffered = async { userService.getUserInfo(App.prefs.getUserId()) }
             _userInfo.value = userInfoDeffered.await()
+            setSelectedMbti(_userInfo.value?.mbti ?: "선택")
+            setNickname(_userInfo.value?.nickname ?: "")
+            setSelectedGender(_userInfo.value?.sex ?: "선택안함")
+            setSelectedYear(_userInfo.value?.birth?.toInt() ?: 0)
         }
     }
 
     fun onCompleteButtonClick() {
         viewModelScope.launch(exceptionHandler) {
-            userService.patchUserInfo(
-                App.prefs.getUserId(),
-                EdittedUserInfo(
-                    nickname.value ?: "",
-                    _selectedMbti.value ?: "",
-                    _selectedYear.value.toString(),
-                    _selectedGender.value ?: ""
+            if ((nickname.value?.length ?: 0) > 0) {
+                userService.patchUserInfo(
+                    App.prefs.getUserId(),
+                    EdittedUserInfo(
+                        nickname.value ?: "",
+                        _selectedMbti.value ?: "",
+                        _selectedYear.value.toString(),
+                        _selectedGender.value ?: ""
+                    )
                 )
-            )
 
-            App.prefs.setMbti(_selectedMbti.value ?: "")
-            App.prefs.setNickname(nickname.value ?: "")
+                App.prefs.setMbti(_selectedMbti.value ?: "")
+                App.prefs.setNickname(nickname.value ?: "")
 
-            _completeButtonClickEvent.value = Event(Unit)
+                _completeButtonClickEvent.value = Event(Unit)
+                return@launch
+            }
+            setNicknameIsEmpty(true)
         }
+    }
+
+    fun setNicknameIsEmpty(isEmpty: Boolean) {
+        _nicknameIsEmpty.value = isEmpty
     }
 
     companion object {
