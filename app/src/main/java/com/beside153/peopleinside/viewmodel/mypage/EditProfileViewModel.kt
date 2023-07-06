@@ -78,24 +78,25 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
 
     fun onCompleteButtonClick() {
         viewModelScope.launch(exceptionHandler) {
-            if ((nickname.value?.length ?: 0) > 0) {
-                userService.patchUserInfo(
-                    App.prefs.getUserId(),
-                    EdittedUserInfo(
-                        nickname.value ?: "",
-                        _selectedMbti.value ?: "",
-                        _selectedYear.value.toString(),
-                        _selectedGender.value ?: ""
-                    )
-                )
+            if ((nickname.value?.length ?: 0) <= 0) {
+                setNicknameIsEmpty(true)
+                return@launch
+            }
 
+            userService.patchUserInfo(
+                App.prefs.getUserId(),
+                EdittedUserInfo(
+                    nickname.value ?: "",
+                    _selectedMbti.value ?: "",
+                    _selectedYear.value.toString(),
+                    _selectedGender.value ?: ""
+                )
+            ).onSuccess {
                 App.prefs.setMbti(_selectedMbti.value ?: "")
                 App.prefs.setNickname(nickname.value ?: "")
 
                 _completeButtonClickEvent.value = Event(Unit)
-                return@launch
             }
-            setNicknameIsEmpty(true)
         }
     }
 

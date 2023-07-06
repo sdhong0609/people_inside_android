@@ -12,5 +12,5 @@ interface UserService {
     suspend fun getUserInfo(@Path("id") id: Int): UserInfo
 
     @PATCH("/api/users/{id}")
-    suspend fun patchUserInfo(@Path("id") id: Int, @Body edittedUserInfo: EdittedUserInfo): UserInfo
+    suspend fun patchUserInfo(@Path("id") id: Int, @Body edittedUserInfo: EdittedUserInfo): Result<UserInfo>
 }
