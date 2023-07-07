@@ -1,5 +1,7 @@
 package com.beside153.peopleinside.view.login
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -107,6 +109,13 @@ class LoginActivity : AppCompatActivity() {
                 App.prefs.setEmail(user.kakaoAccount?.email ?: "")
                 loginViewModel.peopleInsideLogin()
             }
+        }
+    }
+
+    companion object {
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, LoginActivity::class.java)
         }
     }
 }
