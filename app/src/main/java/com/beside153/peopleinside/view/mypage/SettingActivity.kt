@@ -13,6 +13,7 @@ import com.beside153.peopleinside.databinding.ActivitySettingBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.mypage.SettingViewModel
@@ -85,6 +86,14 @@ class SettingActivity : AppCompatActivity() {
                         }
                     }).create()
                 logoutDialog.show(supportFragmentManager, logoutDialog.tag)
+            }
+        )
+
+        settingViewModel.deleteAccountEvent.observe(
+            this,
+            EventObserver {
+                startActivity(DeleteAccountActivity.newIntent(this))
+                setOpenActivityAnimation()
             }
         )
     }

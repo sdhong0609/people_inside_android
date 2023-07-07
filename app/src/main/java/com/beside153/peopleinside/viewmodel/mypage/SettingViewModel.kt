@@ -18,8 +18,8 @@ class SettingViewModel : BaseViewModel() {
     private val _logoutClickEvent = MutableLiveData<Event<Unit>>()
     val logoutClickEvent: LiveData<Event<Unit>> get() = _logoutClickEvent
 
-    private val _deleteAccount = MutableLiveData<Event<Unit>>()
-    val deleteAccount: LiveData<Event<Unit>> get() = _deleteAccount
+    private val _deleteAccountEvent = MutableLiveData<Event<Unit>>()
+    val deleteAccountEvent: LiveData<Event<Unit>> get() = _deleteAccountEvent
 
     fun onTermsClick() {
         _termsClickEvent.value = Event(Unit)
@@ -35,5 +35,9 @@ class SettingViewModel : BaseViewModel() {
 
     fun onLogoutClick() {
         _logoutClickEvent.value = Event(Unit)
+    }
+
+    fun onDeleteAccountClick() {
+        _deleteAccountEvent.value = Event(Unit)
     }
 }
