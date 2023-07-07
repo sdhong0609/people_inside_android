@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +60,7 @@
             android:layout_marginHorizontal="15.5dp"
             android:layout_marginBottom="12dp"
             android:background="@drawable/kakao_login_large_img"
+            android:onClick="@{() -> viewModel.onKakaoLoginClick()}"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toTopOf="@id/withoutLoginTextView"
             app:layout_constraintEnd_toEndOf="parent"

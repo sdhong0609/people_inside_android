@@ -12,4 +12,9 @@ interface SignUpService {
         @Header("authorization") authToken: String,
         @Body userInfo: AuthRegisterRequest
     ): AuthRegisterResponse
+
+    @POST("/api/auth/login/kakao")
+    suspend fun postLoginKakao(
+        @Header("authorization") authToken: String
+    ): AuthRegisterResponse
 }
