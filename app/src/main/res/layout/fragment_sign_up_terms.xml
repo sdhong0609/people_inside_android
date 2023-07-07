@@ -175,7 +175,7 @@
                 style="@style/textStyleRegularGray500"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onSeeTermsClick()}"
+                android:onClick="@{() -> viewModel.onSeePrivacyPolicyClick()}"
                 android:text="@string/see_terms"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"

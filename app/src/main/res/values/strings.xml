@@ -160,5 +160,6 @@
     <string name="update">업데이트</string>
     <string name="logout">로그아웃</string>
     <string name="delete_account">계정탈퇴</string>
+    <string name="you_may_use_after_login">로그인 후 다시 이용하실 수 있어요.</string>
 
 </resources>
