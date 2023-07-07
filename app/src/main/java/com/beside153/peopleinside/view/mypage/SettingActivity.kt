@@ -63,6 +63,13 @@ class SettingActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         )
+
+        settingViewModel.logoutClickEvent.observe(
+            this,
+            EventObserver {
+                // 다이얼로그 띄우기
+            }
+        )
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.beside153.peopleinside.base
 
 import androidx.fragment.app.Fragment
-import com.beside153.peopleinside.view.error.ErrorDialog
+import com.beside153.peopleinside.view.dialog.ErrorDialog
 
 open class BaseFragment : Fragment() {
 

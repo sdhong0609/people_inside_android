@@ -32,4 +32,8 @@ class SettingViewModel : BaseViewModel() {
     fun onUpdateClick() {
         _updateClickEvent.value = Event(Unit)
     }
+
+    fun onLogoutClick() {
+        _logoutClickEvent.value = Event(Unit)
+    }
 }
