@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.beside153.peopleinside.viewmodel.mypage.DeleteAccountViewModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +25,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:elevation="0dp"
+            app:layout_constraintBottom_toTopOf="@id/content1TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -53,6 +58,51 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/content1TextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="52dp"
+            android:text="@string/delete_account_content_1"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/content2TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deleteAccountAppBar" />
+
+        <TextView
+            android:id="@+id/content2TextView"
+            style="@style/textStyleRegularGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="52dp"
+            android:text="@string/delete_account_content_2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/content3TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content1TextView" />
+
+        <TextView
+            android:id="@+id/content3TextView"
+            style="@style/textStyleRegularGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="52dp"
+            android:text="@{@string/delete_account_content_3(app.prefs.nickname)}"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content2TextView"
+            tools:text="@string/delete_account_content_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Common String -->
     <string name="app_name">피플인사이드</string>
     <string name="total_rating">전체 %.1f점</string>
@@ -162,5 +162,14 @@
     <string name="delete_account">계정탈퇴</string>
     <string name="you_may_use_after_login">로그인 후 다시 이용하실 수 있어요.</string>
     <string name="delete_space_account">계정 탈퇴</string>
+    <string name="delete_account_content_1" tools:ignore="TypographyEllipsis">저희가 더 잘할게요...\n정말 저희를 떠나시겠어요?</string>
+    <string name="delete_account_content_2">그럼에도 불구하고 정말 피플인사이드를\n떠나고 싶으시다면 이유를 알려주시겠어요?</string>
+    <string name="delete_account_content_3">%s님의 의견을 잘 반영해서\n더욱 개선된 앱으로 보답하는 피플인사이드가 될게요!</string>
+    <string name="radio_text_1">활동 기록을 삭제하고 싶어요.</string>
+    <string name="radio_text_2">추천 콘텐츠가 만족스럽지 않아요.</string>
+    <string name="radio_text_3">다른 핍사이더들이 마음에 들지 않아요.</string>
+    <string name="radio_text_4">자주 사용하지 않아요.</string>
+    <string name="radio_text_5">다른 콘텐츠 추천 앱을 더 자주 사용해요.</string>
+    <string name="radio_text_6">기타</string>
 
 </resources>
