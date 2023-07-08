@@ -103,11 +103,13 @@
             android:paddingVertical="5dp"
             android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
             android:textSize="12sp"
-            app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
             app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             app:mbtiBackground="@{app.prefs.mbti}"
+            app:mbtiLeftIcon="@{app.prefs.mbti}"
+            app:mbtiTextColor="@{app.prefs.mbti}"
             tools:background="@drawable/background_mbti_rating"
+            tools:drawableStartCompat="@drawable/ic_clap_hands_white"
             tools:text="ESFJ 4.5점" />
 
         <com.google.android.material.card.MaterialCardView

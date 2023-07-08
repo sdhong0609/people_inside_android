@@ -24,14 +24,6 @@ class PreferenceUtil(context: Context) {
         prefs.edit().putString(key, str).apply()
     }
 
-    fun getInt(key: String): Int {
-        return prefs.getInt(key, 0)
-    }
-
-    fun setInt(key: String, i: Int) {
-        prefs.edit().putInt(key, i).apply()
-    }
-
     fun getUserId(): Int {
         return prefs.getInt(userIdKey, 0)
     }

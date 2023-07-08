@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Common String -->
     <string name="app_name">피플인사이드</string>
     <string name="total_rating">전체 %.1f점</string>
@@ -33,6 +33,7 @@
     <string name="setting">설정</string>
     <string name="fix_user_info">회원정보 수정</string>
     <string name="right_arrow">오른쪽 화살표</string>
+    <string name="radio_button">라디오 버튼</string>
 
     <!-- 오류 메시지 -->
     <string name="error_happend">오류가 발생했어요</string>
@@ -152,4 +153,28 @@
     <string name="no_bookmark_contents">아직 북마크한 콘텐츠가 없어요</string>
     <string name="no_review_contents">아직 평가한 콘텐츠가 없어요</string>
     <string name="edit_profile">프로필 수정</string>
+
+    <!-- 설정 -->
+    <string name="terms_of_service">서비스 이용약관</string>
+    <string name="privacy_policy">개인정보 처리방침</string>
+    <string name="app_version">앱버전 1.0.0</string>
+    <string name="update">업데이트</string>
+    <string name="logout">로그아웃</string>
+    <string name="delete_account">계정탈퇴</string>
+    <string name="you_may_use_after_login">로그인 후 다시 이용하실 수 있어요.</string>
+    <string name="delete_space_account">계정 탈퇴</string>
+    <string name="delete_account_content_1" tools:ignore="TypographyEllipsis">저희가 더 잘할게요...\n정말 저희를 떠나시겠어요?</string>
+    <string name="delete_account_content_2">그럼에도 불구하고 정말 피플인사이드를\n떠나고 싶으시다면 이유를 알려주시겠어요?</string>
+    <string name="delete_account_content_3">%s님의 의견을 잘 반영해서\n더욱 개선된 앱으로 보답하는 피플인사이드가 될게요!</string>
+    <string name="radio_text_1">활동 기록을 삭제하고 싶어요.</string>
+    <string name="radio_text_2">추천 콘텐츠가 만족스럽지 않아요.</string>
+    <string name="radio_text_3">다른 핍사이더들이 마음에 들지 않아요.</string>
+    <string name="radio_text_4">자주 사용하지 않아요.</string>
+    <string name="radio_text_5">다른 콘텐츠 추천 앱을 더 자주 사용해요.</string>
+    <string name="radio_text_6">기타</string>
+    <string name="agree_delete_all">모든 정보를 삭제하는 것에 동의합니다.</string>
+    <string name="do_delete_account">탈퇴하기</string>
+    <string name="delete_account_dialog_title">다시 오실 때까지 기다리고 있을게요</string>
+    <string name="delete_account_dialog_description">탈퇴 후 언제든지 재가입이 가능해요.\n활동 기록은 다시 복구하실 수 없어요.</string>
+
 </resources>
