@@ -1,11 +1,11 @@
 package com.beside153.peopleinside.view.mypage
 
+import android.app.Activity.RESULT_OK
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
@@ -80,21 +80,21 @@ class MyPageFragment : BaseFragment() {
 
     private val bookmarkContentsActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            if (result.resultCode == RESULT_OK) {
                 myPageViewModel.initAllData()
             }
         }
 
     private val ratingContentsActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            if (result.resultCode == RESULT_OK) {
                 myPageViewModel.initAllData()
             }
         }
 
     private val editProfileActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+            if (result.resultCode == RESULT_OK) {
                 myPageViewModel.initAllData()
             }
         }

@@ -71,8 +71,8 @@ class EditProfileFragment : BaseFragment() {
         editProfileViewModel.completeButtonClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                requireActivity().finish()
                 requireActivity().setResult(RESULT_OK)
+                requireActivity().finish()
                 requireActivity().setCloseActivityAnimation()
             }
         )
