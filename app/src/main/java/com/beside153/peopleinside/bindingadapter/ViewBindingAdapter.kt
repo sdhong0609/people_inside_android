@@ -79,3 +79,12 @@ fun Button.contentChoiceButtonText(choiceCount: Int) {
         resources.getString(R.string.content_choice_button, choiceCount)
     }
 }
+
+@BindingAdapter("radioButtonImg")
+fun ImageView.radioButtonImg(isChecked: Boolean) {
+    if (isChecked) {
+        this.setImageResource(R.drawable.ic_radio_button_checked)
+    } else {
+        this.setImageResource(R.drawable.ic_radio_button_unchecked)
+    }
+}
