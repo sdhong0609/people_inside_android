@@ -167,8 +167,6 @@ class ContentDetailViewModel(
         }
     }
 
-    fun getWriterHasReview(): Boolean = writerHasReview.value ?: false
-
     private suspend fun initRating(contentId: Int): Job {
         val exceptionHandler = CoroutineExceptionHandler { _, t ->
             when (t) {
@@ -236,7 +234,7 @@ class ContentDetailViewModel(
 
         return listOf(
             ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
-            ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!),
+            ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!, writerHasReview.value!!),
             ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
             ContentDetailScreenModel.CommentsView
         ) + commentAreaList
