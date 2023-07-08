@@ -93,8 +93,10 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
                 )
             )
 
-            App.prefs.setMbti(_selectedMbti.value ?: "")
             App.prefs.setNickname(nickname.value ?: "")
+            App.prefs.setMbti(_selectedMbti.value ?: "")
+            App.prefs.setBirth(_selectedYear.value.toString())
+            App.prefs.setGender(_selectedGender.value ?: "")
 
             _completeButtonClickEvent.value = Event(Unit)
         }
