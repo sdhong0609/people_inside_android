@@ -88,10 +88,11 @@
                         android:paddingVertical="5dp"
                         android:text="@{@string/mbti_rating(viewModel.movieBattleItem.topMbtiRating.mbti, viewModel.movieBattleItem.topMbtiRating.ratingAvg)}"
                         android:textSize="12sp"
-                        app:drawableStartCompat="@drawable/ic_clap_hands"
                         app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                        app:mbtiLeftIcon='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         app:mbtiTextColor='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
+                        tools:drawableStartCompat="@drawable/ic_clap_hands_white"
                         tools:text="ESFJ 4.5점" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -190,10 +191,11 @@
                         android:paddingVertical="5dp"
                         android:text="@{@string/mbti_rating(viewModel.movieBattleItem.bottomMbtiRating.mbti, viewModel.movieBattleItem.bottomMbtiRating.ratingAvg)}"
                         android:textSize="12sp"
-                        app:drawableStartCompat="@drawable/ic_clap_hands"
                         app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
+                        app:mbtiLeftIcon='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         app:mbtiTextColor='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
+                        tools:drawableStartCompat="@drawable/ic_clap_hands_white"
                         tools:text="ESFJ 4.5점" />
 
                 </com.google.android.material.card.MaterialCardView>

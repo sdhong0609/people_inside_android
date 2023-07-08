@@ -127,8 +127,22 @@ fun TextView.mbtiTextColor(mbti: String) {
         )
 
         "ENTP", "ESFJ", "ESFP", "INFJ", "INTJ", "INTP", "ISTP" -> ContextCompat.getColor(context, R.color.white)
+
         else -> R.color.black
     }
 
     setTextColor(textColor)
+}
+
+@BindingAdapter("mbtiLeftIcon")
+fun TextView.mbtiLeftIcon(mbti: String) {
+    val leftIcon = when (mbti) {
+        "ENFJ", "ENFP", "ENTJ", "ESTJ", "ESTP", "INFP", "ISFJ", "ISFP", "ISTJ" -> R.drawable.ic_clap_hands_black
+
+        "ENTP", "ESFJ", "ESFP", "INFJ", "INTJ", "INTP", "ISTP" -> R.drawable.ic_clap_hands_white
+
+        else -> R.drawable.ic_clap_hands_black
+    }
+
+    setCompoundDrawablesRelativeWithIntrinsicBounds(leftIcon, 0, 0, 0)
 }

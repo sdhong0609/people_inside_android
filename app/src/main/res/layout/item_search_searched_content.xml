@@ -8,6 +8,10 @@
         <variable
             name="item"
             type="com.beside153.peopleinside.model.search.SearchedContentModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -85,20 +89,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:background="@drawable/background_mbti_rating"
             android:drawablePadding="4dp"
             android:fontFamily="@font/notosans_kr_medium"
             android:gravity="center"
             android:letterSpacing="-0.05"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
-            android:text="@{@string/total_rating(item.mbtiRating)}"
+            android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
             android:textColor="@color/white"
             android:textSize="12sp"
-            app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
             app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
+            app:mbtiBackground="@{app.prefs.mbti}"
+            app:mbtiLeftIcon="@{app.prefs.mbti}"
+            app:mbtiTextColor="@{app.prefs.mbti}"
+            tools:background="@drawable/background_mbti_rating"
+            tools:drawableStartCompat="@drawable/ic_clap_hands_white"
             tools:text="ESFJ 4.5점" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
