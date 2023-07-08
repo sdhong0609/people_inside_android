@@ -70,6 +70,9 @@ class RecommendViewModel(
     private val _subRankingItemClickEvent = MutableLiveData<Event<SubRankingModel>>()
     val subRankingItemClickEvent: LiveData<Event<SubRankingModel>> get() = _subRankingItemClickEvent
 
+    private val _mbtiImgClickEvent = MutableLiveData<Event<Unit>>()
+    val mbtiImgClickEvent: LiveData<Event<Unit>> get() = _mbtiImgClickEvent
+
     private var pageCount = 1
 
     fun initAllData() {
@@ -92,6 +95,10 @@ class RecommendViewModel(
             _viewPagerList.value = viewPagerList()
             _progressBarVisible.value = false
         }
+    }
+
+    fun onMbtiImgClick() {
+        _mbtiImgClickEvent.value = Event(Unit)
     }
 
     fun refreshPick10List() {
