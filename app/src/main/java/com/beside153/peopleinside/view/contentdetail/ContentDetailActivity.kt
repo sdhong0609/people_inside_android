@@ -31,7 +31,6 @@ class ContentDetailActivity : BaseActivity() {
             ::onBookmarkClick,
             ::onCreateReviewClick,
             ::onRatingChanged,
-            ::getWriterHasReview,
             ::onVerticalDotsClick,
             ::onCommentLikeClick
         )
@@ -150,8 +149,6 @@ class ContentDetailActivity : BaseActivity() {
     private fun onBookmarkClick() {
         contentDetailViewModel.onBookmarkClick()
     }
-
-    private fun getWriterHasReview(): Boolean = contentDetailViewModel.getWriterHasReview()
 
     private fun onCreateReviewClick() {
         contentDetailViewModel.onCreateReviewClick()

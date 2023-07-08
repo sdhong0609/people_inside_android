@@ -22,7 +22,6 @@ class ContentDetailScreenAdapter(
     private val onBookmarkClick: () -> Unit,
     private val onCreateReviewClick: () -> Unit,
     private val onRatingChanged: (rating: Float) -> Unit,
-    private val getWriterHasReview: () -> Boolean,
     private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit,
     private val onCommentLikeClick: (item: ContentCommentModel) -> Unit
 ) :
@@ -62,7 +61,6 @@ class ContentDetailScreenAdapter(
                 binding.createReviewImageButton.setOnClickListener {
                     onCreateReviewClick()
                 }
-                binding.hasReview = getWriterHasReview()
                 ViewHolder.ReviewViewHolder(binding)
             }
 
@@ -117,6 +115,7 @@ class ContentDetailScreenAdapter(
             fun bind(item: ContentDetailScreenModel.ReviewView) {
                 binding.ratingItem = item.contentRatingItem
                 binding.bookmarked = item.bookmarked
+                binding.hasReview = item.writerHasReview
             }
         }
 
@@ -158,7 +157,11 @@ class ContentDetailScreenAdapter(
 
     sealed class ContentDetailScreenModel {
         data class PosterView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
-        data class ReviewView(val contentRatingItem: ContentRatingModel, val bookmarked: Boolean) :
+        data class ReviewView(
+            val contentRatingItem: ContentRatingModel,
+            val bookmarked: Boolean,
+            val writerHasReview: Boolean
+        ) :
             ContentDetailScreenModel()
 
         data class InfoView(val contentDetailItem: ContentDetailModel) : ContentDetailScreenModel()
