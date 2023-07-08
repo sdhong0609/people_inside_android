@@ -15,7 +15,8 @@ private const val MAX_CHOICE_COUNT = 5
 
 @BindingAdapter("posterUrl")
 fun ImageView.posterUrl(url: String) {
-    Glide.with(this).load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2$url").error(R.drawable.background_poster)
+    Glide.with(this).load("https://www.themoviedb.org/t/p/w600_and_h900_bestv2$url")
+        .error(R.drawable.background_white_rounded)
         .into(this)
 }
 
@@ -57,9 +58,16 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
 }
 
 @BindingAdapter("setGenderTextViewPlace")
-fun View.setGenderTextViewPlace(isDuplicate: Boolean) {
+fun View.setGenderTextViewPlace(showAlert: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.topToBottom = if (isDuplicate) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    layoutParams.topToBottom = if (showAlert) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    this.layoutParams = layoutParams
+}
+
+@BindingAdapter("setGenderTextViewPlace2")
+fun View.setGenderTextViewPlace2(showAlert: Boolean) {
+    val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.topToBottom = if (showAlert) R.id.plsInputTextView else R.id.editNicknameLayout
     this.layoutParams = layoutParams
 }
 
@@ -72,13 +80,11 @@ fun Button.contentChoiceButtonText(choiceCount: Int) {
     }
 }
 
-@BindingAdapter("bookmarkImg")
-fun ImageView.bookmarkImg(bookmarked: Boolean) {
-    if (bookmarked) {
-        setImageResource(R.drawable.ic_bookmark_filled_gray)
+@BindingAdapter("radioButtonImg")
+fun ImageView.radioButtonImg(isChecked: Boolean) {
+    if (isChecked) {
+        this.setImageResource(R.drawable.ic_radio_button_checked)
     } else {
-        setImageResource(
-            R.drawable.ic_bookmark_empty_gray
-        )
+        this.setImageResource(R.drawable.ic_radio_button_unchecked)
     }
 }

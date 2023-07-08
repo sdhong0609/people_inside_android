@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.mypage.SavedContentModel" />
+            type="com.beside153.peopleinside.model.mypage.BookmarkedContentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,17 +29,19 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
-                app:posterUrl="@{item.posterUrl}"
+                app:posterUrl="@{item.posterPath}"
                 tools:src="@drawable/img_sample_poster" />
 
             <ImageView
+                android:id="@+id/bookmarkImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:contentDescription="@string/bookmark"
-                android:src="@drawable/ic_bookmark_filled" />
+                app:bookmarkWhiteImg="@{item.bookmarked}"
+                tools:src="@drawable/ic_bookmark_filled" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -48,7 +50,7 @@
             style="@style/textStyleBoldGray900"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{item.title}"

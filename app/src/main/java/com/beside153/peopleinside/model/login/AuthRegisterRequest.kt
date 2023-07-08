@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class AuthRegisterRequest(
+    val social: String,
+    val nickname: String,
     val mbti: String,
-    val nickName: String,
-    val sex: String,
     val birth: String,
-    val social: String
+    val sex: String
 ) : Parcelable

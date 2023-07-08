@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.R
@@ -133,6 +134,13 @@ class RecommendFragment : BaseFragment() {
                 showErrorDialog {
                     recommendViewModel.initAllData()
                 }
+            }
+        )
+
+        recommendViewModel.mbtiImgClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                findNavController().navigate(R.id.myPageFragment)
             }
         )
     }

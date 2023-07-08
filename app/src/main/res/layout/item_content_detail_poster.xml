@@ -30,7 +30,6 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_poster"
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 app:posterUrl="@{item.posterPath}"
@@ -72,7 +71,7 @@
                 android:padding="5dp"
                 android:textSize="12sp"
                 app:mediaType="@{item.mediaType}"
-                app:movieKeyword="@{item.genres[0].name}"
+                app:movieKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
                 app:tvKeyword="@{item.releaseDate.substring(0, 4)}"
                 tools:text="스릴러" />
 
@@ -86,8 +85,8 @@
                 android:padding="5dp"
                 android:textSize="12sp"
                 app:mediaType="@{item.mediaType}"
-                app:movieKeyword="@{@string/runtime_with_value(item.runtime)}"
-                app:tvKeyword="@{item.genres[0].name}"
+                app:movieKeyword='@{item.runtime != null ? @string/runtime_with_value(item.runtime) : ""}'
+                app:tvKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
                 tools:text="125분" />
 
 

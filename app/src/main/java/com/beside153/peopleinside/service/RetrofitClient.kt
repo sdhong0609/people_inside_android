@@ -38,6 +38,8 @@ object RetrofitClient {
     class AppInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            @Suppress("UnusedPrivateMember")
+            val userId = App.prefs.getUserId()
             val jwtToken =
                 App.prefs.getString(App.prefs.jwtTokenKey)
             val newRequest = request().newBuilder()
@@ -55,4 +57,5 @@ object RetrofitClient {
     val bookmarkService: BookmarkService = retrofit.create(BookmarkService::class.java)
     val likeToggleService: LikeToggleService = retrofit.create(LikeToggleService::class.java)
     val reportService: ReportService = retrofit.create(ReportService::class.java)
+    val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
 }

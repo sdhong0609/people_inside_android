@@ -48,7 +48,16 @@ class SignUpTermsFragment : Fragment() {
             viewLifecycleOwner,
             EventObserver {
                 val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://www.naver.com")
+                intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
+                startActivity(intent)
+            }
+        )
+
+        termsViewModel.seePrivacyPolicyClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
                 startActivity(intent)
             }
         )

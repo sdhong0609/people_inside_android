@@ -5,6 +5,13 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,22 +34,52 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
-                <TextView
-                    style="@style/textStyleBoldBlack"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/my_page"
-                    android:textSize="20sp" />
+                    android:paddingEnd="8dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:contentDescription="@string/setting"
-                    android:paddingHorizontal="16dp"
-                    android:src="@drawable/ic_setting" />
+                    <TextView
+                        style="@style/textStyleBoldBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/my_page"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/editProfileImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/editProfileImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fix_user_info"
+                        android:onClick="@{() -> viewModel.onEditProfileClick()}"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="14dp"
+                        android:src="@drawable/ic_nickname_edit"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/settingImageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/settingImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:contentDescription="@string/setting"
+                        android:onClick="@{() -> viewModel.onSettingClick()}"
+                        android:paddingVertical="14dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:src="@drawable/ic_setting"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -52,26 +89,41 @@
             android:id="@+id/myPageMbtiImageView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36.53dp"
+            android:layout_marginTop="32dp"
             android:contentDescription="@string/mbti_icon"
-            android:src="@drawable/mbti_large_img_enfp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myPageAppBar" />
+            app:layout_constraintTop_toBottomOf="@id/myPageAppBar"
+            app:mbtiLargeImg='@{viewModel.userInfo != null ? viewModel.userInfo.mbti : ""}'
+            tools:src="@drawable/mbti_large_img_enfp" />
 
         <TextView
             android:id="@+id/myPageMbtiTextView"
             style="@style/textStyleBoldGray800"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16.47dp"
+            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
-            android:text="ENFP"
+            android:text='@{viewModel.userInfo != null ? viewModel.userInfo.mbti.toUpperCase() : ""}'
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myPageMbtiImageView"
             tools:text="ENFP" />
+
+        <TextView
+            android:id="@+id/nicknameTextView"
+            style="@style/textStyleBoldBlackChangwon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text='@{viewModel.userInfo != null ? viewModel.userInfo.nickname : ""}'
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myPageMbtiTextView"
+            tools:text="나는야케찹될거야" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/myPageNicknameLayout"
@@ -79,37 +131,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/bg_my_page_nickname"
             android:paddingVertical="11dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myPageMbtiTextView">
-
-            <TextView
-                android:id="@+id/nicknameTextView"
-                style="@style/textStyleBoldBlackChangwon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="나는야케찹될거야"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="나는야케찹될거야" />
-
-            <ImageView
-                android:id="@+id/nicknameEditImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/fix_user_info"
-                android:src="@drawable/ic_nickname_edit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/nicknameTextView"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,9 +143,9 @@
             style="@style/textStyleRegularGray800"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="16dp"
             android:drawablePadding="6dp"
-            android:text="peopleinside@gmail.com"
+            android:text="@{app.prefs.email}"
             app:drawableStartCompat="@drawable/img_kakaotalk_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,43 +156,45 @@
             android:id="@+id/lineView"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:layout_marginTop="62.5dp"
-            android:background="@color/gray_200"
+            android:layout_marginTop="30dp"
+            android:background="@color/gray_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/emailTextView" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/savedContentsLayout"
+            android:id="@+id/bookmarkContentsLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="23dp"
+            android:onClick="@{() -> viewModel.onBookmarkContentsClick()}"
+            android:paddingVertical="20dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lineView">
 
             <TextView
-                android:id="@+id/savedContentsTextView"
+                android:id="@+id/boomarkContentsTextView"
                 style="@style/textStyleBoldBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/saved_contents"
+                android:text="@string/bookmarked_contents"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/savedCountTextView"
+                app:layout_constraintEnd_toStartOf="@id/bookmarkCountTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/savedCountTextView"
-                style="@style/textStyleMediumGray800"
+                android:id="@+id/bookmarkCountTextView"
+                style="@style/textStyleMediumGray700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="34개"
+                android:text="@{@string/count_with_value(viewModel.bookmarkCount)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rightArrowImageView"
-                app:layout_constraintStart_toEndOf="@id/savedContentsTextView"
+                app:layout_constraintStart_toEndOf="@id/boomarkContentsTextView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="34개" />
 
@@ -175,12 +202,13 @@
                 android:id="@+id/rightArrowImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:contentDescription="@string/right_arrow"
-                android:src="@drawable/ic_right_arrow"
+                android:src="@drawable/ic_right_arrow_24x24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/savedContentsTextView"
+                app:layout_constraintStart_toEndOf="@id/bookmarkCountTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -192,14 +220,16 @@
             android:background="@color/gray_300"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/savedContentsLayout" />
+            app:layout_constraintTop_toBottomOf="@id/bookmarkContentsLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reviewedContentsLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="23dp"
+            android:onClick="@{() -> viewModel.onRatingContentsClick()}"
+            android:paddingVertical="20dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lineView2">
@@ -209,19 +239,19 @@
                 style="@style/textStyleBoldBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/reviewd_contents"
+                android:text="@string/rating_contents"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/reviewedCountTextView"
+                app:layout_constraintEnd_toStartOf="@id/reviwedCountTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/reviewedCountTextView"
-                style="@style/textStyleMediumGray800"
+                android:id="@+id/reviwedCountTextView"
+                style="@style/textStyleMediumGray700"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="111개"
+                android:text="@{@string/count_with_value(viewModel.ratingCount)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/rightArrowImageView2"
                 app:layout_constraintStart_toEndOf="@id/reviewedContentsTextView"
@@ -232,12 +262,13 @@
                 android:id="@+id/rightArrowImageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:contentDescription="@string/right_arrow"
-                android:src="@drawable/ic_right_arrow"
+                android:src="@drawable/ic_right_arrow_24x24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/reviewedContentsTextView"
+                app:layout_constraintStart_toEndOf="@id/reviwedCountTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

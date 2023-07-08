@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.error
+package com.beside153.peopleinside.view.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
