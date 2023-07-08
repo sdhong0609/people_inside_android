@@ -90,6 +90,7 @@
                         android:textSize="12sp"
                         app:drawableStartCompat="@drawable/ic_clap_hands"
                         app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
+                        app:mbtiTextColor='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
                         tools:text="ESFJ 4.5점" />
 
@@ -191,6 +192,7 @@
                         android:textSize="12sp"
                         app:drawableStartCompat="@drawable/ic_clap_hands"
                         app:mbtiBackground='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
+                        app:mbtiTextColor='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
                         tools:background="@drawable/ENFJ"
                         tools:text="ESFJ 4.5점" />
 

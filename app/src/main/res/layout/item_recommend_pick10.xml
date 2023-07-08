@@ -107,6 +107,7 @@
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
             app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
             app:mbtiBackground="@{app.prefs.mbti}"
+            app:mbtiTextColor="@{app.prefs.mbti}"
             tools:background="@drawable/background_mbti_rating"
             tools:text="ESFJ 4.5점" />
 

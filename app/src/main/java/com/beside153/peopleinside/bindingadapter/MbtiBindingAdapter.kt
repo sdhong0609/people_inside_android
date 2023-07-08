@@ -2,6 +2,7 @@ package com.beside153.peopleinside.bindingadapter
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 
@@ -115,4 +116,19 @@ fun TextView.mbtiBackground(mbti: String) {
     }
 
     setBackgroundResource(background)
+}
+
+@BindingAdapter("mbtiTextColor")
+fun TextView.mbtiTextColor(mbti: String) {
+    val textColor = when (mbti) {
+        "ENFJ", "ENFP", "ENTJ", "ESTJ", "ESTP", "INFP", "ISFJ", "ISFP", "ISTJ" -> ContextCompat.getColor(
+            context,
+            R.color.black
+        )
+
+        "ENTP", "ESFJ", "ESFP", "INFJ", "INTJ", "INTP", "ISTP" -> ContextCompat.getColor(context, R.color.white)
+        else -> R.color.black
+    }
+
+    setTextColor(textColor)
 }
