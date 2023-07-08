@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.contentdetail.ContentCommentModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="5dp"
+        android:background="@drawable/background_card_shadow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/mbtiIconImageView"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="19dp"
+            android:contentDescription="@string/mbti_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mbtiCircleImg="@{item.writer.mbti}"
+            tools:src="@drawable/istj_circle_img" />
+
+        <TextView
+            android:id="@+id/mbtiNicknameTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{@string/mbti_and_nickname(item.writer.mbti, item.writer.nickName)}"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
+            app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
+            app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+            app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
+            tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfadfsasdfasdfsadfs" />
+
+        <ImageView
+            android:id="@+id/verticalDotsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/vertical_dots"
+            android:paddingStart="10dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="12dp"
+            android:src="@drawable/ic_vertical_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mbtiNicknameTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            style="@style/textStyleMediumGray800"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@{item.content}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/heartLikeLayout"
+            app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
+            app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+            app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
+            tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+        <LinearLayout
+            android:id="@+id/heartLikeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/heartIconImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@string/heart_icon"
+                app:mbtiHeartImg="@{item.writer.mbti}"
+                tools:src="@drawable/mbti_heart_icon_enfj" />
+
+            <TextView
+                style="@style/textStyleMediumBlack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/like_count_with_value(item.likeCount)}"
+                android:textSize="12sp"
+                tools:text="좋아요 5" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

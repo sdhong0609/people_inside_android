@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="340dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp">
+
+        <TextView
+            android:id="@+id/errorDialogTitleTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/error_happend"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/errorDialogContentTextView"
+            style="@style/textStyleRegularGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/not_found_page"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/refreshButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/errorDialogTitleTextView" />
+
+        <TextView
+            android:id="@+id/refreshButton"
+            style="@style/textStyleBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_black_rounded"
+            android:gravity="center"
+            android:minWidth="136dp"
+            android:minHeight="48dp"
+            android:text="@string/refresh"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/errorDialogContentTextView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/background_battle_rating"
+        android:gravity="center_horizontal"
+        android:onClick="@{() -> viewModel.onBattleItemClick(viewModel.tvBattleItem)}"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="157dp"
+            android:layout_height="228dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="21dp"
+            app:cardCornerRadius="4dp">
+
+            <ImageView
+                android:id="@+id/posterImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/poster_image"
+                android:scaleType="centerCrop"
+                app:posterUrl='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.posterPath : ""}'
+                tools:src="@drawable/img_sample_poster" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/background_card_shadow"
+            android:minHeight="116dp"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mbtiLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/mbtiIconImageView"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
+                    tools:src="@drawable/istj_circle_img" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    app:cardCornerRadius="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/mbtiRatingTextView"
+                        style="@style/textStyleMediumWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="5dp"
+                        android:text="@{@string/mbti_rating(viewModel.tvBattleItem.topMbtiRating.mbti, viewModel.tvBattleItem.topMbtiRating.ratingAvg)}"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_clap_hands"
+                        app:mbtiBackground='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
+                        tools:background="@drawable/ENFJ"
+                        tools:text="ESFJ 4.5점" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/likeCountTextView"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiHeartImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
+                    tools:src="@drawable/mbti_heart_icon_enfj" />
+
+                <TextView
+                    android:id="@+id/likeCountTextView"
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.tvBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="245" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/textStyleMediumGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{viewModel.tvBattleItem.topMbtiRating.reviewContent}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/mbtiLayout"
+                app:layout_constraintTop_toBottomOf="@id/mbtiLayout"
+                tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
+            android:layout_marginBottom="21dp"
+            android:background="@drawable/background_card_shadow"
+            android:minHeight="116dp"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mbtiLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/mbtiIconImageView2"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
+                    tools:src="@drawable/istj_circle_img" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    app:cardCornerRadius="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mbtiIconImageView2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/mbtiRatingTextView2"
+                        style="@style/textStyleMediumWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="4dp"
+                        android:gravity="center"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="5dp"
+                        android:text="@{@string/mbti_rating(viewModel.tvBattleItem.bottomMbtiRating.mbti, viewModel.tvBattleItem.bottomMbtiRating.ratingAvg)}"
+                        android:textSize="12sp"
+                        app:drawableStartCompat="@drawable/ic_clap_hands"
+                        app:mbtiBackground='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
+                        tools:background="@drawable/ENFJ"
+                        tools:text="ESFJ 4.5점" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/mbti_icon"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/likeCountTextView2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mbtiHeartImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
+                    tools:src="@drawable/mbti_heart_icon_enfj" />
+
+                <TextView
+                    android:id="@+id/likeCountTextView2"
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{Integer.toString(viewModel.tvBattleItem.bottomMbtiRating.reviewLikeCount)}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="245" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                style="@style/textStyleMediumGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="29dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@{viewModel.tvBattleItem.bottomMbtiRating.reviewContent}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/mbtiLayout2"
+                app:layout_constraintTop_toBottomOf="@id/mbtiLayout2"
+                tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

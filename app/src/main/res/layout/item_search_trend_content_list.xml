@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.search.SearchTrendItem" />
+            type="com.beside153.peopleinside.model.search.SearchHotModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="@{item.ranking}"
+            android:text="@{Integer.toString(item.rank)}"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingHorizontal="6dp"
-            android:text="@{item.contentTitle}"
+            android:text="@{item.title}"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/bottomLineView"
             app:layout_constraintEnd_toEndOf="parent"

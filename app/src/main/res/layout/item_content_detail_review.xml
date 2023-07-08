@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="ratingItem"
+            type="com.beside153.peopleinside.model.contentdetail.ContentRatingModel" />
+
+        <variable
+            name="bookmarked"
+            type="Boolean" />
+
+        <variable
+            name="hasReview"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/howAboutContentTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center_horizontal"
+            android:text="@string/how_about_this_content"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray_400"
+            android:progressTint="@color/black"
+            android:rating="@{ratingItem.rating}"
+            android:stepSize="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/howAboutContentTextView" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="74dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/bookmarkImageButton"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:background="@drawable/background_circle_gray"
+                    android:contentDescription="@string/bookmark_image"
+                    app:bookmarkImg="@{bookmarked}"
+                    tools:src="@drawable/ic_bookmark_empty_gray" />
+
+                <TextView
+                    style="@style/textStyleBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/bookmark"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="52dp"
+                android:background="@color/gray_400" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/createReviewImageButton"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:background="@drawable/background_circle_gray"
+                    android:contentDescription="@string/create_review"
+                    android:src="@drawable/ic_pencil" />
+
+                <TextView
+                    style="@style/textStyleBoldBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@{hasReview ? @string/fix_review : @string/create_review}"
+                    android:textSize="12sp"
+                    tools:text="@string/create_review" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/bottomLineView"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:background="@color/gray_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

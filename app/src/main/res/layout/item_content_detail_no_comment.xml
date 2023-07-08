@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/noReviewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="6dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/mbtiIconImageView"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:contentDescription="@string/mbti_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:mbtiCircleImg="@{app.prefs.mbti}"
+                tools:src="@drawable/istj_circle_img" />
+
+            <TextView
+                android:id="@+id/mbtiNicknameTextView"
+                style="@style/textStyleBoldBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/mbti_pipsider"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
+                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView" />
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                style="@style/textStyleMediumGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/content_has_no_comment"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/layoutHeartLike"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView" />
+
+            <LinearLayout
+                android:id="@+id/layoutHeartLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/heartIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/heart_icon"
+                    app:mbtiHeartImg="@{app.prefs.mbti}"
+                    tools:src="@drawable/mbti_heart_icon_enfj" />
+
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/like_count_with_value(0)}"
+                    android:textSize="12sp"
+                    tools:text="좋아요 0" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/bottomLineView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_300"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/noReviewLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

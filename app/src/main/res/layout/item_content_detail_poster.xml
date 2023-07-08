@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.contentdetail.ContentDetailModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/img_bg_pick10">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/posterCardView"
+            android:layout_width="177dp"
+            android:layout_height="256dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginBottom="98dp"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_poster"
+                android:contentDescription="@string/poster_image"
+                android:scaleType="centerCrop"
+                app:posterUrl="@{item.posterPath}"
+                tools:src="@drawable/img_sample_poster" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/posterCardView">
+
+            <TextView
+                style="@style/textStyleMediumBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textSize="12sp"
+                app:contentKeywordBackground="@{item.mediaType}"
+                app:contentKeywordTextColor="@{item.mediaType}"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{item.releaseDate.substring(0, 4)}"
+                app:tvKeyword='@{item.networks.size > 0 ? item.networks[0].name : ""}'
+                tools:background="@drawable/background_white_rounded"
+                tools:text="2022" />
+
+            <TextView
+                style="@style/textStyleMediumBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/background_white_rounded"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textSize="12sp"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{item.genres[0].name}"
+                app:tvKeyword="@{item.releaseDate.substring(0, 4)}"
+                tools:text="스릴러" />
+
+            <TextView
+                style="@style/textStyleMediumBlack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/background_white_rounded"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textSize="12sp"
+                app:mediaType="@{item.mediaType}"
+                app:movieKeyword="@{@string/runtime_with_value(item.runtime)}"
+                app:tvKeyword="@{item.genres[0].name}"
+                tools:text="125분" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.PeopleInsideAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -16,9 +16,47 @@
         <item name="android:includeFontPadding">false</item>
     </style>
 
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="RoundedCornersDialog" parent="@style/Theme.MaterialComponents.Dialog">
+        <item name="dialogCornerRadius">10dp</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_bg_img</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="S">@drawable/splash_bg_img</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="S">@android:color/transparent</item>
+    </style>
+
+    <style name="textStyleBoldBlackChangwon">
+        <item name="fontFamily">@font/changwondangamasac_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
     <style name="textStyleBoldBlack">
         <item name="fontFamily">@font/notosans_kr_bold</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleBoldWhite">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
@@ -28,28 +66,34 @@
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
+    <style name="textStyleBoldGray800">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleBoldGray900">
+        <item name="fontFamily">@font/notosans_kr_bold</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
     <style name="textStyleMediumBlack333333">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/black_333333</item>
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
-    <style name="textStyleTabLayout" parent="TextAppearance.Design.Tab">
-        <item name="fontFamily">@font/notosans_kr_bold</item>
-        <item name="android:letterSpacing">-0.05</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
     <style name="textStyleMediumBlack">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:letterSpacing">-0.05</item>
+        <item name="android:letterSpacing">-0.03</item>
     </style>
 
     <style name="textStyleMediumWhite">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:letterSpacing">-0.05</item>
+        <item name="android:letterSpacing">-0.03</item>
     </style>
 
     <style name="textStyleMediumGray400">
@@ -74,6 +118,41 @@
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/gray_800</item>
         <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleMediumGray900">
+        <item name="fontFamily">@font/notosans_kr_medium</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleRegularGray500">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleRegularGray700">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleRegularGray800">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/gray_800</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleRegularGray900">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/gray_900</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="textStyleRegularRed100">
+        <item name="fontFamily">@font/notosans_kr_regular</item>
+        <item name="android:textColor">@color/red_100</item>
     </style>
 </resources>
 

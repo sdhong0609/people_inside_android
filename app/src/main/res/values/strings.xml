@@ -1,5 +1,20 @@
 <resources>
-    <string name="app_name">People-Inside-Android</string>
+    <!-- Common String -->
+    <string name="app_name">피플인사이드</string>
+    <string name="total_rating">전체 %.1f점</string>
+    <string name="mbti_rating">%s %.1f점</string>
+    <string name="all">all</string>
+    <string name="movie">movie</string>
+    <string name="all_korean">전체</string>
+    <string name="movie_korean">영화</string>
+    <string name="drama_korean">드라마</string>
+    <string name="tv_english">tv</string>
+    <string name="movie_english">movie</string>
+    <string name="mbti_and_nickname">%s / %s</string>
+    <string name="no">아니오</string>
+    <string name="yes">예</string>
+    <string name="cancel">취소</string>
+    <string name="mbti_pipsider">MBTI / 핍사이더</string>
 
     <!-- Content Description-->
     <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
@@ -9,35 +24,122 @@
     <string name="poster_image">포스터</string>
     <string name="bookmark_image">북마크</string>
     <string name="search_cancel_image">검색 취소</string>
+    <string name="pick10_content_card">Pick10 콘텐츠 카드</string>
+    <string name="vertical_dots">세로방향 점 세 개</string>
+    <string name="heart_icon">하트 아이콘</string>
+    <string name="close_button">닫기 버튼</string>
+    <string name="main_logo_image">메인 로고 이미지</string>
+    <string name="checkbox">체크박스</string>
+    <string name="setting">설정</string>
+    <string name="fix_user_info">회원정보 수정</string>
+    <string name="right_arrow">오른쪽 화살표</string>
 
-    <!-- BNV(GNB) 텍스트 -->
+    <!-- 오류 메시지 -->
+    <string name="error_happend">오류가 발생했어요</string>
+    <string name="not_found_page">주소가 잘못 입력되거나\n변경 혹은 삭제되어 페이지를 찾을 수 없어요</string>
+    <string name="refresh">새로고침</string>
+
+    <!-- 로그인 화면 -->
+    <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>
+    <string name="will_enter_without_login">로그인 없이 먼저 둘러볼래요</string>
+    <string name="kakao_native_app_key">89d8b4308014be36f84f5b0de58bca09</string>
+    <string name="kakaotalk_login_failed">카카오톡 로그인에 실패하였습니다\n이메일 로그인으로 이동합니다</string>
+    <string name="kakao_email_login_failed">이메일 로그인에 실패하였습니다\n다시 시도해주세요</string>
+    <string name="kakao_user_info_load_failed">사용자 정보를 불러오지 못했습니다</string>
+
+    <!-- 회원가입 화면 -->
+    <string name="terms_of_use">이용약관동의</string>
+    <string name="please_agree_terms_of_use">만나서 반갑습니다!\n서비스 가입을 위해 다음 항목에 동의해주세요.</string>
+    <string name="all_agreed">모두 동의합니다.</string>
+    <string name="first_terms">[필수] 이용약관에 동의합니다.</string>
+    <string name="second_terms">[필수] 개인정보 수집 및 이용에 동의합니다.</string>
+    <string name="third_terms">[필수] 본인은 만 14세 이상입니다.</string>
+    <string name="see_terms">보기</string>
+    <string name="next">다음</string>
+    <string name="sign_up">회원가입</string>
+    <string name="please_input_user_info">회원님에 대해 더 자세히 알고 싶어요!\n아래 간단한 항목에 대해 알려주세요 :)</string>
+    <string name="nickname">닉네임</string>
+    <string name="please_input_nickname">닉네임을 입력해주세요.</string>
+    <string name="duplicate_nickname">이미 사용중입니다. 다른 닉네임을 사용해주세요.</string>
+    <string name="gender">성별</string>
+    <string name="man">men</string>
+    <string name="woman">women</string>
+    <string name="other">other</string>
+    <string name="man_korean">남자</string>
+    <string name="woman_korean">여자</string>
+    <string name="other_korean">선택안함</string>
+    <string name="birth_year">출생년도</string>
+    <string name="mbti_type">MBTI 유형</string>
+    <string name="choice">선택</string>
+    <string name="do_sing_up">가입하기</string>
+    <string name="confirm">확인</string>
+    <string name="nickname_count_with_value">%d/10</string>
+    <string name="birth_year_with_value">%d년</string>
+
+    <!-- MBTI 선택 -->
+    <string name="please_choose_mbti">나의 MBTI를 선택해주세요</string>
+    <string name="complete_choose">선택 완료</string>
+
+    <!-- 콘텐츠 선택 -->
+    <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
+    <string name="content_choice_title_2">재밌게 본 콘텐츠를 선택해주세요</string>
+    <string name="content_choice_title_3">5개 이상 골라주시면 회원님께 꼭 맞는\n콘텐츠를 추천해드릴게요!</string>
+    <string name="content_choice_button">%d개 선택</string>
+    <string name="content_choice_button_complete">5개 선택 완료!</string>
+    <string name="welcome">핍사이더가 되신 것을 환영합니다!</string>
+
+    <!-- BNV(GNB) -->
     <string name="recommend">추천</string>
     <string name="search">검색</string>
     <string name="community">커뮤니티</string>
     <string name="my_page">마이페이지</string>
 
-    <!-- 추천 화면 텍스트 -->
+    <!-- 추천 화면 -->
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
-    <string name="same_mbti_ranking_title">ESFJ몰입러들의 선택 ❣</string>
+    <string name="could_you_review_first">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
+    <string name="recommend_refresh">새로 추천받기</string>
+    <string name="mbti_nickname">%s %s</string>
+    <string name="mbti_nickname_slash">%s / %s</string>
+    <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
+    <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
+    <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
 
-    <!-- 검색 화면 텍스트 -->
+    <!-- 작품 상세페이지 -->
+    <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
+    <string name="bookmark">북마크</string>
+    <string name="create_review">감상 남기기</string>
+    <string name="fix_review">감상 수정하기</string>
+    <string name="content_information">작품 정보</string>
+    <string name="content_comment_title">핍사이더들의 감상</string>
+    <string name="runtime_with_value">%d분</string>
+    <string name="like_count_with_value">좋아요 %d</string>
+    <string name="content_has_no_comment">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
+    <string name="report_success">신고가 접수되었어요!</string>
+
+    <!-- 감상 작성 화면 -->
+    <string name="create_review_2">감상 작성</string>
+    <string name="create_review_hint">콘텐츠와 관련해서 몰입러들과 공유하고 싶은 감상을 자유롭게 적어주세요.</string>
+    <string name="complete">완료</string>
+    <string name="create_review_completed">감상 작성이 완료되었어요!</string>
+    <string name="will_you_cancel">작성을 정말 취소하시겠어요?</string>
+    <string name="will_you_cancel_content">‘예’를 선택 시,\n지금까지 작성하신 글은 저장되지 않아요.</string>
+
+    <!-- 검색 화면 -->
     <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
     <string name="contents_have_seen">내가 둘러본 콘텐츠</string>
-    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없습니다.</string>
+    <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없어요.</string>
     <string name="contents_trend">인기 급상승 콘텐츠</string>
+    <string name="preparing_content">해당 콘텐츠는 준비중입니다.</string>
 
-    <!-- 알림 화면 텍스트 -->
+    <!-- 알림 화면 -->
     <string name="notification">알림</string>
     <string name="there_is_no_notification">아직 알림이 없어요.</string>
     <string name="notification_will_be_deleted">알림은 30일 이후 순차적으로 지워집니다.</string>
     <string name="notification_message_emoji">💌</string>
     <string name="notification_bulb_emoji">💡</string>
 
-    <!-- Common String -->
-    <string name="total_rating">전체 %.1f점</string>
-    <string name="mbti_rating">ESFJ %.1f점</string>
-    <string name="total">전체</string>
-    <string name="movie">영화</string>
-    <string name="drama">드라마</string>
+    <!-- 마이페이지 -->
+    <string name="saved_contents">내가 북마크한 콘텐츠</string>
+    <string name="reviewd_contents">내가 평가한 콘텐츠</string>
 </resources>

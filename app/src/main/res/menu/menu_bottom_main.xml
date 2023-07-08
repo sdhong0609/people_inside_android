@@ -10,10 +10,10 @@
         android:icon="@drawable/ic_bnv_search"
         android:title="@string/search" />
 
-    <item
-        android:id="@+id/communityFragment"
-        android:icon="@drawable/ic_bnv_community"
-        android:title="@string/community" />
+<!--    <item-->
+<!--        android:id="@+id/communityFragment"-->
+<!--        android:icon="@drawable/ic_bnv_community"-->
+<!--        android:title="@string/community" />-->
 
     <item
         android:id="@+id/myPageFragment"

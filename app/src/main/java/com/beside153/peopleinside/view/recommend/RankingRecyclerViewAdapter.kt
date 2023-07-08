@@ -6,42 +6,42 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemRecommendSubRankingBinding
-import com.beside153.peopleinside.model.RankingItem
+import com.beside153.peopleinside.model.recommend.SubRankingModel
 
-class RankingRecyclerViewAdapter(private val onRankingItemClick: (item: RankingItem) -> Unit) :
-    ListAdapter<RankingItem, RankingRecyclerViewAdapter.RepositoryItemViewHolder>(RankingItemDiffCallback()) {
+class RankingRecyclerViewAdapter(private val onSubRankingItemClick: (item: SubRankingModel) -> Unit) :
+    ListAdapter<SubRankingModel, RankingRecyclerViewAdapter.RankingItemViewHolder>(RankingItemDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingItemViewHolder {
         val binding = ItemRecommendSubRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = RepositoryItemViewHolder(binding)
+        val viewHolder = RankingItemViewHolder(binding)
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                onRankingItemClick(getItem(position))
+                onSubRankingItemClick(getItem(position))
             }
         }
         return viewHolder
     }
 
-    override fun onBindViewHolder(holder: RepositoryItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RankingItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class RepositoryItemViewHolder(private val binding: ItemRecommendSubRankingBinding) :
+    class RankingItemViewHolder(private val binding: ItemRecommendSubRankingBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: RankingItem) {
+        fun bind(item: SubRankingModel) {
             binding.item = item
         }
     }
 }
 
-private class RankingItemDiffCallback : DiffUtil.ItemCallback<RankingItem>() {
-    override fun areItemsTheSame(oldItem: RankingItem, newItem: RankingItem): Boolean {
-        return oldItem.id == newItem.id
+private class RankingItemDiffCallback : DiffUtil.ItemCallback<SubRankingModel>() {
+    override fun areItemsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
+        return oldItem.contentId == newItem.contentId
     }
 
-    override fun areContentsTheSame(oldItem: RankingItem, newItem: RankingItem): Boolean {
+    override fun areContentsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
         return oldItem == newItem
     }
 }

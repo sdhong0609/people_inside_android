@@ -1,13 +1,15 @@
 package com.beside153.peopleinside.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMainBinding
+import com.beside153.peopleinside.util.showToast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,10 +23,17 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
 
-        binding.bottomNavigationView.apply {
-            setOnItemSelectedListener { menuItem ->
-                menuItem.onNavDestinationSelected(navController)
-            }
+        val isFirstEnter = intent.getBooleanExtra(FIRST_ENTER, false)
+        if (isFirstEnter) showToast(R.string.welcome)
+    }
+
+    companion object {
+        private const val FIRST_ENTER = "FIRST_ENTER"
+
+        fun newIntent(context: Context, isFirstEnter: Boolean): Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(FIRST_ENTER, isFirstEnter)
+            return intent
         }
     }
 }

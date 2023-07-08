@@ -30,9 +30,21 @@ android {
     }
 
     buildTypes {
+        getByName("debug") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
         getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -48,7 +60,6 @@ android {
 }
 
 tasks.named("preBuild").dependsOn("ktlintCheck")
-tasks.named("preBuild").dependsOn("detekt")
 
 dependencies {
     implementation(Libraries.KTX.CORE)
@@ -74,4 +85,15 @@ dependencies {
 
     // Glide
     implementation("com.github.bumptech.glide:glide:4.15.1")
+
+    // Kakao Login
+    implementation("com.kakao.sdk:v2-user:2.14.0")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+    implementation("androidx.fragment:fragment-ktx:1.6.0")
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }

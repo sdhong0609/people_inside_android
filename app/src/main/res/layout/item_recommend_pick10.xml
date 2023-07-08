@@ -7,13 +7,43 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.Pick10Item" />
+            type="com.beside153.peopleinside.model.recommend.Pick10Model" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
+
+        <variable
+            name="writer"
+            type="com.beside153.peopleinside.model.recommend.Writer" />
+
+        <variable
+            name="hasReview"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img_bg_pick10">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/pick10_content_card"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_bg_pick10" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <ImageView
             android:id="@+id/bookmarkImageView"
@@ -22,24 +52,25 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
             android:contentDescription="@string/bookmark_image"
-            android:src="@drawable/ic_bookmark_empty"
+            app:bookmarkImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_bookmark_empty_gray" />
 
         <TextView
             android:id="@+id/pick10TitleTextView"
+            style="@style/textStyleBoldBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="117dp"
             android:ellipsize="end"
-            android:fontFamily="@font/notosans_kr_bold"
             android:letterSpacing="-0.05"
             android:maxLines="2"
             android:text="@{item.title}"
-            android:textColor="@color/black"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/totalRatingTextView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
@@ -61,28 +92,31 @@
             tools:text="전체 4.3점" />
 
         <TextView
+            android:id="@+id/mbtiRatingTextView"
             style="@style/textStyleMediumWhite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:background="@drawable/background_mbti_rating"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
-            android:text="@{@string/mbti_rating(item.mbtiRating)}"
+            android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
             android:textSize="12sp"
             app:drawableStartCompat="@drawable/ic_clap_hands"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
             app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
+            app:mbtiBackground="@{app.prefs.mbti}"
+            tools:background="@drawable/background_mbti_rating"
             tools:text="ESFJ 4.5점" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="134dp"
-            android:layout_marginBottom="158dp"
-            android:background="@drawable/background_poster"
+            android:layout_marginTop="133dp"
+            android:layout_marginBottom="159dp"
+            app:cardCornerRadius="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,9 +137,9 @@
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="21dp"
-            android:background="@drawable/background_main_comment"
-            app:isVisible="@{item.topLikeReview != null}"
+            android:layout_marginBottom="23dp"
+            android:background="@color/white"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -114,37 +148,36 @@
                 android:id="@+id/mbtiIconImageView"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="19dp"
                 android:contentDescription="@string/mbti_icon"
-                android:src="@drawable/istj_circle_img"
+                app:layout_constraintEnd_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:mbtiCircleImg="@{app.prefs.mbti}"
+                tools:src="@drawable/istj_circle_img" />
 
             <TextView
                 android:id="@+id/mbtiNicknameTextView"
                 style="@style/textStyleBoldBlack"
-                android:layout_width="200dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.topLikeReview.writer.name}"
+                android:text="@{hasReview ? @string/mbti_nickname_slash(writer.nickName, writer.mbti) : @string/mbti_pipsider}"
                 android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
                 app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
 
             <TextView
-                style="@style/textStyleMediumBlack333333"
+                style="@style/textStyleMediumGray900"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="20dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="@{item.topLikeReview.content}"
+                android:text="@{hasReview ? item.topLikeReview.content : @string/could_you_review_first}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
