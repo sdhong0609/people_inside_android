@@ -384,7 +384,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/background_agree_button"
                 android:enabled="@{viewModel.checkedAgreeDelete}"
-                android:onClick="@{() -> viewModel.deleteAccount()}"
+                android:onClick="@{() -> viewModel.onDeleteAccountClick()}"
                 android:text="@string/do_delete_account"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

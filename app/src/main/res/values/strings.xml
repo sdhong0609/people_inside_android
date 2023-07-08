@@ -174,5 +174,7 @@
     <string name="radio_text_6">기타</string>
     <string name="agree_delete_all">모든 정보를 삭제하는 것에 동의합니다.</string>
     <string name="do_delete_account">탈퇴하기</string>
+    <string name="delete_account_dialog_title">다시 오실 때까지 기다리고 있을게요</string>
+    <string name="delete_account_dialog_description">탈퇴 후 언제든지 재가입이 가능해요.\n활동 기록은 다시 복구하실 수 없어요.</string>
 
 </resources>
