@@ -2,6 +2,7 @@ package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.App
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -22,6 +23,14 @@ object RetrofitClient {
     private val signUpRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
+        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
+        .build()
+
+    private val editProfileRetrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(baseUrl)
+        .client(provideOkHttpClient(AppInterceptor()))
+        .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
+        .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
@@ -58,4 +67,5 @@ object RetrofitClient {
     val likeToggleService: LikeToggleService = retrofit.create(LikeToggleService::class.java)
     val reportService: ReportService = retrofit.create(ReportService::class.java)
     val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
+    val editProfileService: EditProfileService = editProfileRetrofit.create(EditProfileService::class.java)
 }

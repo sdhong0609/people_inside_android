@@ -8,10 +8,15 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
+import com.skydoves.sandwich.onSuccess
+import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel() {
 
@@ -37,16 +42,24 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
     fun peopleInsideLogin() {
         viewModelScope.launch(exceptionHandler) {
             val response = signUpService.postLoginKakao("Bearer $authToken")
+            response.onSuccess {
+                val jwtToken = this.response.body()?.jwtToken!!
+                val user = this.response.body()?.user!!
 
-            App.prefs.setString(App.prefs.jwtTokenKey, response.jwtToken)
-            App.prefs.setUserId(response.user.userId)
-            App.prefs.setNickname(response.user.nickname)
-            App.prefs.setMbti(response.user.mbti)
-            App.prefs.setBirth(response.user.birth)
-            App.prefs.setGender(response.user.sex)
-            _loginSuccessEvent.value = Event(Unit)
+                App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
+                App.prefs.setUserId(user.userId)
+                App.prefs.setNickname(user.nickname)
+                App.prefs.setMbti(user.mbti)
+                App.prefs.setBirth(user.birth)
+                App.prefs.setGender(user.sex)
 
-            // response가 제대로 오지 않고 token이 없다는 메시지가 오면 회원가입으로 이동
+                _loginSuccessEvent.value = Event(Unit)
+            }.suspendOnError(ErrorEnvelopeMapper) {
+                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
+                if (errorEnvelope.message == "Unauthorized") {
+                    _goToSignUpEvent.value = Event(authToken)
+                }
+            }
         }
     }
 
