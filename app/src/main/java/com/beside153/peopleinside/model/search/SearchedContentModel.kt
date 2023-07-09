@@ -12,7 +12,7 @@ data class SearchedContentModel(
     @SerialName("content_id") val contentId: Int,
     @SerialName("title") val title: String,
     @SerialName("overview") val overview: String,
-    @SerialName("poster_path") val posterPath: String,
+    @SerialName("poster_path") val posterPath: String? = null,
     @SerialName("total_rating") val totalRating: Double? = 0.0,
     @SerialName("mbti_rating") val mbtiRating: Double? = 0.0,
     @SerialName("bookmarked") val bookmarked: Boolean,
