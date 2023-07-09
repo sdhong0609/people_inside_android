@@ -29,6 +29,8 @@ class RecommendSubRankingActivity : BaseActivity() {
 
         addBackPressedCallback()
 
+        binding.viewModel = subRankingViewModel
+
         binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
             layoutManager = LinearLayoutManager(this@RecommendSubRankingActivity)

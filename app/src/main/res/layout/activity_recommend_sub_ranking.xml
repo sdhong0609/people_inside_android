@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.recommend.SubRankingViewModel" />
+
+        <variable
             name="app"
             type="com.beside153.peopleinside.App" />
     </data>
@@ -36,6 +40,7 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
                     android:src="@drawable/ic_left_arrow" />
 
                 <TextView
