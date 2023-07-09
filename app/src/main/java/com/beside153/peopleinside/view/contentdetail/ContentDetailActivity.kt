@@ -108,7 +108,9 @@ class ContentDetailActivity : BaseActivity() {
                     override fun getVerticalSnapPreference(): Int = SNAP_TO_START
                 }
                 smoothScroller.targetPosition = POSITION_COMMENT_LIST
-                binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+                }, SCROLL_DURATION)
             }
         )
 
@@ -172,9 +174,10 @@ class ContentDetailActivity : BaseActivity() {
     companion object {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val CONTENT_ID = "CONTENT_ID"
-        private const val POSITION_COMMENT_LIST = 4
+        private const val POSITION_COMMENT_LIST = 3
         private const val REPORT_ID = "REPORT_ID"
         private const val STAY_TIME = 3000L
+        private const val SCROLL_DURATION = 300L
 
         fun newIntent(context: Context, didClickComment: Boolean, contentId: Int): Intent {
             val intent = Intent(context, ContentDetailActivity::class.java)
