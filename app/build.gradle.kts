@@ -97,4 +97,7 @@ dependencies {
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
+
+    // sandwich
+    implementation("com.github.skydoves:sandwich:1.3.7")
 }
