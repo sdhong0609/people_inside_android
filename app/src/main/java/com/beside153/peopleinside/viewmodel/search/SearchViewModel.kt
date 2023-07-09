@@ -31,10 +31,11 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     private val _screenList = MutableLiveData<List<SearchScreenModel>>()
     val screenList: LiveData<List<SearchScreenModel>> get() = _screenList
 
-    private val _hideKeyboard = MutableLiveData<Event<Unit>>()
-    val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
+    private val _searchCompleteEvent = MutableLiveData<Event<Unit>>()
+    val searchCompleteEvent: LiveData<Event<Unit>> get() = _searchCompleteEvent
 
     private var isSearching = false
+    private var page = 1
 
     fun afterKeywordTextChanged(editable: Editable?) {
         _keyword.value = editable.toString()
@@ -94,17 +95,30 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     }
 
     fun searchContentAction() {
+        page = 1
+
         val exceptionHandler = CoroutineExceptionHandler { _, _ ->
             changeScreenWhenNoResult()
         }
 
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                searchedContentList.value = searchService.getSearchedContentList(_keyword.value ?: "", 1)
+                searchedContentList.value = searchService.getSearchedContentList(_keyword.value ?: "", page)
                 if ((searchedContentList.value ?: emptyList()).isEmpty()) {
                     changeScreenWhenNoResult()
                     return@launch
                 }
+                changeScreenWhenSearchedContent()
+            }
+        }
+    }
+
+    fun loadMoreContentList() {
+        viewModelScope.launch(exceptionHandler) {
+            if (_keyword.value?.isNotEmpty() == true) {
+                val newContentList = searchService.getSearchedContentList(_keyword.value ?: "", ++page)
+                searchedContentList.value = searchedContentList.value?.plus(newContentList)
+
                 changeScreenWhenSearchedContent()
             }
         }
@@ -124,7 +138,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
             *searchedContentList.value?.map { SearchScreenModel.SearchedContentItem(it) }?.toTypedArray()
                 ?: emptyArray()
         )
-        _hideKeyboard.value = Event(Unit)
+        _searchCompleteEvent.value = Event(Unit)
     }
 
     private fun changeScreenWhenNoResult() {

@@ -34,7 +34,7 @@
                 android:contentDescription="@string/poster_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/img_sample_poster"
-                app:posterUrl="@{item.posterPath}" />
+                app:posterUrl='@{item.posterPath != null ? item.posterPath : ""}' />
 
         </com.google.android.material.card.MaterialCardView>
 
