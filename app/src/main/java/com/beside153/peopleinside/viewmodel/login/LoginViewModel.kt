@@ -8,12 +8,15 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
-import com.skydoves.sandwich.onError
 import com.skydoves.sandwich.onSuccess
+import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel() {
 
@@ -51,8 +54,9 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
                 App.prefs.setGender(user.sex)
 
                 _loginSuccessEvent.value = Event(Unit)
-            }.onError {
-                if (this.response.raw().message == "Unauthorized") {
+            }.suspendOnError(ErrorEnvelopeMapper) {
+                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
+                if (errorEnvelope.message == "Unauthorized") {
                     _goToSignUpEvent.value = Event(authToken)
                 }
             }

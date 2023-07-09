@@ -12,7 +12,7 @@ interface SignUpService {
     suspend fun postAuthRegister(
         @Header("authorization") authToken: String,
         @Body userInfo: AuthRegisterRequest
-    ): AuthRegisterResponse
+    ): ApiResponse<AuthRegisterResponse>
 
     @POST("/api/auth/login/kakao")
     suspend fun postLoginKakao(@Header("authorization") authToken: String): ApiResponse<AuthRegisterResponse>

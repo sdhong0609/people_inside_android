@@ -5,10 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.model.login.AuthRegisterRequest
+import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
+import com.skydoves.sandwich.onSuccess
+import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseViewModel() {
     private val authToken = MutableLiveData("")
@@ -50,6 +55,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
+        _isDuplicate.value = false
         checkSignUpButtonEnable()
     }
 
@@ -76,29 +82,37 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
 
     @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
-        // TODO: 가입하기 버튼 클릭 시 닉네임 중복체크 로직 및 금칙어 체크 로직 구현 필요
-        // TODO: 로딩 구현 필요
+        // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
 
-        if (_isDuplicate.value == false) {
-            viewModelScope.launch(exceptionHandler) {
-                val response = signUpService.postAuthRegister(
-                    "Bearer ${authToken.value}",
-                    AuthRegisterRequest(
-                        "kakao",
-                        nickname.value ?: "",
-                        _selectedMbti.value?.lowercase() ?: "",
-                        (_selectedYear.value ?: 0).toString(),
-                        _selectedGender.value ?: ""
-                    )
+        viewModelScope.launch(exceptionHandler) {
+            val response = signUpService.postAuthRegister(
+                "Bearer ${authToken.value}",
+                AuthRegisterRequest(
+                    "kakao",
+                    nickname.value ?: "",
+                    _selectedMbti.value?.lowercase() ?: "",
+                    (_selectedYear.value ?: 0).toString(),
+                    _selectedGender.value ?: ""
                 )
+            )
 
-                App.prefs.setString(App.prefs.jwtTokenKey, response.jwtToken)
-                App.prefs.setUserId(response.user.userId)
-                App.prefs.setNickname(response.user.nickname)
-                App.prefs.setMbti(response.user.mbti)
-                App.prefs.setBirth(response.user.birth)
-                App.prefs.setGender(response.user.sex)
+            response.onSuccess {
+                val jwtToken = this.response.body()?.jwtToken!!
+                val user = this.response.body()?.user!!
+
+                App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
+                App.prefs.setUserId(user.userId)
+                App.prefs.setNickname(user.nickname)
+                App.prefs.setMbti(user.mbti)
+                App.prefs.setBirth(user.birth)
+                App.prefs.setGender(user.sex)
+
                 _signUpButtonClickEvent.value = Event(Unit)
+            }.suspendOnError(ErrorEnvelopeMapper) {
+                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
+                if (errorEnvelope.message == "닉네임이 이미 존재합니다.") {
+                    _isDuplicate.value = true
+                }
             }
         }
     }
