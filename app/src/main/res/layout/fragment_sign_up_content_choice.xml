@@ -30,15 +30,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:contentInsetStart="0dp">
 
-                <ImageButton
-                    android:id="@+id/backImageButton"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/back_button"
-                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
-                    android:src="@drawable/ic_left_arrow" />
-
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
