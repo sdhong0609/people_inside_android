@@ -215,9 +215,10 @@ class ContentDetailViewModel(
 
     fun onBookmarkClick() {
         bookmarked.value = bookmarked.value != true
-        _screenList.value = screenList()
         viewModelScope.launch(exceptionHandler) {
+            initRating(contentId)
             bookmarkService.postBookmarkStatus(contentId)
+            _screenList.value = screenList()
         }
     }
 
