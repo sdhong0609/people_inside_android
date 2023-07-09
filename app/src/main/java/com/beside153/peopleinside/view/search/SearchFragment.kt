@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
@@ -97,10 +98,23 @@ class SearchFragment : BaseFragment() {
             }
         )
 
-        searchViewModel.hideKeyboard.observe(
+        searchViewModel.searchCompleteEvent.observe(
             viewLifecycleOwner,
             EventObserver {
                 inputMethodManager.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+                binding.searchScreenRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+
+                        val lastVisibleItemPosition =
+                            (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                        val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                        if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                            searchViewModel.loadMoreContentList()
+                        }
+                    }
+                })
             }
         )
 
@@ -110,6 +124,10 @@ class SearchFragment : BaseFragment() {
                 showErrorDialog { searchViewModel.initSearchScreen() }
             }
         )
+
+        searchViewModel.keyword.observe(viewLifecycleOwner) {
+            binding.searchScreenRecyclerView.clearOnScrollListeners()
+        }
     }
 
     private fun onSearchingTitleItemClick(item: SearchingTitleModel) {
