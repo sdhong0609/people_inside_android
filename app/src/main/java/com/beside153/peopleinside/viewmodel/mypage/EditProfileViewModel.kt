@@ -8,13 +8,18 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.model.mypage.EdittedUserInfo
+import com.beside153.peopleinside.service.EditProfileService
+import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
-import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
+import com.skydoves.sandwich.onSuccess
+import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
-class EditProfileViewModel(private val userService: UserService) : BaseViewModel() {
+class EditProfileViewModel(private val editProfileService: EditProfileService) : BaseViewModel() {
 
     val nickname = MutableLiveData("")
 
@@ -42,10 +47,14 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
     private val _nicknameIsEmpty = MutableLiveData(false)
     val nicknameIsEmpty: LiveData<Boolean> get() = _nicknameIsEmpty
 
+    private val _isDuplicate = MutableLiveData(false)
+    val isDuplicate: LiveData<Boolean> get() = _isDuplicate
+
     @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
+        _isDuplicate.value = false
     }
 
     fun onBirthYearClick() {
@@ -83,7 +92,7 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
                 return@launch
             }
 
-            userService.patchUserInfo(
+            val response = editProfileService.patchUserInfo(
                 App.prefs.getUserId(),
                 EdittedUserInfo(
                     nickname.value ?: "",
@@ -93,12 +102,19 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
                 )
             )
 
-            App.prefs.setNickname(nickname.value ?: "")
-            App.prefs.setMbti(_selectedMbti.value ?: "")
-            App.prefs.setBirth(_selectedYear.value.toString())
-            App.prefs.setGender(_selectedGender.value ?: "")
+            response.onSuccess {
+                App.prefs.setNickname(nickname.value ?: "")
+                App.prefs.setMbti(_selectedMbti.value ?: "")
+                App.prefs.setBirth(_selectedYear.value.toString())
+                App.prefs.setGender(_selectedGender.value ?: "")
 
-            _completeButtonClickEvent.value = Event(Unit)
+                _completeButtonClickEvent.value = Event(Unit)
+            }.suspendOnError(ErrorEnvelopeMapper) {
+                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
+                if (errorEnvelope.message == "닉네임이 이미 존재합니다.") {
+                    _isDuplicate.value = true
+                }
+            }
         }
     }
 
@@ -113,8 +129,8 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val userService = RetrofitClient.userService
-                return EditProfileViewModel(userService) as T
+                val editProfileService = RetrofitClient.editProfileService
+                return EditProfileViewModel(editProfileService) as T
             }
         }
     }
