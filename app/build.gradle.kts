@@ -13,6 +13,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
     id("androidx.navigation.safeargs")
     id("kotlin-kapt")
+    id("kotlinx-serialization")
 }
 
 android {

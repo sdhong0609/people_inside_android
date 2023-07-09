@@ -69,3 +69,23 @@
 -keep class com.beside153.peopleinside.model.bookmark.BookmarkToggleResponse { *; }
 
 -keep class com.kakao.sdk.**.model.* { *; }
+
+
+-keepattributes *Annotation*, InnerClasses
+
+# kotlinx-serialization-json specific. Add this if you have java.lang.NoClassDefFoundError kotlinx.serialization.json.JsonObjectSerializer
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+# Change here com.yourcompany.yourpackage
+-keep,includedescriptorclasses class com.beside153.peopleinside.**$$serializer { *; } # <-- change package name to your app's
+-keepclassmembers class com.beside153.peopleinside.** { # <-- change package name to your app's
+    *** Companion;
+}
+-keepclasseswithmembers class com.beside153.peopleinside.** { # <-- change package name to your app's
+    kotlinx.serialization.KSerializer serializer(...);
+}

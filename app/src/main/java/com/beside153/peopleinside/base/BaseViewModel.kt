@@ -23,7 +23,7 @@ open class BaseViewModel : ViewModel() {
         when (t) {
             is Exception -> {
                 _error.value = Event(R.string.not_found_page)
-                Timber.e(t.message)
+                Timber.e(t)
             }
         }
     }
