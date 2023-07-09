@@ -49,76 +49,81 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/howAboutContentTextView" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginBottom="40dp"
             android:gravity="center_horizontal"
-            android:paddingHorizontal="74dp"
             app:layout_constraintBottom_toTopOf="@id/bottomLineView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ratingBar">
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/bookmarkImageButton"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/background_circle_gray"
+                android:contentDescription="@string/bookmark_image"
+                app:bookmarkImg="@{bookmarked}"
+                app:layout_constraintBottom_toTopOf="@id/bookmarkTextView"
+                app:layout_constraintEnd_toStartOf="@id/verticalLineView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_bookmark_empty_gray" />
+
+            <TextView
+                android:id="@+id/bookmarkTextView"
+                style="@style/textStyleBoldBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/bookmarkImageButton"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:background="@drawable/background_circle_gray"
-                    android:contentDescription="@string/bookmark_image"
-                    app:bookmarkImg="@{bookmarked}"
-                    tools:src="@drawable/ic_bookmark_empty_gray" />
-
-                <TextView
-                    style="@style/textStyleBoldBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/bookmark"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
+                android:layout_marginTop="5dp"
+                android:text="@string/bookmark"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/bookmarkImageButton"
+                app:layout_constraintStart_toStartOf="@id/bookmarkImageButton"
+                app:layout_constraintTop_toBottomOf="@id/bookmarkImageButton" />
 
             <View
+                android:id="@+id/verticalLineView"
                 android:layout_width="1dp"
                 android:layout_height="17dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="52dp"
-                android:background="@color/gray_400" />
+                android:background="@color/gray_400"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/createReviewImageButton"
+                app:layout_constraintStart_toEndOf="@id/bookmarkImageButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <ImageButton
+                android:id="@+id/createReviewImageButton"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/background_circle_gray"
+                android:contentDescription="@string/create_review"
+                android:src="@drawable/ic_pencil"
+                app:layout_constraintBottom_toTopOf="@id/createReviewTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/verticalLineView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/createReviewTextView"
+                style="@style/textStyleBoldBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_marginTop="5dp"
+                android:text="@{hasReview ? @string/fix_review : @string/create_review}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/createReviewImageButton"
+                app:layout_constraintStart_toStartOf="@id/createReviewImageButton"
+                app:layout_constraintTop_toBottomOf="@id/createReviewImageButton"
+                tools:text="@string/fix_review" />
 
-                <ImageButton
-                    android:id="@+id/createReviewImageButton"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:background="@drawable/background_circle_gray"
-                    android:contentDescription="@string/create_review"
-                    android:src="@drawable/ic_pencil" />
-
-                <TextView
-                    style="@style/textStyleBoldBlack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="@{hasReview ? @string/fix_review : @string/create_review}"
-                    android:textSize="12sp"
-                    tools:text="@string/create_review" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/bottomLineView"
