@@ -37,7 +37,7 @@ fun ImageView.mbtiLargeImg(mbti: String) {
 @Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiCircleImg")
 fun ImageView.mbtiCircleImg(mbti: String) {
-    val imgRes = when (mbti) {
+    val imgRes = when (mbti.uppercase()) {
         "ENFJ" -> R.drawable.mbti_circle_icon_enfj
         "ENFP" -> R.drawable.mbti_circle_icon_enfp
         "ENTJ" -> R.drawable.mbti_circle_icon_entj
@@ -65,7 +65,7 @@ fun ImageView.mbtiCircleImg(mbti: String) {
 @Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiHeartImg")
 fun ImageView.mbtiHeartImg(mbti: String) {
-    val imgRes = when (mbti) {
+    val imgRes = when (mbti.uppercase()) {
         "ENFJ" -> R.drawable.mbti_heart_icon_enfj
         "ENFP" -> R.drawable.mbti_heart_icon_enfp
         "ENTJ" -> R.drawable.mbti_heart_icon_entj
@@ -93,7 +93,7 @@ fun ImageView.mbtiHeartImg(mbti: String) {
 @Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiBackground")
 fun TextView.mbtiBackground(mbti: String) {
-    val background = when (mbti) {
+    val background = when (mbti.uppercase()) {
         "ENFJ" -> R.drawable.ENFJ
         "ENFP" -> R.drawable.ENFP
         "ENTJ" -> R.drawable.ENTJ
@@ -120,7 +120,7 @@ fun TextView.mbtiBackground(mbti: String) {
 
 @BindingAdapter("mbtiTextColor")
 fun TextView.mbtiTextColor(mbti: String) {
-    val textColor = when (mbti) {
+    val textColor = when (mbti.uppercase()) {
         "ENFJ", "ENFP", "ENTJ", "ESTJ", "ESTP", "INFP", "ISFJ", "ISFP", "ISTJ" -> ContextCompat.getColor(
             context,
             R.color.black
@@ -136,7 +136,7 @@ fun TextView.mbtiTextColor(mbti: String) {
 
 @BindingAdapter("mbtiLeftIcon")
 fun TextView.mbtiLeftIcon(mbti: String) {
-    val leftIcon = when (mbti) {
+    val leftIcon = when (mbti.uppercase()) {
         "ENFJ", "ENFP", "ENTJ", "ESTJ", "ESTP", "INFP", "ISFJ", "ISFP", "ISTJ" -> R.drawable.ic_clap_hands_black
 
         "ENTP", "ESFJ", "ESFP", "INFJ", "INTJ", "INTP", "ISTP" -> R.drawable.ic_clap_hands_white

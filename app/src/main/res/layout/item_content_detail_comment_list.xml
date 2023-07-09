@@ -39,7 +39,7 @@
             android:layout_marginHorizontal="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{@string/mbti_and_nickname(item.writer.mbti, item.writer.nickname)}"
+            android:text="@{@string/mbti_and_nickname(item.writer.mbti.toUpperCase(), item.writer.nickname)}"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"

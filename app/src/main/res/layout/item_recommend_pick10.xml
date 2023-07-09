@@ -164,7 +164,7 @@
                 android:layout_marginStart="7dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{hasReview ? @string/mbti_nickname_slash(writer.nickname, writer.mbti) : @string/mbti_pipsider}"
+                android:text="@{hasReview ? @string/mbti_nickname_slash(writer.mbti.toUpperCase(), writer.nickname) : @string/mbti_pipsider}"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
