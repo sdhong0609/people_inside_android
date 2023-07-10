@@ -9,9 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
-import com.beside153.peopleinside.model.login.ContentModel
+import com.beside153.peopleinside.model.login.OnBoardingContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
@@ -21,7 +23,7 @@ import com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel
 
 class SignUpContentChoiceFragment : Fragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
-    private val contentViewModel: SignUpContentChoiceViewModel by viewModels()
+    private val contentViewModel: SignUpContentChoiceViewModel by viewModels { SignUpContentChoiceViewModel.Factory }
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
 
     override fun onCreateView(
@@ -41,17 +43,12 @@ class SignUpContentChoiceFragment : Fragment() {
             lifecycleOwner = this@SignUpContentChoiceFragment
         }
 
-        contentViewModel.initContentList()
+        contentViewModel.initAllData()
 
         initScreenRecyclerView()
-        contentAdapter.submitList(contentViewModel.screenList())
-
-        contentViewModel.contentItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                contentAdapter.submitList(contentViewModel.screenList())
-            }
-        )
+        contentViewModel.screenList.observe(viewLifecycleOwner) { list ->
+            contentAdapter.submitList(list)
+        }
 
         contentViewModel.completeButtonClickEvent.observe(
             viewLifecycleOwner,
@@ -87,10 +84,23 @@ class SignUpContentChoiceFragment : Fragment() {
             adapter = contentAdapter
             layoutManager = gridLayoutManager
             addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        contentViewModel.loadMoreData()
+                    }
+                }
+            })
         }
     }
 
-    private fun onContentItemClick(item: ContentModel) {
+    private fun onContentItemClick(item: OnBoardingContentModel) {
         contentViewModel.onContentItemClick(item)
     }
 

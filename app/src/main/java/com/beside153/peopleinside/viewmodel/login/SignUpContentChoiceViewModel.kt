@@ -2,16 +2,20 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.ContentModel
+import com.beside153.peopleinside.model.login.OnBoardingContentModel
+import com.beside153.peopleinside.service.OnBoardingService
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
+import kotlinx.coroutines.launch
 
-class SignUpContentChoiceViewModel : BaseViewModel() {
-    private var contentList = mutableListOf<ContentModel>()
-
-    private val _contentItemClickEvent = MutableLiveData<Event<Unit>>()
-    val contentItemClickEvent: LiveData<Event<Unit>> get() = _contentItemClickEvent
+class SignUpContentChoiceViewModel(private val onBoardingService: OnBoardingService) : BaseViewModel() {
+    private val contentList = MutableLiveData<List<OnBoardingContentModel>>()
 
     private val _choiceCount = MutableLiveData(0)
     val choiceCount: LiveData<Int> get() = _choiceCount
@@ -22,8 +26,29 @@ class SignUpContentChoiceViewModel : BaseViewModel() {
     private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
     val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
 
-    fun onContentItemClick(item: ContentModel) {
-        val updatedList = contentList.map {
+    private val _screenList = MutableLiveData<List<ContentScreenModel>>()
+    val screenList: LiveData<List<ContentScreenModel>> get() = _screenList
+
+    private var page = 1
+
+    fun initAllData() {
+        viewModelScope.launch(exceptionHandler) {
+            contentList.value = onBoardingService.getOnBoardkingContents(page)
+        }
+        _screenList.value = screenList()
+    }
+
+    fun loadMoreData() {
+        viewModelScope.launch(exceptionHandler) {
+            val newContentList = onBoardingService.getOnBoardkingContents(++page)
+            contentList.value = contentList.value?.plus(newContentList)
+
+            _screenList.value = screenList()
+        }
+    }
+
+    fun onContentItemClick(item: OnBoardingContentModel) {
+        val updatedList = contentList.value?.map {
             if (it == item) {
                 if (!it.isChosen) {
                     _choiceCount.value = _choiceCount.value?.plus(1)
@@ -37,17 +62,16 @@ class SignUpContentChoiceViewModel : BaseViewModel() {
             }
         }
 
-        contentList.clear()
-        contentList.addAll(updatedList)
-        _contentItemClickEvent.value = Event(Unit)
+        contentList.value = updatedList ?: emptyList()
         checkCompleteButtonEnable()
+        _screenList.value = screenList()
     }
 
     @Suppress("SpreadOperator")
-    fun screenList(): List<ContentScreenModel> {
+    private fun screenList(): List<ContentScreenModel> {
         return listOf(
             ContentScreenModel.TitleViewItem,
-            *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
+            *contentList.value?.map { ContentScreenModel.ContentListItem(it) }?.toTypedArray() ?: emptyArray()
         )
     }
 
@@ -59,47 +83,18 @@ class SignUpContentChoiceViewModel : BaseViewModel() {
         _completeButtonClickEvent.value = Event(Unit)
     }
 
-    fun initContentList() {
-        contentList = mutableListOf(
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/voddFVdjUoAtfoZZp2RUmuZILDI.jpg",
-                "스파이더맨: 노웨이 홈",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ej7Br2B8dkZZBGa6vDE8HqATgU7.jpg",
-                "블랙 미러",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/2ts8XDLOTndAeb1Z7xdNoJX2PJG.jpg",
-                "블랙 클로버: 마법제의 검",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lCUvpSvjAPU82HvJ8XfR74Chv5r.jpg",
-                "그레이 아나토미",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9WF6TxCYwdiZw51NM92ConaQz1w.jpg",
-                "존 윅 4",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wXNihLltMCGR7XepN39syIlCt5X.jpg",
-                "분노의 질주: 라이드 오어 다이",
-                false
-            ),
-            ContentModel(
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lCanGgsqF4xD2WA5NF8PWeT3IXd.jpg",
-                "칸다하르",
-                false
-            )
-        )
-    }
-
     companion object {
         private const val MAX_CHOICE_COUNT = 5
+
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                val onBoardingService = RetrofitClient.onBoardingService
+                return SignUpContentChoiceViewModel(onBoardingService) as T
+            }
+        }
     }
 }

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceTitleBinding
-import com.beside153.peopleinside.model.login.ContentModel
+import com.beside153.peopleinside.model.login.OnBoardingContentModel
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
 
-class ContentScreenAdapter(private val onContentItemClick: (item: ContentModel) -> Unit) :
+class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingContentModel) -> Unit) :
     ListAdapter<ContentScreenModel, ContentScreenAdapter.ViewHolder>(ContentScreenModelDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
@@ -72,7 +72,7 @@ class ContentScreenAdapter(private val onContentItemClick: (item: ContentModel) 
 
     sealed class ContentScreenModel {
         object TitleViewItem : ContentScreenModel()
-        data class ContentListItem(val contentModel: ContentModel) : ContentScreenModel()
+        data class ContentListItem(val contentModel: OnBoardingContentModel) : ContentScreenModel()
     }
 }
 
@@ -81,7 +81,7 @@ private class ContentScreenModelDiffCallback : DiffUtil.ItemCallback<ContentScre
         return when {
             oldItem is ContentScreenModel.TitleViewItem && newItem is ContentScreenModel.TitleViewItem -> true
             oldItem is ContentScreenModel.ContentListItem && newItem is ContentScreenModel.ContentListItem ->
-                oldItem.contentModel.posterUrl == newItem.contentModel.posterUrl
+                oldItem.contentModel.contentId == newItem.contentModel.contentId
 
             else -> false
         }
