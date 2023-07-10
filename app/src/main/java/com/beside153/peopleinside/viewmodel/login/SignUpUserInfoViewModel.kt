@@ -106,6 +106,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
                 App.prefs.setMbti(user.mbti)
                 App.prefs.setBirth(user.birth)
                 App.prefs.setGender(user.sex)
+                App.prefs.setIsMember(true)
 
                 _signUpButtonClickEvent.value = Event(Unit)
             }.suspendOnError(ErrorEnvelopeMapper) {

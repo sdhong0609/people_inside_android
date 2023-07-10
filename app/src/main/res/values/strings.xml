@@ -81,6 +81,8 @@
     <!-- MBTI 선택 -->
     <string name="please_choose_mbti">나의 MBTI를 선택해주세요</string>
     <string name="complete_choose">선택 완료</string>
+    <string name="welcome_people_inside">피플인사이드\n방문을 환영합니다!</string>
+    <string name="welcome_people_inside_subtitle">익명의 핍사이더님의 MBTI를 선택해주시면\n꼭 맞는 콘텐츠를 추천해드릴게요! </string>
 
     <!-- 콘텐츠 선택 -->
     <string name="content_choice_title_1">잠깐! 피플인사이드를 제대로 즐기기 위해</string>
@@ -176,5 +178,9 @@
     <string name="do_delete_account">탈퇴하기</string>
     <string name="delete_account_dialog_title">다시 오실 때까지 기다리고 있을게요</string>
     <string name="delete_account_dialog_description">탈퇴 후 언제든지 재가입이 가능해요.\n활동 기록은 다시 복구하실 수 없어요.</string>
+
+    <!-- 비회원 -->
+    <string name="nonmember_jwt_token">eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJzb2NpYWwiOiJzcGFjZSIsIm5pY2tuYW1lIjoiZ29kIiwibWJ0aSI6IkFCQ0QiLCJiaXJ0aCI6Ijk5OTkiLCJzZXgiOiJhbGllbiJ9.q0DbIef5nxoJGJTmbF9m0JaLgLK17CzO49iMYMXkEbo</string>
+    <string name="nonmember_nickname">익명의 핍사이더</string>
 
 </resources>

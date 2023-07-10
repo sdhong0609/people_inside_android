@@ -12,6 +12,7 @@ class PreferenceUtil(context: Context) {
     private val userGenderKey = "USER_GENDER"
     private val userBirthKey = "USER_BIRTH"
     val reportListKey = "REPORT_LIST"
+    private val isMemberKey = "IS_MEMBER"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
@@ -70,5 +71,13 @@ class PreferenceUtil(context: Context) {
 
     fun setEmail(str: String) {
         prefs.edit().putString("email", str).apply()
+    }
+
+    fun getIsMember(): Boolean {
+        return prefs.getBoolean(isMemberKey, false)
+    }
+
+    fun setIsMember(bln: Boolean) {
+        prefs.edit().putBoolean(isMemberKey, bln).apply()
     }
 }

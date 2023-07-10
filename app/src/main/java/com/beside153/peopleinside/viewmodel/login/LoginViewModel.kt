@@ -55,6 +55,7 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
                 App.prefs.setMbti(user.mbti)
                 App.prefs.setBirth(user.birth)
                 App.prefs.setGender(user.sex)
+                App.prefs.setIsMember(true)
 
                 _loginSuccessEvent.value = Event(Unit)
             }.suspendOnError(ErrorEnvelopeMapper) {
