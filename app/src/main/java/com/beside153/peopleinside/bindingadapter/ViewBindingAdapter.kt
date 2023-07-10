@@ -57,7 +57,7 @@ fun View.setGenderTextViewPlace3(showAlert: Boolean) {
 @BindingAdapter("contentChoiceButtonText")
 fun Button.contentChoiceButtonText(choiceCount: Int) {
     text = if (choiceCount >= MAX_CHOICE_COUNT) {
-        resources.getString(R.string.content_choice_button_complete)
+        resources.getString(R.string.content_choice_button_complete, choiceCount)
     } else {
         resources.getString(R.string.content_choice_button, choiceCount)
     }
