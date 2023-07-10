@@ -145,6 +145,7 @@ class ContentDetailScreenAdapter(
                 binding.heartLikeLayout.setOnClickListener {
                     onCommentLikeClick(item.contentCommentItem)
                 }
+                binding.executePendingBindings()
             }
         }
 

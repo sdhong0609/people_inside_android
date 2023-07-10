@@ -91,13 +91,11 @@ class ContentDetailViewModel(
 
     fun onCommentLikeClick(item: ContentCommentModel) {
         viewModelScope.launch(exceptionHandler) {
-            val statusItem = likeToggleService.postLikeToggle(contentId, item.reviewId)
-
             val updatedList: List<ContentCommentModel>?
-            if (statusItem.toggleStatus == CREATED) {
+            if (item.like) {
                 updatedList = commentList.value?.map {
                     if (item == it) {
-                        it.copy(likeCount = it.likeCount + 1)
+                        it.copy(like = false, likeCount = it.likeCount - 1)
                     } else {
                         it
                     }
@@ -105,15 +103,16 @@ class ContentDetailViewModel(
             } else {
                 updatedList = commentList.value?.map {
                     if (item == it) {
-                        it.copy(likeCount = it.likeCount - 1)
+                        it.copy(like = true, likeCount = it.likeCount + 1)
                     } else {
                         it
                     }
                 }
             }
-
             commentList.value = updatedList ?: emptyList()
             _screenList.value = screenList()
+
+            likeToggleService.postLikeToggle(contentId, item.reviewId)
         }
     }
 
@@ -253,7 +252,6 @@ class ContentDetailViewModel(
         private const val MAX_RATING = 5
         private const val ENTER = "enter"
         private const val STAY = "stay"
-        private const val CREATED = "created"
 
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
