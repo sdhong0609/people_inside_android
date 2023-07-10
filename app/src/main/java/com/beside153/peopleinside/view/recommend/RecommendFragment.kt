@@ -88,7 +88,13 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.topReviewClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                startActivity(ContentDetailActivity.newIntent(requireActivity(), true, item.contentId))
+                contentDetailActivityLauncher.launch(
+                    ContentDetailActivity.newIntent(
+                        requireActivity(),
+                        true,
+                        item.contentId
+                    )
+                )
                 requireActivity().setOpenActivityAnimation()
             }
         )
@@ -103,7 +109,27 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.battleItemClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+                contentDetailActivityLauncher.launch(
+                    ContentDetailActivity.newIntent(
+                        requireActivity(),
+                        false,
+                        item.contentId
+                    )
+                )
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
+
+        recommendViewModel.battleItemCommentClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { item ->
+                contentDetailActivityLauncher.launch(
+                    ContentDetailActivity.newIntent(
+                        requireActivity(),
+                        true,
+                        item.contentId
+                    )
+                )
                 requireActivity().setOpenActivityAnimation()
             }
         )

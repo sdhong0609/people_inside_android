@@ -55,6 +55,9 @@ class RecommendViewModel(
     private val _battleItemClickEvent = MutableLiveData<Event<RatingBattleModel>>()
     val battleItemClickEvent: LiveData<Event<RatingBattleModel>> get() = _battleItemClickEvent
 
+    private val _battleItemCommentClickEvent = MutableLiveData<Event<RatingBattleModel>>()
+    val battleItemCommentClickEvent: LiveData<Event<RatingBattleModel>> get() = _battleItemCommentClickEvent
+
     private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
     val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
 
@@ -152,6 +155,10 @@ class RecommendViewModel(
 
     fun onBattleItemClick(item: RatingBattleModel) {
         _battleItemClickEvent.value = Event(item)
+    }
+
+    fun onBattleCommentClick(item: RatingBattleModel) {
+        _battleItemCommentClickEvent.value = Event(item)
     }
 
     fun onSubRankingArrowClick() {
