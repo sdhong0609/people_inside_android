@@ -120,6 +120,20 @@ class RecommendFragment : BaseFragment() {
             }
         )
 
+        recommendViewModel.battleItemCommentClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { item ->
+                contentDetailActivityLauncher.launch(
+                    ContentDetailActivity.newIntent(
+                        requireActivity(),
+                        true,
+                        item.contentId
+                    )
+                )
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
+
         recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
             rankingAdpater.submitList(list)
         }
