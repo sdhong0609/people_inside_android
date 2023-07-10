@@ -15,6 +15,7 @@
     <string name="yes">예</string>
     <string name="cancel">취소</string>
     <string name="mbti_pipsider">MBTI / 핍사이더</string>
+    <string name="could_you_review_first">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
 
     <!-- Content Description-->
     <string name="sub_ranking_arrow">서브 랭킹 화살표</string>
@@ -98,7 +99,6 @@
     <!-- 추천 화면 -->
     <string name="pick10_title">취향을 고려한 PICK 10 💛</string>
     <string name="mbti_rating_battle_title">MBTI 별점 배틀 ⚔</string>
-    <string name="could_you_review_first">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
     <string name="recommend_refresh">새로 추천받기</string>
     <string name="mbti_nickname">%s %s</string>
     <string name="mbti_nickname_slash">%s / %s</string>
@@ -115,7 +115,6 @@
     <string name="content_comment_title">핍사이더들의 감상</string>
     <string name="runtime_with_value">%d분</string>
     <string name="like_count_with_value">좋아요 %d</string>
-    <string name="content_has_no_comment">해당 콘텐츠는 아직 감상이 없습니다.\n첫번째로 감상을 남겨주세요!</string>
     <string name="report_success">신고가 접수되었어요!</string>
     <string name="no_overview">줄거리 정보가 없습니다.</string>
 
