@@ -10,6 +10,7 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.login.LoginViewModel
@@ -58,6 +59,14 @@ class LoginActivity : AppCompatActivity() {
             EventObserver {
                 startActivity(MainActivity.newIntent(this, false))
                 finish()
+            }
+        )
+
+        loginViewModel.withoutLoginClickEvent.observe(
+            this,
+            EventObserver {
+                startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
+                setOpenActivityAnimation()
             }
         )
     }

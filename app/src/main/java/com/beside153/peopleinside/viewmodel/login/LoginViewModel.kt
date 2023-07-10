@@ -29,6 +29,9 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
     private val _loginSuccessEvent = MutableLiveData<Event<Unit>>()
     val loginSuccessEvent: LiveData<Event<Unit>> get() = _loginSuccessEvent
 
+    private val _withoutLoginClickEvent = MutableLiveData<Event<Unit>>()
+    val withoutLoginClickEvent: LiveData<Event<Unit>> get() = _withoutLoginClickEvent
+
     private var authToken = ""
 
     fun setAuthToken(token: String) {
@@ -61,6 +64,10 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
                 }
             }
         }
+    }
+
+    fun onWithoutLoginClick() {
+        _withoutLoginClickEvent.value = Event(Unit)
     }
 
     companion object {
