@@ -59,42 +59,12 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/content_has_no_comment"
+                android:text="@string/could_you_review_first"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@id/layoutHeartLike"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView" />
-
-            <LinearLayout
-                android:id="@+id/layoutHeartLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:gravity="center_vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
-                app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:id="@+id/heartIconImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/heart_icon"
-                    app:mbtiHeartImg="@{app.prefs.mbti}"
-                    tools:src="@drawable/mbti_heart_icon_enfj" />
-
-                <TextView
-                    style="@style/textStyleMediumBlack"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{@string/like_count_with_value(0)}"
-                    android:textSize="12sp"
-                    tools:text="좋아요 0" />
-
-            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
