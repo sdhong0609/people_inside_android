@@ -12,7 +12,8 @@ data class ContentCommentModel(
     @SerialName("review_id") val reviewId: Int,
     @SerialName("content") val content: String,
     @SerialName("like_count") val likeCount: Int,
-    @SerialName("writer") val writer: Writer
+    @SerialName("writer") val writer: Writer,
+    @SerialName("like") val like: Boolean
 ) : Parcelable
 
 @Parcelize

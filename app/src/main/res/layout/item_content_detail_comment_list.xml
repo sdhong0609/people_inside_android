@@ -88,10 +88,10 @@
                 android:id="@+id/heartIconImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="4dp"
                 android:contentDescription="@string/heart_icon"
-                app:mbtiHeartImg="@{item.writer.mbti}"
-                tools:src="@drawable/mbti_heart_icon_enfj" />
+                app:blackHeartImg="@{item.like}"
+                tools:src="@drawable/ic_heart_empty" />
 
             <TextView
                 style="@style/textStyleMediumBlack"

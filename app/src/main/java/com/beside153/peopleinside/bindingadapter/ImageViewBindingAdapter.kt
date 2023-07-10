@@ -35,3 +35,12 @@ fun ImageView.radioButtonImg(isChecked: Boolean) {
         this.setImageResource(R.drawable.ic_radio_button_unchecked)
     }
 }
+
+@BindingAdapter("blackHeartImg")
+fun ImageView.blackHeartImg(liked: Boolean) {
+    if (liked) {
+        this.setImageResource(R.drawable.ic_heart_filled)
+    } else {
+        this.setImageResource(R.drawable.ic_heart_empty)
+    }
+}
