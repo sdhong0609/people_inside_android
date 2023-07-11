@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
@@ -20,6 +21,7 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
+import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 
 class RecommendFragment : BaseFragment() {
@@ -197,6 +199,11 @@ class RecommendFragment : BaseFragment() {
     }
 
     private fun onBookmarkClick(item: Pick10Model) {
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            startActivity(LoginActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+            return
+        }
         recommendViewModel.onBookmarkClick(item)
     }
 
