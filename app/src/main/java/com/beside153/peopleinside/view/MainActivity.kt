@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +18,7 @@ import com.beside153.peopleinside.view.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var previousMenuItemId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +31,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.apply {
             setOnItemSelectedListener { menuItem ->
-                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
-                    when (menuItem.itemId) {
-                        R.id.myPageFragment -> {
-                            startActivity(LoginActivity.newIntent(this@MainActivity))
-                            setOpenActivityAnimation()
-                        }
-                    }
+                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname) &&
+                    menuItem.itemId == R.id.myPageFragment
+                ) {
+                    previousMenuItemId = selectedItemId
+
+                    loginActivityLauncher.launch(LoginActivity.newIntent(this@MainActivity))
+                    setOpenActivityAnimation()
                     return@setOnItemSelectedListener true
                 }
-
                 menuItem.onNavDestinationSelected(navController)
             }
         }
@@ -47,8 +48,18 @@ class MainActivity : AppCompatActivity() {
         if (isFirstEnter) showToast(R.string.welcome)
     }
 
+    private val loginActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == BACK_FROM_LOGINACTIVITY) {
+                if (previousMenuItemId != 0) {
+                    binding.bottomNavigationView.menu.findItem(previousMenuItemId)?.isChecked = true
+                }
+            }
+        }
+
     companion object {
         private const val FIRST_ENTER = "FIRST_ENTER"
+        private const val BACK_FROM_LOGINACTIVITY = 111
 
         fun newIntent(context: Context, isFirstEnter: Boolean): Intent {
             val intent = Intent(context, MainActivity::class.java)

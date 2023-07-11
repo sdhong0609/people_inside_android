@@ -43,11 +43,12 @@ class LoginActivity : AppCompatActivity() {
 
         // 비회원일 때 뒤로가기 설정
         if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
-            addBackPressedCallback()
+            addBackPressedCallback { setResult(BACK_FROM_LOGINACTIVITY) }
 
             loginViewModel.backButtonClickEvent.observe(
                 this,
                 EventObserver {
+                    setResult(BACK_FROM_LOGINACTIVITY)
                     finish()
                     setCloseActivityAnimation()
                 }
@@ -137,6 +138,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val BACK_FROM_LOGINACTIVITY = 111
 
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
