@@ -168,6 +168,11 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.mbtiImgClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
+                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+                    startActivity(LoginActivity.newIntent(requireActivity()))
+                    requireActivity().setOpenActivityAnimation()
+                    return@EventObserver
+                }
                 findNavController().navigate(R.id.myPageFragment)
             }
         )

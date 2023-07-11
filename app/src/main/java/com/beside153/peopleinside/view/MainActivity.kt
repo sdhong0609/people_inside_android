@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityMainBinding
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,6 +29,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationView.apply {
             setOnItemSelectedListener { menuItem ->
+                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+                    when (menuItem.itemId) {
+                        R.id.myPageFragment -> {
+                            startActivity(LoginActivity.newIntent(this@MainActivity))
+                            setOpenActivityAnimation()
+                        }
+                    }
+                    return@setOnItemSelectedListener true
+                }
+
                 menuItem.onNavDestinationSelected(navController)
             }
         }
