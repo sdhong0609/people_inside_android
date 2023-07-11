@@ -43,9 +43,9 @@
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
             android:background="@drawable/background_card_shadow"
-            android:minHeight="116dp"
+            android:minHeight="146dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
-            android:padding="20dp"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -98,46 +98,52 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:contentDescription="@string/mbti_icon"
-                    android:padding="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/likeCountTextView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiHeartImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
-                    tools:src="@drawable/mbti_heart_icon_enfj" />
-
-                <TextView
-                    android:id="@+id/likeCountTextView"
-                    style="@style/textStyleMediumBlack"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="245" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/textStyleMediumGray900"
+                android:id="@+id/descriptionTextView"
+                style="@style/textStyleRegularBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="29dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/heartLikeLayout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/mbtiLayout"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mbtiLayout"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+            <LinearLayout
+                android:id="@+id/heartLikeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/descriptionTextView"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/heartIconImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/heart_icon"
+                    android:src="@drawable/ic_heart_filled" />
+
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/like_count_with_value(viewModel.movieBattleItem.topMbtiRating.reviewLikeCount)}"
+                    android:textSize="12sp"
+                    tools:text="좋아요 5" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,9 +153,9 @@
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
             android:background="@drawable/background_card_shadow"
-            android:minHeight="116dp"
+            android:minHeight="146dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
-            android:padding="20dp"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -202,46 +208,52 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:contentDescription="@string/mbti_icon"
-                    android:padding="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/likeCountTextView2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:mbtiHeartImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
-                    tools:src="@drawable/mbti_heart_icon_enfj" />
-
-                <TextView
-                    android:id="@+id/likeCountTextView2"
-                    style="@style/textStyleMediumBlack"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(viewModel.movieBattleItem.bottomMbtiRating.reviewLikeCount)}"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="245" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                style="@style/textStyleMediumGray900"
+                android:id="@+id/descriptionTextView2"
+                style="@style/textStyleRegularBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="29dp"
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@{viewModel.movieBattleItem.bottomMbtiRating.reviewContent}"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@id/heartLikeLayout2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/mbtiLayout2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mbtiLayout2"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
+
+            <LinearLayout
+                android:id="@+id/heartLikeLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/descriptionTextView2"
+                app:layout_constraintTop_toBottomOf="@id/descriptionTextView2"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/heartIconImageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/heart_icon"
+                    android:src="@drawable/ic_heart_filled" />
+
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/like_count_with_value(viewModel.movieBattleItem.bottomMbtiRating.reviewLikeCount)}"
+                    android:textSize="12sp"
+                    tools:text="좋아요 5" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
