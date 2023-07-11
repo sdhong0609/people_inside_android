@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemContentDetailCommentListBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailCommentsBinding
@@ -21,6 +22,7 @@ import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.
 class ContentDetailScreenAdapter(
     private val onBookmarkClick: () -> Unit,
     private val onCreateReviewClick: () -> Unit,
+    private val goToLoginActivity: () -> Unit,
     private val onRatingChanged: (rating: Float) -> Unit,
     private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit,
     private val onCommentLikeClick: (item: ContentCommentModel) -> Unit
@@ -52,8 +54,15 @@ class ContentDetailScreenAdapter(
             R.layout.item_content_detail_review -> {
                 val binding = ItemContentDetailReviewBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, _ ->
-                    ratingBar.rating = rating
-                    onRatingChanged(rating)
+                    if (App.prefs.getNickname() == "익명의 핍사이더") {
+                        if (ratingBar.rating != 0f) {
+                            goToLoginActivity()
+                        }
+                        ratingBar.rating = 0f
+                    } else {
+                        ratingBar.rating = rating
+                        onRatingChanged(rating)
+                    }
                 }
                 binding.bookmarkImageButton.setOnClickListener {
                     onBookmarkClick()
