@@ -53,23 +53,24 @@
             android:padding="18dp"
             app:bookmarkImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/pick10TitleTextView"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_bookmark_empty_gray" />
 
         <TextView
             android:id="@+id/pick10TitleTextView"
             style="@style/textStyleBoldBlack"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="30dp"
-            android:layout_marginEnd="117dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
-            android:letterSpacing="-0.05"
             android:maxLines="2"
             android:text="@{item.title}"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/totalRatingTextView"
+            app:layout_constraintEnd_toStartOf="@id/bookmarkImageView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="어느 날 우리 집 현관으로 멸망이 들어왔다asdfasdffasdasdfasdfasdfasdfasdfasdfafsd" />
