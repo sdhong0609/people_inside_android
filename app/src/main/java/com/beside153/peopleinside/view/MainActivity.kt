@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
             if (result.resultCode == BACK_FROM_LOGINACTIVITY) {
                 if (previousMenuItemId != 0) {
                     binding.bottomNavigationView.menu.findItem(previousMenuItemId)?.isChecked = true
+                    previousMenuItemId = 0
                 }
             }
         }
