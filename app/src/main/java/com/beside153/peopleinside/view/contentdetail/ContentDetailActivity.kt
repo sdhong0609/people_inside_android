@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
@@ -20,6 +21,7 @@ import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 
@@ -30,6 +32,7 @@ class ContentDetailActivity : BaseActivity() {
         ContentDetailScreenAdapter(
             ::onBookmarkClick,
             ::onCreateReviewClick,
+            ::goToLoginAcitivity,
             ::onRatingChanged,
             ::onVerticalDotsClick,
             ::onCommentLikeClick
@@ -144,23 +147,44 @@ class ContentDetailActivity : BaseActivity() {
         )
     }
 
+    private fun goToLoginAcitivity() {
+        startActivity(LoginActivity.newIntent(this))
+        setOpenActivityAnimation()
+    }
+
     private fun onRatingChanged(rating: Float) {
         contentDetailViewModel.onRatingChanged(rating)
     }
 
     private fun onBookmarkClick() {
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            goToLoginAcitivity()
+            return
+        }
         contentDetailViewModel.onBookmarkClick()
     }
 
     private fun onCreateReviewClick() {
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            goToLoginAcitivity()
+            return
+        }
         contentDetailViewModel.onCreateReviewClick()
     }
 
     private fun onVerticalDotsClick(item: ContentCommentModel) {
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            goToLoginAcitivity()
+            return
+        }
         contentDetailViewModel.onVerticalDotsClick(item)
     }
 
     private fun onCommentLikeClick(item: ContentCommentModel) {
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            goToLoginAcitivity()
+            return
+        }
         contentDetailViewModel.onCommentLikeClick(item)
     }
 

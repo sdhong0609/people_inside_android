@@ -10,6 +10,9 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.login.LoginViewModel
@@ -38,6 +41,20 @@ class LoginActivity : AppCompatActivity() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
+        // 비회원일 때 뒤로가기 설정
+        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+            addBackPressedCallback { setResult(BACK_FROM_LOGINACTIVITY) }
+
+            loginViewModel.backButtonClickEvent.observe(
+                this,
+                EventObserver {
+                    setResult(BACK_FROM_LOGINACTIVITY)
+                    finish()
+                    setCloseActivityAnimation()
+                }
+            )
+        }
+
         loginViewModel.kakaoLoginClickEvent.observe(
             this,
             EventObserver {
@@ -49,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
             this,
             EventObserver { authToken ->
                 startActivity(SignUpActivity.newIntent(this, authToken))
-                finish()
+                finishAffinity()
             }
         )
 
@@ -57,7 +74,15 @@ class LoginActivity : AppCompatActivity() {
             this,
             EventObserver {
                 startActivity(MainActivity.newIntent(this, false))
-                finish()
+                finishAffinity()
+            }
+        )
+
+        loginViewModel.withoutLoginClickEvent.observe(
+            this,
+            EventObserver {
+                startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
+                setOpenActivityAnimation()
             }
         )
     }
@@ -113,6 +138,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val BACK_FROM_LOGINACTIVITY = 111
 
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
