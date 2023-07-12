@@ -70,10 +70,14 @@ class LoginActivity : AppCompatActivity() {
             }
         )
 
-        loginViewModel.loginSuccessEvent.observe(
+        loginViewModel.onBoardingCompletedEvent.observe(
             this,
-            EventObserver {
-                startActivity(MainActivity.newIntent(this, false))
+            EventObserver { completed ->
+                if (completed) {
+                    startActivity(MainActivity.newIntent(this, false))
+                } else {
+                    startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                }
                 finishAffinity()
             }
         )
@@ -139,6 +143,7 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         private const val BACK_FROM_LOGINACTIVITY = 111
+        private const val ON_BOARDING = "on boarding not completed"
 
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
