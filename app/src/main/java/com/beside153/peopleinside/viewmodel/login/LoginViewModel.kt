@@ -10,6 +10,7 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
+import com.beside153.peopleinside.service.OnBoardingService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
@@ -18,7 +19,8 @@ import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
-class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel() {
+class LoginViewModel(private val signUpService: SignUpService, private val onBoardingService: OnBoardingService) :
+    BaseViewModel() {
 
     private val _kakaoLoginClickEvent = MutableLiveData<Event<Unit>>()
     val kakaoLoginClickEvent: LiveData<Event<Unit>> get() = _kakaoLoginClickEvent
@@ -26,13 +28,14 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
     private val _goToSignUpEvent = MutableLiveData<Event<String>>()
     val goToSignUpEvent: LiveData<Event<String>> get() = _goToSignUpEvent
 
-    private val _loginSuccessEvent = MutableLiveData<Event<Unit>>()
-    val loginSuccessEvent: LiveData<Event<Unit>> get() = _loginSuccessEvent
+    private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
+    val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
 
     private val _withoutLoginClickEvent = MutableLiveData<Event<Unit>>()
     val withoutLoginClickEvent: LiveData<Event<Unit>> get() = _withoutLoginClickEvent
 
     private var authToken = ""
+    private var onBoardingCompleted = true
 
     fun setAuthToken(token: String) {
         authToken = token
@@ -57,7 +60,15 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
                 App.prefs.setGender(user.sex)
                 App.prefs.setIsMember(true)
 
-                _loginSuccessEvent.value = Event(Unit)
+                viewModelScope.launch(exceptionHandler) {
+                    onBoardingCompleted = onBoardingService.getOnBoardingCompleted(App.prefs.getUserId())
+
+                    if (onBoardingCompleted) {
+                        _onBoardingCompletedEvent.value = Event(true)
+                    } else {
+                        _onBoardingCompletedEvent.value = Event(false)
+                    }
+                }
             }.suspendOnError(ErrorEnvelopeMapper) {
                 val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
                 if (errorEnvelope.message == "Unauthorized") {
@@ -79,7 +90,8 @@ class LoginViewModel(private val signUpService: SignUpService) : BaseViewModel()
                 extras: CreationExtras
             ): T {
                 val signUpService = RetrofitClient.signUpService
-                return LoginViewModel(signUpService) as T
+                val onBoardingService = RetrofitClient.onBoardingService
+                return LoginViewModel(signUpService, onBoardingService) as T
             }
         }
     }

@@ -36,7 +36,7 @@ class SplashActivity : BaseActivity() {
                     return@EventObserver
                 }
                 Handler(Looper.getMainLooper()).postDelayed({
-                    startActivity(SignUpActivity.newIntent(this, ON_BOARDING_COMPLETED))
+                    startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
                     finish()
                 }, SPLASH_DURATION)
             }
@@ -52,6 +52,6 @@ class SplashActivity : BaseActivity() {
 
     companion object {
         private const val SPLASH_DURATION = 1500L
-        private const val ON_BOARDING_COMPLETED = "on boarding completed"
+        private const val ON_BOARDING = "on boarding not completed"
     }
 }
