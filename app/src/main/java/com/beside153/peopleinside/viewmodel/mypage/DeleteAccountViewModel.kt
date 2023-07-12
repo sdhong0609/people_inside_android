@@ -42,6 +42,7 @@ class DeleteAccountViewModel(private val userService: UserService) : BaseViewMod
     fun deleteAccount() {
         viewModelScope.launch(exceptionHandler) {
             userService.deleteUser(App.prefs.getUserId())
+            App.prefs.setUserId(0)
             App.prefs.setNickname("")
             _deleteAccountSuccessEvent.value = Event(Unit)
         }

@@ -76,6 +76,7 @@ class SettingActivity : AppCompatActivity() {
                     .setDescription(R.string.you_may_use_after_login)
                     .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                         override fun onClickPositiveButton() {
+                            App.prefs.setUserId(0)
                             App.prefs.setNickname("")
                             startActivity(LoginActivity.newIntent(this@SettingActivity))
                             finishAffinity()

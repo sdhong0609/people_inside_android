@@ -18,4 +18,7 @@ interface OnBoardingService {
 
     @POST("/api/users/{id}/onboarding-completed")
     suspend fun postOnBoardingCompleted(@Path("id") id: Int): OnBoardingCompletedResponse
+
+    @GET("/api/users/{id}/onboarding-completed")
+    suspend fun getOnBoardingCompleted(@Path("id") id: Int): Boolean
 }
