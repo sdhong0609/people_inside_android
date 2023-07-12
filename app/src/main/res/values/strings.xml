@@ -108,7 +108,7 @@
     <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
     <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
 
-    <!-- 작품 상세페이지 -->
+    <!-- 콘텐츠 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
     <string name="bookmark">북마크</string>
     <string name="create_review">감상 남기기</string>
@@ -119,6 +119,7 @@
     <string name="like_count_with_value">좋아요 %d</string>
     <string name="report_success">신고가 접수되었어요!</string>
     <string name="no_overview">줄거리 정보가 없습니다.</string>
+    <string name="see_detail">자세히 보기</string>
 
     <!-- 감상 작성 화면 -->
     <string name="create_review_2">감상 작성</string>
