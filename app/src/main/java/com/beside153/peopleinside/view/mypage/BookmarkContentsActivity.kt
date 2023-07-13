@@ -13,9 +13,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
 import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
-import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
@@ -41,7 +39,6 @@ class BookmarkContentsActivity : BaseActivity() {
         binding.bookmarkContentsRecyclerView.apply {
             adapter = contentsAdapter
             layoutManager = GridLayoutManager(this@BookmarkContentsActivity, SPAN_COUNT)
-            addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
