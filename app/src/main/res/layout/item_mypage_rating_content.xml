@@ -60,7 +60,7 @@
             android:numStars="5"
             android:progressBackgroundTint="@color/gray_400"
             android:progressTint="@color/black"
-            android:rating="@{item.rating.rating}"
+            android:rating='@{item.rating != null ? item.rating.rating : 0f}'
             android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintTop_toBottomOf="@id/titleTextView" />
