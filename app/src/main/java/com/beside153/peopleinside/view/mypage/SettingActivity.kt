@@ -17,10 +17,14 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.mypage.SettingViewModel
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
+import timber.log.Timber
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
     private val settingViewModel: SettingViewModel by viewModels()
+    private lateinit var kakaoApi: UserApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +37,13 @@ class SettingActivity : AppCompatActivity() {
 
         addBackPressedCallback()
 
+        KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
+        kakaoApi = UserApiClient.instance
+
+        initObserver()
+    }
+
+    private fun initObserver() {
         settingViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -76,6 +87,7 @@ class SettingActivity : AppCompatActivity() {
                     .setDescription(R.string.you_may_use_after_login)
                     .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                         override fun onClickPositiveButton() {
+                            logoutKakaoAccount()
                             App.prefs.setUserId(0)
                             App.prefs.setNickname("")
                             startActivity(LoginActivity.newIntent(this@SettingActivity))
@@ -97,6 +109,16 @@ class SettingActivity : AppCompatActivity() {
                 setOpenActivityAnimation()
             }
         )
+    }
+
+    private fun logoutKakaoAccount() {
+        kakaoApi.logout { error ->
+            if (error != null) {
+                Timber.e(error, "로그아웃 실패. SDK에서 토큰 삭제됨")
+            } else {
+                Timber.i("로그아웃 성공. SDK에서 토큰 삭제됨")
+            }
+        }
     }
 
     companion object {
