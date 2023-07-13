@@ -12,12 +12,12 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageRatingContentsBinding
 import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.util.EventObserver
@@ -28,7 +28,7 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 
-class RatingContentsActivity : AppCompatActivity() {
+class RatingContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
     private val contentsViewModel: RatingContentsViewModel by viewModels { RatingContentsViewModel.Factory }
     private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged, ::onVerticalDotsClick)
@@ -112,7 +112,7 @@ class RatingContentsActivity : AppCompatActivity() {
         contentsViewModel.error.observe(
             this,
             EventObserver {
-                contentsViewModel.initAllData()
+                showErrorDialog { contentsViewModel.initAllData() }
             }
         )
     }

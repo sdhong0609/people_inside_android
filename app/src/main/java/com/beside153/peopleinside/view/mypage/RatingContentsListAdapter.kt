@@ -49,7 +49,7 @@ class RatingContentsListAdapter(
 
 private class RatingContentItemDiffCallback : DiffUtil.ItemCallback<RatingContentModel>() {
     override fun areItemsTheSame(oldItem: RatingContentModel, newItem: RatingContentModel): Boolean {
-        return oldItem.rating.ratingId == newItem.rating.ratingId
+        return oldItem.contentId == newItem.contentId
     }
 
     override fun areContentsTheSame(oldItem: RatingContentModel, newItem: RatingContentModel): Boolean {

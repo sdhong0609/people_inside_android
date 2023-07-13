@@ -13,7 +13,7 @@ data class RatingContentModel(
     @SerialName("overview") val overview: String,
     @SerialName("poster_path") val posterPath: String,
     @SerialName("review") val review: Review?,
-    @SerialName("rating") val rating: Rating
+    @SerialName("rating") val rating: Rating?
 ) : Parcelable
 
 @Parcelize

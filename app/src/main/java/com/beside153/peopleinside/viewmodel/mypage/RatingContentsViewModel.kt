@@ -58,7 +58,7 @@ class RatingContentsViewModel(
 
     fun onRatingChanged(rating: Float, item: RatingContentModel) {
         viewModelScope.launch(exceptionHandler) {
-            val currentRating = item.rating.rating
+            val currentRating = item.rating?.rating ?: 0f
             if (currentRating.roundToHalf() == rating) return@launch
 
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
@@ -67,12 +67,12 @@ class RatingContentsViewModel(
             } else if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
                 contentDetailService.putContentRating(item.contentId, ContentRatingRequest(rating))
             } else if (currentRatingHasValue && rating == 0f) {
-                contentDetailService.deleteContentRating(item.contentId, item.rating.ratingId)
+                contentDetailService.deleteContentRating(item.contentId, item.rating?.ratingId ?: 0)
             }
 
             val updatedList = _contentList.value?.map {
                 if (item == it) {
-                    it.copy(rating = Rating(it.contentId, it.rating.ratingId, rating))
+                    it.copy(rating = Rating(it.contentId, it.rating?.ratingId ?: 0, rating))
                 } else {
                     it
                 }
