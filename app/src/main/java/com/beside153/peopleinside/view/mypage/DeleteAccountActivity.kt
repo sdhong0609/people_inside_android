@@ -14,10 +14,14 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.mypage.DeleteAccountViewModel
+import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.user.UserApiClient
+import timber.log.Timber
 
 class DeleteAccountActivity : BaseActivity() {
     private lateinit var binding: ActivityDeleteAccountBinding
     private val deleteAccountViewModel: DeleteAccountViewModel by viewModels { DeleteAccountViewModel.Factory }
+    private lateinit var kakaoApi: UserApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,9 @@ class DeleteAccountActivity : BaseActivity() {
         }
 
         addBackPressedCallback()
+
+        KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
+        kakaoApi = UserApiClient.instance
 
         deleteAccountViewModel.backButtonClickEvent.observe(
             this,
@@ -60,6 +67,7 @@ class DeleteAccountActivity : BaseActivity() {
         deleteAccountViewModel.deleteAccountSuccessEvent.observe(
             this,
             EventObserver {
+                unlinkKakaoAccount()
                 startActivity(LoginActivity.newIntent(this))
                 finishAffinity()
             }
@@ -71,6 +79,16 @@ class DeleteAccountActivity : BaseActivity() {
                 deleteAccountViewModel.deleteAccount()
             }
         )
+    }
+
+    private fun unlinkKakaoAccount() {
+        kakaoApi.unlink { error ->
+            if (error != null) {
+                Timber.e(error, "연결 끊기 실패")
+            } else {
+                Timber.i("연결 끊기 성공. SDK에서 토큰 삭제 됨")
+            }
+        }
     }
 
     companion object {
