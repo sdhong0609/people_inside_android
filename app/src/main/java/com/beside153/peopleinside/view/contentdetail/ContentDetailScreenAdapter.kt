@@ -3,6 +3,7 @@ package com.beside153.peopleinside.view.contentdetail
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -154,6 +155,23 @@ class ContentDetailScreenAdapter(
                 binding.heartLikeLayout.setOnClickListener {
                     onCommentLikeClick(item.contentCommentItem)
                 }
+
+                binding.descriptionTextView.apply {
+                    post {
+                        val lineCount = lineCount
+                        if (lineCount > 0) {
+                            if (layout.getEllipsisCount(lineCount - 1) > 0) {
+                                binding.seeDetailTextView.isVisible = true
+
+                                binding.seeDetailTextView.setOnClickListener {
+                                    maxLines = Int.MAX_VALUE
+                                    binding.seeDetailTextView.isVisible = false
+                                }
+                            }
+                        }
+                    }
+                }
+
                 binding.executePendingBindings()
             }
         }

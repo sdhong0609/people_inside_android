@@ -124,6 +124,7 @@ class ContentDetailViewModel(
     }
 
     fun initAllData(didClickComment: Boolean) {
+        page = 1
         viewModelScope.launch(exceptionHandler) {
             initRating(contentId).join()
             initWriterReview(contentId).join()
