@@ -66,6 +66,7 @@ class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingCont
             ViewHolder(binding.root) {
             fun bind(item: ContentScreenModel.ContentListItem) {
                 binding.item = item.contentModel
+                binding.executePendingBindings()
             }
         }
     }

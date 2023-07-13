@@ -33,6 +33,7 @@ class BookmarkContentsListAdapter(private val onBookmarkClick: (item: Bookmarked
             binding.bookmarkImageView.setOnClickListener {
                 onBookmarkClick(item)
             }
+            binding.executePendingBindings()
         }
     }
 }

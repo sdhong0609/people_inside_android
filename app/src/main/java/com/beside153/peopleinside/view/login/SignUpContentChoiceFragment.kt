@@ -15,8 +15,6 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
 import com.beside153.peopleinside.model.login.OnBoardingContentModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.GridSpacingItemDecoration
-import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel
@@ -83,7 +81,6 @@ class SignUpContentChoiceFragment : Fragment() {
         binding.contetChoiceScreenRecyclerView.apply {
             adapter = contentAdapter
             layoutManager = gridLayoutManager
-            addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
