@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
-import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.report.ResonIdModel
 import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
@@ -19,8 +18,6 @@ import kotlinx.coroutines.launch
 
 class DeleteAccountViewModel(private val userService: UserService, private val withDrawalService: WithDrawalService) :
     BaseViewModel() {
-    private val _checkedRadioId = MutableLiveData(R.id.radioTextView1)
-    val checkedRadioId: LiveData<Int> get() = _checkedRadioId
 
     private val _checkedAgreeDelete = MutableLiveData(false)
     val checkedAgreeDelete: LiveData<Boolean> get() = _checkedAgreeDelete
@@ -34,14 +31,20 @@ class DeleteAccountViewModel(private val userService: UserService, private val w
     private val _withDrawalReasonList = MutableLiveData<List<WithDrawalReasonModel>>()
     val withDrawalReasonList: LiveData<List<WithDrawalReasonModel>> get() = _withDrawalReasonList
 
+    private var checkedReasonId = INITIAL_REASON_ID
+
     fun initReasonList() {
         viewModelScope.launch(exceptionHandler) {
             _withDrawalReasonList.value = withDrawalService.getWithDrawalReasonList()
+            val updatedList = _withDrawalReasonList.value?.map {
+                if (it.reasonId == INITIAL_REASON_ID) {
+                    it.copy(checked = true)
+                } else {
+                    it
+                }
+            }
+            _withDrawalReasonList.value = updatedList ?: emptyList()
         }
-    }
-
-    fun onRadioClick(id: Int) {
-        _checkedRadioId.value = id
     }
 
     fun onAgreeDeleteClick() {
@@ -54,15 +57,27 @@ class DeleteAccountViewModel(private val userService: UserService, private val w
 
     fun deleteAccount() {
         viewModelScope.launch(exceptionHandler) {
-            userService.deleteUser(App.prefs.getUserId(), ResonIdModel(TEMP_REASON_ID))
+            userService.deleteUser(App.prefs.getUserId(), ResonIdModel(checkedReasonId))
             App.prefs.setUserId(0)
             App.prefs.setNickname("")
             _deleteAccountSuccessEvent.value = Event(Unit)
         }
     }
 
+    fun onRadioButtonClick(item: WithDrawalReasonModel) {
+        checkedReasonId = item.reasonId
+        val updatedList = _withDrawalReasonList.value?.map {
+            if (item == it) {
+                it.copy(checked = true)
+            } else {
+                it.copy(checked = false)
+            }
+        }
+        _withDrawalReasonList.value = updatedList ?: emptyList()
+    }
+
     companion object {
-        private const val TEMP_REASON_ID = 6
+        private const val INITIAL_REASON_ID = 1
 
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")

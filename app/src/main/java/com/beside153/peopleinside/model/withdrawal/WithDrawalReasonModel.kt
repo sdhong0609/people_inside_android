@@ -9,5 +9,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class WithDrawalReasonModel(
     @SerialName("reason_id") val reasonId: Int,
-    @SerialName("name") val title: String
+    @SerialName("name") val name: String,
+    val checked: Boolean = false
 ) : Parcelable

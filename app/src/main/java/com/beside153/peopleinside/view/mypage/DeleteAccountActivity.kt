@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityDeleteAccountBinding
+import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
@@ -21,6 +23,7 @@ import timber.log.Timber
 class DeleteAccountActivity : BaseActivity() {
     private lateinit var binding: ActivityDeleteAccountBinding
     private val deleteAccountViewModel: DeleteAccountViewModel by viewModels { DeleteAccountViewModel.Factory }
+    private val reasonAdapter = WithDrawalReasonAdapter(::onRadioButtonClick)
     private lateinit var kakaoApi: UserApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +33,13 @@ class DeleteAccountActivity : BaseActivity() {
         binding.apply {
             viewModel = deleteAccountViewModel
             lifecycleOwner = this@DeleteAccountActivity
+        }
+
+        binding.reasonListRecyclerView.apply {
+            adapter = reasonAdapter
+            layoutManager = object : LinearLayoutManager(this@DeleteAccountActivity) {
+                override fun canScrollVertically(): Boolean = false
+            }
         }
 
         addBackPressedCallback()
@@ -83,8 +93,12 @@ class DeleteAccountActivity : BaseActivity() {
         )
 
         deleteAccountViewModel.withDrawalReasonList.observe(this) { list ->
-            //
+            reasonAdapter.submitList(list)
         }
+    }
+
+    private fun onRadioButtonClick(item: WithDrawalReasonModel) {
+        deleteAccountViewModel.onRadioButtonClick(item)
     }
 
     private fun unlinkKakaoAccount() {
