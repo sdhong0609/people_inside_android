@@ -118,6 +118,7 @@
     <string name="runtime_with_value">%d분</string>
     <string name="like_count_with_value">좋아요 %d</string>
     <string name="report_success">신고가 접수되었어요!</string>
+    <string name="report_failed">이미 접수된 신고예요.</string>
     <string name="no_overview">줄거리 정보가 없습니다.</string>
     <string name="see_detail">자세히 보기</string>
 

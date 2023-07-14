@@ -134,8 +134,12 @@ class ContentDetailActivity : BaseActivity() {
 
         contentDetailViewModel.reportSuccessEvent.observe(
             this,
-            EventObserver {
-                showToast(R.string.report_success)
+            EventObserver { success ->
+                if (success) {
+                    showToast(R.string.report_success)
+                    return@EventObserver
+                }
+                showToast(R.string.report_failed)
             }
         )
 

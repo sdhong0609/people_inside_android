@@ -1,6 +1,7 @@
 package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.model.report.ReportModel
+import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -14,5 +15,5 @@ interface ReportService {
         @Path("contentId") contentId: Int,
         @Path("reviewId") reviewId: Int,
         @Path("reportId") reportId: Int
-    ): Boolean
+    ): ApiResponse<Boolean>
 }
