@@ -10,12 +10,15 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.report.ResonIdModel
+import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
+import com.beside153.peopleinside.service.WithDrawalService
 import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.launch
 
-class DeleteAccountViewModel(private val userService: UserService) : BaseViewModel() {
+class DeleteAccountViewModel(private val userService: UserService, private val withDrawalService: WithDrawalService) :
+    BaseViewModel() {
     private val _checkedRadioId = MutableLiveData(R.id.radioTextView1)
     val checkedRadioId: LiveData<Int> get() = _checkedRadioId
 
@@ -27,6 +30,15 @@ class DeleteAccountViewModel(private val userService: UserService) : BaseViewMod
 
     private val _deleteAccountSuccessEvent = MutableLiveData<Event<Unit>>()
     val deleteAccountSuccessEvent: LiveData<Event<Unit>> get() = _deleteAccountSuccessEvent
+
+    private val _withDrawalReasonList = MutableLiveData<List<WithDrawalReasonModel>>()
+    val withDrawalReasonList: LiveData<List<WithDrawalReasonModel>> get() = _withDrawalReasonList
+
+    fun initReasonList() {
+        viewModelScope.launch(exceptionHandler) {
+            _withDrawalReasonList.value = withDrawalService.getWithDrawalReasonList()
+        }
+    }
 
     fun onRadioClick(id: Int) {
         _checkedRadioId.value = id
@@ -59,7 +71,8 @@ class DeleteAccountViewModel(private val userService: UserService) : BaseViewMod
                 extras: CreationExtras
             ): T {
                 val userService = RetrofitClient.userService
-                return DeleteAccountViewModel(userService) as T
+                val withDrawalService = RetrofitClient.withDrawalService
+                return DeleteAccountViewModel(userService, withDrawalService) as T
             }
         }
     }

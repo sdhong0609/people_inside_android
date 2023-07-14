@@ -69,4 +69,5 @@ object RetrofitClient {
     val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
     val onBoardingService: OnBoardingService = retrofit.create(OnBoardingService::class.java)
     val editProfileService: EditProfileService = apiResponseRetrofit.create(EditProfileService::class.java)
+    val withDrawalService: WithDrawalService = retrofit.create(WithDrawalService::class.java)
 }

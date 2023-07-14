@@ -37,6 +37,8 @@ class DeleteAccountActivity : BaseActivity() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
+        deleteAccountViewModel.initReasonList()
+
         deleteAccountViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -79,6 +81,10 @@ class DeleteAccountActivity : BaseActivity() {
                 showErrorDialog { deleteAccountViewModel.deleteAccount() }
             }
         )
+
+        deleteAccountViewModel.withDrawalReasonList.observe(this) { list ->
+            //
+        }
     }
 
     private fun unlinkKakaoAccount() {
