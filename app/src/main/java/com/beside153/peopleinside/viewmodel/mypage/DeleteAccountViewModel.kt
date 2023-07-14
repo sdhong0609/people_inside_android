@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.report.ResonIdModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
@@ -41,7 +42,7 @@ class DeleteAccountViewModel(private val userService: UserService) : BaseViewMod
 
     fun deleteAccount() {
         viewModelScope.launch(exceptionHandler) {
-            userService.deleteUser(App.prefs.getUserId())
+            userService.deleteUser(App.prefs.getUserId(), ResonIdModel(TEMP_REASON_ID))
             App.prefs.setUserId(0)
             App.prefs.setNickname("")
             _deleteAccountSuccessEvent.value = Event(Unit)
@@ -49,6 +50,8 @@ class DeleteAccountViewModel(private val userService: UserService) : BaseViewMod
     }
 
     companion object {
+        private const val TEMP_REASON_ID = 6
+
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
