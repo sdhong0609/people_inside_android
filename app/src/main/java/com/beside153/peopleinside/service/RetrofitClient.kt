@@ -26,7 +26,7 @@ object RetrofitClient {
         .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .build()
 
-    private val editProfileRetrofit: Retrofit = Retrofit.Builder()
+    private val apiResponseRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(provideOkHttpClient(AppInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
@@ -65,8 +65,8 @@ object RetrofitClient {
     val searchService: SearchService = retrofit.create(SearchService::class.java)
     val bookmarkService: BookmarkService = retrofit.create(BookmarkService::class.java)
     val likeToggleService: LikeToggleService = retrofit.create(LikeToggleService::class.java)
-    val reportService: ReportService = retrofit.create(ReportService::class.java)
+    val reportService: ReportService = apiResponseRetrofit.create(ReportService::class.java)
     val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
     val onBoardingService: OnBoardingService = retrofit.create(OnBoardingService::class.java)
-    val editProfileService: EditProfileService = editProfileRetrofit.create(EditProfileService::class.java)
+    val editProfileService: EditProfileService = apiResponseRetrofit.create(EditProfileService::class.java)
 }

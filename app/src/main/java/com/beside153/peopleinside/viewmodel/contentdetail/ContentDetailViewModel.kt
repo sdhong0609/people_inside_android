@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
 import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
 import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
@@ -15,16 +16,20 @@ import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
 import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ContentDetailService
+import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.LikeToggleService
 import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
+import com.skydoves.sandwich.onSuccess
+import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 
 @Suppress("TooManyFunctions")
@@ -55,8 +60,8 @@ class ContentDetailViewModel(
     private val _verticalDotsClickEvent = MutableLiveData<Event<Unit>>()
     val verticalDotsClickEvent: LiveData<Event<Unit>> get() = _verticalDotsClickEvent
 
-    private val _reportSuccessEvent = MutableLiveData<Event<Unit>>()
-    val reportSuccessEvent: LiveData<Event<Unit>> get() = _reportSuccessEvent
+    private val _reportSuccessEvent = MutableLiveData<Event<Boolean>>()
+    val reportSuccessEvent: LiveData<Event<Boolean>> get() = _reportSuccessEvent
 
     private val writerHasReview = MutableLiveData(false)
     private var commentIdForReport = 0
@@ -118,8 +123,16 @@ class ContentDetailViewModel(
 
     fun reportComment(reportId: Int) {
         viewModelScope.launch(exceptionHandler) {
-            reportService.postReport(contentId, commentIdForReport, reportId)
-            _reportSuccessEvent.value = Event(Unit)
+            val response = reportService.postReport(contentId, commentIdForReport, reportId)
+
+            response.onSuccess {
+                _reportSuccessEvent.value = Event(true)
+            }.suspendOnError(ErrorEnvelopeMapper) {
+                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
+                if (errorEnvelope.message == "이미 리뷰 신고가 되어있습니다.") {
+                    _reportSuccessEvent.value = Event(false)
+                }
+            }
         }
     }
 
