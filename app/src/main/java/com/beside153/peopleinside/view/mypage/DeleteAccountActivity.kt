@@ -88,7 +88,7 @@ class DeleteAccountActivity : BaseActivity() {
         deleteAccountViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { deleteAccountViewModel.deleteAccount() }
+                showErrorDialog { deleteAccountViewModel.initReasonList() }
             }
         )
 
