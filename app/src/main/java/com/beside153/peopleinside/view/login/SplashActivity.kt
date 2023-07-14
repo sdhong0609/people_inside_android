@@ -25,7 +25,7 @@ class SplashActivity : BaseActivity() {
             EventObserver { completed ->
                 if (completed) {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        if (App.prefs.getNickname().isEmpty()) {
+                        if (App.prefs.getUserId() == 0 || App.prefs.getNickname().isEmpty()) {
                             startActivity(LoginActivity.newIntent(this))
                             finish()
                             return@postDelayed

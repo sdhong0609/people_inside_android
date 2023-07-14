@@ -35,7 +35,6 @@ class LoginViewModel(private val signUpService: SignUpService, private val onBoa
     val withoutLoginClickEvent: LiveData<Event<Unit>> get() = _withoutLoginClickEvent
 
     private var authToken = ""
-    private var onBoardingCompleted = true
 
     fun setAuthToken(token: String) {
         authToken = token
@@ -61,7 +60,7 @@ class LoginViewModel(private val signUpService: SignUpService, private val onBoa
                 App.prefs.setIsMember(true)
 
                 viewModelScope.launch(exceptionHandler) {
-                    onBoardingCompleted = onBoardingService.getOnBoardingCompleted(App.prefs.getUserId())
+                    val onBoardingCompleted = onBoardingService.getOnBoardingCompleted(user.userId)
 
                     if (onBoardingCompleted) {
                         _onBoardingCompletedEvent.value = Event(true)
