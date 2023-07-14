@@ -23,13 +23,12 @@ class SplashViewmodel(private val reportService: ReportService, private val onBo
     private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
     val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
 
-    private var onBoardingCompleted = true
-
     fun getAllData() {
         viewModelScope.launch(exceptionHandler) {
             val reportDeferred = async { reportService.getReportList() }
             val reportList = reportDeferred.await()
 
+            var onBoardingCompleted = true
             if (App.prefs.getUserId() != 0 && App.prefs.getNickname() != "익명의 핍사이더") {
                 val onBoardingDeferred = async { onBoardingService.getOnBoardingCompleted(App.prefs.getUserId()) }
                 onBoardingCompleted = onBoardingDeferred.await()
