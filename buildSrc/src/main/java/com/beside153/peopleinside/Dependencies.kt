@@ -38,7 +38,6 @@ object Libraries {
     }
 
     object Firebase {
-        const val ANALYTICS = "com.google.firebase:firebase-analytics:${Versions.ANALYTICS}"
         const val CRASHYTICS = "com.google.firebase:firebase-crashlytics:${Versions.CRASHYTICS}"
     }
 

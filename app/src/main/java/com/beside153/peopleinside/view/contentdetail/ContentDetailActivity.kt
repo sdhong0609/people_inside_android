@@ -24,6 +24,10 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 
 class ContentDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityContentDetailBinding
@@ -40,10 +44,13 @@ class ContentDetailActivity : BaseActivity() {
     private val bottomSheet = ReportBottomSheetFragment()
     private var reportId = 0
     private var didClickComment = false
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_content_detail)
+
+        firebaseAnalytics = Firebase.analytics
 
         binding.apply {
             viewModel = contentDetailViewModel
@@ -90,6 +97,7 @@ class ContentDetailActivity : BaseActivity() {
         initObserver()
     }
 
+    @Suppress("LongMethod")
     private fun initObserver() {
         contentDetailViewModel.backButtonClickEvent.observe(
             this,
@@ -147,6 +155,18 @@ class ContentDetailActivity : BaseActivity() {
             this,
             EventObserver {
                 showErrorDialog { contentDetailViewModel.initAllData(didClickComment) }
+            }
+        )
+
+        contentDetailViewModel.createRatingEvent.observe(
+            this,
+            EventObserver { item ->
+                firebaseAnalytics.logEvent("평가작성") {
+                    param("유저_ID", App.prefs.getUserId().toString())
+                    param("유저_MBTI", App.prefs.getMbti())
+                    param("콘텐츠_ID", item.contentId.toString())
+                    param("별점", item.rating.toString())
+                }
             }
         )
     }

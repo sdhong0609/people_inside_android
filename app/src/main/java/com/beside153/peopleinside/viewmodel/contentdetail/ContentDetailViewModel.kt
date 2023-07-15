@@ -66,6 +66,9 @@ class ContentDetailViewModel(
     private val writerHasReview = MutableLiveData(false)
     private var commentIdForReport = 0
 
+    private val _createRatingEvent = MutableLiveData<Event<ContentRatingModel>>()
+    val createRatingEvent: LiveData<Event<ContentRatingModel>> get() = _createRatingEvent
+
     private var contentId = 0
     private var currentRating = 0f
     private var currentRatingId = 0
@@ -211,6 +214,7 @@ class ContentDetailViewModel(
                     contentDetailService.postContentRating(contentId, ContentRatingRequest(rating))
                 currentRating = rating
                 currentRatingId = contentRatingItem.value?.ratingId ?: 0
+                _createRatingEvent.value = Event(contentRatingItem.value!!)
                 return@launch
             }
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
