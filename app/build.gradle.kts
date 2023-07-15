@@ -67,7 +67,6 @@ dependencies {
     implementation(Libraries.AndroidX.APP_COMPAT)
     implementation(Libraries.AndroidX.MATERIAL)
     implementation(Libraries.AndroidX.CONSTRAINT_LAYOUT)
-    implementation(Libraries.Firebase.ANALYTICS)
     implementation(Libraries.Firebase.CRASHYTICS)
     testImplementation(Libraries.Test.JUNIT)
     androidTestImplementation(Libraries.AndroidTest.EXT_JUNIT)
@@ -100,4 +99,8 @@ dependencies {
 
     // sandwich
     implementation("com.github.skydoves:sandwich:1.3.7")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }
