@@ -128,7 +128,7 @@ fun TextView.mbtiTextColor(mbti: String) {
 
         "ENTP", "ESFJ", "ESFP", "INFJ", "INTJ", "INTP", "ISTP" -> ContextCompat.getColor(context, R.color.white)
 
-        else -> R.color.black
+        else -> ContextCompat.getColor(context, R.color.black)
     }
 
     setTextColor(textColor)

@@ -22,6 +22,6 @@ data class MbtiRating(
     @SerialName("mbti") val mbti: String,
     @SerialName("rating_avg") val ratingAvg: Double,
     @SerialName("review_id") val reviewId: Int? = null,
-    @SerialName("review_content") val reviewContent: String? = null,
-    @SerialName("review_like_count") val reviewLikeCount: Int? = null
+    @SerialName("review_content") val reviewContent: String? = "",
+    @SerialName("review_like_count") val reviewLikeCount: Int? = 0
 ) : Parcelable
