@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bookmark_image"
             android:padding="18dp"
-            app:bookmarkImg="@{item.bookmarked}"
+            app:bookmarkGrayImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/pick10TitleTextView"
             app:layout_constraintTop_toTopOf="parent"

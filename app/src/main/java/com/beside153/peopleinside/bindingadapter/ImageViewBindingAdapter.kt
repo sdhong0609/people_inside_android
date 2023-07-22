@@ -45,8 +45,8 @@ fun ImageView.blackHeartImg(liked: Boolean) {
     }
 }
 
-@BindingAdapter("bookmarkImg")
-fun ImageView.bookmarkImg(bookmarked: Boolean) {
+@BindingAdapter("bookmarkGrayImg")
+fun ImageView.bookmarkGrayImg(bookmarked: Boolean) {
     if (bookmarked) {
         setImageResource(R.drawable.ic_bookmark_filled_gray)
     } else {
