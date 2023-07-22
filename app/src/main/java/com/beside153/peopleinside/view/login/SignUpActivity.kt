@@ -19,7 +19,7 @@ class SignUpActivity : AppCompatActivity() {
         factoryProducer = {
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SignUpUserInfoViewModel(RetrofitClient.signUpService) as T
+                    return SignUpUserInfoViewModel(RetrofitClient.authService) as T
                 }
             }
         }

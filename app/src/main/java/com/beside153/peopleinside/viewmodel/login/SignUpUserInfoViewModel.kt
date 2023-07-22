@@ -7,15 +7,15 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.model.login.AuthRegisterRequest
+import com.beside153.peopleinside.service.AuthService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
-import com.beside153.peopleinside.service.SignUpService
 import com.beside153.peopleinside.util.Event
 import com.skydoves.sandwich.onSuccess
 import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
-class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseViewModel() {
+class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewModel() {
     private val authToken = MutableLiveData("")
 
     val nickname = MutableLiveData("")
@@ -85,7 +85,7 @@ class SignUpUserInfoViewModel(private val signUpService: SignUpService) : BaseVi
         // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
 
         viewModelScope.launch(exceptionHandler) {
-            val response = signUpService.postAuthRegister(
+            val response = authService.postAuthRegister(
                 "Bearer ${authToken.value}",
                 AuthRegisterRequest(
                     "kakao",

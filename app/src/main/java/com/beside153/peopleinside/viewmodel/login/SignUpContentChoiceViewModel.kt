@@ -10,14 +10,18 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.login.OnBoardingChosenContentModel
 import com.beside153.peopleinside.model.login.OnBoardingContentModel
-import com.beside153.peopleinside.service.OnBoardingService
+import com.beside153.peopleinside.service.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SignUpContentChoiceViewModel(private val onBoardingService: OnBoardingService) : BaseViewModel() {
+class SignUpContentChoiceViewModel(
+    private val mediaContentService: MediaContentService,
+    private val userService: UserService
+) : BaseViewModel() {
     private val contentList = MutableLiveData<List<OnBoardingContentModel>>()
 
     private val _choiceCount = MutableLiveData(0)
@@ -39,14 +43,14 @@ class SignUpContentChoiceViewModel(private val onBoardingService: OnBoardingServ
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            contentList.value = onBoardingService.getOnBoardkingContents(page)
+            contentList.value = mediaContentService.getOnBoardingContents(page)
         }
         _screenList.value = screenList()
     }
 
     fun loadMoreData() {
         viewModelScope.launch(exceptionHandler) {
-            val newContentList = onBoardingService.getOnBoardkingContents(++page)
+            val newContentList = mediaContentService.getOnBoardingContents(++page)
             contentList.value = contentList.value?.plus(newContentList)
 
             _screenList.value = screenList()
@@ -92,8 +96,8 @@ class SignUpContentChoiceViewModel(private val onBoardingService: OnBoardingServ
                     ?.map { OnBoardingChosenContentModel(it.contentId, MAX_RATING) }
                     ?: emptyList()
 
-            val chosenContentsDeferred = async { onBoardingService.postChosenContents(chosenList) }
-            val onBoardingCompletedDeferred = async { onBoardingService.postOnBoardingCompleted(App.prefs.getUserId()) }
+            val chosenContentsDeferred = async { mediaContentService.postChosenContents(chosenList) }
+            val onBoardingCompletedDeferred = async { userService.postOnBoardingCompleted(App.prefs.getUserId()) }
 
             val isSuccess = chosenContentsDeferred.await()
             onBoardingCompletedDeferred.await()
@@ -114,8 +118,9 @@ class SignUpContentChoiceViewModel(private val onBoardingService: OnBoardingServ
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val onBoardingService = RetrofitClient.onBoardingService
-                return SignUpContentChoiceViewModel(onBoardingService) as T
+                val mediaContentService = RetrofitClient.mediaContentService
+                val userService = RetrofitClient.userService
+                return SignUpContentChoiceViewModel(mediaContentService, userService) as T
             }
         }
     }

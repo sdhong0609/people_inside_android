@@ -32,7 +32,7 @@ class SearchFragment : BaseFragment() {
         factoryProducer = {
             object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SearchViewModel(RetrofitClient.searchService) as T
+                    return SearchViewModel(RetrofitClient.mediaContentService) as T
                 }
             }
         }

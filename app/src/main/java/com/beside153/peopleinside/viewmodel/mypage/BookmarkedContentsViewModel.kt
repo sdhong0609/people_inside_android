@@ -32,7 +32,7 @@ class BookmarkedContentsViewModel(
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val bookmarkCountDeferred = async { myContentService.getBookmarkCount() }
+            val bookmarkCountDeferred = async { myContentService.getBookmarkedCount() }
             val contentListDeferred = async { myContentService.getBookmarkedContents(page) }
 
             _bookmarkCount.value = bookmarkCountDeferred.await()
@@ -73,7 +73,7 @@ class BookmarkedContentsViewModel(
             }
 
             _contentList.value = updatedList ?: emptyList()
-            _bookmarkCount.value = myContentService.getBookmarkCount()
+            _bookmarkCount.value = myContentService.getBookmarkedCount()
         }
     }
 

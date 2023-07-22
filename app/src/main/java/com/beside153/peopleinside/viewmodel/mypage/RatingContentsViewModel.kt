@@ -11,10 +11,10 @@ import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
 import com.beside153.peopleinside.model.mypage.Rating
 import com.beside153.peopleinside.model.mypage.RatingContentModel
 import com.beside153.peopleinside.model.mypage.Review
-import com.beside153.peopleinside.service.ContentDetailService
 import com.beside153.peopleinside.service.MyContentService
-import com.beside153.peopleinside.service.RecommendService
+import com.beside153.peopleinside.service.RatingService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import kotlinx.coroutines.async
@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 
 class RatingContentsViewModel(
     private val myContentService: MyContentService,
-    private val contentDetailService: ContentDetailService,
-    private val recommendService: RecommendService
+    private val ratingService: RatingService,
+    private val reviewService: ReviewService
 ) : BaseViewModel() {
     private val _ratingCount = MutableLiveData(0)
     val ratingCount: LiveData<Int> get() = _ratingCount
@@ -41,8 +41,8 @@ class RatingContentsViewModel(
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val ratingCountDeferred = async { myContentService.getRatingCount() }
-            val contentListDeferred = async { myContentService.getRatingContents(page) }
+            val ratingCountDeferred = async { myContentService.getRatedCount() }
+            val contentListDeferred = async { myContentService.getRatedContents(page) }
 
             _ratingCount.value = ratingCountDeferred.await()
             _contentList.value = contentListDeferred.await()
@@ -51,7 +51,7 @@ class RatingContentsViewModel(
 
     fun loadMoreData() {
         viewModelScope.launch(exceptionHandler) {
-            val newContentList = myContentService.getRatingContents(++page)
+            val newContentList = myContentService.getRatedContents(++page)
             _contentList.value = _contentList.value?.plus(newContentList)
         }
     }
@@ -63,11 +63,11 @@ class RatingContentsViewModel(
 
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
             if (currentRating <= 0) {
-                contentDetailService.postContentRating(item.contentId, ContentRatingRequest(rating))
+                ratingService.postContentRating(item.contentId, ContentRatingRequest(rating))
             } else if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
-                contentDetailService.putContentRating(item.contentId, ContentRatingRequest(rating))
+                ratingService.putContentRating(item.contentId, ContentRatingRequest(rating))
             } else if (currentRatingHasValue && rating == 0f) {
-                contentDetailService.deleteContentRating(item.contentId, item.rating?.ratingId ?: 0)
+                ratingService.deleteContentRating(item.contentId, item.rating?.ratingId ?: 0)
             }
 
             val updatedList = _contentList.value?.map {
@@ -78,7 +78,7 @@ class RatingContentsViewModel(
                 }
             }
             _contentList.value = updatedList ?: emptyList()
-            _ratingCount.value = myContentService.getRatingCount()
+            _ratingCount.value = myContentService.getRatedCount()
         }
     }
 
@@ -113,7 +113,7 @@ class RatingContentsViewModel(
 
     fun deleteReview(item: RatingContentModel) {
         viewModelScope.launch(exceptionHandler) {
-            recommendService.deleteReview(item.contentId, item.review?.reviewId ?: 0)
+            reviewService.deleteReview(item.contentId, item.review?.reviewId ?: 0)
         }
         val updatedList = _contentList.value?.map {
             if (item == it) {
@@ -136,9 +136,9 @@ class RatingContentsViewModel(
                 extras: CreationExtras
             ): T {
                 val myContentService = RetrofitClient.myContentService
-                val contentDetailService = RetrofitClient.contentDetailService
-                val recommendService = RetrofitClient.recommendService
-                return RatingContentsViewModel(myContentService, contentDetailService, recommendService) as T
+                val ratingService = RetrofitClient.ratingService
+                val reviewService = RetrofitClient.reviewService
+                return RatingContentsViewModel(myContentService, ratingService, reviewService) as T
             }
         }
     }

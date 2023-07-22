@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.recommend.SubRankingModel
-import com.beside153.peopleinside.service.RecommendService
+import com.beside153.peopleinside.service.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.launch
 
-class SubRankingViewModel(private val recommendService: RecommendService) : BaseViewModel() {
+class SubRankingViewModel(private val mediaContentService: MediaContentService) : BaseViewModel() {
 
     private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
     val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
@@ -23,7 +23,7 @@ class SubRankingViewModel(private val recommendService: RecommendService) : Base
 
     fun initData(mediaType: String) {
         viewModelScope.launch(exceptionHandler) {
-            _subRankingList.value = recommendService.getSubRankingItem(mediaType, MAX_TAKE)
+            _subRankingList.value = mediaContentService.getSubRankingItem(mediaType, MAX_TAKE)
 
             val updatedSubRankingList = _subRankingList.value?.mapIndexed { index, item ->
                 item.copy(rank = index + 1)
@@ -43,8 +43,8 @@ class SubRankingViewModel(private val recommendService: RecommendService) : Base
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val recommendService = RetrofitClient.recommendService
-                return SubRankingViewModel(recommendService) as T
+                val mediaContentService = RetrofitClient.mediaContentService
+                return SubRankingViewModel(mediaContentService) as T
             }
         }
 

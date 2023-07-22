@@ -9,17 +9,17 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.service.AuthService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
-import com.beside153.peopleinside.service.OnBoardingService
 import com.beside153.peopleinside.service.RetrofitClient
-import com.beside153.peopleinside.service.SignUpService
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import com.skydoves.sandwich.onSuccess
 import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
-class LoginViewModel(private val signUpService: SignUpService, private val onBoardingService: OnBoardingService) :
+class LoginViewModel(private val authService: AuthService, private val userService: UserService) :
     BaseViewModel() {
 
     private val _kakaoLoginClickEvent = MutableLiveData<Event<Unit>>()
@@ -46,7 +46,7 @@ class LoginViewModel(private val signUpService: SignUpService, private val onBoa
 
     fun peopleInsideLogin() {
         viewModelScope.launch(exceptionHandler) {
-            val response = signUpService.postLoginKakao("Bearer $authToken")
+            val response = authService.postLoginKakao("Bearer $authToken")
             response.onSuccess {
                 val jwtToken = this.response.body()?.jwtToken!!
                 val user = this.response.body()?.user!!
@@ -60,7 +60,7 @@ class LoginViewModel(private val signUpService: SignUpService, private val onBoa
                 App.prefs.setIsMember(true)
 
                 viewModelScope.launch(exceptionHandler) {
-                    val onBoardingCompleted = onBoardingService.getOnBoardingCompleted(user.userId)
+                    val onBoardingCompleted = userService.getOnBoardingCompleted(user.userId)
 
                     if (onBoardingCompleted) {
                         _onBoardingCompletedEvent.value = Event(true)
@@ -88,9 +88,9 @@ class LoginViewModel(private val signUpService: SignUpService, private val onBoa
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val signUpService = RetrofitClient.signUpService
-                val onBoardingService = RetrofitClient.onBoardingService
-                return LoginViewModel(signUpService, onBoardingService) as T
+                val authService = RetrofitClient.authService
+                val userService = RetrofitClient.userService
+                return LoginViewModel(authService, userService) as T
             }
         }
     }
