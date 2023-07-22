@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.bookmark
+package com.beside153.peopleinside.model.mediacontent.bookmark
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.review.ContentCommentModel" />
+            type="com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,7 +1,7 @@
-package com.beside153.peopleinside.service
+package com.beside153.peopleinside.service.mediacontent
 
-import com.beside153.peopleinside.model.rating.ContentRatingModel
-import com.beside153.peopleinside.model.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

@@ -1,6 +1,6 @@
-package com.beside153.peopleinside.service
+package com.beside153.peopleinside.service.mediacontent
 
-import com.beside153.peopleinside.model.bookmark.BookmarkToggleResponse
+import com.beside153.peopleinside.model.mediacontent.bookmark.BookmarkToggleResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path

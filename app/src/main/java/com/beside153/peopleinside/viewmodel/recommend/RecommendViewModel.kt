@@ -12,8 +12,8 @@ import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.RatingBattleModel
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
-import com.beside153.peopleinside.service.BookmarkService
-import com.beside153.peopleinside.service.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.BookmarkService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel

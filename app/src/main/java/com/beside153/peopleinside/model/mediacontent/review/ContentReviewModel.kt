@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.review
+package com.beside153.peopleinside.model.mediacontent.review
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,21 +7,20 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class ContentCommentModel(
+data class ContentReviewModel(
     @SerialName("content_id") val contentId: Int,
     @SerialName("review_id") val reviewId: Int,
     @SerialName("content") val content: String,
     @SerialName("like_count") val likeCount: Int,
-    @SerialName("writer") val writer: Writer,
-    @SerialName("like") val like: Boolean
+    @SerialName("writer") val writer: CreatedReviewWriter?
 ) : Parcelable
 
 @Parcelize
 @Serializable
-data class Writer(
-    @SerialName("user_id") val userId: Int,
-    @SerialName("nickname") val nickname: String,
+data class CreatedReviewWriter(
+    @SerialName("id") val id: Int,
+    @SerialName("nickName") val nickName: String,
     @SerialName("mbti") val mbti: String,
     @SerialName("birth") val birth: String,
-    @SerialName("sex") val sex: String?
+    @SerialName("sex") val sex: String
 ) : Parcelable

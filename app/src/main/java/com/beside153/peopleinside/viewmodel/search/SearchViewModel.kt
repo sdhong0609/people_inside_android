@@ -9,7 +9,7 @@ import com.beside153.peopleinside.model.mediacontent.SearchHotModel
 import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
 import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
 import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
-import com.beside153.peopleinside.service.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import kotlinx.coroutines.CoroutineExceptionHandler

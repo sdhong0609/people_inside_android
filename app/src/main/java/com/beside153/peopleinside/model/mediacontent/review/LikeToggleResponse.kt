@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.review
+package com.beside153.peopleinside.model.mediacontent.review
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class CreateReviewRequest(
-    @SerialName("content") val content: String
+data class LikeToggleResponse(
+    @SerialName("toggle_status") val toggleStatus: String
 ) : Parcelable

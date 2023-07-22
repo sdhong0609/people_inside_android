@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.rating
+package com.beside153.peopleinside.model.mediacontent.rating
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 
 @Parcelize
 @Serializable
-data class ContentRatingRequest(
+data class ContentRatingModel(
+    @SerialName("content_id") val contentId: Int,
+    @SerialName("rating_id") val ratingId: Int,
     @SerialName("rating") val rating: Float
 ) : Parcelable

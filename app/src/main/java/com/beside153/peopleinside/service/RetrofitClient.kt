@@ -1,6 +1,10 @@
 package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.App
+import com.beside153.peopleinside.service.mediacontent.BookmarkService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.RatingService
+import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import kotlinx.serialization.json.Json

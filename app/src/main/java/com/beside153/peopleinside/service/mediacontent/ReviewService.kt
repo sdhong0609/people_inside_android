@@ -1,9 +1,9 @@
-package com.beside153.peopleinside.service
+package com.beside153.peopleinside.service.mediacontent
 
-import com.beside153.peopleinside.model.review.ContentCommentModel
-import com.beside153.peopleinside.model.review.ContentReviewModel
-import com.beside153.peopleinside.model.review.CreateReviewRequest
-import com.beside153.peopleinside.model.review.LikeToggleResponse
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
+import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
+import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
+import com.beside153.peopleinside.model.mediacontent.review.LikeToggleResponse
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE

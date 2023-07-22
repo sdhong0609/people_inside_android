@@ -66,7 +66,7 @@
 -keep,allowoptimization,allowshrinking,allowobfuscation class <3>
 
 -keep class com.beside153.peopleinside.service.* { *; }
--keep class com.beside153.peopleinside.model.bookmark.BookmarkToggleResponse { *; }
+-keep class com.beside153.peopleinside.model.mediacontent.bookmark.BookmarkToggleResponse { *; }
 
 -keep class com.kakao.sdk.**.model.* { *; }
 

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.service
+package com.beside153.peopleinside.service.mediacontent
 
 import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
 import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentModel
