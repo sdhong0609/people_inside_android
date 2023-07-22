@@ -94,9 +94,7 @@ class SettingActivity : AppCompatActivity() {
                             finishAffinity()
                         }
 
-                        override fun onClickNegativeButton() {
-                            // 필요없음
-                        }
+                        override fun onClickNegativeButton() = Unit
                     }).create()
                 logoutDialog.show(supportFragmentManager, logoutDialog.tag)
             }

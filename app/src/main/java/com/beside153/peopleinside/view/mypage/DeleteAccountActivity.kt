@@ -68,9 +68,7 @@ class DeleteAccountActivity : BaseActivity() {
                             deleteAccountViewModel.deleteAccount()
                         }
 
-                        override fun onClickNegativeButton() {
-                            // 필요없음
-                        }
+                        override fun onClickNegativeButton() = Unit
                     }).create()
                 dialog.show(supportFragmentManager, dialog.tag)
             }
