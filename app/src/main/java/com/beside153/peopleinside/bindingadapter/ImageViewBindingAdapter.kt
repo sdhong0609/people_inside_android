@@ -44,3 +44,25 @@ fun ImageView.blackHeartImg(liked: Boolean) {
         this.setImageResource(R.drawable.ic_heart_empty)
     }
 }
+
+@BindingAdapter("bookmarkImg")
+fun ImageView.bookmarkImg(bookmarked: Boolean) {
+    if (bookmarked) {
+        setImageResource(R.drawable.ic_bookmark_filled_gray)
+    } else {
+        setImageResource(
+            R.drawable.ic_bookmark_empty_gray
+        )
+    }
+}
+
+@BindingAdapter("bookmarkWhiteImg")
+fun ImageView.bookmarkWhiteImg(bookmarked: Boolean) {
+    if (bookmarked) {
+        setImageResource(R.drawable.ic_bookmark_filled)
+    } else {
+        setImageResource(
+            R.drawable.ic_bookmark_empty
+        )
+    }
+}
