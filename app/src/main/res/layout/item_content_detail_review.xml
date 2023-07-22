@@ -7,7 +7,7 @@
 
         <variable
             name="ratingItem"
-            type="com.beside153.peopleinside.model.contentdetail.ContentRatingModel" />
+            type="com.beside153.peopleinside.model.rating.ContentRatingModel" />
 
         <variable
             name="bookmarked"

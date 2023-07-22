@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
-import com.beside153.peopleinside.model.login.OnBoardingContentModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity

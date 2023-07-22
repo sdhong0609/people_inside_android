@@ -1,8 +1,8 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.model.login.OnBoardingCompletedResponse
-import com.beside153.peopleinside.model.login.UserInfo
-import com.beside153.peopleinside.model.report.ResonIdModel
+import com.beside153.peopleinside.model.user.OnBoardingCompletedResponse
+import com.beside153.peopleinside.model.user.UserInfo
+import com.beside153.peopleinside.model.user.ResonIdModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.HTTP

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.login.NonMemberMbtiScreenAdapter.NonMemberMbtiScreenModel
 

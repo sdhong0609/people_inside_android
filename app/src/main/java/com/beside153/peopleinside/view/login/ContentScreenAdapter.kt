@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceTitleBinding
-import com.beside153.peopleinside.model.login.OnBoardingContentModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
 
 class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingContentModel) -> Unit) :

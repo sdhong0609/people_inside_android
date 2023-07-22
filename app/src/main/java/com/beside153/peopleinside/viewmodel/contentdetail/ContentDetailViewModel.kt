@@ -9,11 +9,11 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
-import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
-import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
+import com.beside153.peopleinside.model.review.ContentCommentModel
+import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
+import com.beside153.peopleinside.model.rating.ContentRatingModel
+import com.beside153.peopleinside.model.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.review.ContentReviewModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.MediaContentService

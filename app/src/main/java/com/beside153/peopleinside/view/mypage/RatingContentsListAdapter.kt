@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageRatingContentBinding
-import com.beside153.peopleinside.model.mypage.RatingContentModel
+import com.beside153.peopleinside.model.mycontent.RatedContentModel
 
 class RatingContentsListAdapter(
-    private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit,
-    private val onVerticalDotsClick: (imageView: ImageView, item: RatingContentModel) -> Unit
+    private val onRatingChanged: (rating: Float, item: RatedContentModel) -> Unit,
+    private val onVerticalDotsClick: (imageView: ImageView, item: RatedContentModel) -> Unit
 ) :
-    ListAdapter<RatingContentModel, RatingContentsListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
+    ListAdapter<RatedContentModel, RatingContentsListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageRatingContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,12 +26,12 @@ class RatingContentsListAdapter(
 
     class ContentItemViewHolder(
         private val binding: ItemMypageRatingContentBinding,
-        private val onRatingChanged: (rating: Float, item: RatingContentModel) -> Unit,
-        private val onVerticalDotsClick: (imageView: ImageView, item: RatingContentModel) -> Unit
+        private val onRatingChanged: (rating: Float, item: RatedContentModel) -> Unit,
+        private val onVerticalDotsClick: (imageView: ImageView, item: RatedContentModel) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: RatingContentModel) {
+        fun bind(item: RatedContentModel) {
             binding.item = item
             binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
                 if (fromUser) {
@@ -47,12 +47,12 @@ class RatingContentsListAdapter(
     }
 }
 
-private class RatingContentItemDiffCallback : DiffUtil.ItemCallback<RatingContentModel>() {
-    override fun areItemsTheSame(oldItem: RatingContentModel, newItem: RatingContentModel): Boolean {
+private class RatingContentItemDiffCallback : DiffUtil.ItemCallback<RatedContentModel>() {
+    override fun areItemsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
         return oldItem.contentId == newItem.contentId
     }
 
-    override fun areContentsTheSame(oldItem: RatingContentModel, newItem: RatingContentModel): Boolean {
+    override fun areContentsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
         return oldItem == newItem
     }
 }

@@ -1,7 +1,7 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.model.login.AuthRegisterRequest
-import com.beside153.peopleinside.model.login.AuthRegisterResponse
+import com.beside153.peopleinside.model.auth.AuthRegisterRequest
+import com.beside153.peopleinside.model.auth.AuthRegisterResponse
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.Body
 import retrofit2.http.Header

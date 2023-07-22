@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.recommend.Pick10Model" />
+            type="com.beside153.peopleinside.model.mediacontent.Pick10Model" />
 
         <variable
             name="app"
@@ -15,7 +15,7 @@
 
         <variable
             name="writer"
-            type="com.beside153.peopleinside.model.recommend.Writer" />
+            type="com.beside153.peopleinside.model.mediacontent.Writer" />
 
         <variable
             name="hasReview"

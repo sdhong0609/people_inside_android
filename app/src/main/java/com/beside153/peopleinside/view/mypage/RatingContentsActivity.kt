@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageRatingContentsBinding
-import com.beside153.peopleinside.model.mypage.RatingContentModel
+import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback
@@ -135,7 +135,7 @@ class RatingContentsActivity : BaseActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val fixedItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    result.data?.getParcelableExtra(FIXED_ITEM, RatingContentModel::class.java)
+                    result.data?.getParcelableExtra(FIXED_ITEM, RatedContentModel::class.java)
                 } else {
                     result.data?.getParcelableExtra(FIXED_ITEM)
                 }
@@ -144,7 +144,7 @@ class RatingContentsActivity : BaseActivity() {
             }
         }
 
-    private fun onVerticalDotsClick(imageView: ImageView, item: RatingContentModel) {
+    private fun onVerticalDotsClick(imageView: ImageView, item: RatedContentModel) {
         val location = IntArray(2)
         imageView.getLocationOnScreen(location)
         val x = location[0]
@@ -177,7 +177,7 @@ class RatingContentsActivity : BaseActivity() {
         popupWindow.showAsDropDown(imageView, offsetX - OFFSET, 0)
     }
 
-    private fun onRatingChanged(rating: Float, item: RatingContentModel) {
+    private fun onRatingChanged(rating: Float, item: RatedContentModel) {
         contentsViewModel.onRatingChanged(rating, item)
     }
 

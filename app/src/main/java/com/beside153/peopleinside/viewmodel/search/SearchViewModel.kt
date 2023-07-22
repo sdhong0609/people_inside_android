@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.search.SearchHotModel
-import com.beside153.peopleinside.model.search.SearchedContentModel
-import com.beside153.peopleinside.model.search.SearchingTitleModel
-import com.beside153.peopleinside.model.search.ViewLogContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchHotModel
+import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
 import com.beside153.peopleinside.service.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel

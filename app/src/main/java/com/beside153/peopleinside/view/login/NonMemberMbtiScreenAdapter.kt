@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemNonMemberMbtiTitleBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiListBinding
-import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.view.login.NonMemberMbtiScreenAdapter.NonMemberMbtiScreenModel
 
 class NonMemberMbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) :

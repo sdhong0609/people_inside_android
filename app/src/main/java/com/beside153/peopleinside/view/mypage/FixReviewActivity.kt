@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityFixReviewBinding
-import com.beside153.peopleinside.model.mypage.RatingContentModel
+import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
@@ -45,7 +45,7 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
         }
 
         val contentItem = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(CONTENT_ITEM, RatingContentModel::class.java)
+            intent.getParcelableExtra(CONTENT_ITEM, RatedContentModel::class.java)
         } else {
             intent.getParcelableExtra(CONTENT_ITEM)
         }
@@ -91,7 +91,7 @@ class FixReviewActivity : BaseActivity(), CancelReviewDialogInterface {
         private const val CONTENT_ITEM = "CONTENT_ITEM"
         private const val FIXED_ITEM = "FIXED_ITEM"
 
-        fun newIntent(context: Context, item: RatingContentModel): Intent {
+        fun newIntent(context: Context, item: RatedContentModel): Intent {
             val intent = Intent(context, FixReviewActivity::class.java)
             intent.putExtra(CONTENT_ITEM, item)
             return intent

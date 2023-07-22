@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageBookmarkContentBinding
-import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
+import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
 
 class BookmarkContentsListAdapter(private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit) :
     ListAdapter<BookmarkedContentModel, BookmarkContentsListAdapter.ContentItemViewHolder>(

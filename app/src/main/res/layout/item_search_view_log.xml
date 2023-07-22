@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.search.ViewLogContentModel" />
+            type="com.beside153.peopleinside.model.mediacontent.ViewLogContentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

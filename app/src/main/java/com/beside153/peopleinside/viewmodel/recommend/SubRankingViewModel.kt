@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.recommend.SubRankingModel
+import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.service.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event

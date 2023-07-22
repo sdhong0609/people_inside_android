@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.OnBoardingChosenContentModel
-import com.beside153.peopleinside.model.login.OnBoardingContentModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.service.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService

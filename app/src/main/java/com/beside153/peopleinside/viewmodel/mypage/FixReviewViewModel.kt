@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.contentdetail.CreateReviewRequest
-import com.beside153.peopleinside.model.mypage.RatingContentModel
+import com.beside153.peopleinside.model.review.CreateReviewRequest
+import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.ReviewService
 import com.beside153.peopleinside.util.Event
@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
 class FixReviewViewModel(private val reviewService: ReviewService) : BaseViewModel() {
     val reviewText = MutableLiveData("")
 
-    private val _completeButtonClickEvent = MutableLiveData<Event<RatingContentModel>>()
-    val completeButtonClickEvent: LiveData<Event<RatingContentModel>> get() = _completeButtonClickEvent
+    private val _completeButtonClickEvent = MutableLiveData<Event<RatedContentModel>>()
+    val completeButtonClickEvent: LiveData<Event<RatedContentModel>> get() = _completeButtonClickEvent
 
-    private val contentItem = MutableLiveData<RatingContentModel>()
+    private val contentItem = MutableLiveData<RatedContentModel>()
 
-    fun initContentItem(contentItem: RatingContentModel?) {
+    fun initContentItem(contentItem: RatedContentModel?) {
         this.contentItem.value = contentItem
         reviewText.value = contentItem?.review?.content ?: ""
     }
@@ -41,7 +41,7 @@ class FixReviewViewModel(private val reviewService: ReviewService) : BaseViewMod
         }
     }
 
-    fun getFixedItem(): RatingContentModel = contentItem.value!!
+    fun getFixedItem(): RatedContentModel = contentItem.value!!
 
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {

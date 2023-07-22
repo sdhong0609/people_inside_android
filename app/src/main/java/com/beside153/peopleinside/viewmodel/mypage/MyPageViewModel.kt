@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.UserInfo
+import com.beside153.peopleinside.model.user.UserInfo
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService

@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
-import com.beside153.peopleinside.model.search.SearchHotModel
-import com.beside153.peopleinside.model.search.SearchedContentModel
-import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.SearchHotModel
+import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation

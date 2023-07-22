@@ -10,7 +10,7 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityNonMemberMbtiChoiceBinding
-import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.addBackPressedCallback

@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
-import com.beside153.peopleinside.model.mypage.Rating
-import com.beside153.peopleinside.model.mypage.RatingContentModel
-import com.beside153.peopleinside.model.mypage.Review
+import com.beside153.peopleinside.model.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.mycontent.Rating
+import com.beside153.peopleinside.model.mycontent.RatedContentModel
+import com.beside153.peopleinside.model.mycontent.Review
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RatingService
 import com.beside153.peopleinside.service.RetrofitClient
@@ -28,14 +28,14 @@ class RatingContentsViewModel(
     private val _ratingCount = MutableLiveData(0)
     val ratingCount: LiveData<Int> get() = _ratingCount
 
-    private val _contentList = MutableLiveData<List<RatingContentModel>>()
-    val contentList: LiveData<List<RatingContentModel>> get() = _contentList
+    private val _contentList = MutableLiveData<List<RatedContentModel>>()
+    val contentList: LiveData<List<RatedContentModel>> get() = _contentList
 
-    private val _reviewFixClickEvent = MutableLiveData<Event<RatingContentModel>>()
-    val reviewFixClickEvent: LiveData<Event<RatingContentModel>> get() = _reviewFixClickEvent
+    private val _reviewFixClickEvent = MutableLiveData<Event<RatedContentModel>>()
+    val reviewFixClickEvent: LiveData<Event<RatedContentModel>> get() = _reviewFixClickEvent
 
-    private val _reviewDeleteClickEvent = MutableLiveData<Event<RatingContentModel>>()
-    val reviewDeleteClickEvent: LiveData<Event<RatingContentModel>> get() = _reviewDeleteClickEvent
+    private val _reviewDeleteClickEvent = MutableLiveData<Event<RatedContentModel>>()
+    val reviewDeleteClickEvent: LiveData<Event<RatedContentModel>> get() = _reviewDeleteClickEvent
 
     private var page = 1
 
@@ -56,7 +56,7 @@ class RatingContentsViewModel(
         }
     }
 
-    fun onRatingChanged(rating: Float, item: RatingContentModel) {
+    fun onRatingChanged(rating: Float, item: RatedContentModel) {
         viewModelScope.launch(exceptionHandler) {
             val currentRating = item.rating?.rating ?: 0f
             if (currentRating.roundToHalf() == rating) return@launch
@@ -82,11 +82,11 @@ class RatingContentsViewModel(
         }
     }
 
-    fun onReviewFixClick(item: RatingContentModel) {
+    fun onReviewFixClick(item: RatedContentModel) {
         _reviewFixClickEvent.value = Event(item)
     }
 
-    fun updateFixedReview(fixedItem: RatingContentModel) {
+    fun updateFixedReview(fixedItem: RatedContentModel) {
         val updatedList = _contentList.value?.map {
             val review = fixedItem.review
             if (fixedItem.contentId == it.contentId) {
@@ -107,11 +107,11 @@ class RatingContentsViewModel(
         _contentList.value = updatedList ?: emptyList()
     }
 
-    fun onReviewDeleteClick(item: RatingContentModel) {
+    fun onReviewDeleteClick(item: RatedContentModel) {
         _reviewDeleteClickEvent.value = Event(item)
     }
 
-    fun deleteReview(item: RatingContentModel) {
+    fun deleteReview(item: RatedContentModel) {
         viewModelScope.launch(exceptionHandler) {
             reviewService.deleteReview(item.contentId, item.review?.reviewId ?: 0)
         }

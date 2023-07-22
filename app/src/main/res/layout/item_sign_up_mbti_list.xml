@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.login.MbtiModel" />
+            type="com.beside153.peopleinside.model.common.MbtiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,15 +1,15 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
-import com.beside153.peopleinside.model.login.OnBoardingChosenContentModel
-import com.beside153.peopleinside.model.login.OnBoardingContentModel
-import com.beside153.peopleinside.model.recommend.Pick10Model
-import com.beside153.peopleinside.model.recommend.RatingBattleModel
-import com.beside153.peopleinside.model.recommend.SubRankingModel
-import com.beside153.peopleinside.model.search.SearchHotModel
-import com.beside153.peopleinside.model.search.SearchedContentModel
-import com.beside153.peopleinside.model.search.SearchingTitleModel
-import com.beside153.peopleinside.model.search.ViewLogContentModel
+import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentModel
+import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
+import com.beside153.peopleinside.model.mediacontent.Pick10Model
+import com.beside153.peopleinside.model.mediacontent.RatingBattleModel
+import com.beside153.peopleinside.model.mediacontent.SubRankingModel
+import com.beside153.peopleinside.model.mediacontent.SearchHotModel
+import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

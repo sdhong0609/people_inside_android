@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
+import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
 import com.beside153.peopleinside.service.BookmarkService
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient

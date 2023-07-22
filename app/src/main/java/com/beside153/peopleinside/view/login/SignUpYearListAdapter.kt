@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemSignUpBirthYearBinding
-import com.beside153.peopleinside.model.login.BirthYearModel
+import com.beside153.peopleinside.model.common.BirthYearModel
 
 class SignUpYearListAdapter(private val onYearItemClick: (item: BirthYearModel) -> Unit) :
     ListAdapter<BirthYearModel, SignUpYearListAdapter.YearItemViewHolder>(YearItemDiffCallback()) {

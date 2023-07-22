@@ -15,8 +15,8 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
-import com.beside153.peopleinside.model.recommend.Pick10Model
-import com.beside153.peopleinside.model.recommend.SubRankingModel
+import com.beside153.peopleinside.model.mediacontent.Pick10Model
+import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation

@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.report.ResonIdModel
+import com.beside153.peopleinside.model.user.ResonIdModel
 import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService

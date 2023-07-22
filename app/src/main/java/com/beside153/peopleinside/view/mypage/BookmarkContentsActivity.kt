@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
-import com.beside153.peopleinside.model.mypage.BookmarkedContentModel
+import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation

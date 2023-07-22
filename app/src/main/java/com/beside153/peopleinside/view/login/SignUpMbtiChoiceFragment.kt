@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
-import com.beside153.peopleinside.model.login.MbtiModel
+import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel

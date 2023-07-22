@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.login.AuthRegisterRequest
+import com.beside153.peopleinside.model.auth.AuthRegisterRequest
 import com.beside153.peopleinside.service.AuthService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.util.Event

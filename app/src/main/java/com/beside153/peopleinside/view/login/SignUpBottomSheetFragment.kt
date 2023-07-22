@@ -10,7 +10,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpBottomSheetBinding
-import com.beside153.peopleinside.model.login.BirthYearModel
+import com.beside153.peopleinside.model.common.BirthYearModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class SignUpBottomSheetFragment : BottomSheetDialogFragment() {

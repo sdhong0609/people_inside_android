@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.contentdetail.CreateReviewRequest
+import com.beside153.peopleinside.model.review.CreateReviewRequest
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.ReviewService
 import com.beside153.peopleinside.util.Event

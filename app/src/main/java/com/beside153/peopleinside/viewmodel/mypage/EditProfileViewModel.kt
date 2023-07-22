@@ -9,7 +9,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.mypage.EdittedUserInfo
+import com.beside153.peopleinside.model.editprofile.EdittedUserInfo
 import com.beside153.peopleinside.service.EditProfileService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
