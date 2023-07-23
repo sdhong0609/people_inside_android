@@ -2,13 +2,17 @@ package com.beside153.peopleinside.viewmodel.onboarding.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.model.auth.AuthRegisterRequest
+import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.service.AuthService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.skydoves.sandwich.onSuccess
 import com.skydoves.sandwich.suspendOnError
@@ -120,5 +124,18 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
 
     private fun checkSignUpButtonEnable() {
         _isSignUpButtonEnable.value = (_nicknameCount.value ?: 0) > 0 && (_selectedMbti.value ?: "") != "선택"
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                val authService = RetrofitClient.authService
+                return SignUpUserInfoViewModel(authService) as T
+            }
+        }
     }
 }

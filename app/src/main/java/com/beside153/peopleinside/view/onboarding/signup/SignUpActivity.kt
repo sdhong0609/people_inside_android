@@ -5,26 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivitySignUpBinding
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.view.onboarding.ContentChoiceFragment
 import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpUserInfoViewModel
 
 class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding
-    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels(
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SignUpUserInfoViewModel(RetrofitClient.authService) as T
-                }
-            }
-        }
-    )
+    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels { SignUpUserInfoViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

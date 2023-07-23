@@ -9,8 +9,6 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,7 +18,6 @@ import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.mediacontent.SearchHotModel
 import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
 import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -28,15 +25,7 @@ import com.beside153.peopleinside.viewmodel.search.SearchViewModel
 
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
-    private val searchViewModel: SearchViewModel by viewModels(
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return SearchViewModel(RetrofitClient.mediaContentService) as T
-                }
-            }
-        }
-    )
+    private val searchViewModel: SearchViewModel by viewModels { SearchViewModel.Factory }
     private lateinit var searchScreenAdapter: SearchScreenAdapter
     private lateinit var inputMethodManager: InputMethodManager
 
