@@ -16,7 +16,6 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.view.login.SignUpUserInfoFragmentDirections
 import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics

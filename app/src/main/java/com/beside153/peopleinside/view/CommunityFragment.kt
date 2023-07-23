@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 
-class CommunityFragment : Fragment() {
+class CommunityFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

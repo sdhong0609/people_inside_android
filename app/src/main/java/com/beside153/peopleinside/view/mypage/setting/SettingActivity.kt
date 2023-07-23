@@ -5,10 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivitySettingBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
@@ -21,7 +21,7 @@ import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 import timber.log.Timber
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
     private val settingViewModel: SettingViewModel by viewModels()
     private lateinit var kakaoApi: UserApiClient

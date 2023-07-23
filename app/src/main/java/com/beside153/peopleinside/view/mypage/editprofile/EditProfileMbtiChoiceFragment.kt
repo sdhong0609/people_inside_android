@@ -6,21 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentMyPageMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
-import com.beside153.peopleinside.view.mypage.MyPageMbtiChoiceFragmentArgs
 import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter
 import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
 
-class EditProfileMbtiChoiceFragment : Fragment() {
+class EditProfileMbtiChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentMyPageMbtiChoiceBinding
     private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
     private var mbtiList = mutableListOf<MbtiModel>()
@@ -38,7 +37,7 @@ class EditProfileMbtiChoiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args: MyPageMbtiChoiceFragmentArgs by navArgs()
+        val args: EditProfileMbtiChoiceFragmentArgs by navArgs()
         val mbti = args.mbti
 
         mbtiList = mutableListOf(

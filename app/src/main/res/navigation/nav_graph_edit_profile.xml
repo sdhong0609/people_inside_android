@@ -11,17 +11,17 @@
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile">
         <action
-            android:id="@+id/action_editProfileFragment_to_myPageMbtiChoiceFragment"
-            app:destination="@id/myPageMbtiChoiceFragment"
+            android:id="@+id/action_editProfileFragment_to_editProfileMbtiChoiceFragment"
+            app:destination="@id/editProfileMbtiChoiceFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
-        android:id="@+id/myPageMbtiChoiceFragment"
+        android:id="@+id/editProfileMbtiChoiceFragment"
         android:name="com.beside153.peopleinside.view.mypage.editprofile.EditProfileMbtiChoiceFragment"
-        android:label="MyPageMbtiChoiceFragment">
+        android:label="EditProfileMbtiChoiceFragment">
         <argument
             android:name="mbti"
             app:argType="string" />

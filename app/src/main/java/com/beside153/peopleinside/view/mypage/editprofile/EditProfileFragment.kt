@@ -16,7 +16,6 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.mypage.EditProfileFragmentDirections
 import com.beside153.peopleinside.view.onboarding.signup.SignUpBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
@@ -64,7 +63,7 @@ class EditProfileFragment : BaseFragment() {
             viewLifecycleOwner,
             EventObserver {
                 val action =
-                    EditProfileFragmentDirections.actionEditProfileFragmentToMyPageMbtiChoiceFragment(mbti)
+                    EditProfileFragmentDirections.actionEditProfileFragmentToEditProfileMbtiChoiceFragment(mbti)
                 findNavController().navigate(action)
             }
         )

@@ -3,16 +3,16 @@ package com.beside153.peopleinside.view.notification
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityNotificationBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 
-class NotificationActivity : AppCompatActivity() {
+class NotificationActivity : BaseActivity() {
     private lateinit var binding: ActivityNotificationBinding
     private val notificationAdapter = NotificationListAdapter()
 

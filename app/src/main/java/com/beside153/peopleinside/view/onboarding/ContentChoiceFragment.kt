@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.util.EventObserver
@@ -19,7 +19,7 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel
 
-class ContentChoiceFragment : Fragment() {
+class ContentChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
     private val contentViewModel: SignUpContentChoiceViewModel by viewModels { SignUpContentChoiceViewModel.Factory }
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
