@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.editprofile
 
 import android.app.Activity.RESULT_OK
 import android.os.Bundle
@@ -16,6 +16,7 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.view.mypage.EditProfileFragmentDirections
 import com.beside153.peopleinside.view.onboarding.signup.SignUpBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
@@ -118,7 +119,7 @@ class EditProfileFragment : BaseFragment() {
             editProfileViewModel.setSelectedYear(year)
         }
 
-        setFragmentResultListener(MyPageMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
+        setFragmentResultListener(EditProfileMbtiChoiceFragment::class.java.simpleName) { _, bundle ->
             mbti = bundle.getString(MBTI_KEY) ?: INITIAL_MBTI
             editProfileViewModel.setSelectedMbti(mbti)
         }

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.contents
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageBookmarkContentBinding
 import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
 
-class BookmarkContentsListAdapter(private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit) :
-    ListAdapter<BookmarkedContentModel, BookmarkContentsListAdapter.ContentItemViewHolder>(
+class BookmarkedContentListAdapter(private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit) :
+    ListAdapter<BookmarkedContentModel, BookmarkedContentListAdapter.ContentItemViewHolder>(
         BookmarkContentItemDiffCallback()
     ) {
 
@@ -36,14 +36,14 @@ class BookmarkContentsListAdapter(private val onBookmarkClick: (item: Bookmarked
             binding.executePendingBindings()
         }
     }
-}
 
-private class BookmarkContentItemDiffCallback : DiffUtil.ItemCallback<BookmarkedContentModel>() {
-    override fun areItemsTheSame(oldItem: BookmarkedContentModel, newItem: BookmarkedContentModel): Boolean {
-        return oldItem.contentId == newItem.contentId
-    }
+    private class BookmarkContentItemDiffCallback : DiffUtil.ItemCallback<BookmarkedContentModel>() {
+        override fun areItemsTheSame(oldItem: BookmarkedContentModel, newItem: BookmarkedContentModel): Boolean {
+            return oldItem.contentId == newItem.contentId
+        }
 
-    override fun areContentsTheSame(oldItem: BookmarkedContentModel, newItem: BookmarkedContentModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: BookmarkedContentModel, newItem: BookmarkedContentModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

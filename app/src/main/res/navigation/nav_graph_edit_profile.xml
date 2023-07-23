@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.beside153.peopleinside.view.mypage.EditProfileFragment"
+        android:name="com.beside153.peopleinside.view.mypage.editprofile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageMbtiChoiceFragment"
-        android:name="com.beside153.peopleinside.view.mypage.MyPageMbtiChoiceFragment"
+        android:name="com.beside153.peopleinside.view.mypage.editprofile.EditProfileMbtiChoiceFragment"
         android:label="MyPageMbtiChoiceFragment">
         <argument
             android:name="mbti"

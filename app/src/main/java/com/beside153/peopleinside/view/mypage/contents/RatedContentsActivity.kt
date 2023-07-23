@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.contents
 
 import android.content.Context
 import android.content.Intent
@@ -28,10 +28,10 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
 
-class RatingContentsActivity : BaseActivity() {
+class RatedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
     private val contentsViewModel: RatingContentsViewModel by viewModels { RatingContentsViewModel.Factory }
-    private val contentListAdapter = RatingContentsListAdapter(::onRatingChanged, ::onVerticalDotsClick)
+    private val contentListAdapter = RatedContentListAdapter(::onRatingChanged, ::onVerticalDotsClick)
     private lateinit var popupView: View
     private lateinit var popupWindow: PopupWindow
     private lateinit var reviewFixTextView: TextView
@@ -49,17 +49,17 @@ class RatingContentsActivity : BaseActivity() {
 
         binding.apply {
             viewModel = contentsViewModel
-            lifecycleOwner = this@RatingContentsActivity
+            lifecycleOwner = this@RatedContentsActivity
         }
 
         binding.ratingContentsRecyclerView.apply {
             adapter = contentListAdapter
-            layoutManager = LinearLayoutManager(this@RatingContentsActivity)
+            layoutManager = LinearLayoutManager(this@RatedContentsActivity)
             addItemDecoration(
                 LinearLinelItemDecoration(
                     8f.dpToPx(resources.displayMetrics),
                     0f,
-                    ContextCompat.getColor(this@RatingContentsActivity, R.color.gray_300)
+                    ContextCompat.getColor(this@RatedContentsActivity, R.color.gray_300)
                 )
             )
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -186,7 +186,7 @@ class RatingContentsActivity : BaseActivity() {
         private const val FIXED_ITEM = "FIXED_ITEM"
 
         fun newIntent(context: Context): Intent {
-            return Intent(context, RatingContentsActivity::class.java)
+            return Intent(context, RatedContentsActivity::class.java)
         }
     }
 }

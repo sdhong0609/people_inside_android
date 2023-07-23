@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.editprofile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,10 +16,11 @@ import com.beside153.peopleinside.databinding.FragmentMyPageMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
+import com.beside153.peopleinside.view.mypage.MyPageMbtiChoiceFragmentArgs
 import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter
 import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
 
-class MyPageMbtiChoiceFragment : Fragment() {
+class EditProfileMbtiChoiceFragment : Fragment() {
     private lateinit var binding: FragmentMyPageMbtiChoiceBinding
     private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
     private var mbtiList = mutableListOf<MbtiModel>()
@@ -92,7 +93,7 @@ class MyPageMbtiChoiceFragment : Fragment() {
 
         binding.completeChooseButton.setOnClickListener {
             setFragmentResult(
-                MyPageMbtiChoiceFragment::class.java.simpleName,
+                EditProfileMbtiChoiceFragment::class.java.simpleName,
                 bundleOf(MBTI_KEY to (selectedMbtiItem?.mbtiText ?: INITIAL_MBTI))
             )
             findNavController().navigateUp()

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.setting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,14 +33,14 @@ class WithDrawalReasonAdapter(private val onRadioButtonClick: (item: WithDrawalR
             }
         }
     }
-}
 
-private class ReasonItemDiffCallback : DiffUtil.ItemCallback<WithDrawalReasonModel>() {
-    override fun areItemsTheSame(oldItem: WithDrawalReasonModel, newItem: WithDrawalReasonModel): Boolean {
-        return oldItem.reasonId == newItem.reasonId
-    }
+    private class ReasonItemDiffCallback : DiffUtil.ItemCallback<WithDrawalReasonModel>() {
+        override fun areItemsTheSame(oldItem: WithDrawalReasonModel, newItem: WithDrawalReasonModel): Boolean {
+            return oldItem.reasonId == newItem.reasonId
+        }
 
-    override fun areContentsTheSame(oldItem: WithDrawalReasonModel, newItem: WithDrawalReasonModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: WithDrawalReasonModel, newItem: WithDrawalReasonModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

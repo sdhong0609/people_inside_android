@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.contents
 
 import android.content.Context
 import android.content.Intent
@@ -18,9 +18,9 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
 
-class BookmarkContentsActivity : BaseActivity() {
+class BookmarkedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageBookmarkContentsBinding
-    private val contentsAdapter = BookmarkContentsListAdapter(::onBookmarkClick)
+    private val contentsAdapter = BookmarkedContentListAdapter(::onBookmarkClick)
     private val contentsViewModel: BookmarkedContentsViewModel by viewModels { BookmarkedContentsViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,12 +33,12 @@ class BookmarkContentsActivity : BaseActivity() {
 
         binding.apply {
             viewModel = contentsViewModel
-            lifecycleOwner = this@BookmarkContentsActivity
+            lifecycleOwner = this@BookmarkedContentsActivity
         }
 
         binding.bookmarkContentsRecyclerView.apply {
             adapter = contentsAdapter
-            layoutManager = GridLayoutManager(this@BookmarkContentsActivity, SPAN_COUNT)
+            layoutManager = GridLayoutManager(this@BookmarkedContentsActivity, SPAN_COUNT)
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -94,7 +94,7 @@ class BookmarkContentsActivity : BaseActivity() {
         private const val SPAN_COUNT = 3
 
         fun newIntent(context: Context): Intent {
-            return Intent(context, BookmarkContentsActivity::class.java)
+            return Intent(context, BookmarkedContentsActivity::class.java)
         }
     }
 }

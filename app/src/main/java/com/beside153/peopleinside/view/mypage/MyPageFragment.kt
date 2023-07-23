@@ -13,6 +13,10 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentMyPageBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.view.mypage.contents.BookmarkedContentsActivity
+import com.beside153.peopleinside.view.mypage.contents.RatedContentsActivity
+import com.beside153.peopleinside.view.mypage.editprofile.EditProfileActivity
+import com.beside153.peopleinside.view.mypage.setting.SettingActivity
 import com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel
 
 class MyPageFragment : BaseFragment() {
@@ -41,7 +45,7 @@ class MyPageFragment : BaseFragment() {
         myPageViewModel.bookmarkContentsClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                bookmarkContentsActivityLauncher.launch(BookmarkContentsActivity.newIntent(requireActivity()))
+                bookmarkContentsActivityLauncher.launch(BookmarkedContentsActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
             }
         )
@@ -49,7 +53,7 @@ class MyPageFragment : BaseFragment() {
         myPageViewModel.ratingContentsClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                ratingContentsActivityLauncher.launch(RatingContentsActivity.newIntent(requireActivity()))
+                ratingContentsActivityLauncher.launch(RatedContentsActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
             }
         )

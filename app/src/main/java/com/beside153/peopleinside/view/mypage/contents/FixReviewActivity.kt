@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.contents
 
 import android.content.Context
 import android.content.Intent
@@ -56,7 +56,7 @@ class FixReviewActivity : BaseActivity() {
                 val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
 
-                val intent = Intent(this, RatingContentsActivity::class.java)
+                val intent = Intent(this, RatedContentsActivity::class.java)
                 intent.putExtra(FIXED_ITEM, fixReviewViewModel.getFixedItem())
                 setResult(RESULT_OK, intent)
                 finish()

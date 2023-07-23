@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.mypage
+package com.beside153.peopleinside.view.mypage.contents
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMypageRatingContentBinding
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
 
-class RatingContentsListAdapter(
+class RatedContentListAdapter(
     private val onRatingChanged: (rating: Float, item: RatedContentModel) -> Unit,
     private val onVerticalDotsClick: (imageView: ImageView, item: RatedContentModel) -> Unit
 ) :
-    ListAdapter<RatedContentModel, RatingContentsListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
+    ListAdapter<RatedContentModel, RatedContentListAdapter.ContentItemViewHolder>(RatingContentItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageRatingContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -45,14 +45,14 @@ class RatingContentsListAdapter(
             binding.executePendingBindings()
         }
     }
-}
 
-private class RatingContentItemDiffCallback : DiffUtil.ItemCallback<RatedContentModel>() {
-    override fun areItemsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
-        return oldItem.contentId == newItem.contentId
-    }
+    private class RatingContentItemDiffCallback : DiffUtil.ItemCallback<RatedContentModel>() {
+        override fun areItemsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
+            return oldItem.contentId == newItem.contentId
+        }
 
-    override fun areContentsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: RatedContentModel, newItem: RatedContentModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -17,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.mypage.DeleteAccountActivity">
+        tools:context=".view.mypage.setting.DeleteAccountActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/deleteAccountAppBar"
