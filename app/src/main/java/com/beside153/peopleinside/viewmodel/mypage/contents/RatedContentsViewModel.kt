@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.viewmodel.mypage
+package com.beside153.peopleinside.viewmodel.mypage.contents
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,7 +20,7 @@ import com.beside153.peopleinside.util.roundToHalf
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class RatingContentsViewModel(
+class RatedContentsViewModel(
     private val myContentService: MyContentService,
     private val ratingService: RatingService,
     private val reviewService: ReviewService
@@ -138,7 +138,7 @@ class RatingContentsViewModel(
                 val myContentService = RetrofitClient.myContentService
                 val ratingService = RetrofitClient.ratingService
                 val reviewService = RetrofitClient.reviewService
-                return RatingContentsViewModel(myContentService, ratingService, reviewService) as T
+                return RatedContentsViewModel(myContentService, ratingService, reviewService) as T
             }
         }
     }

@@ -18,7 +18,7 @@ import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
-import com.beside153.peopleinside.viewmodel.login.NonMemberMbtiChoiceViewModel
+import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberMbtiChoiceViewModel
 
 class NonMemberMbtiChoiceActivity : BaseActivity() {
     private lateinit var binding: ActivityNonMemberMbtiChoiceBinding

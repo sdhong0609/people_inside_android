@@ -16,7 +16,7 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
-import com.beside153.peopleinside.viewmodel.mypage.FixReviewViewModel
+import com.beside153.peopleinside.viewmodel.mypage.editprofile.FixReviewViewModel
 
 class FixReviewActivity : BaseActivity() {
     private lateinit var binding: ActivityFixReviewBinding

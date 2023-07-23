@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.viewmodel.login
+package com.beside153.peopleinside.viewmodel.login.nonmember
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

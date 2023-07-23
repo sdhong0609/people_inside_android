@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.login.NonMemberMbtiChoiceViewModel" />
+            type="com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberMbtiChoiceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

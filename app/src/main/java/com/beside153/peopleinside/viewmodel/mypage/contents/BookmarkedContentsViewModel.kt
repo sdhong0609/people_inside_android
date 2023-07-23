@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.viewmodel.mypage
+package com.beside153.peopleinside.viewmodel.mypage.contents
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.viewmodel.login
+package com.beside153.peopleinside.viewmodel.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +18,7 @@ import com.beside153.peopleinside.view.onboarding.ContentScreenAdapter.ContentSc
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SignUpContentChoiceViewModel(
+class ContentChoiceViewModel(
     private val mediaContentService: MediaContentService,
     private val userService: UserService
 ) : BaseViewModel() {
@@ -120,7 +120,7 @@ class SignUpContentChoiceViewModel(
             ): T {
                 val mediaContentService = RetrofitClient.mediaContentService
                 val userService = RetrofitClient.userService
-                return SignUpContentChoiceViewModel(mediaContentService, userService) as T
+                return ContentChoiceViewModel(mediaContentService, userService) as T
             }
         }
     }

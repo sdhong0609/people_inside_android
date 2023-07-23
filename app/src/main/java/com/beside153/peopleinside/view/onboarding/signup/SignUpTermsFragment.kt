@@ -13,7 +13,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel
+import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpTermsViewModel
 
 class SignUpTermsFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpTermsBinding

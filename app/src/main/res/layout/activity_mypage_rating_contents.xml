@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.contents.RatedContentsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

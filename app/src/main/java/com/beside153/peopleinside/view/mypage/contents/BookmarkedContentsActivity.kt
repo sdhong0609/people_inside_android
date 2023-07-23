@@ -16,7 +16,7 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
-import com.beside153.peopleinside.viewmodel.mypage.BookmarkedContentsViewModel
+import com.beside153.peopleinside.viewmodel.mypage.contents.BookmarkedContentsViewModel
 
 class BookmarkedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageBookmarkContentsBinding

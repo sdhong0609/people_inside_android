@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.FixReviewViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.editprofile.FixReviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

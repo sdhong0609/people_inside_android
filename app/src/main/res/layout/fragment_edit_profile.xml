@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

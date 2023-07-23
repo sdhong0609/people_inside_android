@@ -26,11 +26,11 @@ import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
-import com.beside153.peopleinside.viewmodel.mypage.RatingContentsViewModel
+import com.beside153.peopleinside.viewmodel.mypage.contents.RatedContentsViewModel
 
 class RatedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
-    private val contentsViewModel: RatingContentsViewModel by viewModels { RatingContentsViewModel.Factory }
+    private val contentsViewModel: RatedContentsViewModel by viewModels { RatedContentsViewModel.Factory }
     private val contentListAdapter = RatedContentListAdapter(::onRatingChanged, ::onVerticalDotsClick)
     private lateinit var popupView: View
     private lateinit var popupWindow: PopupWindow

@@ -12,7 +12,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivitySignUpBinding
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.view.onboarding.ContentChoiceFragment
-import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
+import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpUserInfoViewModel
 
 class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding

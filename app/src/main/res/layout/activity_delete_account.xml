@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.DeleteAccountViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.setting.DeleteAccountViewModel" />
 
         <variable
             name="app"

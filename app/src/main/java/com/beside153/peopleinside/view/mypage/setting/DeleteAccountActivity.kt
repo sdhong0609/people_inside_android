@@ -15,7 +15,7 @@ import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
-import com.beside153.peopleinside.viewmodel.mypage.DeleteAccountViewModel
+import com.beside153.peopleinside.viewmodel.mypage.setting.DeleteAccountViewModel
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
 import timber.log.Timber

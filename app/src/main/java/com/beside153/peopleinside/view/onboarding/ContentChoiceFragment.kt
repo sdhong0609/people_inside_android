@@ -17,11 +17,11 @@ import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
-import com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel
+import com.beside153.peopleinside.viewmodel.onboarding.ContentChoiceViewModel
 
 class ContentChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
-    private val contentViewModel: SignUpContentChoiceViewModel by viewModels { SignUpContentChoiceViewModel.Factory }
+    private val contentViewModel: ContentChoiceViewModel by viewModels { ContentChoiceViewModel.Factory }
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
 
     override fun onCreateView(
