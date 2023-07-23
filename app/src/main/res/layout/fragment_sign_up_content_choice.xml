@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel" />
+            type="com.beside153.peopleinside.viewmodel.onboarding.ContentChoiceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.login.SignUpContentChoiceFragment">
+        tools:context=".view.onboarding.ContentChoiceFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/signUpContentChoiceAppBar"

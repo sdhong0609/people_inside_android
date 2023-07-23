@@ -3,20 +3,24 @@ package com.beside153.peopleinside.viewmodel.search
 import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.search.SearchHotModel
-import com.beside153.peopleinside.model.search.SearchedContentModel
-import com.beside153.peopleinside.model.search.SearchingTitleModel
-import com.beside153.peopleinside.model.search.ViewLogContentModel
-import com.beside153.peopleinside.service.SearchService
+import com.beside153.peopleinside.model.mediacontent.SearchHotModel
+import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
+import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val searchService: SearchService) : BaseViewModel() {
+class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel() {
 
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
@@ -50,8 +54,8 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     @Suppress("SpreadOperator")
     fun initSearchScreen() {
         viewModelScope.launch(exceptionHandler) {
-            val viwLogListDeferred = async { searchService.getViewLogList() }
-            val searchHotListDeferred = async { searchService.getHotContentList() }
+            val viwLogListDeferred = async { mediaContentService.getViewLogList() }
+            val searchHotListDeferred = async { mediaContentService.getHotContentList() }
 
             _viewLogList.value = viwLogListDeferred.await()
             searchHotList.value = searchHotListDeferred.await()
@@ -86,7 +90,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                searchingTitleList.value = searchService.getSearchingTitleList(_keyword.value ?: "")
+                searchingTitleList.value = mediaContentService.getSearchingTitleList(_keyword.value ?: "")
                 changeScreenWhenSearching()
                 return@launch
             }
@@ -103,7 +107,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
 
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                searchedContentList.value = searchService.getSearchedContentList(_keyword.value ?: "", page)
+                searchedContentList.value = mediaContentService.getSearchedContentList(_keyword.value ?: "", page)
                 if ((searchedContentList.value ?: emptyList()).isEmpty()) {
                     changeScreenWhenNoResult()
                     return@launch
@@ -116,7 +120,7 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
     fun loadMoreContentList() {
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                val newContentList = searchService.getSearchedContentList(_keyword.value ?: "", ++page)
+                val newContentList = mediaContentService.getSearchedContentList(_keyword.value ?: "", ++page)
                 searchedContentList.value = searchedContentList.value?.plus(newContentList)
 
                 changeScreenWhenSearchedContent()
@@ -149,5 +153,18 @@ class SearchViewModel(private val searchService: SearchService) : BaseViewModel(
         isSearching = true
         _keyword.value = item.title
         searchContentAction()
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(
+                modelClass: Class<T>,
+                extras: CreationExtras
+            ): T {
+                val mediaContentService = RetrofitClient.mediaContentService
+                return SearchViewModel(mediaContentService) as T
+            }
+        }
     }
 }

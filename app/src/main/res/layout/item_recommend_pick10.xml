@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.recommend.Pick10Model" />
+            type="com.beside153.peopleinside.model.mediacontent.Pick10Model" />
 
         <variable
             name="app"
@@ -15,7 +15,7 @@
 
         <variable
             name="writer"
-            type="com.beside153.peopleinside.model.recommend.Writer" />
+            type="com.beside153.peopleinside.model.mediacontent.Writer" />
 
         <variable
             name="hasReview"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bookmark_image"
             android:padding="18dp"
-            app:bookmarkImg="@{item.bookmarked}"
+            app:bookmarkGrayImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/pick10TitleTextView"
             app:layout_constraintTop_toTopOf="parent"

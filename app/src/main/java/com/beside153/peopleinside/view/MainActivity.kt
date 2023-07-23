@@ -4,19 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMainBinding
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.login.LoginActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
     private var previousMenuItemId = 0
 

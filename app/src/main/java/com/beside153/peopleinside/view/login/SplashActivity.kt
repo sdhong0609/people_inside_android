@@ -9,6 +9,7 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.view.MainActivity
+import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
 import com.beside153.peopleinside.viewmodel.login.SplashViewmodel
 
 @SuppressLint("CustomSplashScreen")

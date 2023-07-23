@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.login.UserInfo
+import com.beside153.peopleinside.model.user.UserInfo
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
@@ -41,8 +41,8 @@ class MyPageViewModel(private val myContentService: MyContentService, private va
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val bookmarkCountDeferred = async { myContentService.getBookmarkCount() }
-            val ratingCountDeferred = async { myContentService.getRatingCount() }
+            val bookmarkCountDeferred = async { myContentService.getBookmarkedCount() }
+            val ratingCountDeferred = async { myContentService.getRatedCount() }
             val userInfoDeffered = async { userService.getUserInfo(App.prefs.getUserId()) }
 
             _bookmarkCount.value = bookmarkCountDeferred.await()

@@ -1,7 +1,7 @@
 package com.beside153.peopleinside.service
 
-import com.beside153.peopleinside.model.login.UserInfo
-import com.beside153.peopleinside.model.mypage.EdittedUserInfo
+import com.beside153.peopleinside.model.user.UserInfo
+import com.beside153.peopleinside.model.editprofile.EdittedUserInfo
 import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.Body
 import retrofit2.http.PATCH

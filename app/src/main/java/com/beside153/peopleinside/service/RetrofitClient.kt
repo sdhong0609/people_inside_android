@@ -1,6 +1,10 @@
 package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.App
+import com.beside153.peopleinside.service.mediacontent.BookmarkService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.RatingService
+import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import kotlinx.serialization.json.Json
@@ -58,16 +62,15 @@ object RetrofitClient {
         }
     }
 
-    val signUpService: SignUpService = signUpRetrofit.create(SignUpService::class.java)
-    val userService: UserService = retrofit.create(UserService::class.java)
-    val recommendService: RecommendService = retrofit.create(RecommendService::class.java)
-    val contentDetailService: ContentDetailService = retrofit.create(ContentDetailService::class.java)
-    val searchService: SearchService = retrofit.create(SearchService::class.java)
+    val mediaContentService: MediaContentService = retrofit.create(MediaContentService::class.java)
+    val ratingService: RatingService = retrofit.create(RatingService::class.java)
+    val reviewService: ReviewService = retrofit.create(ReviewService::class.java)
     val bookmarkService: BookmarkService = retrofit.create(BookmarkService::class.java)
-    val likeToggleService: LikeToggleService = retrofit.create(LikeToggleService::class.java)
-    val reportService: ReportService = apiResponseRetrofit.create(ReportService::class.java)
     val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
-    val onBoardingService: OnBoardingService = retrofit.create(OnBoardingService::class.java)
-    val editProfileService: EditProfileService = apiResponseRetrofit.create(EditProfileService::class.java)
+    val reportService: ReportService = apiResponseRetrofit.create(ReportService::class.java)
+    val authService: AuthService = signUpRetrofit.create(AuthService::class.java)
+    val userService: UserService = retrofit.create(UserService::class.java)
     val withDrawalService: WithDrawalService = retrofit.create(WithDrawalService::class.java)
+
+    val editProfileService: EditProfileService = apiResponseRetrofit.create(EditProfileService::class.java)
 }

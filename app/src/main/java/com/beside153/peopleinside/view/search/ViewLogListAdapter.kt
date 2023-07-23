@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemSearchViewLogBinding
-import com.beside153.peopleinside.model.search.ViewLogContentModel
+import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 

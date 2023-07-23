@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.mypage.RatingContentModel" />
+            type="com.beside153.peopleinside.model.mycontent.RatedContentModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

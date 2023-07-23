@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel" />
+            type="com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.mypage.EditProfileFragment">
+        tools:context=".view.mypage.editprofile.EditProfileFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/editProfileAppBar"

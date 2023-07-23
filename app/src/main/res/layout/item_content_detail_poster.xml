@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.contentdetail.ContentDetailModel" />
+            type="com.beside153.peopleinside.model.mediacontent.ContentDetailModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

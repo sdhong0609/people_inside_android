@@ -14,9 +14,9 @@ import com.beside153.peopleinside.databinding.ItemSearchSearchingTitleBinding
 import com.beside153.peopleinside.databinding.ItemSearchSeenContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentBinding
 import com.beside153.peopleinside.databinding.ItemSearchTrendContentListBinding
-import com.beside153.peopleinside.model.search.SearchHotModel
-import com.beside153.peopleinside.model.search.SearchedContentModel
-import com.beside153.peopleinside.model.search.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.SearchHotModel
+import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
+import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.HotView
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.NoResultView

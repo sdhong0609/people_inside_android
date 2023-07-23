@@ -15,9 +15,9 @@ import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailNoCommentBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
-import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
-import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
+import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(

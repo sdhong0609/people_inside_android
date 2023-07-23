@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel" />
+            type="com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpTermsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".view.login.SignUpTermsFragment">
+        tools:context=".view.onboarding.signup.SignUpTermsFragment">
 
         <TextView
             android:id="@+id/termsTitleTextView"

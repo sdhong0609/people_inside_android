@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.recommend.SubRankingModel" />
+            type="com.beside153.peopleinside.model.mediacontent.SubRankingModel" />
 
         <variable
             name="app"

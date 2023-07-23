@@ -16,14 +16,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedCallback
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
-import com.beside153.peopleinside.view.commonview.CancelReviewDialog
-import com.beside153.peopleinside.view.commonview.CancelReviewDialogInterface
+import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
 
-class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
+class CreateReviewActivity : BaseActivity() {
     private lateinit var binding: ActivityCreateReviewBinding
     private val createReviewViewModel: CreateReviewViewModel by viewModels { CreateReviewViewModel.Factory }
-    private val cancelReviewDialog = CancelReviewDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +75,18 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
     }
 
     private fun showCancelReviewDialog() {
-        cancelReviewDialog.show(this.supportFragmentManager, cancelReviewDialog.tag)
+        val cancelReviewDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
+            .setTitle(R.string.will_you_cancel)
+            .setDescription(R.string.will_you_cancel_content)
+            .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
+                override fun onClickPositiveButton() {
+                    finish()
+                    setCloseActivityAnimation()
+                }
+
+                override fun onClickNegativeButton() = Unit
+            }).create()
+        cancelReviewDialog.show(supportFragmentManager, cancelReviewDialog.tag)
     }
 
     companion object {
@@ -91,10 +100,5 @@ class CreateReviewActivity : BaseActivity(), CancelReviewDialogInterface {
             intent.putExtra(CONTENT, content)
             return intent
         }
-    }
-
-    override fun onDialogYesButtonClick() {
-        finish()
-        setCloseActivityAnimation()
     }
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemRecommendPick10Binding
 import com.beside153.peopleinside.databinding.ItemRecommendPick10RefreshBinding
-import com.beside153.peopleinside.model.recommend.Pick10Model
+import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
 
 class Pick10ViewPagerAdapter(

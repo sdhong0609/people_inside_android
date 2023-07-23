@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.beside153.peopleinside.Configuration
 import com.beside153.peopleinside.Libraries
 
@@ -31,14 +30,14 @@ android {
     }
 
     buildTypes {
-        getByName("debug") {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
+//        getByName("debug") {
+//            isMinifyEnabled = true
+//            isShrinkResources = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//        }
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
@@ -60,47 +59,52 @@ android {
     }
 }
 
-tasks.named("preBuild").dependsOn("ktlintCheck")
-
 dependencies {
-    implementation(Libraries.KTX.CORE)
-    implementation(Libraries.AndroidX.APP_COMPAT)
-    implementation(Libraries.AndroidX.MATERIAL)
-    implementation(Libraries.AndroidX.CONSTRAINT_LAYOUT)
-    implementation(Libraries.Firebase.CRASHYTICS)
-    testImplementation(Libraries.Test.JUNIT)
-    androidTestImplementation(Libraries.AndroidTest.EXT_JUNIT)
-    androidTestImplementation(Libraries.AndroidTest.ESPRESSO_CORE)
+    // KTX
+    implementation(Libraries.KTX.core)
+
+    // AndroidX
+    implementation(Libraries.AndroidX.appcompat)
+    implementation(Libraries.AndroidX.material)
+    implementation(Libraries.AndroidX.constraintlayout)
+
+    // Test
+    testImplementation(Libraries.Test.junit)
+
+    // AndroidTest
+    androidTestImplementation(Libraries.AndroidTest.ext_junit)
+    androidTestImplementation(Libraries.AndroidTest.espresso_core)
+
+    // Firebase
+    implementation(platform(Libraries.Firebase.firebase_bom))
+    implementation(Libraries.Firebase.analytics)
+    implementation(Libraries.Firebase.crashlytics)
 
     // Navigation
-    implementation(Libraries.Navigation.NAVIGATION_FRAGMENT)
-    implementation(Libraries.Navigation.NAVIGATION_UI)
+    implementation(Libraries.Navigation.navigation_fragment)
+    implementation(Libraries.Navigation.navigation_ui)
 
     // Retrofit2
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation(Libraries.Retrofit2.retrofit2)
+    implementation(Libraries.Retrofit2.retrofit2_converter)
 
-    // kotlinx-serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    // Kotlinx Serialization Json
+    implementation(Libraries.KotlinxSerializationJson.kotlinx_serialization_json)
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation(Libraries.Glide.glide)
 
     // Kakao Login
-    implementation("com.kakao.sdk:v2-user:2.14.0")
+    implementation(Libraries.KakaoLogin.kakao_login)
 
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
-    implementation("androidx.activity:activity-ktx:1.7.2")
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
+    implementation(Libraries.ViewModel.viewmodel)
+    implementation(Libraries.ViewModel.activity_ktx)
+    implementation(Libraries.ViewModel.fragment_ktx)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(Libraries.Timber.timber)
 
     // sandwich
     implementation("com.github.skydoves:sandwich:1.3.7")
-
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
 }

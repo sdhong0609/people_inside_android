@@ -9,17 +9,18 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.contentdetail.ContentCommentModel
-import com.beside153.peopleinside.model.contentdetail.ContentDetailModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingModel
-import com.beside153.peopleinside.model.contentdetail.ContentRatingRequest
-import com.beside153.peopleinside.model.contentdetail.ContentReviewModel
-import com.beside153.peopleinside.service.BookmarkService
-import com.beside153.peopleinside.service.ContentDetailService
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
+import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
+import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
-import com.beside153.peopleinside.service.LikeToggleService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.RatingService
 import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
@@ -34,9 +35,10 @@ import retrofit2.HttpException
 
 @Suppress("TooManyFunctions")
 class ContentDetailViewModel(
-    private val contentDetailService: ContentDetailService,
+    private val mediaContentService: MediaContentService,
+    private val ratingService: RatingService,
+    private val reviewService: ReviewService,
     private val bookmarkService: BookmarkService,
-    private val likeToggleService: LikeToggleService,
     private val reportService: ReportService
 ) : BaseViewModel() {
 
@@ -80,7 +82,7 @@ class ContentDetailViewModel(
 
     fun loadMoreCommentList() {
         viewModelScope.launch(exceptionHandler) {
-            val newCommentList = contentDetailService.getContentReviewList(contentId, ++page)
+            val newCommentList = reviewService.getContentReviewList(contentId, ++page)
             commentList.value = commentList.value?.plus(newCommentList)
 
             @Suppress("SpreadOperator")
@@ -120,13 +122,13 @@ class ContentDetailViewModel(
             commentList.value = updatedList ?: emptyList()
             _screenList.value = screenList()
 
-            likeToggleService.postLikeToggle(contentId, item.reviewId)
+            reviewService.postLikeToggle(contentId, item.reviewId)
         }
     }
 
     fun reportComment(reportId: Int) {
         viewModelScope.launch(exceptionHandler) {
-            val response = reportService.postReport(contentId, commentIdForReport, reportId)
+            val response = reviewService.postReport(contentId, commentIdForReport, reportId)
 
             response.onSuccess {
                 _reportSuccessEvent.value = Event(true)
@@ -144,10 +146,10 @@ class ContentDetailViewModel(
         viewModelScope.launch(exceptionHandler) {
             initRating(contentId).join()
             initWriterReview(contentId).join()
-            val contentDetailItemDeferred = async { contentDetailService.getContentDetail(contentId) }
+            val contentDetailItemDeferred = async { mediaContentService.getContentDetail(contentId) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
-            val commentListDeferred = async { contentDetailService.getContentReviewList(contentId, page) }
-            val postViewLogDeferred = async { contentDetailService.postViewLog(contentId, ENTER) }
+            val commentListDeferred = async { reviewService.getContentReviewList(contentId, page) }
+            val postViewLogDeferred = async { mediaContentService.postViewLog(contentId, ENTER) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             bookmarked.value = bookmarkStatusDeferred.await()
@@ -161,7 +163,7 @@ class ContentDetailViewModel(
 
     fun postViewLogStay() {
         viewModelScope.launch(exceptionHandler) {
-            contentDetailService.postViewLog(contentId, STAY)
+            mediaContentService.postViewLog(contentId, STAY)
         }
     }
 
@@ -177,7 +179,7 @@ class ContentDetailViewModel(
         }
 
         return viewModelScope.launch(exceptionHandler) {
-            val writerReviewDeferred = async { contentDetailService.getWriterReview(contentId, App.prefs.getUserId()) }
+            val writerReviewDeferred = async { reviewService.getWriterReview(contentId, App.prefs.getUserId()) }
             writerReviewItem.value = writerReviewDeferred.await()
             writerHasReview.value = true
         }
@@ -198,7 +200,7 @@ class ContentDetailViewModel(
 
         return viewModelScope.launch(exceptionHandler) {
             val contentRatingItemDeferred =
-                async { contentDetailService.getContentRating(contentId, App.prefs.getUserId()) }
+                async { ratingService.getContentRating(contentId, App.prefs.getUserId()) }
             contentRatingItem.value = contentRatingItemDeferred.await()
             currentRating = contentRatingItem.value?.rating ?: 0f
             currentRatingId = contentRatingItem.value?.ratingId ?: 0
@@ -211,7 +213,7 @@ class ContentDetailViewModel(
 
             if (currentRating <= 0) {
                 contentRatingItem.value =
-                    contentDetailService.postContentRating(contentId, ContentRatingRequest(rating))
+                    ratingService.postContentRating(contentId, ContentRatingRequest(rating))
                 currentRating = rating
                 currentRatingId = contentRatingItem.value?.ratingId ?: 0
                 _createRatingEvent.value = Event(contentRatingItem.value!!)
@@ -219,12 +221,12 @@ class ContentDetailViewModel(
             }
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
             if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
-                contentDetailService.putContentRating(contentId, ContentRatingRequest(rating))
+                ratingService.putContentRating(contentId, ContentRatingRequest(rating))
                 currentRating = rating
                 return@launch
             }
             if (currentRatingHasValue && rating == 0f) {
-                contentDetailService.deleteContentRating(contentId, currentRatingId)
+                ratingService.deleteContentRating(contentId, currentRatingId)
                 currentRating = rating
             }
         }
@@ -277,14 +279,16 @@ class ContentDetailViewModel(
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val contentDetailService = RetrofitClient.contentDetailService
+                val mediaContentService = RetrofitClient.mediaContentService
+                val ratingService = RetrofitClient.ratingService
+                val reviewService = RetrofitClient.reviewService
                 val bookmarkService = RetrofitClient.bookmarkService
-                val likeToggleService = RetrofitClient.likeToggleService
                 val reportServie = RetrofitClient.reportService
                 return ContentDetailViewModel(
-                    contentDetailService,
+                    mediaContentService,
+                    ratingService,
+                    reviewService,
                     bookmarkService,
-                    likeToggleService,
                     reportServie
                 ) as T
             }

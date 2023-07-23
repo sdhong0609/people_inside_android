@@ -7,7 +7,7 @@
 
         <variable
             name="ratingItem"
-            type="com.beside153.peopleinside.model.contentdetail.ContentRatingModel" />
+            type="com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel" />
 
         <variable
             name="bookmarked"
@@ -66,7 +66,7 @@
                 android:layout_height="54dp"
                 android:background="@drawable/background_circle_gray"
                 android:contentDescription="@string/bookmark_image"
-                app:bookmarkImg="@{bookmarked}"
+                app:bookmarkGrayImg="@{bookmarked}"
                 app:layout_constraintBottom_toTopOf="@id/bookmarkTextView"
                 app:layout_constraintEnd_toStartOf="@id/verticalLineView"
                 app:layout_constraintStart_toStartOf="parent"

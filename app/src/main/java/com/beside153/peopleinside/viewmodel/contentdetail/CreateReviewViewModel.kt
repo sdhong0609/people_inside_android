@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.contentdetail.CreateReviewRequest
-import com.beside153.peopleinside.service.RecommendService
+import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.launch
 
-class CreateReviewViewModel(private val recommendService: RecommendService) : BaseViewModel() {
+class CreateReviewViewModel(private val reviewService: ReviewService) : BaseViewModel() {
 
     val reviewText = MutableLiveData("")
 
@@ -38,9 +38,9 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
         viewModelScope.launch(exceptionHandler) {
             if ((reviewText.value ?: "").isNotEmpty()) {
                 if (alreadyHadReview) {
-                    recommendService.putReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                    reviewService.putReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
                 } else {
-                    recommendService.postReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                    reviewService.postReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
                 }
                 _completeButtonClickEvent.value = Event(Unit)
             }
@@ -54,8 +54,8 @@ class CreateReviewViewModel(private val recommendService: RecommendService) : Ba
                 modelClass: Class<T>,
                 extras: CreationExtras
             ): T {
-                val recommendService = RetrofitClient.recommendService
-                return CreateReviewViewModel(recommendService) as T
+                val reviewService = RetrofitClient.reviewService
+                return CreateReviewViewModel(reviewService) as T
             }
         }
     }

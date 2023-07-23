@@ -8,16 +8,16 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.service.OnBoardingService
 import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class SplashViewmodel(private val reportService: ReportService, private val onBoardingService: OnBoardingService) :
+class SplashViewmodel(private val reportService: ReportService, private val userService: UserService) :
     BaseViewModel() {
 
     private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
@@ -30,7 +30,7 @@ class SplashViewmodel(private val reportService: ReportService, private val onBo
 
             var onBoardingCompleted = true
             if (App.prefs.getUserId() != 0 && App.prefs.getNickname() != "익명의 핍사이더") {
-                val onBoardingDeferred = async { onBoardingService.getOnBoardingCompleted(App.prefs.getUserId()) }
+                val onBoardingDeferred = async { userService.getOnBoardingCompleted(App.prefs.getUserId()) }
                 onBoardingCompleted = onBoardingDeferred.await()
             }
 
@@ -52,8 +52,8 @@ class SplashViewmodel(private val reportService: ReportService, private val onBo
                 extras: CreationExtras
             ): T {
                 val reportService = RetrofitClient.reportService
-                val onBoardingService = RetrofitClient.onBoardingService
-                return SplashViewmodel(reportService, onBoardingService) as T
+                val userService = RetrofitClient.userService
+                return SplashViewmodel(reportService, userService) as T
             }
         }
     }
