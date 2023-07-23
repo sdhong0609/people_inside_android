@@ -15,6 +15,8 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
+import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiChoiceActivity
+import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
 import com.beside153.peopleinside.viewmodel.login.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk

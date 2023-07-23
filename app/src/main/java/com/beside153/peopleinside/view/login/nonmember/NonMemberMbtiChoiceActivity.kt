@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.login.nonmember
 
 import android.content.Context
 import android.content.Intent

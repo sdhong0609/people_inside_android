@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="16dp"
-        tools:context=".view.login.SignUpTermsFragment">
+        tools:context=".view.onboarding.signup.SignUpTermsFragment">
 
         <TextView
             android:id="@+id/termsTitleTextView"

@@ -16,7 +16,7 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.login.SignUpBottomSheetFragment
+import com.beside153.peopleinside.view.onboarding.signup.SignUpBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.EditProfileViewModel
 
 class EditProfileFragment : BaseFragment() {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/signUpTermsFragment"
-        android:name="com.beside153.peopleinside.view.login.SignUpTermsFragment"
+        android:name="com.beside153.peopleinside.view.onboarding.signup.SignUpTermsFragment"
         android:label="on_boarding_user_fragment"
         tools:layout="@layout/fragment_sign_up_terms">
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpUserInfoFragment"
-        android:name="com.beside153.peopleinside.view.login.SignUpUserInfoFragment"
+        android:name="com.beside153.peopleinside.view.onboarding.signup.SignUpUserInfoFragment"
         android:label="fragment_sign_up_user_info"
         tools:layout="@layout/fragment_sign_up_user_info">
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpMbtiChoiceFragment"
-        android:name="com.beside153.peopleinside.view.login.SignUpMbtiChoiceFragment"
+        android:name="com.beside153.peopleinside.view.onboarding.signup.SignUpMbtiChoiceFragment"
         android:label="fragment_sign_up_mbti_choice"
         tools:layout="@layout/fragment_sign_up_mbti_choice">
         <argument
@@ -49,6 +49,6 @@
     </fragment>
     <fragment
         android:id="@+id/signUpContentChoiceFragment"
-        android:name="com.beside153.peopleinside.view.login.SignUpContentChoiceFragment"
+        android:name="com.beside153.peopleinside.view.onboarding.ContentChoiceFragment"
         android:label="SignUpContentChoiceFragment" />
 </navigation>

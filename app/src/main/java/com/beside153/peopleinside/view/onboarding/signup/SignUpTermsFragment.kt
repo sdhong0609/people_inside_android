@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding.signup
 
 import android.content.Intent
 import android.net.Uri
@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.view.login.SignUpTermsFragmentDirections
 import com.beside153.peopleinside.viewmodel.login.SignUpTermsViewModel
 
 class SignUpTermsFragment : Fragment() {

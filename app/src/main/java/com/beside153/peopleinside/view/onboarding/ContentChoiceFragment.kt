@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.login.SignUpContentChoiceViewModel
 
-class SignUpContentChoiceFragment : Fragment() {
+class ContentChoiceFragment : Fragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
     private val contentViewModel: SignUpContentChoiceViewModel by viewModels { SignUpContentChoiceViewModel.Factory }
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
@@ -38,7 +38,7 @@ class SignUpContentChoiceFragment : Fragment() {
 
         binding.apply {
             viewModel = contentViewModel
-            lifecycleOwner = this@SignUpContentChoiceFragment
+            lifecycleOwner = this@ContentChoiceFragment
         }
 
         contentViewModel.initAllData()

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding.signup
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,14 +34,14 @@ class SignUpYearListAdapter(private val onYearItemClick: (item: BirthYearModel) 
             binding.item = item
         }
     }
-}
 
-private class YearItemDiffCallback : DiffUtil.ItemCallback<BirthYearModel>() {
-    override fun areItemsTheSame(oldItem: BirthYearModel, newItem: BirthYearModel): Boolean {
-        return oldItem.year == newItem.year
-    }
+    private class YearItemDiffCallback : DiffUtil.ItemCallback<BirthYearModel>() {
+        override fun areItemsTheSame(oldItem: BirthYearModel, newItem: BirthYearModel): Boolean {
+            return oldItem.year == newItem.year
+        }
 
-    override fun areContentsTheSame(oldItem: BirthYearModel, newItem: BirthYearModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: BirthYearModel, newItem: BirthYearModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

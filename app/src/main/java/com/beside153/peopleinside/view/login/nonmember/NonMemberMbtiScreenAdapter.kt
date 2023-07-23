@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.login.nonmember
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemNonMemberMbtiTitleBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiListBinding
 import com.beside153.peopleinside.model.common.MbtiModel
-import com.beside153.peopleinside.view.login.NonMemberMbtiScreenAdapter.NonMemberMbtiScreenModel
+import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiScreenAdapter.NonMemberMbtiScreenModel
 
 class NonMemberMbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) :
     ListAdapter<NonMemberMbtiScreenModel, NonMemberMbtiScreenAdapter.ViewHolder>(
@@ -77,22 +77,22 @@ class NonMemberMbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) 
         object TitleViewItem : NonMemberMbtiScreenModel()
         data class MbtiListItem(val mbtiModel: MbtiModel) : NonMemberMbtiScreenModel()
     }
-}
 
-private class NonMemberMbtiScreenModelDiffCallback : DiffUtil.ItemCallback<NonMemberMbtiScreenModel>() {
-    override fun areItemsTheSame(oldItem: NonMemberMbtiScreenModel, newItem: NonMemberMbtiScreenModel): Boolean {
-        return when {
-            oldItem is NonMemberMbtiScreenModel.TitleViewItem &&
-                newItem is NonMemberMbtiScreenModel.TitleViewItem -> true
+    private class NonMemberMbtiScreenModelDiffCallback : DiffUtil.ItemCallback<NonMemberMbtiScreenModel>() {
+        override fun areItemsTheSame(oldItem: NonMemberMbtiScreenModel, newItem: NonMemberMbtiScreenModel): Boolean {
+            return when {
+                oldItem is NonMemberMbtiScreenModel.TitleViewItem &&
+                    newItem is NonMemberMbtiScreenModel.TitleViewItem -> true
 
-            oldItem is NonMemberMbtiScreenModel.MbtiListItem && newItem is NonMemberMbtiScreenModel.MbtiListItem ->
-                oldItem.mbtiModel.mbtiText == newItem.mbtiModel.mbtiText
+                oldItem is NonMemberMbtiScreenModel.MbtiListItem && newItem is NonMemberMbtiScreenModel.MbtiListItem ->
+                    oldItem.mbtiModel.mbtiText == newItem.mbtiModel.mbtiText
 
-            else -> false
+                else -> false
+            }
         }
-    }
 
-    override fun areContentsTheSame(oldItem: NonMemberMbtiScreenModel, newItem: NonMemberMbtiScreenModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: NonMemberMbtiScreenModel, newItem: NonMemberMbtiScreenModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

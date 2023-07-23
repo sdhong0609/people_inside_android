@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,8 @@ import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
-import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.login.SignUpMbtiChoiceFragmentArgs
 
 class SignUpMbtiChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpMbtiChoiceBinding

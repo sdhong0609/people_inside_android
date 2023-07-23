@@ -16,8 +16,8 @@ import com.beside153.peopleinside.databinding.FragmentMyPageMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.dpToPx
-import com.beside153.peopleinside.view.login.MbtiScreenAdapter
-import com.beside153.peopleinside.view.login.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter
+import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
 
 class MyPageMbtiChoiceFragment : Fragment() {
     private lateinit var binding: FragmentMyPageMbtiChoiceBinding

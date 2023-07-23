@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpContentChoiceTitleBinding
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
-import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
+import com.beside153.peopleinside.view.onboarding.ContentScreenAdapter.ContentScreenModel
 
 class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingContentModel) -> Unit) :
     ListAdapter<ContentScreenModel, ContentScreenAdapter.ViewHolder>(ContentScreenModelDiffCallback()) {
@@ -75,20 +75,20 @@ class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingCont
         object TitleViewItem : ContentScreenModel()
         data class ContentListItem(val contentModel: OnBoardingContentModel) : ContentScreenModel()
     }
-}
 
-private class ContentScreenModelDiffCallback : DiffUtil.ItemCallback<ContentScreenModel>() {
-    override fun areItemsTheSame(oldItem: ContentScreenModel, newItem: ContentScreenModel): Boolean {
-        return when {
-            oldItem is ContentScreenModel.TitleViewItem && newItem is ContentScreenModel.TitleViewItem -> true
-            oldItem is ContentScreenModel.ContentListItem && newItem is ContentScreenModel.ContentListItem ->
-                oldItem.contentModel.contentId == newItem.contentModel.contentId
+    private class ContentScreenModelDiffCallback : DiffUtil.ItemCallback<ContentScreenModel>() {
+        override fun areItemsTheSame(oldItem: ContentScreenModel, newItem: ContentScreenModel): Boolean {
+            return when {
+                oldItem is ContentScreenModel.TitleViewItem && newItem is ContentScreenModel.TitleViewItem -> true
+                oldItem is ContentScreenModel.ContentListItem && newItem is ContentScreenModel.ContentListItem ->
+                    oldItem.contentModel.contentId == newItem.contentModel.contentId
 
-            else -> false
+                else -> false
+            }
         }
-    }
 
-    override fun areContentsTheSame(oldItem: ContentScreenModel, newItem: ContentScreenModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: ContentScreenModel, newItem: ContentScreenModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.onboarding.signup
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.databinding.ActivitySignUpBinding
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.view.onboarding.ContentChoiceFragment
 import com.beside153.peopleinside.viewmodel.login.SignUpUserInfoViewModel
 
 class SignUpActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class SignUpActivity : AppCompatActivity() {
         val authToken = intent.getStringExtra(AUTH_TOKEN)
         if (authToken == ON_BOARDING) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.signUpFragmentContainer, SignUpContentChoiceFragment()).commit()
+                .replace(R.id.signUpFragmentContainer, ContentChoiceFragment()).commit()
             return
         }
         userInfoViewModel.setAuthToken(authToken ?: "")

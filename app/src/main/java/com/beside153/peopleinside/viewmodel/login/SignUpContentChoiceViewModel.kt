@@ -14,7 +14,7 @@ import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.view.login.ContentScreenAdapter.ContentScreenModel
+import com.beside153.peopleinside.view.onboarding.ContentScreenAdapter.ContentScreenModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
