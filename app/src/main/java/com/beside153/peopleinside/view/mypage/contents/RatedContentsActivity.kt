@@ -22,7 +22,7 @@ import com.beside153.peopleinside.databinding.ActivityMypageRatingContentsBindin
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.LinearLinelItemDecoration
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -41,7 +41,7 @@ class RatedContentsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mypage_rating_contents)
 
-        addBackPressedCallback { setResult(RESULT_OK) }
+        addBackPressedAnimation { setResult(RESULT_OK) }
 
         contentsViewModel.initAllData()
 

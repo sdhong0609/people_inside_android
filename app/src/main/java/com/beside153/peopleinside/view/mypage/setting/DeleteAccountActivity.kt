@@ -11,7 +11,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityDeleteAccountBinding
 import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
@@ -42,7 +42,7 @@ class DeleteAccountActivity : BaseActivity() {
             }
         }
 
-        addBackPressedCallback()
+        addBackPressedAnimation()
 
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance

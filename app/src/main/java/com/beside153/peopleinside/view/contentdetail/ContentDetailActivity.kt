@@ -17,7 +17,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
@@ -57,7 +57,7 @@ class ContentDetailActivity : BaseActivity() {
             lifecycleOwner = this@ContentDetailActivity
         }
 
-        addBackPressedCallback { setResult(RESULT_OK) }
+        addBackPressedAnimation { setResult(RESULT_OK) }
 
         val contentId = intent.getIntExtra(CONTENT_ID, 1)
         contentDetailViewModel.setContentId(contentId)

@@ -13,7 +13,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
@@ -27,7 +27,7 @@ class CreateReviewActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_review)
 
-        addBackPressedCallback()
+        addBackPressedAnimation()
 
         binding.apply {
             viewModel = createReviewViewModel

@@ -10,7 +10,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
@@ -45,7 +45,7 @@ class LoginActivity : BaseActivity() {
 
         // 비회원일 때 뒤로가기 설정
         if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
-            addBackPressedCallback { setResult(BACK_FROM_LOGINACTIVITY) }
+            addBackPressedAnimation { setResult(BACK_FROM_LOGINACTIVITY) }
 
             loginViewModel.backButtonClickEvent.observe(
                 this,
