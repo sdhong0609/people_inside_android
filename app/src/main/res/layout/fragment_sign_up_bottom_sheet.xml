@@ -39,7 +39,7 @@
             style="@style/textStyleBoldWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_agree_button"
+            android:background="@drawable/bg_black_button"
             android:enabled="true"
             android:text="@string/confirm"
             android:textSize="18sp"

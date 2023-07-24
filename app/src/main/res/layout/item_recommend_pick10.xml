@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@drawable/background_total_rating"
+            android:background="@drawable/bg_total_rating"
             android:gravity="center"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
@@ -108,7 +108,7 @@
             app:mbtiBackground="@{app.prefs.mbti}"
             app:mbtiLeftIcon="@{app.prefs.mbti}"
             app:mbtiTextColor="@{app.prefs.mbti}"
-            tools:background="@drawable/background_mbti_rating"
+            tools:background="@drawable/bg_mbti_rating_sample"
             tools:drawableStartCompat="@drawable/ic_clap_hands_white"
             tools:text="ESFJ 4.5점" />
 

@@ -58,7 +58,7 @@
                 app:mediaType="@{item.mediaType}"
                 app:movieKeyword="@{item.releaseDate.substring(0, 4)}"
                 app:tvKeyword='@{item.networks.size > 0 ? item.networks[0].name : ""}'
-                tools:background="@drawable/background_white_rounded"
+                tools:background="@drawable/bg_white_rounded"
                 tools:text="2022" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:background="@drawable/background_white_rounded"
+                android:background="@drawable/bg_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textSize="12sp"
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:background="@drawable/background_white_rounded"
+                android:background="@drawable/bg_white_rounded"
                 android:gravity="center"
                 android:padding="5dp"
                 android:textSize="12sp"
