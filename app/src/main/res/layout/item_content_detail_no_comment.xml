@@ -34,7 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:mbtiCircleImg="@{app.prefs.mbti}"
-                tools:src="@drawable/istj_circle_img" />
+                tools:src="@drawable/mbti_circle_icon_enfj" />
 
             <TextView
                 android:id="@+id/mbtiNicknameTextView"

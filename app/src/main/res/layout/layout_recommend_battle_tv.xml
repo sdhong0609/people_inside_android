@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.topMbtiRating.mbti : ""}'
-                    tools:src="@drawable/istj_circle_img" />
+                    tools:src="@drawable/mbti_circle_icon_enfj" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mbtiCircleImg='@{viewModel.tvBattleItem != null ? viewModel.tvBattleItem.bottomMbtiRating.mbti : ""}'
-                    tools:src="@drawable/istj_circle_img" />
+                    tools:src="@drawable/mbti_circle_icon_enfj" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
