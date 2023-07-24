@@ -116,13 +116,12 @@
             android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="133dp"
-            android:layout_marginBottom="159dp"
+            android:layout_marginVertical="20dp"
             app:cardCornerRadius="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/topCommentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/mbtiRatingTextView">
 
             <ImageView
                 android:id="@+id/posterImageView"
@@ -135,7 +134,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainCommentLayout"
+            android:id="@+id/topCommentLayout"
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:layout_marginHorizontal="26dp"
