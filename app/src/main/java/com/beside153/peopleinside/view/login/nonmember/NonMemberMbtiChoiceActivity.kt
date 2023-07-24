@@ -13,7 +13,7 @@ import com.beside153.peopleinside.databinding.ActivityNonMemberMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.GridSpacingItemDecoration
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -34,7 +34,7 @@ class NonMemberMbtiChoiceActivity : BaseActivity() {
             lifecycleOwner = this@NonMemberMbtiChoiceActivity
         }
 
-        addBackPressedCallback()
+        addBackPressedAnimation()
         initRecyclerView()
 
         mbtiChoiceViewmodel.initAllData()

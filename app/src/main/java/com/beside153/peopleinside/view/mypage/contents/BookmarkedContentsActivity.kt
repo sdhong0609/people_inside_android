@@ -13,7 +13,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
 import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.contents.BookmarkedContentsViewModel
@@ -27,7 +27,7 @@ class BookmarkedContentsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_mypage_bookmark_contents)
 
-        addBackPressedCallback { setResult(RESULT_OK) }
+        addBackPressedAnimation { setResult(RESULT_OK) }
 
         contentsViewModel.initAllData()
 

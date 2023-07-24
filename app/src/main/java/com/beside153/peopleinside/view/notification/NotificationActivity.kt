@@ -9,7 +9,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityNotificationBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 
 class NotificationActivity : BaseActivity() {
@@ -21,7 +21,7 @@ class NotificationActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
 
-        addBackPressedCallback()
+        addBackPressedAnimation()
 
         val notificationItemList = listOf(
             NotificationItem(

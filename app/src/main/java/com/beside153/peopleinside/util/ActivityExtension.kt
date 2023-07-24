@@ -13,7 +13,7 @@ fun Activity.setCloseActivityAnimation() {
     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 }
 
-fun AppCompatActivity.addBackPressedCallback(additionalFunction: (() -> Unit)? = null) {
+fun AppCompatActivity.addBackPressedAnimation(additionalFunction: (() -> Unit)? = null) {
     onBackPressedDispatcher.addCallback(
         this,
         object : OnBackPressedCallback(true) {

@@ -11,7 +11,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityRecommendSubRankingBinding
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.addBackPressedCallback
+import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -27,7 +27,7 @@ class RecommendSubRankingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend_sub_ranking)
 
-        addBackPressedCallback()
+        addBackPressedAnimation()
 
         binding.viewModel = subRankingViewModel
 
