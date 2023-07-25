@@ -150,11 +150,10 @@
                 android:contentDescription="@string/checkbox"
                 android:onClick="@{() -> viewModel.onAgreeDeleteClick()}"
                 app:checkBoxImg="@{viewModel.checkedAgreeDelete}"
-                app:layout_constraintBottom_toTopOf="@id/deleteAccountButton"
+                app:layout_constraintBottom_toBottomOf="@id/checkboxTextView"
                 app:layout_constraintEnd_toStartOf="@id/checkboxTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0"
+                app:layout_constraintTop_toTopOf="@id/checkboxTextView"
                 tools:src="@drawable/ic_checkbox_checked" />
 
             <TextView
