@@ -9,17 +9,17 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
-import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.ErrorEnvelopeMapper
-import com.beside153.peopleinside.service.mediacontent.MediaContentService
-import com.beside153.peopleinside.service.mediacontent.RatingService
-import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.RetrofitClient
+import com.beside153.peopleinside.service.mediacontent.BookmarkService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
+import com.beside153.peopleinside.service.mediacontent.PostReportService
+import com.beside153.peopleinside.service.mediacontent.RatingService
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
@@ -39,7 +39,7 @@ class ContentDetailViewModel(
     private val ratingService: RatingService,
     private val reviewService: ReviewService,
     private val bookmarkService: BookmarkService,
-    private val reportService: ReportService
+    private val postReportService: PostReportService
 ) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
@@ -128,7 +128,7 @@ class ContentDetailViewModel(
 
     fun reportComment(reportId: Int) {
         viewModelScope.launch(exceptionHandler) {
-            val response = reviewService.postReport(contentId, commentIdForReport, reportId)
+            val response = postReportService.postReport(contentId, commentIdForReport, reportId)
 
             response.onSuccess {
                 _reportSuccessEvent.value = Event(true)
@@ -283,13 +283,13 @@ class ContentDetailViewModel(
                 val ratingService = RetrofitClient.ratingService
                 val reviewService = RetrofitClient.reviewService
                 val bookmarkService = RetrofitClient.bookmarkService
-                val reportServie = RetrofitClient.reportService
+                val postReportService = RetrofitClient.postReportService
                 return ContentDetailViewModel(
                     mediaContentService,
                     ratingService,
                     reviewService,
                     bookmarkService,
-                    reportServie
+                    postReportService
                 ) as T
             }
         }

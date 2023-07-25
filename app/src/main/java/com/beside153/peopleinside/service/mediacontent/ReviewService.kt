@@ -4,7 +4,6 @@ import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
 import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
 import com.beside153.peopleinside.model.mediacontent.review.LikeToggleResponse
-import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -38,10 +37,10 @@ interface ReviewService {
     @POST("/api/media-content/{contentId}/review/{reviewId}/like")
     suspend fun postLikeToggle(@Path("contentId") contentId: Int, @Path("reviewId") reviewId: Int): LikeToggleResponse
 
-    @POST("/api/media-content/{contentId}/review/{reviewId}/report/{reportId}")
-    suspend fun postReport(
-        @Path("contentId") contentId: Int,
-        @Path("reviewId") reviewId: Int,
-        @Path("reportId") reportId: Int
-    ): ApiResponse<Boolean>
+//    @POST("/api/media-content/{contentId}/review/{reviewId}/report/{reportId}")
+//    suspend fun postReport(
+//        @Path("contentId") contentId: Int,
+//        @Path("reviewId") reviewId: Int,
+//        @Path("reportId") reportId: Int
+//    ): ApiResponse<Boolean>
 }
