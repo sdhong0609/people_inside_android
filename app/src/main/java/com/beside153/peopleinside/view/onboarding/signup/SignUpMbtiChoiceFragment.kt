@@ -14,8 +14,6 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
-import com.beside153.peopleinside.util.GridSpacingItemDecoration
-import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
 
 class SignUpMbtiChoiceFragment : BaseFragment() {
@@ -77,7 +75,6 @@ class SignUpMbtiChoiceFragment : BaseFragment() {
         binding.mbtiScreenRecyclerView.apply {
             adapter = mbtiAdapter
             layoutManager = gridLayoutManager
-            addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
 
             when (selectedMbtiItem?.mbtiText) {
                 "ENTP", "ESTJ", "ISTJ", "INTJ", "ISTP", "ESTP", "ENTJ" -> scrollToPosition(mbtiList.size)
