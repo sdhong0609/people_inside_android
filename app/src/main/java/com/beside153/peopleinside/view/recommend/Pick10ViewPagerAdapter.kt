@@ -84,9 +84,7 @@ class Pick10ViewPagerAdapter(
 
         class RefreshViewHolder(binding: ItemRecommendPick10RefreshBinding) : ViewHolder(binding.root) {
 
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
     }
 

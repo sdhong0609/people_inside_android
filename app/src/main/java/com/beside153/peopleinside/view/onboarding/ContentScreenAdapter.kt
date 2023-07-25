@@ -57,9 +57,7 @@ class ContentScreenAdapter(private val onContentItemClick: (item: OnBoardingCont
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         class TitleViewHolder(binding: ItemSignUpContentChoiceTitleBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class ContentListItemViewHolder(private val binding: ItemSignUpContentChoiceListBinding) :

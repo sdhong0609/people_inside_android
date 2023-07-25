@@ -61,9 +61,7 @@ class NonMemberMbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         class TitleViewHolder(binding: ItemNonMemberMbtiTitleBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class MbtiListItemViewHolder(private val binding: ItemSignUpMbtiListBinding) : ViewHolder(binding.root) {
