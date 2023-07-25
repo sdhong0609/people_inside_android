@@ -147,12 +147,15 @@
 
             <ImageView
                 android:id="@+id/mbtiIconImageView"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/mbti_icon"
+                android:minWidth="22dp"
+                android:minHeight="22dp"
+                app:layout_constraintBottom_toBottomOf="@id/mbtiNicknameTextView"
                 app:layout_constraintEnd_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mbtiNicknameTextView"
                 app:mbtiCircleImg="@{hasReview ? item.topLikeReview.writer.mbti : app.prefs.mbti}"
                 tools:src="@drawable/mbti_circle_icon_enfj" />
 
@@ -168,7 +171,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
 
             <TextView
