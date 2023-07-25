@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.databinding.ItemNonMemberMbtiTitleBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiTitleBinding
 import com.beside153.peopleinside.model.common.MbtiModel
@@ -17,7 +18,8 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is MbtiScreenModel.TitleViewItem -> R.layout.item_sign_up_mbti_title
+            is MbtiScreenModel.SignUpTitleView -> R.layout.item_sign_up_mbti_title
+            is MbtiScreenModel.NonMemberTitleView -> R.layout.item_non_member_mbti_title
             is MbtiScreenModel.MbtiListItem -> R.layout.item_sign_up_mbti_list
         }
     }
@@ -28,7 +30,12 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
         return when (viewType) {
             R.layout.item_sign_up_mbti_title -> {
                 val binding = ItemSignUpMbtiTitleBinding.inflate(inflater, parent, false)
-                ViewHolder.TitleViewHolder(binding)
+                ViewHolder.SingUpTitleViewHolder(binding)
+            }
+
+            R.layout.item_non_member_mbti_title -> {
+                val binding = ItemNonMemberMbtiTitleBinding.inflate(inflater, parent, false)
+                ViewHolder.NonMemberTitleViewHolder(binding)
             }
 
             else -> {
@@ -49,14 +56,19 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
-            is ViewHolder.TitleViewHolder -> holder.bind()
+            is ViewHolder.SingUpTitleViewHolder -> holder.bind()
+            is ViewHolder.NonMemberTitleViewHolder -> holder.bind()
             is ViewHolder.MbtiListItemViewHolder -> holder.bind(getItem(position) as MbtiScreenModel.MbtiListItem)
         }
     }
 
     sealed class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        class TitleViewHolder(binding: ItemSignUpMbtiTitleBinding) : ViewHolder(binding.root) {
+        class SingUpTitleViewHolder(binding: ItemSignUpMbtiTitleBinding) : ViewHolder(binding.root) {
+            fun bind() = Unit
+        }
+
+        class NonMemberTitleViewHolder(binding: ItemNonMemberMbtiTitleBinding) : ViewHolder(binding.root) {
             fun bind() = Unit
         }
 
@@ -68,14 +80,16 @@ class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) 
     }
 
     sealed class MbtiScreenModel {
-        object TitleViewItem : MbtiScreenModel()
+        object SignUpTitleView : MbtiScreenModel()
+        object NonMemberTitleView : MbtiScreenModel()
         data class MbtiListItem(val mbtiModel: MbtiModel) : MbtiScreenModel()
     }
 
     private class MbtiScreenModelDiffCallback : DiffUtil.ItemCallback<MbtiScreenModel>() {
         override fun areItemsTheSame(oldItem: MbtiScreenModel, newItem: MbtiScreenModel): Boolean {
             return when {
-                oldItem is MbtiScreenModel.TitleViewItem && newItem is MbtiScreenModel.TitleViewItem -> true
+                oldItem is MbtiScreenModel.SignUpTitleView && newItem is MbtiScreenModel.SignUpTitleView -> true
+                oldItem is MbtiScreenModel.NonMemberTitleView && newItem is MbtiScreenModel.NonMemberTitleView -> true
                 oldItem is MbtiScreenModel.MbtiListItem && newItem is MbtiScreenModel.MbtiListItem ->
                     oldItem.mbtiModel.mbtiText == newItem.mbtiModel.mbtiText
 

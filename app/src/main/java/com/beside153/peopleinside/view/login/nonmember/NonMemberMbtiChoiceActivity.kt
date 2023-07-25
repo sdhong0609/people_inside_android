@@ -16,11 +16,12 @@ import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
+import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter
 import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberMbtiChoiceViewModel
 
 class NonMemberMbtiChoiceActivity : BaseActivity() {
     private lateinit var binding: ActivityNonMemberMbtiChoiceBinding
-    private val mbtiAdapter = NonMemberMbtiScreenAdapter(::onMbtiItemClick)
+    private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
     private val mbtiChoiceViewmodel: NonMemberMbtiChoiceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

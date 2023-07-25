@@ -6,7 +6,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiScreenAdapter.NonMemberMbtiScreenModel
+import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
 
 class NonMemberMbtiChoiceViewModel : BaseViewModel() {
     private val _completeButtonClickEvent = MutableLiveData<Event<String>>()
@@ -15,8 +15,8 @@ class NonMemberMbtiChoiceViewModel : BaseViewModel() {
     private val _isCompleteButtonEnable = MutableLiveData(false)
     val isCompleteButtonEnable: LiveData<Boolean> get() = _isCompleteButtonEnable
 
-    private val _screenList = MutableLiveData<List<NonMemberMbtiScreenModel>>()
-    val screenList: LiveData<List<NonMemberMbtiScreenModel>> get() = _screenList
+    private val _screenList = MutableLiveData<List<MbtiScreenModel>>()
+    val screenList: LiveData<List<MbtiScreenModel>> get() = _screenList
 
     private var mbtiList = mutableListOf<MbtiModel>()
     private var selectedMbtiItem: MbtiModel? = null
@@ -61,10 +61,10 @@ class NonMemberMbtiChoiceViewModel : BaseViewModel() {
     }
 
     @Suppress("SpreadOperator")
-    private fun screenList(): List<NonMemberMbtiScreenModel> {
+    private fun screenList(): List<MbtiScreenModel> {
         return listOf(
-            NonMemberMbtiScreenModel.TitleViewItem,
-            *mbtiList.map { NonMemberMbtiScreenModel.MbtiListItem(it) }.toTypedArray()
+            MbtiScreenModel.NonMemberTitleView,
+            *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
         )
     }
 

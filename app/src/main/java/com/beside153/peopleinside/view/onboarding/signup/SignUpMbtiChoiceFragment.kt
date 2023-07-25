@@ -113,7 +113,7 @@ class SignUpMbtiChoiceFragment : BaseFragment() {
     @Suppress("SpreadOperator")
     private fun screenList(): List<MbtiScreenModel> {
         return listOf(
-            MbtiScreenModel.TitleViewItem,
+            MbtiScreenModel.SignUpTitleView,
             *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
         )
     }
