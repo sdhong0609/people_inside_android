@@ -35,6 +35,17 @@
                     android:contentDescription="@string/back_button"
                     android:src="@drawable/ic_left_arrow" />
 
+                <TextView
+                    style="@style/textStyleBoldBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:ellipsize="end"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:text="@string/edit_mbti"
+                    android:textSize="20sp" />
+
             </com.google.android.material.appbar.MaterialToolbar>
 
         </com.google.android.material.appbar.AppBarLayout>

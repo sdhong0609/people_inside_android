@@ -12,17 +12,16 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityNonMemberMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.GridSpacingItemDecoration
 import com.beside153.peopleinside.util.addBackPressedAnimation
-import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
+import com.beside153.peopleinside.view.common.MbtiChoiceScreenAdapter
 import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberMbtiChoiceViewModel
 
 class NonMemberMbtiChoiceActivity : BaseActivity() {
     private lateinit var binding: ActivityNonMemberMbtiChoiceBinding
-    private val mbtiAdapter = NonMemberMbtiScreenAdapter(::onMbtiItemClick)
+    private val mbtiAdapter = MbtiChoiceScreenAdapter(::onMbtiItemClick)
     private val mbtiChoiceViewmodel: NonMemberMbtiChoiceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +80,6 @@ class NonMemberMbtiChoiceActivity : BaseActivity() {
         binding.mbtiScreenRecyclerView.apply {
             adapter = mbtiAdapter
             layoutManager = gridLayoutManager
-            addItemDecoration(GridSpacingItemDecoration(16.dpToPx(resources.displayMetrics)))
         }
     }
 

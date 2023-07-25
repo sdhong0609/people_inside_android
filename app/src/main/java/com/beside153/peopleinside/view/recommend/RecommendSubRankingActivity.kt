@@ -23,7 +23,7 @@ import com.beside153.peopleinside.viewmodel.recommend.SubRankingViewModel
 class RecommendSubRankingActivity : BaseActivity() {
     private lateinit var binding: ActivityRecommendSubRankingBinding
     private val subRankingViewModel: SubRankingViewModel by viewModels { SubRankingViewModel.Factory }
-    private val rankingAdpater = RankingRecyclerViewAdapter(::onSubRankingItemClick)
+    private val rankingAdpater = SubRankingListAdapter(::onSubRankingItemClick)
     private var mediaType = "all"
 
     override fun onCreate(savedInstanceState: Bundle?) {

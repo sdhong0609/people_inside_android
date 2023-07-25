@@ -15,9 +15,9 @@ import com.beside153.peopleinside.databinding.ItemContentDetailInfoBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailNoCommentBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailPosterBinding
 import com.beside153.peopleinside.databinding.ItemContentDetailReviewBinding
-import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
 
 class ContentDetailScreenAdapter(
@@ -136,9 +136,7 @@ class ContentDetailScreenAdapter(
         }
 
         class CommentsViewHolder(binding: ItemContentDetailCommentsBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class CommentItemViewHolder(
@@ -177,9 +175,7 @@ class ContentDetailScreenAdapter(
         }
 
         class NoCommentViewHolder(binding: ItemContentDetailNoCommentBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
     }
 

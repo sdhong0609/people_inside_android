@@ -11,15 +11,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp">
 
         <ImageView
             android:id="@+id/mbtiImageView"
-            android:layout_width="92dp"
-            android:layout_height="92dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:alpha="@{item.isChosen ? 1.0f : 0.3f}"
             android:contentDescription="@string/mbti_icon"
+            app:layout_constraintBottom_toTopOf="@id/mbtiTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

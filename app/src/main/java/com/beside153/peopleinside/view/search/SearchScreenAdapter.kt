@@ -150,9 +150,7 @@ class SearchScreenAdapter(
         }
 
         class NoResultViewHolder(binding: ItemSearchNoResultBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class SeenViewHolder(
@@ -167,16 +165,12 @@ class SearchScreenAdapter(
         }
 
         class NoViewLogViewHolder(binding: ItemSearchNoViewLogBinding) : ViewHolder(binding.root) {
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class HotViewHolder(binding: ItemSearchTrendContentBinding) : ViewHolder(binding.root) {
 
-            fun bind() {
-                // binding 없음
-            }
+            fun bind() = Unit
         }
 
         class SearchHotItemViewHolder(private val binding: ItemSearchTrendContentListBinding) :
