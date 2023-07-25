@@ -296,6 +296,7 @@
                         android:id="@+id/subRankingRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
                         app:isVisibleInVisible="@{!viewModel.subRankingProgressBarVisible}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
