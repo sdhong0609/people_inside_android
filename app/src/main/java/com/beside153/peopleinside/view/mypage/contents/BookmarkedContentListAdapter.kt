@@ -15,24 +15,23 @@ class BookmarkedContentListAdapter(private val onBookmarkClick: (item: Bookmarke
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageBookmarkContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ContentItemViewHolder(binding, onBookmarkClick)
+        binding.bookmarkImageView.setOnClickListener {
+            if (binding.item != null) {
+                onBookmarkClick(binding.item!!)
+            }
+        }
+        return ContentItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ContentItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ContentItemViewHolder(
-        private val binding: ItemMypageBookmarkContentBinding,
-        private val onBookmarkClick: (item: BookmarkedContentModel) -> Unit
-    ) :
+    class ContentItemViewHolder(private val binding: ItemMypageBookmarkContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: BookmarkedContentModel) {
             binding.item = item
-            binding.bookmarkImageView.setOnClickListener {
-                onBookmarkClick(item)
-            }
             binding.executePendingBindings()
         }
     }
