@@ -25,6 +25,7 @@
             android:layout_width="100dp"
             android:layout_height="140dp"
             app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toTopOf="@id/lineView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
