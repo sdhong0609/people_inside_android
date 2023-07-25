@@ -32,7 +32,7 @@ class RecommendFragment : BaseFragment() {
 
     private val pagerAdapter =
         Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopReviewClick, ::onBookmarkClick, ::onRefreshClick)
-    private val rankingAdpater = RankingRecyclerViewAdapter(::onSubRankingItemClick)
+    private val rankingAdpater = SubRankingListAdapter(::onSubRankingItemClick)
     private var scrollPosition: Int = 0
 
     override fun onCreateView(

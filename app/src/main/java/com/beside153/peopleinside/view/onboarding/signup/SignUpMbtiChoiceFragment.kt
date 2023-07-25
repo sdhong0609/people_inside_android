@@ -14,11 +14,12 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentSignUpMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
-import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.common.MbtiChoiceScreenAdapter
+import com.beside153.peopleinside.view.common.MbtiChoiceScreenAdapter.MbtiScreenModel
 
 class SignUpMbtiChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpMbtiChoiceBinding
-    private val mbtiAdapter = MbtiScreenAdapter(::onMbtiItemClick)
+    private val mbtiAdapter = MbtiChoiceScreenAdapter(::onMbtiItemClick)
     private var mbtiList = mutableListOf<MbtiModel>()
     private var selectedMbtiItem: MbtiModel? = null
 

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.onboarding.signup
+package com.beside153.peopleinside.view.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,9 @@ import com.beside153.peopleinside.databinding.FragmentSignUpBottomSheetBinding
 import com.beside153.peopleinside.model.common.BirthYearModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
+class BirthYearBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSignUpBottomSheetBinding
-    private val yearListAdapter = SignUpYearListAdapter(::onYearItemClick)
+    private val yearListAdapter = BirthYearListAdapter(::onYearItemClick)
     private var yearList = mutableListOf<BirthYearModel>()
     private var selectedYearItem: BirthYearModel? = null
     private var selectedIndex = 0
@@ -45,7 +45,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
 
         binding.confirmButton.setOnClickListener {
             setFragmentResult(
-                SignUpBottomSheetFragment::class.java.simpleName,
+                BirthYearBottomSheetFragment::class.java.simpleName,
                 bundleOf(YEAR_KEY to (selectedYearItem?.year ?: FIRST_YEAR))
             )
             dismiss()
@@ -72,7 +72,7 @@ class SignUpBottomSheetFragment : BottomSheetDialogFragment() {
         private const val FIRST_YEAR = 1964
         private const val YEAR_KEY = "year"
 
-        fun newInstance(year: Int) = SignUpBottomSheetFragment().apply {
+        fun newInstance(year: Int) = BirthYearBottomSheetFragment().apply {
             arguments = bundleOf(YEAR_KEY to year)
         }
     }

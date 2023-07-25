@@ -16,7 +16,7 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.onboarding.signup.SignUpBottomSheetFragment
+import com.beside153.peopleinside.view.common.BirthYearBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel
 
 class EditProfileFragment : BaseFragment() {
@@ -54,7 +54,7 @@ class EditProfileFragment : BaseFragment() {
         editProfileViewModel.birthYearClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                val bottomSheet = SignUpBottomSheetFragment.newInstance(year)
+                val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
                 bottomSheet.show(childFragmentManager, bottomSheet.tag)
             }
         )
@@ -111,7 +111,7 @@ class EditProfileFragment : BaseFragment() {
 
     private fun setFragmentsResultListener() {
         childFragmentManager.setFragmentResultListener(
-            SignUpBottomSheetFragment::class.java.simpleName,
+            BirthYearBottomSheetFragment::class.java.simpleName,
             this
         ) { _, bundle ->
             year = bundle.getInt(YEAR_KEY)

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.onboarding.signup
+package com.beside153.peopleinside.view.common
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +11,10 @@ import com.beside153.peopleinside.databinding.ItemNonMemberMbtiTitleBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiListBinding
 import com.beside153.peopleinside.databinding.ItemSignUpMbtiTitleBinding
 import com.beside153.peopleinside.model.common.MbtiModel
-import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.common.MbtiChoiceScreenAdapter.MbtiScreenModel
 
-class MbtiScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) :
-    ListAdapter<MbtiScreenModel, MbtiScreenAdapter.ViewHolder>(MbtiScreenModelDiffCallback()) {
+class MbtiChoiceScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> Unit) :
+    ListAdapter<MbtiScreenModel, MbtiChoiceScreenAdapter.ViewHolder>(MbtiScreenModelDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {

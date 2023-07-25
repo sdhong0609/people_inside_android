@@ -6,7 +6,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.MbtiModel
 import com.beside153.peopleinside.util.Event
-import com.beside153.peopleinside.view.onboarding.signup.MbtiScreenAdapter.MbtiScreenModel
+import com.beside153.peopleinside.view.common.MbtiChoiceScreenAdapter.MbtiScreenModel
 
 class NonMemberMbtiChoiceViewModel : BaseViewModel() {
     private val _completeButtonClickEvent = MutableLiveData<Event<String>>()

@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.onboarding.signup
+package com.beside153.peopleinside.view.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemSignUpBirthYearBinding
 import com.beside153.peopleinside.model.common.BirthYearModel
 
-class SignUpYearListAdapter(private val onYearItemClick: (item: BirthYearModel) -> Unit) :
-    ListAdapter<BirthYearModel, SignUpYearListAdapter.YearItemViewHolder>(YearItemDiffCallback()) {
+class BirthYearListAdapter(private val onYearItemClick: (item: BirthYearModel) -> Unit) :
+    ListAdapter<BirthYearModel, BirthYearListAdapter.YearItemViewHolder>(YearItemDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YearItemViewHolder {
         val binding = ItemSignUpBirthYearBinding.inflate(LayoutInflater.from(parent.context), parent, false)
