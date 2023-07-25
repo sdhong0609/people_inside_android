@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/background_agree_button"
+            android:background="@drawable/bg_black_button"
             android:enabled="@{!TextUtils.isEmpty(viewModel.reviewText)}"
             android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
             android:text="@string/complete"

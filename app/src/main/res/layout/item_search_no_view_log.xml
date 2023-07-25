@@ -30,7 +30,7 @@
             style="@style/textStyleMediumGray700"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_search_bar"
+            android:background="@drawable/bg_search_bar"
             android:gravity="center"
             android:paddingHorizontal="63dp"
             android:paddingVertical="62dp"

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="5dp"
-        android:background="@drawable/background_card_shadow"
+        android:background="@drawable/bg_card_shadow"
         android:minHeight="116dp"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,13 +24,17 @@
 
         <ImageView
             android:id="@+id/mbtiIconImageView"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/mbti_icon"
+            android:minWidth="22dp"
+            android:minHeight="22dp"
+            app:layout_constraintBottom_toBottomOf="@id/mbtiNicknameTextView"
+            app:layout_constraintEnd_toStartOf="@id/mbtiNicknameTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/mbtiNicknameTextView"
             app:mbtiCircleImg="@{item.writer.mbti}"
-            tools:src="@drawable/istj_circle_img" />
+            tools:src="@drawable/mbti_circle_icon_enfj" />
 
         <TextView
             android:id="@+id/mbtiNicknameTextView"
@@ -45,7 +49,7 @@
             app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
             app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-            app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfadfsasdfasdfsadfs" />
 
         <ImageView

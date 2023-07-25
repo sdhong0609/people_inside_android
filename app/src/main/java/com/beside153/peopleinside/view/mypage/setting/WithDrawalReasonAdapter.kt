@@ -31,6 +31,7 @@ class WithDrawalReasonAdapter(private val onRadioButtonClick: (item: WithDrawalR
             binding.radioImageView.setOnClickListener {
                 onRadioButtonClick(item)
             }
+            binding.executePendingBindings()
         }
     }
 

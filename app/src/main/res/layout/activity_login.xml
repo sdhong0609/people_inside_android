@@ -14,106 +14,115 @@
             type="com.beside153.peopleinside.App" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.login.LoginActivity">
+        android:fillViewport="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/LoginAppBar"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:elevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            tools:context=".view.login.LoginActivity">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:contentInsetStart="0dp">
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/LoginAppBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:elevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageButton
-                    android:id="@+id/backImageButton"
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/back_button"
-                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
-                    android:src="@drawable/ic_left_arrow"
-                    app:isVisible="@{app.prefs.nickname.equals(@string/nonmember_nickname)}" />
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetStart="0dp">
 
-            </com.google.android.material.appbar.MaterialToolbar>
+                    <ImageButton
+                        android:id="@+id/backImageButton"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/back_button"
+                        android:onClick="@{() -> viewModel.onBackButtonClick()}"
+                        android:src="@drawable/ic_left_arrow"
+                        app:isVisible="@{app.prefs.nickname.equals(@string/nonmember_nickname)}" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+                </com.google.android.material.appbar.MaterialToolbar>
 
-        <TextView
-            android:id="@+id/loginSubTitleTextView"
-            style="@style/textStyleBoldBlack"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
-            android:gravity="center_horizontal"
-            android:text="@string/login_screen_subtitle"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/loginMainTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/changwondangamasac_bold"
-            android:gravity="center_horizontal"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="50sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginSubTitleTextView" />
+            <TextView
+                android:id="@+id/loginSubTitleTextView"
+                style="@style/textStyleBoldBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="112dp"
+                android:gravity="center_horizontal"
+                android:text="@string/login_screen_subtitle"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
-            android:contentDescription="@string/main_logo_image"
-            android:src="@drawable/login_center_img"
-            app:layout_constraintBottom_toTopOf="@id/kakaoLoginButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginMainTitleTextView"
-            app:layout_constraintVertical_bias="0" />
+            <TextView
+                android:id="@+id/loginMainTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/changwondangamasac_bold"
+                android:gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="50sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginSubTitleTextView" />
 
-        <Button
-            android:id="@+id/kakaoLoginButton"
-            android:layout_width="329dp"
-            android:layout_height="49.35dp"
-            android:layout_marginHorizontal="15.5dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/kakao_login_large_img"
-            android:onClick="@{() -> viewModel.onKakaoLoginClick()}"
-            app:backgroundTint="@null"
-            app:layout_constraintBottom_toTopOf="@id/withoutLoginTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:id="@+id/loginCenterImageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="68dp"
+                android:contentDescription="@string/main_logo_image"
+                android:src="@drawable/login_center_img"
+                app:layout_constraintBottom_toTopOf="@id/kakaoLoginButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginMainTitleTextView"
+                app:layout_constraintVertical_bias="0" />
 
-        <TextView
-            android:id="@+id/withoutLoginTextView"
-            style="@style/textStyleMediumGray800"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:onClick="@{() -> viewModel.onWithoutLoginClick()}"
-            android:text="@string/will_enter_without_login"
-            android:textSize="14sp"
-            app:isVisibleInVisible="@{!app.prefs.nickname.equals(@string/nonmember_nickname)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/kakaoLoginButton"
-            app:layout_constraintStart_toStartOf="@id/kakaoLoginButton" />
+            <Button
+                android:id="@+id/kakaoLoginButton"
+                android:layout_width="329dp"
+                android:layout_height="49.35dp"
+                android:layout_marginHorizontal="15.5dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/kakao_login_large_img"
+                android:onClick="@{() -> viewModel.onKakaoLoginClick()}"
+                app:backgroundTint="@null"
+                app:layout_constraintBottom_toTopOf="@id/withoutLoginTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/withoutLoginTextView"
+                style="@style/textStyleMediumGray800"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"
+                android:onClick="@{() -> viewModel.onWithoutLoginClick()}"
+                android:text="@string/will_enter_without_login"
+                android:textSize="14sp"
+                app:isVisibleInVisible="@{!app.prefs.nickname.equals(@string/nonmember_nickname)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/kakaoLoginButton"
+                app:layout_constraintStart_toStartOf="@id/kakaoLoginButton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

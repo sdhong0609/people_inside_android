@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -65,6 +67,13 @@ class RecommendFragment : BaseFragment() {
             layoutManager = object : LinearLayoutManager(requireActivity()) {
                 override fun canScrollVertically(): Boolean = false
             }
+            addItemDecoration(
+                LinearLinelItemDecoration(
+                    1f.dpToPx(resources.displayMetrics),
+                    0f,
+                    ContextCompat.getColor(requireActivity(), R.color.gray_300)
+                )
+            )
         }
 
         recommendViewModel.initAllData()

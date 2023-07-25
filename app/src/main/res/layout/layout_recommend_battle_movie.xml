@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/background_battle_rating"
+        android:background="@drawable/bg_battle_rating"
         android:gravity="center_horizontal"
         android:onClick="@{() -> viewModel.onBattleItemClick(viewModel.movieBattleItem)}"
         android:orientation="vertical">
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
-            android:background="@drawable/background_card_shadow"
+            android:background="@drawable/bg_card_shadow"
             android:minHeight="146dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
             android:padding="16dp"
@@ -67,7 +67,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.topMbtiRating.mbti : ""}'
-                    tools:src="@drawable/istj_circle_img" />
+                    tools:src="@drawable/mbti_circle_icon_enfj" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -152,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="21dp"
-            android:background="@drawable/background_card_shadow"
+            android:background="@drawable/bg_card_shadow"
             android:minHeight="146dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
             android:padding="16dp"
@@ -177,7 +177,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:mbtiCircleImg='@{viewModel.movieBattleItem != null ? viewModel.movieBattleItem.bottomMbtiRating.mbti : ""}'
-                    tools:src="@drawable/istj_circle_img" />
+                    tools:src="@drawable/mbti_circle_icon_enfj" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"

@@ -40,7 +40,7 @@ class Pick10ViewPagerAdapter(
                         onPick10ItemClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
                     }
                 }
-                binding.mainCommentLayout.setOnClickListener {
+                binding.topCommentLayout.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onTopReviewClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)

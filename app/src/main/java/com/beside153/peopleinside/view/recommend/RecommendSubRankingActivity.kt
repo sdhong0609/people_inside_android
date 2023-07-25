@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
@@ -11,7 +12,9 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityRecommendSubRankingBinding
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedAnimation
+import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
@@ -34,6 +37,13 @@ class RecommendSubRankingActivity : BaseActivity() {
         binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
             layoutManager = LinearLayoutManager(this@RecommendSubRankingActivity)
+            addItemDecoration(
+                LinearLinelItemDecoration(
+                    1f.dpToPx(resources.displayMetrics),
+                    0f,
+                    ContextCompat.getColor(this@RecommendSubRankingActivity, R.color.gray_300)
+                )
+            )
         }
 
         mediaType = intent.getStringExtra(MEDIA_TYPE) ?: "all"

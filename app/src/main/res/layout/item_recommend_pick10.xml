@@ -81,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:background="@drawable/background_total_rating"
+            android:background="@drawable/bg_total_rating"
             android:gravity="center"
             android:paddingHorizontal="8dp"
             android:paddingVertical="5dp"
@@ -108,7 +108,7 @@
             app:mbtiBackground="@{app.prefs.mbti}"
             app:mbtiLeftIcon="@{app.prefs.mbti}"
             app:mbtiTextColor="@{app.prefs.mbti}"
-            tools:background="@drawable/background_mbti_rating"
+            tools:background="@drawable/bg_mbti_rating_sample"
             tools:drawableStartCompat="@drawable/ic_clap_hands_white"
             tools:text="ESFJ 4.5점" />
 
@@ -116,13 +116,12 @@
             android:id="@+id/pick10PosterCardView"
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="133dp"
-            android:layout_marginBottom="159dp"
+            android:layout_marginVertical="20dp"
             app:cardCornerRadius="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/topCommentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/mbtiRatingTextView">
 
             <ImageView
                 android:id="@+id/posterImageView"
@@ -135,9 +134,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/mainCommentLayout"
+            android:id="@+id/topCommentLayout"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="157dp"
             android:layout_marginHorizontal="26dp"
             android:layout_marginBottom="23dp"
             android:background="@color/white"
@@ -148,14 +147,17 @@
 
             <ImageView
                 android:id="@+id/mbtiIconImageView"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/mbti_icon"
+                android:minWidth="22dp"
+                android:minHeight="22dp"
+                app:layout_constraintBottom_toBottomOf="@id/mbtiNicknameTextView"
                 app:layout_constraintEnd_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@id/mbtiNicknameTextView"
                 app:mbtiCircleImg="@{hasReview ? item.topLikeReview.writer.mbti : app.prefs.mbti}"
-                tools:src="@drawable/istj_circle_img" />
+                tools:src="@drawable/mbti_circle_icon_enfj" />
 
             <TextView
                 android:id="@+id/mbtiNicknameTextView"
@@ -169,7 +171,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfsadfs" />
 
             <TextView
@@ -181,7 +183,6 @@
                 android:maxLines="2"
                 android:text="@{hasReview ? item.topLikeReview.content : @string/could_you_review_first}"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
                 app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
