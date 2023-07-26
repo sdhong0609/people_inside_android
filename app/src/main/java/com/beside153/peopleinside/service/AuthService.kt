@@ -15,5 +15,5 @@ interface AuthService {
     ): ApiResponse<AuthRegisterResponse>
 
     @POST("/api/auth/login/kakao")
-    suspend fun postLoginKakao(@Header("authorization") authToken: String): ApiResponse<AuthRegisterResponse>
+    suspend fun postLoginKakao(@Header("authorization") authToken: String): AuthRegisterResponse
 }
