@@ -81,7 +81,9 @@ class BookmarkedContentsActivity : BaseActivity() {
         contentsViewModel.error.observe(
             this,
             EventObserver {
-                contentsViewModel.initAllData()
+                showErrorDialog(it) {
+                    contentsViewModel.initAllData()
+                }
             }
         )
     }

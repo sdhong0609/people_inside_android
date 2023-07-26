@@ -66,7 +66,7 @@ class CreateReviewActivity : BaseActivity() {
         createReviewViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { createReviewViewModel.onCompleteButtonClick() }
+                showErrorDialog(it) { createReviewViewModel.onCompleteButtonClick() }
             }
         )
     }

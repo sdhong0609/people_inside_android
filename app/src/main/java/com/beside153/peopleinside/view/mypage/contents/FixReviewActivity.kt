@@ -68,7 +68,7 @@ class FixReviewActivity : BaseActivity() {
         fixReviewViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { fixReviewViewModel.onCompleteButtonClick() }
+                showErrorDialog(it) { fixReviewViewModel.onCompleteButtonClick() }
             }
         )
     }

@@ -72,7 +72,7 @@ class RecommendSubRankingActivity : BaseActivity() {
         subRankingViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { subRankingViewModel.initData(mediaType) }
+                showErrorDialog(it) { subRankingViewModel.initData(mediaType) }
             }
         )
     }

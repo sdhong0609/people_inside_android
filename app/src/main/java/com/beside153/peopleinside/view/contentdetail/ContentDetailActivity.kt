@@ -154,7 +154,7 @@ class ContentDetailActivity : BaseActivity() {
         contentDetailViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { contentDetailViewModel.initAllData(didClickComment) }
+                showErrorDialog(it) { contentDetailViewModel.initAllData(didClickComment) }
             }
         )
 
