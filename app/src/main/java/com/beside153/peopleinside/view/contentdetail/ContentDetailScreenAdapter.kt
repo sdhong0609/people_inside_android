@@ -89,7 +89,39 @@ class ContentDetailScreenAdapter(
 
             R.layout.item_content_detail_comment_list -> {
                 val binding = ItemContentDetailCommentListBinding.inflate(inflater, parent, false)
-                ViewHolder.CommentItemViewHolder(binding, onVerticalDotsClick, onCommentLikeClick)
+                val viewHolder = ViewHolder.CommentItemViewHolder(binding)
+
+                binding.verticalDotsImageView.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onVerticalDotsClick((getItem(position) as ContentDetailScreenModel.ContentCommentItem).contentCommentItem)
+                    }
+                }
+
+                binding.heartLikeLayout.setOnClickListener {
+                    val item = getItem(viewHolder.adapterPosition) as? ContentDetailScreenModel.ContentCommentItem
+                    item?.let {
+                        onCommentLikeClick(it.contentCommentItem)
+                    }
+                }
+
+                binding.descriptionTextView.apply {
+                    post {
+                        val lineCount = lineCount
+                        if (lineCount > 0) {
+                            if (layout.getEllipsisCount(lineCount - 1) > 0) {
+                                binding.seeDetailTextView.isVisible = true
+
+                                binding.seeDetailTextView.setOnClickListener {
+                                    maxLines = Int.MAX_VALUE
+                                    binding.seeDetailTextView.isVisible = false
+                                }
+                            }
+                        }
+                    }
+                }
+
+                viewHolder
             }
 
             else -> {
@@ -139,37 +171,10 @@ class ContentDetailScreenAdapter(
             fun bind() = Unit
         }
 
-        class CommentItemViewHolder(
-            private val binding: ItemContentDetailCommentListBinding,
-            private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit,
-            private val onCommentLikeClick: (item: ContentCommentModel) -> Unit
-        ) :
+        class CommentItemViewHolder(private val binding: ItemContentDetailCommentListBinding) :
             ViewHolder(binding.root) {
             fun bind(item: ContentDetailScreenModel.ContentCommentItem) {
                 binding.item = item.contentCommentItem
-                binding.verticalDotsImageView.setOnClickListener {
-                    onVerticalDotsClick(item.contentCommentItem)
-                }
-                binding.heartLikeLayout.setOnClickListener {
-                    onCommentLikeClick(item.contentCommentItem)
-                }
-
-                binding.descriptionTextView.apply {
-                    post {
-                        val lineCount = lineCount
-                        if (lineCount > 0) {
-                            if (layout.getEllipsisCount(lineCount - 1) > 0) {
-                                binding.seeDetailTextView.isVisible = true
-
-                                binding.seeDetailTextView.setOnClickListener {
-                                    maxLines = Int.MAX_VALUE
-                                    binding.seeDetailTextView.isVisible = false
-                                }
-                            }
-                        }
-                    }
-                }
-
                 binding.executePendingBindings()
             }
         }
