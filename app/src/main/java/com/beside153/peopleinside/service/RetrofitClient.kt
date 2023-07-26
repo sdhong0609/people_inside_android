@@ -1,6 +1,8 @@
 package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.App
+import com.beside153.peopleinside.common.exception.ApiException
+import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
@@ -14,6 +16,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import retrofit2.Retrofit
 import java.io.IOException
+import java.net.UnknownHostException
+import timber.log.Timber
 
 object RetrofitClient {
     private const val baseUrl = "https://people-inside.com"
@@ -26,25 +30,28 @@ object RetrofitClient {
 
     private val signUpRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
+        .client(provideOkHttpClient(ErrorInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .build()
 
     private val apiResponseRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .client(provideOkHttpClient(AppInterceptor()))
+        .client(provideOkHttpClient(AppInterceptor(), ErrorInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
         .build()
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
-        .client(provideOkHttpClient(AppInterceptor()))
+        .client(provideOkHttpClient(AppInterceptor(), ErrorInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .build()
 
-    private fun provideOkHttpClient(interceptor: AppInterceptor): OkHttpClient = OkHttpClient.Builder().run {
-        addInterceptor(interceptor)
+    private fun provideOkHttpClient(vararg interceptors: Interceptor): OkHttpClient = OkHttpClient.Builder().run {
+        interceptors.forEach {
+            addInterceptor(it)
+        }
         build()
     }
 
@@ -59,6 +66,32 @@ object RetrofitClient {
                 .addHeader("authorization", "Bearer $jwtToken")
                 .build()
             proceed(newRequest)
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught", "RethrowCaughtException", "SwallowedException")
+    class ErrorInterceptor : Interceptor {
+        @Throws(IOException::class)
+        override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+            val request = chain.request()
+            val response: Response
+            try {
+                response = chain.proceed(request)
+            } catch (e: UnknownHostException) {
+                throw e
+            }
+
+            if (response.isSuccessful) {
+                return response
+            }
+
+            val body = response.body?.string() ?: run {
+                Timber.e("body is null")
+                return response
+            }
+            Timber.e("body = $body")
+            val error = json.decodeFromString<ErrorEnvelope>(body)
+            throw ApiException(error)
         }
     }
 
