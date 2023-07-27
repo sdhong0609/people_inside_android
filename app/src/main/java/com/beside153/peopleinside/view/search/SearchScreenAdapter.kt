@@ -87,7 +87,10 @@ class SearchScreenAdapter(
 
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
-                ViewHolder.SeenViewHolder(binding, searchViewModel)
+                val viewLogListAdapter = ViewLogListAdapter()
+                binding.viewLogRecyclerView.adapter = viewLogListAdapter
+                viewLogListAdapter.submitList(searchViewModel.viewLogList.value)
+                ViewHolder.SeenViewHolder(binding)
             }
 
             R.layout.item_search_no_view_log -> {
@@ -153,15 +156,8 @@ class SearchScreenAdapter(
             fun bind() = Unit
         }
 
-        class SeenViewHolder(
-            private val binding: ItemSearchSeenContentBinding,
-            private val searchViewModel: SearchViewModel
-        ) : ViewHolder(binding.root) {
-            fun bind() {
-                val viewLogListAdapter = ViewLogListAdapter()
-                binding.viewLogRecyclerView.adapter = viewLogListAdapter
-                viewLogListAdapter.submitList(searchViewModel.viewLogList.value)
-            }
+        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
+            fun bind() = Unit
         }
 
         class NoViewLogViewHolder(binding: ItemSearchNoViewLogBinding) : ViewHolder(binding.root) {

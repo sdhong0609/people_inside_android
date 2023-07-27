@@ -17,9 +17,8 @@ class RatedContentListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageRatingContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, _, fromUser ->
             if (fromUser && binding.item != null) {
-                ratingBar.rating = rating
                 onRatingChanged(ratingBar.rating, binding.item!!)
             }
         }
