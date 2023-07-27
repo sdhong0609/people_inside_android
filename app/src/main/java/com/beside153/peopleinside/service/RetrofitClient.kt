@@ -60,7 +60,6 @@ object RetrofitClient {
         }
     }
 
-    @Suppress("TooGenericExceptionCaught", "RethrowCaughtException", "SwallowedException")
     class ErrorInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {

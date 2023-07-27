@@ -167,7 +167,20 @@ class ContentDetailViewModel(
     }
 
     private suspend fun initWriterReview(contentId: Int): Job {
-        return viewModelScope.launch(exceptionHandler) {
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 404) {
+                        writerHasReview.value = false
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
+                }
+
+                else -> exceptionHandler.handleException(context, t)
+            }
+        }
+        return viewModelScope.launch(ceh) {
             val writerReviewDeferred = async { reviewService.getWriterReview(contentId, App.prefs.getUserId()) }
             writerReviewItem.value = writerReviewDeferred.await()
             writerHasReview.value = true
@@ -175,7 +188,22 @@ class ContentDetailViewModel(
     }
 
     private suspend fun initRating(contentId: Int): Job {
-        return viewModelScope.launch(exceptionHandler) {
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 404) {
+                        contentRatingItem.value = ContentRatingModel(contentId, 0, 0f)
+                        currentRatingId = 0
+                        currentRating = 0f
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
+                }
+
+                else -> exceptionHandler.handleException(context, t)
+            }
+        }
+        return viewModelScope.launch(ceh) {
             val contentRatingItemDeferred =
                 async { ratingService.getContentRating(contentId, App.prefs.getUserId()) }
             contentRatingItem.value = contentRatingItemDeferred.await()
