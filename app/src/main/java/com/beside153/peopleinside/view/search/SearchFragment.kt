@@ -110,7 +110,7 @@ class SearchFragment : BaseFragment() {
         searchViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog { searchViewModel.initSearchScreen() }
+                showErrorDialog(it) { searchViewModel.initSearchScreen() }
             }
         )
 

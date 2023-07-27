@@ -101,7 +101,7 @@ class SignUpUserInfoFragment : BaseFragment() {
         userInfoViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog { userInfoViewModel.onSignUpButtonClick() }
+                showErrorDialog(it) { userInfoViewModel.onSignUpButtonClick() }
             }
         )
     }

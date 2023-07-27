@@ -112,7 +112,7 @@ class RatedContentsActivity : BaseActivity() {
         contentsViewModel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { contentsViewModel.initAllData() }
+                showErrorDialog(it) { contentsViewModel.initAllData() }
             }
         )
     }

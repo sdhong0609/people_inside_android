@@ -168,7 +168,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog {
+                showErrorDialog(it) {
                     recommendViewModel.initAllData()
                 }
             }

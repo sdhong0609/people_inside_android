@@ -86,7 +86,7 @@ class EditProfileFragment : BaseFragment() {
         editProfileViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog { initSelectedValues() }
+                showErrorDialog(it) { initSelectedValues() }
             }
         )
 

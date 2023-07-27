@@ -8,16 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.service.AuthService
-import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.suspendOnError
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
 class LoginViewModel(private val authService: AuthService, private val userService: UserService) :
     BaseViewModel() {
@@ -45,34 +42,39 @@ class LoginViewModel(private val authService: AuthService, private val userServi
     }
 
     fun peopleInsideLogin() {
-        viewModelScope.launch(exceptionHandler) {
-            val response = authService.postLoginKakao("Bearer $authToken")
-            response.onSuccess {
-                val jwtToken = this.response.body()?.jwtToken!!
-                val user = this.response.body()?.user!!
-
-                App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
-                App.prefs.setUserId(user.userId)
-                App.prefs.setNickname(user.nickname)
-                App.prefs.setMbti(user.mbti)
-                App.prefs.setBirth(user.birth)
-                App.prefs.setGender(user.sex)
-                App.prefs.setIsMember(true)
-
-                viewModelScope.launch(exceptionHandler) {
-                    val onBoardingCompleted = userService.getOnBoardingCompleted(user.userId)
-
-                    if (onBoardingCompleted) {
-                        _onBoardingCompletedEvent.value = Event(true)
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 401) {
+                        _goToSignUpEvent.value = Event(authToken)
                     } else {
-                        _onBoardingCompletedEvent.value = Event(false)
+                        exceptionHandler.handleException(context, t)
                     }
                 }
-            }.suspendOnError(ErrorEnvelopeMapper) {
-                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
-                if (errorEnvelope.message == "Unauthorized") {
-                    _goToSignUpEvent.value = Event(authToken)
-                }
+
+                else -> exceptionHandler.handleException(context, t)
+            }
+        }
+
+        viewModelScope.launch(ceh) {
+            val response = authService.postLoginKakao("Bearer $authToken")
+            val jwtToken = response.jwtToken
+            val user = response.user
+
+            App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
+            App.prefs.setUserId(user.userId)
+            App.prefs.setNickname(user.nickname)
+            App.prefs.setMbti(user.mbti)
+            App.prefs.setBirth(user.birth)
+            App.prefs.setGender(user.sex)
+            App.prefs.setIsMember(true)
+
+            val onBoardingCompleted = userService.getOnBoardingCompleted(user.userId)
+
+            if (onBoardingCompleted) {
+                _onBoardingCompletedEvent.value = Event(true)
+            } else {
+                _onBoardingCompletedEvent.value = Event(false)
             }
         }
     }
@@ -86,7 +88,7 @@ class LoginViewModel(private val authService: AuthService, private val userServi
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
                 modelClass: Class<T>,
-                extras: CreationExtras
+                extras: CreationExtras,
             ): T {
                 val authService = RetrofitClient.authService
                 val userService = RetrofitClient.userService

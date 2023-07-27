@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity() {
         splashViewmodel.error.observe(
             this,
             EventObserver {
-                showErrorDialog { splashViewmodel.getAllData() }
+                showErrorDialog(it) { splashViewmodel.getAllData() }
             }
         )
     }

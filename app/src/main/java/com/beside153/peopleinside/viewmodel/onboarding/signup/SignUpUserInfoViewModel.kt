@@ -8,16 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.auth.AuthRegisterRequest
-import com.beside153.peopleinside.model.common.ErrorEnvelope
 import com.beside153.peopleinside.service.AuthService
-import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.suspendOnError
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 
 class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewModel() {
     private val authToken = MutableLiveData("")
@@ -88,7 +85,21 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
     fun onSignUpButtonClick() {
         // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
 
-        viewModelScope.launch(exceptionHandler) {
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 400) {
+                        _isDuplicate.value = true
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
+                }
+
+                else -> exceptionHandler.handleException(context, t)
+            }
+        }
+
+        viewModelScope.launch(ceh) {
             val response = authService.postAuthRegister(
                 "Bearer ${authToken.value}",
                 AuthRegisterRequest(
@@ -100,25 +111,18 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
                 )
             )
 
-            response.onSuccess {
-                val jwtToken = this.response.body()?.jwtToken!!
-                val user = this.response.body()?.user!!
+            val jwtToken = response.jwtToken
+            val user = response.user
 
-                App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
-                App.prefs.setUserId(user.userId)
-                App.prefs.setNickname(user.nickname)
-                App.prefs.setMbti(user.mbti)
-                App.prefs.setBirth(user.birth)
-                App.prefs.setGender(user.sex)
-                App.prefs.setIsMember(true)
+            App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
+            App.prefs.setUserId(user.userId)
+            App.prefs.setNickname(user.nickname)
+            App.prefs.setMbti(user.mbti)
+            App.prefs.setBirth(user.birth)
+            App.prefs.setGender(user.sex)
+            App.prefs.setIsMember(true)
 
-                _signUpButtonClickEvent.value = Event(Unit)
-            }.suspendOnError(ErrorEnvelopeMapper) {
-                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
-                if (errorEnvelope.message == "닉네임이 이미 존재합니다.") {
-                    _isDuplicate.value = true
-                }
-            }
+            _signUpButtonClickEvent.value = Event(Unit)
         }
     }
 
@@ -131,7 +135,7 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
                 modelClass: Class<T>,
-                extras: CreationExtras
+                extras: CreationExtras,
             ): T {
                 val authService = RetrofitClient.authService
                 return SignUpUserInfoViewModel(authService) as T
