@@ -37,10 +37,10 @@ interface ReviewService {
     @POST("/api/media-content/{contentId}/review/{reviewId}/like")
     suspend fun postLikeToggle(@Path("contentId") contentId: Int, @Path("reviewId") reviewId: Int): LikeToggleResponse
 
-//    @POST("/api/media-content/{contentId}/review/{reviewId}/report/{reportId}")
-//    suspend fun postReport(
-//        @Path("contentId") contentId: Int,
-//        @Path("reviewId") reviewId: Int,
-//        @Path("reportId") reportId: Int
-//    ): ApiResponse<Boolean>
+    @POST("/api/media-content/{contentId}/review/{reviewId}/report/{reportId}")
+    suspend fun postReport(
+        @Path("contentId") contentId: Int,
+        @Path("reviewId") reviewId: Int,
+        @Path("reportId") reportId: Int
+    ): Boolean
 }

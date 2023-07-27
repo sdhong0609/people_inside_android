@@ -135,7 +135,7 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
                 modelClass: Class<T>,
-                extras: CreationExtras,
+                extras: CreationExtras
             ): T {
                 val authService = RetrofitClient.authService
                 return SignUpUserInfoViewModel(authService) as T

@@ -94,7 +94,9 @@ class ContentDetailScreenAdapter(
                 binding.verticalDotsImageView.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onVerticalDotsClick((getItem(position) as ContentDetailScreenModel.ContentCommentItem).contentCommentItem)
+                        onVerticalDotsClick(
+                            (getItem(position) as ContentDetailScreenModel.ContentCommentItem).contentCommentItem
+                        )
                     }
                 }
 

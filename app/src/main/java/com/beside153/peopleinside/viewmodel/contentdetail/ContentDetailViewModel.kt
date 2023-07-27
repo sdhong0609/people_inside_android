@@ -8,38 +8,31 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
 import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
-import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
-import com.beside153.peopleinside.service.mediacontent.PostReportService
 import com.beside153.peopleinside.service.mediacontent.RatingService
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import retrofit2.HttpException
 
 @Suppress("TooManyFunctions")
 class ContentDetailViewModel(
     private val mediaContentService: MediaContentService,
     private val ratingService: RatingService,
     private val reviewService: ReviewService,
-    private val bookmarkService: BookmarkService,
-    private val postReportService: PostReportService
+    private val bookmarkService: BookmarkService
 ) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
@@ -127,17 +120,23 @@ class ContentDetailViewModel(
     }
 
     fun reportComment(reportId: Int) {
-        viewModelScope.launch(exceptionHandler) {
-            val response = postReportService.postReport(contentId, commentIdForReport, reportId)
-
-            response.onSuccess {
-                _reportSuccessEvent.value = Event(true)
-            }.suspendOnError(ErrorEnvelopeMapper) {
-                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
-                if (errorEnvelope.message == "이미 리뷰 신고가 되어있습니다.") {
-                    _reportSuccessEvent.value = Event(false)
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 400) {
+                        _reportSuccessEvent.value = Event(false)
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
                 }
+
+                else -> exceptionHandler.handleException(context, t)
             }
+        }
+
+        viewModelScope.launch(ceh) {
+            reviewService.postReport(contentId, commentIdForReport, reportId)
+            _reportSuccessEvent.value = Event(true)
         }
     }
 
@@ -168,16 +167,6 @@ class ContentDetailViewModel(
     }
 
     private suspend fun initWriterReview(contentId: Int): Job {
-        val exceptionHandler = CoroutineExceptionHandler { _, t ->
-            when (t) {
-                is HttpException -> {
-                    writerHasReview.value = false
-                }
-
-                // else -> 처리 필요
-            }
-        }
-
         return viewModelScope.launch(exceptionHandler) {
             val writerReviewDeferred = async { reviewService.getWriterReview(contentId, App.prefs.getUserId()) }
             writerReviewItem.value = writerReviewDeferred.await()
@@ -186,18 +175,6 @@ class ContentDetailViewModel(
     }
 
     private suspend fun initRating(contentId: Int): Job {
-        val exceptionHandler = CoroutineExceptionHandler { _, t ->
-            when (t) {
-                is HttpException -> {
-                    contentRatingItem.value = ContentRatingModel(contentId, 0, 0f)
-                    currentRating = 0f
-                    currentRatingId = 0
-                }
-
-                // else -> 처리 필요
-            }
-        }
-
         return viewModelScope.launch(exceptionHandler) {
             val contentRatingItemDeferred =
                 async { ratingService.getContentRating(contentId, App.prefs.getUserId()) }
@@ -283,13 +260,11 @@ class ContentDetailViewModel(
                 val ratingService = RetrofitClient.ratingService
                 val reviewService = RetrofitClient.reviewService
                 val bookmarkService = RetrofitClient.bookmarkService
-                val postReportService = RetrofitClient.postReportService
                 return ContentDetailViewModel(
                     mediaContentService,
                     ratingService,
                     reviewService,
-                    bookmarkService,
-                    postReportService
+                    bookmarkService
                 ) as T
             }
         }

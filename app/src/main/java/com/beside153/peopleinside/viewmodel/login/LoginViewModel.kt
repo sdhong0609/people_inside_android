@@ -88,7 +88,7 @@ class LoginViewModel(private val authService: AuthService, private val userServi
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(
                 modelClass: Class<T>,
-                extras: CreationExtras,
+                extras: CreationExtras
             ): T {
                 val authService = RetrofitClient.authService
                 val userService = RetrofitClient.userService
