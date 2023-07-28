@@ -47,7 +47,7 @@
                         android:contentDescription="@string/back_button"
                         android:onClick="@{() -> viewModel.onBackButtonClick()}"
                         android:src="@drawable/ic_left_arrow"
-                        app:isVisible="@{app.prefs.nickname.equals(@string/nonmember_nickname)}" />
+                        app:isVisible="@{!app.prefs.isMember}" />
 
                 </com.google.android.material.appbar.MaterialToolbar>
 
@@ -116,7 +116,7 @@
                 android:onClick="@{() -> viewModel.onWithoutLoginClick()}"
                 android:text="@string/will_enter_without_login"
                 android:textSize="14sp"
-                app:isVisibleInVisible="@{!app.prefs.nickname.equals(@string/nonmember_nickname)}"
+                app:isVisibleInVisible="@{app.prefs.isMember}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/kakaoLoginButton"
                 app:layout_constraintStart_toStartOf="@id/kakaoLoginButton" />

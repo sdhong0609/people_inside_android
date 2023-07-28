@@ -29,7 +29,7 @@ class SplashViewmodel(private val reportService: ReportService, private val user
             val reportList = reportDeferred.await()
 
             var onBoardingCompleted = true
-            if (App.prefs.getUserId() != 0 && App.prefs.getNickname() != "익명의 핍사이더") {
+            if (App.prefs.getUserId() != 0 && App.prefs.getIsMember()) {
                 val onBoardingDeferred = async { userService.getOnBoardingCompleted(App.prefs.getUserId()) }
                 onBoardingCompleted = onBoardingDeferred.await()
             }

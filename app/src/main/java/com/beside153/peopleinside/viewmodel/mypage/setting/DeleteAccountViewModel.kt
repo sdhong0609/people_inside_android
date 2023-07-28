@@ -60,6 +60,7 @@ class DeleteAccountViewModel(private val userService: UserService, private val w
             userService.deleteUser(App.prefs.getUserId(), ResonIdModel(checkedReasonId))
             App.prefs.setUserId(0)
             App.prefs.setNickname("")
+            App.prefs.setIsMember(false)
             _deleteAccountSuccessEvent.value = Event(Unit)
         }
     }

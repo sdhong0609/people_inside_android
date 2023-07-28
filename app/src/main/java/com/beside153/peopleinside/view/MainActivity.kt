@@ -31,9 +31,7 @@ class MainActivity : BaseActivity() {
 
         binding.bottomNavigationView.apply {
             setOnItemSelectedListener { menuItem ->
-                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname) &&
-                    menuItem.itemId == R.id.myPageFragment
-                ) {
+                if (!App.prefs.getIsMember() && menuItem.itemId == R.id.myPageFragment) {
                     previousMenuItemId = selectedItemId
 
                     loginActivityLauncher.launch(LoginActivity.newIntent(this@MainActivity))

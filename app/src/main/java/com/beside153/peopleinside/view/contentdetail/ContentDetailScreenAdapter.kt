@@ -55,7 +55,7 @@ class ContentDetailScreenAdapter(
             R.layout.item_content_detail_review -> {
                 val binding = ItemContentDetailReviewBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-                    if (App.prefs.getNickname() == "익명의 핍사이더" && fromUser) {
+                    if (!App.prefs.getIsMember() && fromUser) {
                         goToLoginActivity()
                         ratingBar.rating = 0f
                     } else {
