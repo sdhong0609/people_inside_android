@@ -10,9 +10,9 @@ import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentModel
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
-import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
+import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.onboarding.ContentScreenAdapter.ContentScreenModel
 import kotlinx.coroutines.async
@@ -22,7 +22,6 @@ class ContentChoiceViewModel(
     private val mediaContentService: MediaContentService,
     private val userService: UserService
 ) : BaseViewModel() {
-    private val contentList = MutableLiveData<List<OnBoardingContentModel>>()
 
     private val _choiceCount = MutableLiveData(0)
     val choiceCount: LiveData<Int> get() = _choiceCount
@@ -36,14 +35,12 @@ class ContentChoiceViewModel(
     private val _screenList = MutableLiveData<List<ContentScreenModel>>()
     val screenList: LiveData<List<ContentScreenModel>> get() = _screenList
 
-    private val _chosenContentList = MutableLiveData<List<OnBoardingChosenContentModel>>()
-    val chosenContentList: LiveData<List<OnBoardingChosenContentModel>> get() = _chosenContentList
-
     private var page = 1
+    private var contentList = listOf<OnBoardingContentModel>()
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            contentList.value = mediaContentService.getOnBoardingContents(page)
+            contentList = mediaContentService.getOnBoardingContents(page)
         }
         _screenList.value = screenList()
     }
@@ -51,14 +48,14 @@ class ContentChoiceViewModel(
     fun loadMoreData() {
         viewModelScope.launch(exceptionHandler) {
             val newContentList = mediaContentService.getOnBoardingContents(++page)
-            contentList.value = contentList.value?.plus(newContentList)
+            contentList = contentList.plus(newContentList)
 
             _screenList.value = screenList()
         }
     }
 
     fun onContentItemClick(item: OnBoardingContentModel) {
-        val updatedList = contentList.value?.map {
+        val updatedList = contentList.map {
             if (it == item) {
                 if (!it.isChosen) {
                     _choiceCount.value = _choiceCount.value?.plus(1)
@@ -72,7 +69,7 @@ class ContentChoiceViewModel(
             }
         }
 
-        contentList.value = updatedList ?: emptyList()
+        contentList = updatedList
         checkCompleteButtonEnable()
         _screenList.value = screenList()
     }
@@ -81,7 +78,7 @@ class ContentChoiceViewModel(
     private fun screenList(): List<ContentScreenModel> {
         return listOf(
             ContentScreenModel.TitleViewItem,
-            *contentList.value?.map { ContentScreenModel.ContentListItem(it) }?.toTypedArray() ?: emptyArray()
+            *contentList.map { ContentScreenModel.ContentListItem(it) }.toTypedArray()
         )
     }
 
@@ -92,9 +89,8 @@ class ContentChoiceViewModel(
     fun onCompleteButtonClick() {
         viewModelScope.launch(exceptionHandler) {
             val chosenList: List<OnBoardingChosenContentModel> =
-                contentList.value?.filter { it.isChosen }
-                    ?.map { OnBoardingChosenContentModel(it.contentId, MAX_RATING) }
-                    ?: emptyList()
+                contentList.filter { it.isChosen }
+                    .map { OnBoardingChosenContentModel(it.contentId, MAX_RATING) }
 
             val chosenContentsDeferred = async { mediaContentService.postChosenContents(chosenList) }
             val onBoardingCompletedDeferred = async { userService.postOnBoardingCompleted(App.prefs.getUserId()) }

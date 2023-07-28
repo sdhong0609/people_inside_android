@@ -37,9 +37,6 @@ class ContentDetailViewModel(
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
     val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
 
-    private val writerReviewItem = MutableLiveData<ContentReviewModel>()
-    private val commentList = MutableLiveData<List<ContentCommentModel>>()
-
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
 
@@ -66,6 +63,8 @@ class ContentDetailViewModel(
     private var bookmarked = false
     private var commentIdForReport = 0
     private var contentRatingItem = ContentRatingModel(1, 0, 0f)
+    private var writerReviewItem = ContentReviewModel(0, 0, "", 0, null)
+    private var commentList = listOf<ContentCommentModel>()
 
     fun setContentId(id: Int) {
         contentId = id
@@ -74,7 +73,7 @@ class ContentDetailViewModel(
     fun loadMoreCommentList() {
         viewModelScope.launch(exceptionHandler) {
             val newCommentList = reviewService.getContentReviewList(contentId, ++page)
-            commentList.value = commentList.value?.plus(newCommentList)
+            commentList = commentList.plus(newCommentList)
 
             @Suppress("SpreadOperator")
             _screenList.value = _screenList.value?.plus(
@@ -94,7 +93,7 @@ class ContentDetailViewModel(
         viewModelScope.launch(exceptionHandler) {
             val updatedList: List<ContentCommentModel>?
             if (item.like) {
-                updatedList = commentList.value?.map {
+                updatedList = commentList.map {
                     if (item == it) {
                         it.copy(like = false, likeCount = it.likeCount - 1)
                     } else {
@@ -102,7 +101,7 @@ class ContentDetailViewModel(
                     }
                 }
             } else {
-                updatedList = commentList.value?.map {
+                updatedList = commentList.map {
                     if (item == it) {
                         it.copy(like = true, likeCount = it.likeCount + 1)
                     } else {
@@ -110,7 +109,7 @@ class ContentDetailViewModel(
                     }
                 }
             }
-            commentList.value = updatedList ?: emptyList()
+            commentList = updatedList
             _screenList.value = screenList()
 
             reviewService.postLikeToggle(contentId, item.reviewId)
@@ -150,7 +149,7 @@ class ContentDetailViewModel(
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
             bookmarked = bookmarkStatusDeferred.await()
-            commentList.value = commentListDeferred.await()
+            commentList = commentListDeferred.await()
             postViewLogDeferred.await()
 
             _screenList.value = screenList()
@@ -179,7 +178,7 @@ class ContentDetailViewModel(
             }
         }
         viewModelScope.launch(ceh) {
-            writerReviewItem.value = reviewService.getWriterReview(contentId, App.prefs.getUserId())
+            writerReviewItem = reviewService.getWriterReview(contentId, App.prefs.getUserId())
             writerHasReview = true
         }
     }
@@ -243,12 +242,11 @@ class ContentDetailViewModel(
 
     @Suppress("SpreadOperator")
     private fun screenList(): List<ContentDetailScreenModel> {
-        val commentAreaList = if ((commentList.value ?: emptyList()).isEmpty()) {
+        val commentAreaList = if (commentList.isEmpty()) {
             listOf(ContentDetailScreenModel.NoCommentView)
         } else {
             listOf(
-                *commentList.value?.map { ContentDetailScreenModel.ContentCommentItem(it) }?.toTypedArray()
-                    ?: emptyArray()
+                *commentList.map { ContentDetailScreenModel.ContentCommentItem(it) }.toTypedArray()
             )
         }
 
@@ -264,7 +262,7 @@ class ContentDetailViewModel(
         if (!writerHasReview) {
             _createReviewClickEvent.value = Event(Pair(contentId, ""))
         } else {
-            _createReviewClickEvent.value = Event(Pair(contentId, writerReviewItem.value?.content ?: ""))
+            _createReviewClickEvent.value = Event(Pair(contentId, writerReviewItem.content))
         }
     }
 

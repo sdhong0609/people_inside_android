@@ -17,8 +17,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewModel() {
-    private val authToken = MutableLiveData("")
-
     val nickname = MutableLiveData("")
 
     private val _nicknameCount = MutableLiveData(0)
@@ -48,8 +46,10 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
     private val _signUpButtonClickEvent = MutableLiveData<Event<Unit>>()
     val signUpButtonClickEvent: LiveData<Event<Unit>> get() = _signUpButtonClickEvent
 
+    private var authToken = ""
+
     fun setAuthToken(token: String) {
-        authToken.value = token
+        authToken = token
     }
 
     @Suppress("UnusedPrivateMember")
@@ -101,7 +101,7 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
 
         viewModelScope.launch(ceh) {
             val response = authService.postAuthRegister(
-                "Bearer ${authToken.value}",
+                "Bearer $authToken",
                 AuthRegisterRequest(
                     "kakao",
                     nickname.value ?: "",

@@ -29,10 +29,6 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
 
-    private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
-    private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
-    private val searchHotList = MutableLiveData<List<SearchHotModel>>()
-
     private val _screenList = MutableLiveData<List<SearchScreenModel>>()
     val screenList: LiveData<List<SearchScreenModel>> get() = _screenList
 
@@ -41,6 +37,10 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
 
     private var isSearching = false
     private var page = 1
+    private var searchingTitleList = listOf<SearchingTitleModel>()
+    private var searchedContentList = listOf<SearchedContentModel>()
+    private var searchHotList = listOf<SearchHotModel>()
+
     override var viewLogList = listOf<ViewLogContentModel>()
 
     fun afterKeywordTextChanged(editable: Editable?) {
@@ -60,18 +60,18 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
             val searchHotListDeferred = async { mediaContentService.getHotContentList() }
 
             viewLogList = viwLogListDeferred.await()
-            searchHotList.value = searchHotListDeferred.await()
+            searchHotList = searchHotListDeferred.await()
 
-            val updatedList = searchHotList.value?.mapIndexed { index, item ->
+            val updatedList = searchHotList.mapIndexed { index, item ->
                 item.copy(rank = index + 1)
             }
-            searchHotList.value = updatedList ?: emptyList()
+            searchHotList = updatedList
 
             if (viewLogList.isEmpty()) {
                 _screenList.value = listOf(
                     SearchScreenModel.NoViewLogView,
                     SearchScreenModel.HotView,
-                    *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
+                    *searchHotList.map { SearchScreenModel.SearchHotItem(it) }.toTypedArray()
                 )
                 return@launch
             }
@@ -79,7 +79,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
             _screenList.value = listOf(
                 SearchScreenModel.SeenView,
                 SearchScreenModel.HotView,
-                *searchHotList.value?.map { SearchScreenModel.SearchHotItem(it) }?.toTypedArray() ?: emptyArray()
+                *searchHotList.map { SearchScreenModel.SearchHotItem(it) }.toTypedArray()
             )
         }
     }
@@ -92,7 +92,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
 
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                searchingTitleList.value = mediaContentService.getSearchingTitleList(_keyword.value ?: "")
+                searchingTitleList = mediaContentService.getSearchingTitleList(_keyword.value ?: "")
                 changeScreenWhenSearching()
                 return@launch
             }
@@ -109,8 +109,8 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
 
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
-                searchedContentList.value = mediaContentService.getSearchedContentList(_keyword.value ?: "", page)
-                if ((searchedContentList.value ?: emptyList()).isEmpty()) {
+                searchedContentList = mediaContentService.getSearchedContentList(_keyword.value ?: "", page)
+                if (searchedContentList.isEmpty()) {
                     changeScreenWhenNoResult()
                     return@launch
                 }
@@ -123,7 +123,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
         viewModelScope.launch(exceptionHandler) {
             if (_keyword.value?.isNotEmpty() == true) {
                 val newContentList = mediaContentService.getSearchedContentList(_keyword.value ?: "", ++page)
-                searchedContentList.value = searchedContentList.value?.plus(newContentList)
+                searchedContentList = searchedContentList.plus(newContentList)
 
                 changeScreenWhenSearchedContent()
             }
@@ -133,16 +133,14 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
     @Suppress("SpreadOperator")
     private fun changeScreenWhenSearching() {
         _screenList.value = listOf(
-            *searchingTitleList.value?.map { SearchScreenModel.SearchingTitleItem(it) }?.toTypedArray()
-                ?: emptyArray()
+            *searchingTitleList.map { SearchScreenModel.SearchingTitleItem(it) }.toTypedArray()
         )
     }
 
     @Suppress("SpreadOperator")
     private fun changeScreenWhenSearchedContent() {
         _screenList.value = listOf(
-            *searchedContentList.value?.map { SearchScreenModel.SearchedContentItem(it) }?.toTypedArray()
-                ?: emptyArray()
+            *searchedContentList.map { SearchScreenModel.SearchedContentItem(it) }.toTypedArray()
         )
         _searchCompleteEvent.value = Event(Unit)
     }

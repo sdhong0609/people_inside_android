@@ -12,9 +12,9 @@ import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.RatingBattleModel
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
 import kotlinx.coroutines.async
@@ -28,8 +28,6 @@ class RecommendViewModel(
 
     private val _progressBarVisible = MutableLiveData(true)
     val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
-
-    private val pick10List = MutableLiveData<List<Pick10Model>>()
 
     private val _viewPagerList = MutableLiveData<List<Pick10ViewPagerModel>>()
     val viewPagerList: LiveData<List<Pick10ViewPagerModel>> get() = _viewPagerList
@@ -76,16 +74,17 @@ class RecommendViewModel(
     private val _mbtiImgClickEvent = MutableLiveData<Event<Unit>>()
     val mbtiImgClickEvent: LiveData<Event<Unit>> get() = _mbtiImgClickEvent
 
-    private var pageCount = 1
+    private var pick10PageCount = 1
+    private var pick10List = listOf<Pick10Model>()
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val pick10ListDeferred = async { mediaContentService.getPick10List(pageCount) }
+            val pick10ListDeferred = async { mediaContentService.getPick10List(pick10PageCount) }
             val movieBattleItemDeferred = async { mediaContentService.getRatingBattleItem("movie") }
             val tvBattleItemDeferred = async { mediaContentService.getRatingBattleItem("tv") }
             val subrankingListDeferred = async { mediaContentService.getSubRankingItem("all", MAX_TAKE) }
 
-            pick10List.value = pick10ListDeferred.await()
+            pick10List = pick10ListDeferred.await()
             _movieBattleItem.value = movieBattleItemDeferred.await()
             _tvBattleItem.value = tvBattleItemDeferred.await()
             _subRankingList.value = subrankingListDeferred.await()
@@ -107,7 +106,7 @@ class RecommendViewModel(
     fun refreshPick10List() {
         viewModelScope.launch(exceptionHandler) {
             _pick10ProgressBarVisible.value = true
-            pick10List.value = mediaContentService.getPick10List(++pageCount)
+            pick10List = mediaContentService.getPick10List(++pick10PageCount)
             _viewPagerList.value = viewPagerList()
             _refreshPick10ClickEvent.value = Event(Unit)
             Handler(Looper.getMainLooper()).postDelayed({
@@ -120,7 +119,7 @@ class RecommendViewModel(
         viewModelScope.launch(exceptionHandler) {
             bookmarkService.postBookmarkStatus(item.contentId)
 
-            val updatedList = pick10List.value?.map {
+            val updatedList = pick10List.map {
                 if (item == it) {
                     if (it.bookmarked) {
                         it.copy(bookmarked = false)
@@ -132,7 +131,7 @@ class RecommendViewModel(
                 }
             }
 
-            pick10List.value = updatedList ?: emptyList()
+            pick10List = updatedList
             _viewPagerList.value = viewPagerList()
         }
     }
@@ -140,7 +139,7 @@ class RecommendViewModel(
     @Suppress("SpreadOperator")
     private fun viewPagerList(): List<Pick10ViewPagerModel> {
         return listOf(
-            *pick10List.value?.map { Pick10ViewPagerModel.Pick10Item(it) }?.toTypedArray() ?: emptyArray(),
+            *pick10List.map { Pick10ViewPagerModel.Pick10Item(it) }.toTypedArray(),
             Pick10ViewPagerModel.RefreshView
         )
     }
