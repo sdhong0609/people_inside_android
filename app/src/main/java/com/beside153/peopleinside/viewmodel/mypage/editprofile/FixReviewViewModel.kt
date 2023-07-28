@@ -20,10 +20,10 @@ class FixReviewViewModel(private val reviewService: ReviewService) : BaseViewMod
     private val _completeButtonClickEvent = MutableLiveData<Event<RatedContentModel>>()
     val completeButtonClickEvent: LiveData<Event<RatedContentModel>> get() = _completeButtonClickEvent
 
-    private val contentItem = MutableLiveData<RatedContentModel>()
+    private var contentItem = RatedContentModel(0, "title", "overview", "posterPath", null, null)
 
     fun initContentItem(contentItem: RatedContentModel?) {
-        this.contentItem.value = contentItem
+        this.contentItem = contentItem ?: this.contentItem
         reviewText.value = contentItem?.review?.content ?: ""
     }
 
@@ -31,17 +31,17 @@ class FixReviewViewModel(private val reviewService: ReviewService) : BaseViewMod
         viewModelScope.launch(exceptionHandler) {
             if ((reviewText.value ?: "").isNotEmpty()) {
                 reviewService.putReview(
-                    contentItem.value?.contentId ?: 0,
+                    contentItem.contentId,
                     CreateReviewRequest(reviewText.value ?: "")
                 )
-                val updatedReview = contentItem.value?.review?.copy(content = reviewText.value!!)
-                contentItem.value = contentItem.value?.copy(review = updatedReview)
-                _completeButtonClickEvent.value = Event(contentItem.value!!)
+                val updatedReview = contentItem.review?.copy(content = reviewText.value ?: "")
+                contentItem = contentItem.copy(review = updatedReview)
+                _completeButtonClickEvent.value = Event(contentItem)
             }
         }
     }
 
-    fun getFixedItem(): RatedContentModel = contentItem.value!!
+    fun getFixedItem(): RatedContentModel = contentItem
 
     companion object {
         val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
