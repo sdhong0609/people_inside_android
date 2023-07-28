@@ -89,7 +89,7 @@ class SearchScreenAdapter(
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 val viewLogListAdapter = ViewLogListAdapter()
                 binding.viewLogRecyclerView.adapter = viewLogListAdapter
-                viewLogListAdapter.submitList(handler.viewLogList.value)
+                viewLogListAdapter.submitList(handler.viewLogList)
                 ViewHolder.SeenViewHolder(binding)
             }
 
