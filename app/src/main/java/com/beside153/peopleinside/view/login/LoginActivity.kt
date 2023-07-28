@@ -44,7 +44,7 @@ class LoginActivity : BaseActivity() {
         kakaoApi = UserApiClient.instance
 
         // 비회원일 때 뒤로가기 설정
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             addBackPressedAnimation { setResult(BACK_FROM_LOGINACTIVITY) }
 
             loginViewModel.backButtonClickEvent.observe(

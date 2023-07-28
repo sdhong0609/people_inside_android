@@ -177,7 +177,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.mbtiImgClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+                if (!App.prefs.getIsMember()) {
                     startActivity(LoginActivity.newIntent(requireActivity()))
                     requireActivity().setOpenActivityAnimation()
                     return@EventObserver
@@ -213,7 +213,7 @@ class RecommendFragment : BaseFragment() {
     }
 
     private fun onBookmarkClick(item: Pick10Model) {
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             startActivity(LoginActivity.newIntent(requireActivity()))
             requireActivity().setOpenActivityAnimation()
             return

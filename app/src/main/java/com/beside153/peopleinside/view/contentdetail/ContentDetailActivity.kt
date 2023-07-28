@@ -181,7 +181,7 @@ class ContentDetailActivity : BaseActivity() {
     }
 
     private fun onBookmarkClick() {
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             goToLoginAcitivity()
             return
         }
@@ -189,7 +189,7 @@ class ContentDetailActivity : BaseActivity() {
     }
 
     private fun onCreateReviewClick() {
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             goToLoginAcitivity()
             return
         }
@@ -197,7 +197,7 @@ class ContentDetailActivity : BaseActivity() {
     }
 
     private fun onVerticalDotsClick(item: ContentCommentModel) {
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             goToLoginAcitivity()
             return
         }
@@ -205,7 +205,7 @@ class ContentDetailActivity : BaseActivity() {
     }
 
     private fun onCommentLikeClick(item: ContentCommentModel) {
-        if (App.prefs.getNickname() == getString(R.string.nonmember_nickname)) {
+        if (!App.prefs.getIsMember()) {
             goToLoginAcitivity()
             return
         }
