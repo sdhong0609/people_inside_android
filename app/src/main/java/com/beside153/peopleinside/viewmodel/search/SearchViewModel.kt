@@ -20,13 +20,14 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel() {
+interface SearchViewModelHandler {
+    val viewLogList: List<ViewLogContentModel>
+}
+
+class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel(), SearchViewModelHandler {
 
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
-
-    private val _viewLogList = MutableLiveData<List<ViewLogContentModel>>()
-    val viewLogList: LiveData<List<ViewLogContentModel>> get() = _viewLogList
 
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
     private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()
@@ -40,6 +41,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
 
     private var isSearching = false
     private var page = 1
+    override var viewLogList = listOf<ViewLogContentModel>()
 
     fun afterKeywordTextChanged(editable: Editable?) {
         _keyword.value = editable.toString()
@@ -57,7 +59,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
             val viwLogListDeferred = async { mediaContentService.getViewLogList() }
             val searchHotListDeferred = async { mediaContentService.getHotContentList() }
 
-            _viewLogList.value = viwLogListDeferred.await()
+            viewLogList = viwLogListDeferred.await()
             searchHotList.value = searchHotListDeferred.await()
 
             val updatedList = searchHotList.value?.mapIndexed { index, item ->
@@ -65,7 +67,7 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
             }
             searchHotList.value = updatedList ?: emptyList()
 
-            if ((_viewLogList.value ?: emptyList()).isEmpty()) {
+            if (viewLogList.isEmpty()) {
                 _screenList.value = listOf(
                     SearchScreenModel.NoViewLogView,
                     SearchScreenModel.HotView,

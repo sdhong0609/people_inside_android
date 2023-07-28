@@ -8,45 +8,35 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.common.ErrorEnvelope
-import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.mediacontent.ContentDetailModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
+import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
+import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
-import com.beside153.peopleinside.service.ErrorEnvelopeMapper
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
-import com.beside153.peopleinside.service.ReportService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
-import com.skydoves.sandwich.onSuccess
-import com.skydoves.sandwich.suspendOnError
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import retrofit2.HttpException
 
 @Suppress("TooManyFunctions")
 class ContentDetailViewModel(
     private val mediaContentService: MediaContentService,
     private val ratingService: RatingService,
     private val reviewService: ReviewService,
-    private val bookmarkService: BookmarkService,
-    private val reportService: ReportService
+    private val bookmarkService: BookmarkService
 ) : BaseViewModel() {
 
     private val _contentDetailItem = MutableLiveData<ContentDetailModel>()
     val contentDetailItem: LiveData<ContentDetailModel> get() = _contentDetailItem
 
-    private val contentRatingItem = MutableLiveData<ContentRatingModel>()
-    private val bookmarked = MutableLiveData(false)
     private val writerReviewItem = MutableLiveData<ContentReviewModel>()
     private val commentList = MutableLiveData<List<ContentCommentModel>>()
 
@@ -65,9 +55,6 @@ class ContentDetailViewModel(
     private val _reportSuccessEvent = MutableLiveData<Event<Boolean>>()
     val reportSuccessEvent: LiveData<Event<Boolean>> get() = _reportSuccessEvent
 
-    private val writerHasReview = MutableLiveData(false)
-    private var commentIdForReport = 0
-
     private val _createRatingEvent = MutableLiveData<Event<ContentRatingModel>>()
     val createRatingEvent: LiveData<Event<ContentRatingModel>> get() = _createRatingEvent
 
@@ -75,6 +62,10 @@ class ContentDetailViewModel(
     private var currentRating = 0f
     private var currentRatingId = 0
     private var page = 1
+    private var writerHasReview = false
+    private var bookmarked = false
+    private var commentIdForReport = 0
+    private var contentRatingItem = ContentRatingModel(1, 0, 0f)
 
     fun setContentId(id: Int) {
         contentId = id
@@ -127,32 +118,38 @@ class ContentDetailViewModel(
     }
 
     fun reportComment(reportId: Int) {
-        viewModelScope.launch(exceptionHandler) {
-            val response = reviewService.postReport(contentId, commentIdForReport, reportId)
-
-            response.onSuccess {
-                _reportSuccessEvent.value = Event(true)
-            }.suspendOnError(ErrorEnvelopeMapper) {
-                val errorEnvelope = Json.decodeFromString<ErrorEnvelope>(this.message)
-                if (errorEnvelope.message == "이미 리뷰 신고가 되어있습니다.") {
-                    _reportSuccessEvent.value = Event(false)
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 400) {
+                        _reportSuccessEvent.value = Event(false)
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
                 }
+
+                else -> exceptionHandler.handleException(context, t)
             }
+        }
+
+        viewModelScope.launch(ceh) {
+            reviewService.postReport(contentId, commentIdForReport, reportId)
+            _reportSuccessEvent.value = Event(true)
         }
     }
 
     fun initAllData(didClickComment: Boolean) {
         page = 1
         viewModelScope.launch(exceptionHandler) {
-            initRating(contentId).join()
-            initWriterReview(contentId).join()
+            initRating()
+            initWriterReview()
             val contentDetailItemDeferred = async { mediaContentService.getContentDetail(contentId) }
             val bookmarkStatusDeferred = async { bookmarkService.getBookmarkStatus(contentId) }
             val commentListDeferred = async { reviewService.getContentReviewList(contentId, page) }
             val postViewLogDeferred = async { mediaContentService.postViewLog(contentId, ENTER) }
 
             _contentDetailItem.value = contentDetailItemDeferred.await()
-            bookmarked.value = bookmarkStatusDeferred.await()
+            bookmarked = bookmarkStatusDeferred.await()
             commentList.value = commentListDeferred.await()
             postViewLogDeferred.await()
 
@@ -167,43 +164,46 @@ class ContentDetailViewModel(
         }
     }
 
-    private suspend fun initWriterReview(contentId: Int): Job {
-        val exceptionHandler = CoroutineExceptionHandler { _, t ->
+    private suspend fun initWriterReview() {
+        val ceh = CoroutineExceptionHandler { context, t ->
             when (t) {
-                is HttpException -> {
-                    writerHasReview.value = false
+                is ApiException -> {
+                    if (t.error.statusCode == 404) {
+                        writerHasReview = false
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
                 }
 
-                // else -> 처리 필요
+                else -> exceptionHandler.handleException(context, t)
             }
         }
-
-        return viewModelScope.launch(exceptionHandler) {
-            val writerReviewDeferred = async { reviewService.getWriterReview(contentId, App.prefs.getUserId()) }
-            writerReviewItem.value = writerReviewDeferred.await()
-            writerHasReview.value = true
+        viewModelScope.launch(ceh) {
+            writerReviewItem.value = reviewService.getWriterReview(contentId, App.prefs.getUserId())
+            writerHasReview = true
         }
     }
 
-    private suspend fun initRating(contentId: Int): Job {
-        val exceptionHandler = CoroutineExceptionHandler { _, t ->
+    private suspend fun initRating() {
+        val ceh = CoroutineExceptionHandler { context, t ->
             when (t) {
-                is HttpException -> {
-                    contentRatingItem.value = ContentRatingModel(contentId, 0, 0f)
-                    currentRating = 0f
-                    currentRatingId = 0
+                is ApiException -> {
+                    if (t.error.statusCode == 404) {
+                        contentRatingItem = ContentRatingModel(contentId, 0, 0f)
+                        currentRatingId = 0
+                        currentRating = 0f
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
                 }
 
-                // else -> 처리 필요
+                else -> exceptionHandler.handleException(context, t)
             }
         }
-
-        return viewModelScope.launch(exceptionHandler) {
-            val contentRatingItemDeferred =
-                async { ratingService.getContentRating(contentId, App.prefs.getUserId()) }
-            contentRatingItem.value = contentRatingItemDeferred.await()
-            currentRating = contentRatingItem.value?.rating ?: 0f
-            currentRatingId = contentRatingItem.value?.ratingId ?: 0
+        viewModelScope.launch(ceh) {
+            contentRatingItem = ratingService.getContentRating(contentId, App.prefs.getUserId())
+            currentRating = contentRatingItem.rating
+            currentRatingId = contentRatingItem.ratingId
         }
     }
 
@@ -212,11 +212,11 @@ class ContentDetailViewModel(
             if (currentRating.roundToHalf() == rating) return@launch
 
             if (currentRating <= 0) {
-                contentRatingItem.value =
+                contentRatingItem =
                     ratingService.postContentRating(contentId, ContentRatingRequest(rating))
                 currentRating = rating
-                currentRatingId = contentRatingItem.value?.ratingId ?: 0
-                _createRatingEvent.value = Event(contentRatingItem.value!!)
+                currentRatingId = contentRatingItem.ratingId
+                _createRatingEvent.value = Event(contentRatingItem)
                 return@launch
             }
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
@@ -233,9 +233,9 @@ class ContentDetailViewModel(
     }
 
     fun onBookmarkClick() {
-        bookmarked.value = bookmarked.value != true
+        bookmarked = bookmarked == false
         viewModelScope.launch(exceptionHandler) {
-            initRating(contentId)
+            initRating()
             bookmarkService.postBookmarkStatus(contentId)
             _screenList.value = screenList()
         }
@@ -254,14 +254,14 @@ class ContentDetailViewModel(
 
         return listOf(
             ContentDetailScreenModel.PosterView(_contentDetailItem.value!!),
-            ContentDetailScreenModel.ReviewView(contentRatingItem.value!!, bookmarked.value!!, writerHasReview.value!!),
+            ContentDetailScreenModel.ReviewView(contentRatingItem, bookmarked, writerHasReview),
             ContentDetailScreenModel.InfoView(_contentDetailItem.value!!),
             ContentDetailScreenModel.CommentsView
         ) + commentAreaList
     }
 
     fun onCreateReviewClick() {
-        if (writerHasReview.value == false) {
+        if (!writerHasReview) {
             _createReviewClickEvent.value = Event(Pair(contentId, ""))
         } else {
             _createReviewClickEvent.value = Event(Pair(contentId, writerReviewItem.value?.content ?: ""))
@@ -283,13 +283,11 @@ class ContentDetailViewModel(
                 val ratingService = RetrofitClient.ratingService
                 val reviewService = RetrofitClient.reviewService
                 val bookmarkService = RetrofitClient.bookmarkService
-                val reportServie = RetrofitClient.reportService
                 return ContentDetailViewModel(
                     mediaContentService,
                     ratingService,
                     reviewService,
-                    bookmarkService,
-                    reportServie
+                    bookmarkService
                 ) as T
             }
         }

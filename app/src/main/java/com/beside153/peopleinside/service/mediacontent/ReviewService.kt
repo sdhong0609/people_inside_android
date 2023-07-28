@@ -4,7 +4,6 @@ import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
 import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
 import com.beside153.peopleinside.model.mediacontent.review.LikeToggleResponse
-import com.skydoves.sandwich.ApiResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -43,5 +42,5 @@ interface ReviewService {
         @Path("contentId") contentId: Int,
         @Path("reviewId") reviewId: Int,
         @Path("reportId") reportId: Int
-    ): ApiResponse<Boolean>
+    ): Boolean
 }

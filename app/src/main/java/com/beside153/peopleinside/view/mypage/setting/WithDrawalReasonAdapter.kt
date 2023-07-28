@@ -13,24 +13,23 @@ class WithDrawalReasonAdapter(private val onRadioButtonClick: (item: WithDrawalR
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReasonItemViewHolder {
         val binding = ItemWithdrawalReasonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ReasonItemViewHolder(binding, onRadioButtonClick)
+        binding.radioImageView.setOnClickListener {
+            if (binding.item != null) {
+                onRadioButtonClick(binding.item!!)
+            }
+        }
+        return ReasonItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ReasonItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ReasonItemViewHolder(
-        private val binding: ItemWithdrawalReasonBinding,
-        private val onRadioButtonClick: (item: WithDrawalReasonModel) -> Unit
-    ) :
+    class ReasonItemViewHolder(private val binding: ItemWithdrawalReasonBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: WithDrawalReasonModel) {
             binding.item = item
-            binding.radioImageView.setOnClickListener {
-                onRadioButtonClick(item)
-            }
             binding.executePendingBindings()
         }
     }

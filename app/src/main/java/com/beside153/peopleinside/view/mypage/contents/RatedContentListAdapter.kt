@@ -17,31 +17,28 @@ class RatedContentListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentItemViewHolder {
         val binding = ItemMypageRatingContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ContentItemViewHolder(binding, onRatingChanged, onVerticalDotsClick)
+        binding.ratingBar.setOnRatingBarChangeListener { ratingBar, _, fromUser ->
+            if (fromUser && binding.item != null) {
+                onRatingChanged(ratingBar.rating, binding.item!!)
+            }
+        }
+        binding.verticalDotsImageView.setOnClickListener {
+            if (binding.item != null) {
+                onVerticalDotsClick(binding.verticalDotsImageView, binding.item!!)
+            }
+        }
+        return ContentItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ContentItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class ContentItemViewHolder(
-        private val binding: ItemMypageRatingContentBinding,
-        private val onRatingChanged: (rating: Float, item: RatedContentModel) -> Unit,
-        private val onVerticalDotsClick: (imageView: ImageView, item: RatedContentModel) -> Unit
-    ) :
+    class ContentItemViewHolder(private val binding: ItemMypageRatingContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: RatedContentModel) {
             binding.item = item
-            binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-                if (fromUser) {
-                    ratingBar.rating = rating
-                    onRatingChanged(ratingBar.rating, item)
-                }
-            }
-            binding.verticalDotsImageView.setOnClickListener {
-                onVerticalDotsClick(binding.verticalDotsImageView, item)
-            }
             binding.executePendingBindings()
         }
     }

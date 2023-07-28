@@ -104,7 +104,4 @@ dependencies {
 
     // Timber
     implementation(Libraries.Timber.timber)
-
-    // sandwich
-    implementation("com.github.skydoves:sandwich:1.3.7")
 }

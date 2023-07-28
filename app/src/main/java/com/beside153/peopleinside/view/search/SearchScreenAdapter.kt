@@ -25,13 +25,13 @@ import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenMo
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchedContentItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchingTitleItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SeenView
-import com.beside153.peopleinside.viewmodel.search.SearchViewModel
+import com.beside153.peopleinside.viewmodel.search.SearchViewModelHandler
 
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
     private val onSearchHotItemClick: (item: SearchHotModel) -> Unit,
     private val onSearchedContentItemClick: (item: SearchedContentModel) -> Unit,
-    private val searchViewModel: SearchViewModel
+    private val handler: SearchViewModelHandler
 ) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
 
@@ -87,7 +87,10 @@ class SearchScreenAdapter(
 
             R.layout.item_search_seen_content -> {
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
-                ViewHolder.SeenViewHolder(binding, searchViewModel)
+                val viewLogListAdapter = ViewLogListAdapter()
+                binding.viewLogRecyclerView.adapter = viewLogListAdapter
+                viewLogListAdapter.submitList(handler.viewLogList)
+                ViewHolder.SeenViewHolder(binding)
             }
 
             R.layout.item_search_no_view_log -> {
@@ -153,15 +156,8 @@ class SearchScreenAdapter(
             fun bind() = Unit
         }
 
-        class SeenViewHolder(
-            private val binding: ItemSearchSeenContentBinding,
-            private val searchViewModel: SearchViewModel
-        ) : ViewHolder(binding.root) {
-            fun bind() {
-                val viewLogListAdapter = ViewLogListAdapter()
-                binding.viewLogRecyclerView.adapter = viewLogListAdapter
-                viewLogListAdapter.submitList(searchViewModel.viewLogList.value)
-            }
+        class SeenViewHolder(binding: ItemSearchSeenContentBinding) : ViewHolder(binding.root) {
+            fun bind() = Unit
         }
 
         class NoViewLogViewHolder(binding: ItemSearchNoViewLogBinding) : ViewHolder(binding.root) {
