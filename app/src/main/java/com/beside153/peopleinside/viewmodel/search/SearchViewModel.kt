@@ -20,13 +20,17 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel() {
+interface SearchViewModelHandler {
+    val viewLogList: LiveData<List<ViewLogContentModel>>
+}
+
+class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel(), SearchViewModelHandler {
 
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
 
     private val _viewLogList = MutableLiveData<List<ViewLogContentModel>>()
-    val viewLogList: LiveData<List<ViewLogContentModel>> get() = _viewLogList
+    override val viewLogList: LiveData<List<ViewLogContentModel>> get() = _viewLogList
 
     private val searchingTitleList = MutableLiveData<List<SearchingTitleModel>>()
     private val searchedContentList = MutableLiveData<List<SearchedContentModel>>()

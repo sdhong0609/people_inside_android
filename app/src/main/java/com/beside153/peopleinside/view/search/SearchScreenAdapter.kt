@@ -25,13 +25,13 @@ import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenMo
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchedContentItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SearchingTitleItem
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel.SeenView
-import com.beside153.peopleinside.viewmodel.search.SearchViewModel
+import com.beside153.peopleinside.viewmodel.search.SearchViewModelHandler
 
 class SearchScreenAdapter(
     private val onSearchingTitleItemClick: (item: SearchingTitleModel) -> Unit,
     private val onSearchHotItemClick: (item: SearchHotModel) -> Unit,
     private val onSearchedContentItemClick: (item: SearchedContentModel) -> Unit,
-    private val searchViewModel: SearchViewModel
+    private val handler: SearchViewModelHandler
 ) :
     ListAdapter<SearchScreenModel, SearchScreenAdapter.ViewHolder>(SearchScreenModelDiffCallback()) {
 
@@ -89,7 +89,7 @@ class SearchScreenAdapter(
                 val binding = ItemSearchSeenContentBinding.inflate(inflater, parent, false)
                 val viewLogListAdapter = ViewLogListAdapter()
                 binding.viewLogRecyclerView.adapter = viewLogListAdapter
-                viewLogListAdapter.submitList(searchViewModel.viewLogList.value)
+                viewLogListAdapter.submitList(handler.viewLogList.value)
                 ViewHolder.SeenViewHolder(binding)
             }
 
