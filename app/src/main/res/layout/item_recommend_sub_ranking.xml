@@ -118,7 +118,7 @@
             app:mbtiBackground="@{app.prefs.mbti}"
             app:mbtiLeftIcon="@{app.prefs.mbti}"
             app:mbtiTextColor="@{app.prefs.mbti}"
-            tools:background="@drawable/bg_mbti_rating_sample"
+            tools:background="@drawable/bg_mbti_rating"
             tools:drawableStartCompat="@drawable/ic_clap_hands_white"
             tools:text="ESFJ 4.5점" />
 

@@ -51,11 +51,11 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bookmark_image"
             android:padding="18dp"
-            app:bookmarkGrayImg="@{item.bookmarked}"
+            app:bookmarkWhiteImg="@{item.bookmarked}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/pick10TitleTextView"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_bookmark_empty_gray" />
+            tools:src="@drawable/ic_bookmark_empty" />
 
         <TextView
             android:id="@+id/pick10TitleTextView"
@@ -91,26 +91,33 @@
             app:layout_constraintTop_toBottomOf="@id/pick10TitleTextView"
             tools:text="전체 4.3점" />
 
-        <TextView
-            android:id="@+id/mbtiRatingTextView"
-            style="@style/textStyleMediumWhite"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mbtiRatingCardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="5dp"
-            android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
-            android:textSize="12sp"
+            app:cardCornerRadius="2dp"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
-            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
-            app:mbtiBackground="@{app.prefs.mbti}"
-            app:mbtiLeftIcon="@{app.prefs.mbti}"
-            app:mbtiTextColor="@{app.prefs.mbti}"
-            tools:background="@drawable/bg_mbti_rating_sample"
-            tools:drawableStartCompat="@drawable/ic_clap_hands_white"
-            tools:text="ESFJ 4.5점" />
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView">
+
+            <TextView
+                style="@style/textStyleMediumWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="5dp"
+                android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
+                android:textSize="12sp"
+                app:mbtiBackground="@{app.prefs.mbti}"
+                app:mbtiLeftIcon="@{app.prefs.mbti}"
+                app:mbtiTextColor="@{app.prefs.mbti}"
+                tools:background="@drawable/ENFJ"
+                tools:drawableStartCompat="@drawable/ic_clap_hands_white"
+                tools:text="ESFJ 4.5점" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/pick10PosterCardView"
@@ -121,7 +128,7 @@
             app:layout_constraintBottom_toTopOf="@id/topCommentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mbtiRatingTextView">
+            app:layout_constraintTop_toBottomOf="@id/mbtiRatingCardView">
 
             <ImageView
                 android:id="@+id/posterImageView"
