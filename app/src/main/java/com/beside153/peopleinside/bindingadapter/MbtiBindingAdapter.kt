@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 
-@Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiLargeImg")
 fun ImageView.mbtiLargeImg(mbti: String) {
     val imgRes = when (mbti.uppercase()) {
@@ -34,7 +33,6 @@ fun ImageView.mbtiLargeImg(mbti: String) {
     setImageResource(imgRes)
 }
 
-@Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiCircleImg")
 fun ImageView.mbtiCircleImg(mbti: String) {
     val imgRes = when (mbti.uppercase()) {
@@ -62,7 +60,6 @@ fun ImageView.mbtiCircleImg(mbti: String) {
     setImageResource(imgRes)
 }
 
-@Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiHeartImg")
 fun ImageView.mbtiHeartImg(mbti: String) {
     val imgRes = when (mbti.uppercase()) {
@@ -90,7 +87,6 @@ fun ImageView.mbtiHeartImg(mbti: String) {
     setImageResource(imgRes)
 }
 
-@Suppress("CyclomaticComplexMethod")
 @BindingAdapter("mbtiBackground")
 fun TextView.mbtiBackground(mbti: String) {
     val background = when (mbti.uppercase()) {

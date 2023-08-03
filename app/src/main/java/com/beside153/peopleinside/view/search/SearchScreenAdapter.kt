@@ -188,7 +188,6 @@ class SearchScreenAdapter(
     }
 }
 
-@Suppress("CyclomaticComplexMethod")
 private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreenModel>() {
     override fun areItemsTheSame(oldItem: SearchScreenModel, newItem: SearchScreenModel): Boolean {
         return when {
