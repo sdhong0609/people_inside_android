@@ -23,7 +23,7 @@ import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
-import com.beside153.peopleinside.view.login.LoginActivity
+import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -179,7 +179,7 @@ class RecommendFragment : BaseFragment() {
             viewLifecycleOwner,
             EventObserver {
                 if (!App.prefs.getIsMember()) {
-                    startActivity(LoginActivity.newIntent(requireActivity()))
+                    startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
                     requireActivity().setOpenActivityAnimation()
                     return@EventObserver
                 }
@@ -215,7 +215,7 @@ class RecommendFragment : BaseFragment() {
 
     private fun onBookmarkClick(item: Pick10Model) {
         if (!App.prefs.getIsMember()) {
-            startActivity(LoginActivity.newIntent(requireActivity()))
+            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
             requireActivity().setOpenActivityAnimation()
             return
         }

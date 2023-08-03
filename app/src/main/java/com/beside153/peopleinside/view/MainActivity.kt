@@ -14,7 +14,7 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityMainBinding
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
-import com.beside153.peopleinside.view.login.LoginActivity
+import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +36,7 @@ class MainActivity : BaseActivity() {
                 if (!App.prefs.getIsMember() && menuItem.itemId == R.id.myPageFragment) {
                     previousMenuItemId = selectedItemId
 
-                    loginActivityLauncher.launch(LoginActivity.newIntent(this@MainActivity))
+                    nonMemberLoginActivityLauncher.launch(NonMemberLoginActivity.newIntent(this@MainActivity))
                     setOpenActivityAnimation()
                     return@setOnItemSelectedListener true
                 }
@@ -48,7 +48,7 @@ class MainActivity : BaseActivity() {
         if (isFirstEnter) showToast(R.string.welcome)
     }
 
-    private val loginActivityLauncher =
+    private val nonMemberLoginActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == BACK_FROM_LOGINACTIVITY) {
                 if (previousMenuItemId != 0) {

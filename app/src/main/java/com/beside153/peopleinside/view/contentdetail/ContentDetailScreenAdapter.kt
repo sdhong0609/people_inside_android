@@ -23,7 +23,7 @@ import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.
 class ContentDetailScreenAdapter(
     private val onBookmarkClick: () -> Unit,
     private val onCreateReviewClick: () -> Unit,
-    private val goToLoginActivity: () -> Unit,
+    private val goToNonMemberLoginActivity: () -> Unit,
     private val onRatingChanged: (rating: Float) -> Unit,
     private val onVerticalDotsClick: (item: ContentCommentModel) -> Unit,
     private val onCommentLikeClick: (item: ContentCommentModel) -> Unit
@@ -56,7 +56,7 @@ class ContentDetailScreenAdapter(
                 val binding = ItemContentDetailReviewBinding.inflate(inflater, parent, false)
                 binding.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
                     if (!App.prefs.getIsMember() && fromUser) {
-                        goToLoginActivity()
+                        goToNonMemberLoginActivity()
                         ratingBar.rating = 0f
                     } else {
                         onRatingChanged(rating)
