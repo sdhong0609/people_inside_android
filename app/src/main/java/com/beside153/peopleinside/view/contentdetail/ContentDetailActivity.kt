@@ -28,10 +28,12 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ContentDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityContentDetailBinding
-    private val contentDetailViewModel: ContentDetailViewModel by viewModels { ContentDetailViewModel.Factory }
+    private val contentDetailViewModel: ContentDetailViewModel by viewModels()
     private val contentDetailScreenAdapter =
         ContentDetailScreenAdapter(
             ::onBookmarkClick,

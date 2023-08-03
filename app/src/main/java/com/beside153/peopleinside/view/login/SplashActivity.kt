@@ -11,10 +11,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
 import com.beside153.peopleinside.viewmodel.login.SplashViewmodel
+import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : BaseActivity() {
-    private val splashViewmodel: SplashViewmodel by viewModels { SplashViewmodel.Factory }
+    private val splashViewmodel: SplashViewmodel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,18 +2,19 @@ package com.beside153.peopleinside.viewmodel.contentdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CreateReviewViewModel(private val reviewService: ReviewService) : BaseViewModel() {
+@HiltViewModel
+class CreateReviewViewModel @Inject constructor(
+    private val reviewService: ReviewService
+) : BaseViewModel() {
 
     val reviewText = MutableLiveData("")
 
@@ -43,19 +44,6 @@ class CreateReviewViewModel(private val reviewService: ReviewService) : BaseView
                     reviewService.postReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
                 }
                 _completeButtonClickEvent.value = Event(Unit)
-            }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val reviewService = RetrofitClient.reviewService
-                return CreateReviewViewModel(reviewService) as T
             }
         }
     }

@@ -2,22 +2,23 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.service.AuthService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(private val authService: AuthService, private val userService: UserService) :
-    BaseViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val authService: AuthService,
+    private val userService: UserService
+) : BaseViewModel() {
 
     private val _kakaoLoginClickEvent = MutableLiveData<Event<Unit>>()
     val kakaoLoginClickEvent: LiveData<Event<Unit>> get() = _kakaoLoginClickEvent
@@ -81,19 +82,5 @@ class LoginViewModel(private val authService: AuthService, private val userServi
 
     fun onWithoutLoginClick() {
         _withoutLoginClickEvent.value = Event(Unit)
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val authService = RetrofitClient.authService
-                val userService = RetrofitClient.userService
-                return LoginViewModel(authService, userService) as T
-            }
-        }
     }
 }

@@ -2,22 +2,24 @@ package com.beside153.peopleinside.viewmodel.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.service.ReportService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
-class SplashViewmodel(private val reportService: ReportService, private val userService: UserService) :
+@HiltViewModel
+class SplashViewmodel @Inject constructor(
+    private val reportService: ReportService,
+    private val userService: UserService
+) :
     BaseViewModel() {
 
     private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
@@ -41,20 +43,6 @@ class SplashViewmodel(private val reportService: ReportService, private val user
                 return@launch
             }
             _onBoardingCompletedEvent.value = Event(false)
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val reportService = RetrofitClient.reportService
-                val userService = RetrofitClient.userService
-                return SplashViewmodel(reportService, userService) as T
-            }
         }
     }
 }

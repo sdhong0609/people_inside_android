@@ -17,10 +17,12 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CreateReviewActivity : BaseActivity() {
     private lateinit var binding: ActivityCreateReviewBinding
-    private val createReviewViewModel: CreateReviewViewModel by viewModels { CreateReviewViewModel.Factory }
+    private val createReviewViewModel: CreateReviewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
