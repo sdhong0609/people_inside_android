@@ -11,8 +11,9 @@ plugins {
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
     id("androidx.navigation.safeargs")
-    id("kotlin-kapt")
     id("kotlinx-serialization")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -104,4 +105,12 @@ dependencies {
 
     // Timber
     implementation(Libraries.Timber.timber)
+
+    // Hilt
+    implementation(Libraries.Hilt.hilt)
+    kapt(Libraries.Hilt.hilt_compiler)
+}
+
+kapt {
+    correctErrorTypes = true
 }
