@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.login.nonmember
 
 import android.content.Context
 import android.content.Intent
@@ -10,10 +10,11 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.addBackPressedAnimation
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
-import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiChoiceActivity
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
 import com.beside153.peopleinside.viewmodel.login.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
@@ -26,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity() {
+class NonMemberLoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var kakaoApi: UserApiClient
     private val loginViewModel: LoginViewModel by viewModels()
@@ -37,11 +38,25 @@ class LoginActivity : BaseActivity() {
 
         binding.apply {
             viewModel = loginViewModel
-            lifecycleOwner = this@LoginActivity
+            lifecycleOwner = this@NonMemberLoginActivity
         }
 
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
+
+        // 비회원일 때 뒤로가기 설정
+        if (!App.prefs.getIsMember()) {
+            addBackPressedAnimation { setResult(BACK_FROM_LOGINACTIVITY) }
+
+            loginViewModel.backButtonClickEvent.observe(
+                this,
+                EventObserver {
+                    setResult(BACK_FROM_LOGINACTIVITY)
+                    finish()
+                    setCloseActivityAnimation()
+                }
+            )
+        }
 
         loginViewModel.kakaoLoginClickEvent.observe(
             this,
@@ -130,10 +145,11 @@ class LoginActivity : BaseActivity() {
     }
 
     companion object {
+        private const val BACK_FROM_LOGINACTIVITY = 111
         private const val ON_BOARDING = "on boarding not completed"
 
         fun newIntent(context: Context): Intent {
-            return Intent(context, LoginActivity::class.java)
+            return Intent(context, NonMemberLoginActivity::class.java)
         }
     }
 }
