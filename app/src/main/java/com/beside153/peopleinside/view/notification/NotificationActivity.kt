@@ -16,7 +16,6 @@ class NotificationActivity : BaseActivity() {
     private lateinit var binding: ActivityNotificationBinding
     private val notificationAdapter = NotificationListAdapter()
 
-    @Suppress("MagicNumber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)

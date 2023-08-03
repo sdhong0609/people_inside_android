@@ -2,25 +2,24 @@ package com.beside153.peopleinside.viewmodel.mypage.contents
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
-import com.beside153.peopleinside.model.mycontent.Rating
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
+import com.beside153.peopleinside.model.mycontent.Rating
 import com.beside153.peopleinside.model.mycontent.Review
 import com.beside153.peopleinside.service.MyContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RatedContentsViewModel(
+@HiltViewModel
+class RatedContentsViewModel @Inject constructor(
     private val myContentService: MyContentService,
     private val ratingService: RatingService,
     private val reviewService: ReviewService
@@ -128,18 +127,5 @@ class RatedContentsViewModel(
 
     companion object {
         private const val MAX_RATING = 5
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val myContentService = RetrofitClient.myContentService
-                val ratingService = RetrofitClient.ratingService
-                val reviewService = RetrofitClient.reviewService
-                return RatedContentsViewModel(myContentService, ratingService, reviewService) as T
-            }
-        }
     }
 }

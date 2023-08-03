@@ -2,10 +2,7 @@ package com.beside153.peopleinside.viewmodel.contentdetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.common.exception.ApiException
@@ -14,7 +11,6 @@ import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
 import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
@@ -22,12 +18,14 @@ import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.util.roundToHalf
 import com.beside153.peopleinside.view.contentdetail.ContentDetailScreenAdapter.ContentDetailScreenModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
-class ContentDetailViewModel(
+@HiltViewModel
+class ContentDetailViewModel @Inject constructor(
     private val mediaContentService: MediaContentService,
     private val ratingService: RatingService,
     private val reviewService: ReviewService,
@@ -75,7 +73,6 @@ class ContentDetailViewModel(
             val newCommentList = reviewService.getContentReviewList(contentId, ++page)
             commentList = commentList.plus(newCommentList)
 
-            @Suppress("SpreadOperator")
             _screenList.value = _screenList.value?.plus(
                 listOf(
                     *newCommentList.map { ContentDetailScreenModel.ContentCommentItem(it) }.toTypedArray()
@@ -240,7 +237,6 @@ class ContentDetailViewModel(
         }
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<ContentDetailScreenModel> {
         val commentAreaList = if (commentList.isEmpty()) {
             listOf(ContentDetailScreenModel.NoCommentView)
@@ -270,24 +266,5 @@ class ContentDetailViewModel(
         private const val MAX_RATING = 5
         private const val ENTER = "enter"
         private const val STAY = "stay"
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val mediaContentService = RetrofitClient.mediaContentService
-                val ratingService = RetrofitClient.ratingService
-                val reviewService = RetrofitClient.reviewService
-                val bookmarkService = RetrofitClient.bookmarkService
-                return ContentDetailViewModel(
-                    mediaContentService,
-                    ratingService,
-                    reviewService,
-                    bookmarkService
-                ) as T
-            }
-        }
     }
 }

@@ -2,9 +2,12 @@ package com.beside153.peopleinside.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
-class PreferenceUtil(context: Context) {
+class PreferenceUtil @Inject constructor(
+    @ApplicationContext context: Context
+) {
     val jwtTokenKey = "JWT_TOKEN"
     private val userIdKey = "USER_ID"
     private val userMbtiKey = "USER_MBTI"
@@ -13,6 +16,7 @@ class PreferenceUtil(context: Context) {
     private val userBirthKey = "USER_BIRTH"
     val reportListKey = "REPORT_LIST"
     private val isMemberKey = "IS_MEMBER"
+    private val emailKey = "EMAIL"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
@@ -66,11 +70,11 @@ class PreferenceUtil(context: Context) {
     }
 
     fun getEmail(): String {
-        return prefs.getString("email", "").toString()
+        return prefs.getString(emailKey, "").toString()
     }
 
     fun setEmail(str: String) {
-        prefs.edit().putString("email", str).apply()
+        prefs.edit().putString(emailKey, str).apply()
     }
 
     fun getIsMember(): Boolean {

@@ -19,10 +19,12 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpUserInfoFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpUserInfoBinding
-    private val userInfoViewModel: SignUpUserInfoViewModel by activityViewModels { SignUpUserInfoViewModel.Factory }
+    private val userInfoViewModel: SignUpUserInfoViewModel by activityViewModels()
     private var year = INITIAL_YEAR
     private var mbti = INITIAL_MBTI
     private var gender = INITIAL_GENDER

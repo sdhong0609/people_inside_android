@@ -7,7 +7,9 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityEditProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityEditProfileBinding
 

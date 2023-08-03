@@ -44,6 +44,10 @@ object Versions {
 
     // Timber
     const val timber = "5.0.1"
+
+    // Hilt
+    const val hilt = "2.44.2"
+    const val hilt_compiler = "2.44"
 }
 
 object Libraries {
@@ -105,5 +109,10 @@ object Libraries {
 
     object Timber {
         const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    }
+
+    object Hilt {
+        const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+        const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt_compiler}"
     }
 }

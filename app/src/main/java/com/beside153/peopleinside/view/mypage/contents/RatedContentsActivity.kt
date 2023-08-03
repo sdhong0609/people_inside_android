@@ -27,10 +27,12 @@ import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.mypage.contents.RatedContentsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RatedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageRatingContentsBinding
-    private val contentsViewModel: RatedContentsViewModel by viewModels { RatedContentsViewModel.Factory }
+    private val contentsViewModel: RatedContentsViewModel by viewModels()
     private val contentListAdapter = RatedContentListAdapter(::onRatingChanged, ::onVerticalDotsClick)
     private lateinit var popupView: View
     private lateinit var popupWindow: PopupWindow

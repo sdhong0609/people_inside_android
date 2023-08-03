@@ -25,10 +25,12 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecommendFragment : BaseFragment() {
     private lateinit var binding: FragmentRecommendBinding
-    private val recommendViewModel: RecommendViewModel by viewModels { RecommendViewModel.Factory }
+    private val recommendViewModel: RecommendViewModel by viewModels()
 
     private val pagerAdapter =
         Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopReviewClick, ::onBookmarkClick, ::onRefreshClick)
@@ -44,7 +46,6 @@ class RecommendFragment : BaseFragment() {
         return binding.root
     }
 
-    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

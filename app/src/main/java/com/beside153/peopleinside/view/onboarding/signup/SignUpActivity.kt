@@ -10,10 +10,12 @@ import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivitySignUpBinding
 import com.beside153.peopleinside.view.onboarding.ContentChoiceFragment
 import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpUserInfoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpActivity : BaseActivity() {
     private lateinit var binding: ActivitySignUpBinding
-    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels { SignUpUserInfoViewModel.Factory }
+    private val userInfoViewModel: SignUpUserInfoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -18,10 +18,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.onboarding.ContentChoiceViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ContentChoiceFragment : BaseFragment() {
     private lateinit var binding: FragmentSignUpContentChoiceBinding
-    private val contentViewModel: ContentChoiceViewModel by viewModels { ContentChoiceViewModel.Factory }
+    private val contentViewModel: ContentChoiceViewModel by viewModels()
     private val contentAdapter = ContentScreenAdapter(::onContentItemClick)
 
     override fun onCreateView(

@@ -47,7 +47,6 @@ class SearchScreenAdapter(
         }
     }
 
-    @Suppress("LongMethod")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -188,7 +187,6 @@ class SearchScreenAdapter(
     }
 }
 
-@Suppress("CyclomaticComplexMethod")
 private class SearchScreenModelDiffCallback : DiffUtil.ItemCallback<SearchScreenModel>() {
     override fun areItemsTheSame(oldItem: SearchScreenModel, newItem: SearchScreenModel): Boolean {
         return when {

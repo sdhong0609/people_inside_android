@@ -8,6 +8,10 @@ import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -17,8 +21,13 @@ import retrofit2.Retrofit
 import timber.log.Timber
 import java.io.IOException
 import java.net.UnknownHostException
+import javax.inject.Qualifier
+import javax.inject.Singleton
 
-object RetrofitClient {
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+
     private const val baseUrl = "https://people-inside.com"
     private const val contentType = "application/json"
 
@@ -27,13 +36,27 @@ object RetrofitClient {
         coerceInputValues = true
     }
 
-    private val authRetrofit: Retrofit = Retrofit.Builder()
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AuthRetrofit
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class AppRetrofit
+
+    @Singleton
+    @Provides
+    @AuthRetrofit
+    fun provideAuthRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(provideOkHttpClient(ErrorInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
         .build()
 
-    private val retrofit: Retrofit = Retrofit.Builder()
+    @Singleton
+    @Provides
+    @AppRetrofit
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(provideOkHttpClient(AppInterceptor(), ErrorInterceptor()))
         .addConverterFactory(json.asConverterFactory(contentType.toMediaType()))
@@ -49,7 +72,6 @@ object RetrofitClient {
     class AppInterceptor : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
-            @Suppress("UnusedPrivateMember")
             val userId = App.prefs.getUserId()
             val jwtToken =
                 App.prefs.getString(App.prefs.jwtTokenKey)
@@ -85,13 +107,48 @@ object RetrofitClient {
         }
     }
 
-    val mediaContentService: MediaContentService = retrofit.create(MediaContentService::class.java)
-    val ratingService: RatingService = retrofit.create(RatingService::class.java)
-    val reviewService: ReviewService = retrofit.create(ReviewService::class.java)
-    val bookmarkService: BookmarkService = retrofit.create(BookmarkService::class.java)
-    val myContentService: MyContentService = retrofit.create(MyContentService::class.java)
-    val reportService: ReportService = retrofit.create(ReportService::class.java)
-    val authService: AuthService = authRetrofit.create(AuthService::class.java)
-    val userService: UserService = retrofit.create(UserService::class.java)
-    val withDrawalService: WithDrawalService = retrofit.create(WithDrawalService::class.java)
+    @Singleton
+    @Provides
+    fun provideMediaContentService(@AppRetrofit retrofit: Retrofit): MediaContentService =
+        retrofit.create(MediaContentService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRatingService(@AppRetrofit retrofit: Retrofit): RatingService =
+        retrofit.create(RatingService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideReviewService(@AppRetrofit retrofit: Retrofit): ReviewService =
+        retrofit.create(ReviewService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideBookmarkService(@AppRetrofit retrofit: Retrofit): BookmarkService =
+        retrofit.create(BookmarkService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideMyContentService(@AppRetrofit retrofit: Retrofit): MyContentService =
+        retrofit.create(MyContentService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideReportService(@AppRetrofit retrofit: Retrofit): ReportService =
+        retrofit.create(ReportService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideAuthService(@AuthRetrofit authRetrofit: Retrofit): AuthService =
+        authRetrofit.create(AuthService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideUserService(@AppRetrofit retrofit: Retrofit): UserService =
+        retrofit.create(UserService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideWithDrawalService(@AppRetrofit retrofit: Retrofit): WithDrawalService =
+        retrofit.create(WithDrawalService::class.java)
 }

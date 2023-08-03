@@ -22,10 +22,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
-    private val searchViewModel: SearchViewModel by viewModels { SearchViewModel.Factory }
+    private val searchViewModel: SearchViewModel by viewModels()
     private lateinit var searchScreenAdapter: SearchScreenAdapter
     private lateinit var inputMethodManager: InputMethodManager
 

@@ -2,21 +2,22 @@ package com.beside153.peopleinside.viewmodel.onboarding.signup
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.auth.AuthRegisterRequest
 import com.beside153.peopleinside.service.AuthService
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewModel() {
+@HiltViewModel
+class SignUpUserInfoViewModel @Inject constructor(
+    private val authService: AuthService
+) : BaseViewModel() {
     val nickname = MutableLiveData("")
 
     private val _nicknameCount = MutableLiveData(0)
@@ -52,7 +53,6 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
         authToken = token
     }
 
-    @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
@@ -81,7 +81,6 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
         checkSignUpButtonEnable()
     }
 
-    @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
         // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
 
@@ -128,18 +127,5 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
 
     private fun checkSignUpButtonEnable() {
         _isSignUpButtonEnable.value = (_nicknameCount.value ?: 0) > 0 && (_selectedMbti.value ?: "") != "선택"
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val authService = RetrofitClient.authService
-                return SignUpUserInfoViewModel(authService) as T
-            }
-        }
     }
 }

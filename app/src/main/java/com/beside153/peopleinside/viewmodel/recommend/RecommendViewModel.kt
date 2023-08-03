@@ -4,24 +4,22 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.RatingBattleModel
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10ViewPagerModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-@Suppress("TooManyFunctions")
-class RecommendViewModel(
+@HiltViewModel
+class RecommendViewModel @Inject constructor(
     private val mediaContentService: MediaContentService,
     private val bookmarkService: BookmarkService
 ) : BaseViewModel() {
@@ -136,7 +134,6 @@ class RecommendViewModel(
         }
     }
 
-    @Suppress("SpreadOperator")
     private fun viewPagerList(): List<Pick10ViewPagerModel> {
         return listOf(
             *pick10List.map { Pick10ViewPagerModel.Pick10Item(it) }.toTypedArray(),
@@ -193,17 +190,5 @@ class RecommendViewModel(
     companion object {
         private const val MAX_TAKE = 3
         private const val REFRESH_TIME = 2000L
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val mediaContentService = RetrofitClient.mediaContentService
-                val bookmarkService = RetrofitClient.bookmarkService
-                return RecommendViewModel(mediaContentService, bookmarkService) as T
-            }
-        }
     }
 }

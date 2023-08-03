@@ -18,10 +18,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.common.BirthYearBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileFragment : BaseFragment() {
     private lateinit var binding: FragmentEditProfileBinding
-    private val editProfileViewModel: EditProfileViewModel by viewModels { EditProfileViewModel.Factory }
+    private val editProfileViewModel: EditProfileViewModel by viewModels()
     private var nickname = App.prefs.getNickname()
     private var year = App.prefs.getBirth().toInt()
     private var mbti = App.prefs.getMbti()

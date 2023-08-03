@@ -16,10 +16,12 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.FixReviewViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FixReviewActivity : BaseActivity() {
     private lateinit var binding: ActivityFixReviewBinding
-    private val fixReviewViewModel: FixReviewViewModel by viewModels { FixReviewViewModel.Factory }
+    private val fixReviewViewModel: FixReviewViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,23 +2,22 @@ package com.beside153.peopleinside.viewmodel.onboarding
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentModel
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.onboarding.ContentScreenAdapter.ContentScreenModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ContentChoiceViewModel(
+@HiltViewModel
+class ContentChoiceViewModel @Inject constructor(
     private val mediaContentService: MediaContentService,
     private val userService: UserService
 ) : BaseViewModel() {
@@ -74,7 +73,6 @@ class ContentChoiceViewModel(
         _screenList.value = screenList()
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<ContentScreenModel> {
         return listOf(
             ContentScreenModel.TitleViewItem,
@@ -107,17 +105,5 @@ class ContentChoiceViewModel(
     companion object {
         private const val MAX_CHOICE_COUNT = 5
         private const val MAX_RATING = 5f
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val mediaContentService = RetrofitClient.mediaContentService
-                val userService = RetrofitClient.userService
-                return ContentChoiceViewModel(mediaContentService, userService) as T
-            }
-        }
     }
 }
