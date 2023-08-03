@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.view.login
+package com.beside153.peopleinside.view.login.nonmember
 
 import android.content.Context
 import android.content.Intent
@@ -8,14 +8,14 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
-import com.beside153.peopleinside.databinding.ActivityLoginBinding
+import com.beside153.peopleinside.databinding.ActivityNonMemberLoginBinding
 import com.beside153.peopleinside.util.EventObserver
-import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.util.addBackPressedAnimation
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
-import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiChoiceActivity
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
-import com.beside153.peopleinside.viewmodel.login.LoginViewModel
+import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberLoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.AuthError
@@ -26,31 +26,42 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class NonMemberLoginActivity : BaseActivity() {
+    private lateinit var binding: ActivityNonMemberLoginBinding
     private lateinit var kakaoApi: UserApiClient
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val nonMemberLoginViewModel: NonMemberLoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_non_member_login)
 
         binding.apply {
-            viewModel = loginViewModel
-            lifecycleOwner = this@LoginActivity
+            viewModel = nonMemberLoginViewModel
+            lifecycleOwner = this@NonMemberLoginActivity
         }
 
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
-        loginViewModel.kakaoLoginClickEvent.observe(
+        addBackPressedAnimation { setResult(BACK_FROM_LOGINACTIVITY) }
+
+        nonMemberLoginViewModel.backButtonClickEvent.observe(
+            this,
+            EventObserver {
+                setResult(BACK_FROM_LOGINACTIVITY)
+                finish()
+                setCloseActivityAnimation()
+            }
+        )
+
+        nonMemberLoginViewModel.kakaoLoginClickEvent.observe(
             this,
             EventObserver {
                 kakaoLogin()
             }
         )
 
-        loginViewModel.goToSignUpEvent.observe(
+        nonMemberLoginViewModel.goToSignUpEvent.observe(
             this,
             EventObserver { authToken ->
                 startActivity(SignUpActivity.newIntent(this, authToken))
@@ -58,7 +69,7 @@ class LoginActivity : BaseActivity() {
             }
         )
 
-        loginViewModel.onBoardingCompletedEvent.observe(
+        nonMemberLoginViewModel.onBoardingCompletedEvent.observe(
             this,
             EventObserver { completed ->
                 if (completed) {
@@ -67,14 +78,6 @@ class LoginActivity : BaseActivity() {
                     startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
                 }
                 finishAffinity()
-            }
-        )
-
-        loginViewModel.withoutLoginClickEvent.observe(
-            this,
-            EventObserver {
-                startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
-                setOpenActivityAnimation()
             }
         )
     }
@@ -116,7 +119,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun getKakaoAccountInfo(authToken: String) {
-        loginViewModel.setAuthToken(authToken)
+        nonMemberLoginViewModel.setAuthToken(authToken)
 
         kakaoApi.me { user, error ->
             if (error != null) {
@@ -124,16 +127,17 @@ class LoginActivity : BaseActivity() {
                 showToast(R.string.kakao_user_info_load_failed)
             } else if (user != null) {
                 App.prefs.setEmail(user.kakaoAccount?.email ?: "")
-                loginViewModel.peopleInsideLogin()
+                nonMemberLoginViewModel.peopleInsideLogin()
             }
         }
     }
 
     companion object {
+        private const val BACK_FROM_LOGINACTIVITY = 111
         private const val ON_BOARDING = "on boarding not completed"
 
         fun newIntent(context: Context): Intent {
-            return Intent(context, LoginActivity::class.java)
+            return Intent(context, NonMemberLoginActivity::class.java)
         }
     }
 }

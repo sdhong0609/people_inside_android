@@ -21,7 +21,7 @@ import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
-import com.beside153.peopleinside.view.login.LoginActivity
+import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
 import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -38,7 +38,7 @@ class ContentDetailActivity : BaseActivity() {
         ContentDetailScreenAdapter(
             ::onBookmarkClick,
             ::onCreateReviewClick,
-            ::goToLoginAcitivity,
+            ::goToNonMemberLoginAcitivity,
             ::onRatingChanged,
             ::onVerticalDotsClick,
             ::onCommentLikeClick
@@ -172,8 +172,8 @@ class ContentDetailActivity : BaseActivity() {
         )
     }
 
-    private fun goToLoginAcitivity() {
-        startActivity(LoginActivity.newIntent(this))
+    private fun goToNonMemberLoginAcitivity() {
+        startActivity(NonMemberLoginActivity.newIntent(this))
         setOpenActivityAnimation()
     }
 
@@ -183,7 +183,7 @@ class ContentDetailActivity : BaseActivity() {
 
     private fun onBookmarkClick() {
         if (!App.prefs.getIsMember()) {
-            goToLoginAcitivity()
+            goToNonMemberLoginAcitivity()
             return
         }
         contentDetailViewModel.onBookmarkClick()
@@ -191,7 +191,7 @@ class ContentDetailActivity : BaseActivity() {
 
     private fun onCreateReviewClick() {
         if (!App.prefs.getIsMember()) {
-            goToLoginAcitivity()
+            goToNonMemberLoginAcitivity()
             return
         }
         contentDetailViewModel.onCreateReviewClick()
@@ -199,7 +199,7 @@ class ContentDetailActivity : BaseActivity() {
 
     private fun onVerticalDotsClick(item: ContentCommentModel) {
         if (!App.prefs.getIsMember()) {
-            goToLoginAcitivity()
+            goToNonMemberLoginAcitivity()
             return
         }
         contentDetailViewModel.onVerticalDotsClick(item)
@@ -207,7 +207,7 @@ class ContentDetailActivity : BaseActivity() {
 
     private fun onCommentLikeClick(item: ContentCommentModel) {
         if (!App.prefs.getIsMember()) {
-            goToLoginAcitivity()
+            goToNonMemberLoginAcitivity()
             return
         }
         contentDetailViewModel.onCommentLikeClick(item)
