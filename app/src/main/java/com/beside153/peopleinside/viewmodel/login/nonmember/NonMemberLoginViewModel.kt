@@ -29,9 +29,6 @@ class NonMemberLoginViewModel @Inject constructor(
     private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
     val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
 
-    private val _withoutLoginClickEvent = MutableLiveData<Event<Unit>>()
-    val withoutLoginClickEvent: LiveData<Event<Unit>> get() = _withoutLoginClickEvent
-
     private var authToken = ""
 
     fun setAuthToken(token: String) {
@@ -78,9 +75,5 @@ class NonMemberLoginViewModel @Inject constructor(
                 _onBoardingCompletedEvent.value = Event(false)
             }
         }
-    }
-
-    fun onWithoutLoginClick() {
-        _withoutLoginClickEvent.value = Event(Unit)
     }
 }

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.beside153.peopleinside.viewmodel.login.LoginViewModel" />
+            type="com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberLoginViewModel" />
 
         <variable
             name="app"
@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".view.login.LoginActivity">
+            tools:context=".view.login.nonmember.NonMemberLoginActivity">
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/LoginAppBar"
@@ -46,8 +46,7 @@
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/back_button"
                         android:onClick="@{() -> viewModel.onBackButtonClick()}"
-                        android:src="@drawable/ic_left_arrow"
-                        app:isVisible="@{!app.prefs.isMember}" />
+                        android:src="@drawable/ic_left_arrow" />
 
                 </com.google.android.material.appbar.MaterialToolbar>
 
@@ -97,29 +96,13 @@
                 android:layout_width="329dp"
                 android:layout_height="49.35dp"
                 android:layout_marginHorizontal="15.5dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="48dp"
                 android:background="@drawable/kakao_login_large_img"
                 android:onClick="@{() -> viewModel.onKakaoLoginClick()}"
                 app:backgroundTint="@null"
-                app:layout_constraintBottom_toTopOf="@id/withoutLoginTextView"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/withoutLoginTextView"
-                style="@style/textStyleMediumGray800"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
-                android:gravity="center_horizontal"
-                android:onClick="@{() -> viewModel.onWithoutLoginClick()}"
-                android:text="@string/will_enter_without_login"
-                android:textSize="14sp"
-                app:isVisibleInVisible="@{app.prefs.isMember}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/kakaoLoginButton"
-                app:layout_constraintStart_toStartOf="@id/kakaoLoginButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
