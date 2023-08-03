@@ -108,6 +108,7 @@
     <string name="sub_ranking_subtitle">%s님과 같은 MBTI가 선택한</string>
     <string name="sub_ranking_title">%s핍사이더들의 선택 ❣</string>
     <string name="choice_of_pipsider">%s 핍사이더들의 선택</string>
+    <string name="go_to_write_review">감상 남기러 가기</string>
 
     <!-- 콘텐츠 상세페이지 -->
     <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
