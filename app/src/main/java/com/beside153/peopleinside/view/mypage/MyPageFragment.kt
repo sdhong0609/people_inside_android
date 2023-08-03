@@ -18,10 +18,12 @@ import com.beside153.peopleinside.view.mypage.contents.RatedContentsActivity
 import com.beside153.peopleinside.view.mypage.editprofile.EditProfileActivity
 import com.beside153.peopleinside.view.mypage.setting.SettingActivity
 import com.beside153.peopleinside.viewmodel.mypage.MyPageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyPageFragment : BaseFragment() {
     private lateinit var binding: FragmentMyPageBinding
-    private val myPageViewModel: MyPageViewModel by viewModels { MyPageViewModel.Factory }
+    private val myPageViewModel: MyPageViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

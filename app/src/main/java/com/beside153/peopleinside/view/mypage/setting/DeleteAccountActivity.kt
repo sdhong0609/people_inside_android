@@ -18,11 +18,13 @@ import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.mypage.setting.DeleteAccountViewModel
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class DeleteAccountActivity : BaseActivity() {
     private lateinit var binding: ActivityDeleteAccountBinding
-    private val deleteAccountViewModel: DeleteAccountViewModel by viewModels { DeleteAccountViewModel.Factory }
+    private val deleteAccountViewModel: DeleteAccountViewModel by viewModels()
     private val reasonAdapter = WithDrawalReasonAdapter(::onRadioButtonClick)
     private lateinit var kakaoApi: UserApiClient
 

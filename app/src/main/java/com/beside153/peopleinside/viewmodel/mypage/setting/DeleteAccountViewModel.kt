@@ -2,21 +2,23 @@ package com.beside153.peopleinside.viewmodel.mypage.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.user.ResonIdModel
 import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.service.WithDrawalService
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DeleteAccountViewModel(private val userService: UserService, private val withDrawalService: WithDrawalService) :
+@HiltViewModel
+class DeleteAccountViewModel @Inject constructor(
+    private val userService: UserService,
+    private val withDrawalService: WithDrawalService
+) :
     BaseViewModel() {
 
     private val _checkedAgreeDelete = MutableLiveData(false)
@@ -79,17 +81,5 @@ class DeleteAccountViewModel(private val userService: UserService, private val w
 
     companion object {
         private const val INITIAL_REASON_ID = 1
-
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val userService = RetrofitClient.userService
-                val withDrawalService = RetrofitClient.withDrawalService
-                return DeleteAccountViewModel(userService, withDrawalService) as T
-            }
-        }
     }
 }

@@ -17,11 +17,13 @@ import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.mypage.contents.BookmarkedContentsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BookmarkedContentsActivity : BaseActivity() {
     private lateinit var binding: ActivityMypageBookmarkContentsBinding
     private val contentsAdapter = BookmarkedContentListAdapter(::onBookmarkClick)
-    private val contentsViewModel: BookmarkedContentsViewModel by viewModels { BookmarkedContentsViewModel.Factory }
+    private val contentsViewModel: BookmarkedContentsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

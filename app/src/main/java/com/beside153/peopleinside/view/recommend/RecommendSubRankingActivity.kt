@@ -19,10 +19,12 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.recommend.SubRankingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecommendSubRankingActivity : BaseActivity() {
     private lateinit var binding: ActivityRecommendSubRankingBinding
-    private val subRankingViewModel: SubRankingViewModel by viewModels { SubRankingViewModel.Factory }
+    private val subRankingViewModel: SubRankingViewModel by viewModels()
     private val rankingAdpater = SubRankingListAdapter(::onSubRankingItemClick)
     private var mediaType = "all"
 

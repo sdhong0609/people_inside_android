@@ -3,28 +3,29 @@ package com.beside153.peopleinside.viewmodel.search
 import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.mediacontent.SearchHotModel
 import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
 import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
 import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
-import com.beside153.peopleinside.service.RetrofitClient
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.search.SearchScreenAdapter.SearchScreenModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 interface SearchViewModelHandler {
     val viewLogList: List<ViewLogContentModel>
 }
 
-class SearchViewModel(private val mediaContentService: MediaContentService) : BaseViewModel(), SearchViewModelHandler {
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val mediaContentService: MediaContentService
+) : BaseViewModel(), SearchViewModelHandler {
 
     private val _keyword = MutableLiveData("")
     val keyword: LiveData<String> get() = _keyword
@@ -150,18 +151,5 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
         isSearching = true
         _keyword.value = item.title
         searchContentAction()
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-                val mediaContentService = RetrofitClient.mediaContentService
-                return SearchViewModel(mediaContentService) as T
-            }
-        }
     }
 }
