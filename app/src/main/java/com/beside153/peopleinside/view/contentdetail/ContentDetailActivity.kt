@@ -97,7 +97,6 @@ class ContentDetailActivity : BaseActivity() {
         initObserver()
     }
 
-    @Suppress("LongMethod")
     private fun initObserver() {
         contentDetailViewModel.backButtonClickEvent.observe(
             this,

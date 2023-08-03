@@ -111,7 +111,6 @@ class SignUpMbtiChoiceFragment : BaseFragment() {
         selectedMbtiItem = item
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<MbtiScreenModel> {
         return listOf(
             MbtiScreenModel.SignUpTitleView,

@@ -74,7 +74,6 @@ class ContentChoiceViewModel(
         _screenList.value = screenList()
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<ContentScreenModel> {
         return listOf(
             ContentScreenModel.TitleViewItem,

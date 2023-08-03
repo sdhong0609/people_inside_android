@@ -53,7 +53,6 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
         initSearchScreen()
     }
 
-    @Suppress("SpreadOperator")
     fun initSearchScreen() {
         viewModelScope.launch(exceptionHandler) {
             val viwLogListDeferred = async { mediaContentService.getViewLogList() }
@@ -130,14 +129,12 @@ class SearchViewModel(private val mediaContentService: MediaContentService) : Ba
         }
     }
 
-    @Suppress("SpreadOperator")
     private fun changeScreenWhenSearching() {
         _screenList.value = listOf(
             *searchingTitleList.map { SearchScreenModel.SearchingTitleItem(it) }.toTypedArray()
         )
     }
 
-    @Suppress("SpreadOperator")
     private fun changeScreenWhenSearchedContent() {
         _screenList.value = listOf(
             *searchedContentList.map { SearchScreenModel.SearchedContentItem(it) }.toTypedArray()

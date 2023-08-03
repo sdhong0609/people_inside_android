@@ -3,7 +3,6 @@ package com.beside153.peopleinside.util
 import android.content.Context
 import android.content.SharedPreferences
 
-@Suppress("TooManyFunctions")
 class PreferenceUtil(context: Context) {
     val jwtTokenKey = "JWT_TOKEN"
     private val userIdKey = "USER_ID"

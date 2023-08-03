@@ -20,7 +20,6 @@ import com.beside153.peopleinside.view.recommend.Pick10ViewPagerAdapter.Pick10Vi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-@Suppress("TooManyFunctions")
 class RecommendViewModel(
     private val mediaContentService: MediaContentService,
     private val bookmarkService: BookmarkService
@@ -136,7 +135,6 @@ class RecommendViewModel(
         }
     }
 
-    @Suppress("SpreadOperator")
     private fun viewPagerList(): List<Pick10ViewPagerModel> {
         return listOf(
             *pick10List.map { Pick10ViewPagerModel.Pick10Item(it) }.toTypedArray(),

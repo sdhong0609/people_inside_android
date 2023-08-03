@@ -26,7 +26,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-@Suppress("TooManyFunctions")
 class ContentDetailViewModel(
     private val mediaContentService: MediaContentService,
     private val ratingService: RatingService,
@@ -75,7 +74,6 @@ class ContentDetailViewModel(
             val newCommentList = reviewService.getContentReviewList(contentId, ++page)
             commentList = commentList.plus(newCommentList)
 
-            @Suppress("SpreadOperator")
             _screenList.value = _screenList.value?.plus(
                 listOf(
                     *newCommentList.map { ContentDetailScreenModel.ContentCommentItem(it) }.toTypedArray()
@@ -240,7 +238,6 @@ class ContentDetailViewModel(
         }
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<ContentDetailScreenModel> {
         val commentAreaList = if (commentList.isEmpty()) {
             listOf(ContentDetailScreenModel.NoCommentView)

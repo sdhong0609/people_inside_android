@@ -5,10 +5,10 @@ import com.beside153.peopleinside.model.mediacontent.OnBoardingChosenContentMode
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.RatingBattleModel
-import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.model.mediacontent.SearchHotModel
 import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
 import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
+import com.beside153.peopleinside.model.mediacontent.SubRankingModel
 import com.beside153.peopleinside.model.mediacontent.ViewLogContentModel
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,7 +16,6 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-@Suppress("TooManyFunctions")
 interface MediaContentService {
     @GET("/api/media-content/detail/{contentId}")
     suspend fun getContentDetail(@Path("contentId") contentId: Int): ContentDetailModel

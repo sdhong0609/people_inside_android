@@ -60,7 +60,6 @@ class NonMemberMbtiChoiceViewModel : BaseViewModel() {
         _isCompleteButtonEnable.value = true
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<MbtiScreenModel> {
         return listOf(
             MbtiScreenModel.NonMemberTitleView,

@@ -47,7 +47,6 @@ class EditProfileViewModel(private val userService: UserService) : BaseViewModel
     private val _isDuplicate = MutableLiveData(false)
     val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
-    @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0

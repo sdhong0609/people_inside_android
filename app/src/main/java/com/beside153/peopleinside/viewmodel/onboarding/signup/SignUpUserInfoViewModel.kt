@@ -52,7 +52,6 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
         authToken = token
     }
 
-    @Suppress("UnusedPrivateMember")
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
@@ -81,7 +80,6 @@ class SignUpUserInfoViewModel(private val authService: AuthService) : BaseViewMo
         checkSignUpButtonEnable()
     }
 
-    @Suppress("ForbiddenComment")
     fun onSignUpButtonClick() {
         // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
 

@@ -47,7 +47,6 @@ class SearchScreenAdapter(
         }
     }
 
-    @Suppress("LongMethod")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 

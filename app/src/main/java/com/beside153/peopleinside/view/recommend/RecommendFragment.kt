@@ -44,7 +44,6 @@ class RecommendFragment : BaseFragment() {
         return binding.root
     }
 
-    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

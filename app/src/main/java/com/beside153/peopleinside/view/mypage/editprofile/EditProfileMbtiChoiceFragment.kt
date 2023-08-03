@@ -111,7 +111,6 @@ class EditProfileMbtiChoiceFragment : BaseFragment() {
         selectedMbtiItem = item
     }
 
-    @Suppress("SpreadOperator")
     private fun screenList(): List<MbtiScreenModel> {
         return listOf(
             *mbtiList.map { MbtiScreenModel.MbtiListItem(it) }.toTypedArray()
