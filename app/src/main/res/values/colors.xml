@@ -23,15 +23,13 @@
     <drawable name="ENTJ">#FFD1E872</drawable>
 
     <color name="white">#FFFFFFFF</color>
-    <color name="white_opacity0.7">#B3FFFFFF</color>
     <color name="white_opacity0.5">#80FFFFFF</color>
+    <color name="white_opacity0.3">#4DFFFFFF</color>
 
     <color name="black">#FF000000</color>
     <color name="black_333333">#FF333333</color>
     <color name="black_opacity0.05">#0D000000</color>
 
-    <color name="gray_F7F6F8">#FFF7F6F8</color>
-    <color name="gray_EAEAEA">#FFEAEAEA</color>
     <color name="gray_50">#FFFAFAFA</color>
     <color name="gray_100">#FFF5F5F5</color>
     <color name="gray_200">#FFEEEEEE</color>
@@ -43,6 +41,4 @@
     <color name="gray_900">#FF212121</color>
 
     <color name="red_100">#FFFF5252</color>
-
-    <color name="blue_7193ED">#FF7193ED</color>
 </resources>
