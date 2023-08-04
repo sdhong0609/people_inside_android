@@ -111,7 +111,7 @@
     <string name="go_to_write_review">감상 남기러 가기</string>
 
     <!-- 콘텐츠 상세페이지 -->
-    <string name="how_about_this_content">이 작품이 어떠셨나요?</string>
+    <string name="how_about_this_content">이 콘텐츠 어떠셨나요?</string>
     <string name="bookmark">북마크</string>
     <string name="create_review">감상 남기기</string>
     <string name="fix_review">감상 수정하기</string>
