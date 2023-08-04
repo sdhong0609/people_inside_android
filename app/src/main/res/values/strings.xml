@@ -133,11 +133,11 @@
     <string name="will_you_cancel_content">‘예’를 선택 시,\n지금까지 작성하신 글은 저장되지 않아요.</string>
 
     <!-- 검색 화면 -->
-    <string name="search_bar_hint">영화나 드라마를 검색해보세요.</string>
+    <string name="search_bar_hint">영화나 드라마를 검색해보세요</string>
     <string name="contents_have_seen">내가 둘러본 콘텐츠</string>
     <string name="no_contents_have_seen">아직 둘러본 콘텐츠가 없어요.</string>
     <string name="contents_trend">인기 급상승 콘텐츠</string>
-    <string name="preparing_content">해당 콘텐츠는 준비중입니다.</string>
+    <string name="preparing_content">해당 콘텐츠는 준비중이에요</string>
 
     <!-- 알림 화면 -->
     <string name="notification">알림</string>
