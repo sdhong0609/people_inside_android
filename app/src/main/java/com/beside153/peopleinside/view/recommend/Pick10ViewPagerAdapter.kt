@@ -16,6 +16,7 @@ class Pick10ViewPagerAdapter(
     private val onPick10ItemClick: (item: Pick10Model) -> Unit,
     private val onTopReviewClick: (item: Pick10Model) -> Unit,
     private val onBookmarkClick: (item: Pick10Model) -> Unit,
+    private val onGoToWriteReviewClick: (item: Pick10Model) -> Unit,
     private val onRefreshClick: () -> Unit
 ) :
     ListAdapter<Pick10ViewPagerModel, Pick10ViewPagerAdapter.ViewHolder>(Pick10ViewPagerModelDiffCallback()) {
@@ -50,6 +51,12 @@ class Pick10ViewPagerAdapter(
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         onBookmarkClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
+                    }
+                }
+                binding.goToWriteReviewButton.setOnClickListener {
+                    val position = viewHolder.adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onGoToWriteReviewClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
                     }
                 }
                 viewHolder

@@ -244,14 +244,16 @@
                 style="@style/textStyleMediumGray900"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
                 android:gravity="center"
                 android:text="@string/could_you_review_first"
+                app:layout_constraintBottom_toTopOf="@id/goToWriteReviewButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/completeButton"
+                android:id="@+id/goToWriteReviewButton"
                 style="@style/textStyleBoldWhite"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
