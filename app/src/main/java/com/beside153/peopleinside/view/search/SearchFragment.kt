@@ -55,10 +55,7 @@ class SearchFragment : BaseFragment() {
             lifecycleOwner = this@SearchFragment
         }
 
-        binding.searchEditText.requestFocus()
         searchViewModel.initSearchScreen()
-
-        inputMethodManager.showSoftInput(binding.searchEditText, InputMethodManager.SHOW_IMPLICIT)
 
         binding.searchScreenRecyclerView.apply {
             adapter = searchScreenAdapter
