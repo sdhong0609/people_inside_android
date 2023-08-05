@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_gray300_rounded_border"
+            android:background="@drawable/bg_white_radius4dp_border"
             android:paddingHorizontal="16dp"
             android:paddingVertical="15dp"
             android:text="@{item.content}"
