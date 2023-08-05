@@ -19,8 +19,10 @@ import com.beside153.peopleinside.view.login.LoginActivity
 import com.beside153.peopleinside.viewmodel.mypage.setting.SettingViewModel
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
     private val settingViewModel: SettingViewModel by viewModels()
@@ -40,6 +42,7 @@ class SettingActivity : BaseActivity() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
+        settingViewModel.setAppVersionName()
         initObserver()
     }
 
@@ -49,6 +52,13 @@ class SettingActivity : BaseActivity() {
             EventObserver {
                 finish()
                 setCloseActivityAnimation()
+            }
+        )
+
+        settingViewModel.error.observe(
+            this,
+            EventObserver {
+                showErrorDialog(it) { settingViewModel.setAppVersionName() }
             }
         )
 

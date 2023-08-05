@@ -164,7 +164,7 @@
     <!-- 설정 -->
     <string name="terms_of_service">서비스 이용약관</string>
     <string name="privacy_policy">개인정보 처리방침</string>
-    <string name="app_version">앱버전 1.0.0</string>
+    <string name="app_version">앱버전 v%s</string>
     <string name="update">업데이트</string>
     <string name="logout">로그아웃</string>
     <string name="delete_account">계정탈퇴</string>

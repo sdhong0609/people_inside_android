@@ -151,4 +151,9 @@ object NetworkModule {
     @Provides
     fun provideWithDrawalService(@AppRetrofit retrofit: Retrofit): WithDrawalService =
         retrofit.create(WithDrawalService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideAppVersionService(@AppRetrofit retrofit: Retrofit): AppVersionService =
+        retrofit.create(AppVersionService::class.java)
 }
