@@ -75,6 +75,7 @@ class MbtiChoiceScreenAdapter(private val onMbtiItemClick: (item: MbtiModel) -> 
         class MbtiListItemViewHolder(private val binding: ItemSignUpMbtiListBinding) : ViewHolder(binding.root) {
             fun bind(item: MbtiScreenModel.MbtiListItem) {
                 binding.item = item.mbtiModel
+                binding.executePendingBindings()
             }
         }
     }

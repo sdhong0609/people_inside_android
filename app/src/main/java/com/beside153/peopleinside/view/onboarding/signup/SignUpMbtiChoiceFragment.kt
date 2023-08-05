@@ -78,7 +78,7 @@ class SignUpMbtiChoiceFragment : BaseFragment() {
             layoutManager = gridLayoutManager
 
             when (selectedMbtiItem?.mbtiText) {
-                "ENTP", "ESTJ", "ISTJ", "INTJ", "ISTP", "ESTP", "ENTJ" -> scrollToPosition(mbtiList.size)
+                "ENTP", "ESTJ", "ISTJ", "INTJ", "ISTP", "ESTP", "ENTJ" -> scrollToPosition(mbtiList.size - 1)
             }
         }
         mbtiAdapter.submitList(screenList())

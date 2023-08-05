@@ -8,6 +8,7 @@ import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.auth.AuthRegisterRequest
 import com.beside153.peopleinside.service.AuthService
+import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpUserInfoViewModel @Inject constructor(
+    private val userService: UserService,
     private val authService: AuthService
 ) : BaseViewModel() {
     val nickname = MutableLiveData("")
@@ -79,6 +81,13 @@ class SignUpUserInfoViewModel @Inject constructor(
     fun setSelectedMbti(mbti: String) {
         _selectedMbti.value = mbti
         checkSignUpButtonEnable()
+    }
+
+    fun initNickname() {
+        viewModelScope.launch(exceptionHandler) {
+            nickname.value = userService.postRandomNickname().nickname
+            _nicknameCount.value = nickname.value?.length ?: 0
+        }
     }
 
     fun onSignUpButtonClick() {

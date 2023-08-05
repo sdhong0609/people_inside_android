@@ -1,6 +1,7 @@
 package com.beside153.peopleinside.service
 
 import com.beside153.peopleinside.model.editprofile.EdittedUserInfo
+import com.beside153.peopleinside.model.user.NicknameModel
 import com.beside153.peopleinside.model.user.OnBoardingCompletedResponse
 import com.beside153.peopleinside.model.user.ResonIdModel
 import com.beside153.peopleinside.model.user.UserInfo
@@ -26,4 +27,7 @@ interface UserService {
 
     @POST("/api/users/{id}/onboarding-completed")
     suspend fun postOnBoardingCompleted(@Path("id") id: Int): OnBoardingCompletedResponse
+
+    @POST("/api/users/nickname")
+    suspend fun postRandomNickname(): NicknameModel
 }

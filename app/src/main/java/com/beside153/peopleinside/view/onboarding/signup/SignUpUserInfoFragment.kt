@@ -34,6 +34,7 @@ class SignUpUserInfoFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAnalytics = Firebase.analytics
+        userInfoViewModel.initNickname()
     }
 
     override fun onCreateView(
