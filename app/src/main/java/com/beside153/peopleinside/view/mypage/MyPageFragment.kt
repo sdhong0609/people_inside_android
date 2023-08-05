@@ -13,6 +13,7 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentMyPageBinding
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.mypage.contents.BookmarkedContentsActivity
 import com.beside153.peopleinside.view.mypage.contents.RatedContentsActivity
 import com.beside153.peopleinside.view.mypage.editprofile.EditProfileActivity
@@ -102,6 +103,7 @@ class MyPageFragment : BaseFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 myPageViewModel.initAllData()
+                requireActivity().showToast(R.string.complete_edit_profile)
             }
         }
 }
