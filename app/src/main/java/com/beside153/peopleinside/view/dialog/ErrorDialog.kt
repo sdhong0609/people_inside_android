@@ -14,8 +14,10 @@ import com.beside153.peopleinside.model.common.ErrorMessage
 class ErrorDialog : DialogFragment() {
     private lateinit var binding: DialogErrorBinding
 
+    var titleRes: Int? = null
     var description: String? = null
     var descriptionRes: Int? = null
+    var buttonTextRes: Int? = null
     var listener: ErrorDialogListener? = null
 
     override fun getTheme(): Int = R.style.RoundedCornersDialog
@@ -28,7 +30,10 @@ class ErrorDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.errorDialogTitleTextView.text = getString(titleRes ?: R.string.error_happend)
         binding.errorDialogContentTextView.text = description ?: getString(descriptionRes ?: R.string.not_found_page)
+        binding.refreshButton.text = getString(buttonTextRes ?: R.string.refresh)
+
         binding.refreshButton.setOnClickListener {
             dismiss()
             listener?.onClickRefreshButton()
@@ -39,6 +44,11 @@ class ErrorDialog : DialogFragment() {
 
         private val dialog = ErrorDialog()
 
+        fun setTitleRes(@StringRes title: Int): ErrorDialogBuilder {
+            dialog.titleRes = title
+            return this
+        }
+
         fun setDescription(description: String): ErrorDialogBuilder {
             dialog.description = description
             return this
@@ -46,6 +56,11 @@ class ErrorDialog : DialogFragment() {
 
         fun setDescriptionRes(@StringRes descriptionRes: Int): ErrorDialogBuilder {
             dialog.descriptionRes = descriptionRes
+            return this
+        }
+
+        fun setButtonTextRes(@StringRes buttonTextRes: Int): ErrorDialogBuilder {
+            dialog.buttonTextRes = buttonTextRes
             return this
         }
 

@@ -18,7 +18,7 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewmodel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val appVersionService: AppVersionService,
     private val reportService: ReportService,
     private val userService: UserService
@@ -29,6 +29,9 @@ class SplashViewmodel @Inject constructor(
 
     private val _updateAppEvent = MutableLiveData<Event<Unit>>()
     val updateAppEvent: LiveData<Event<Unit>> get() = _updateAppEvent
+
+    private val _goToPlayStoreEvent = MutableLiveData<Event<Unit>>()
+    val goToPlayStoreEvent: LiveData<Event<Unit>> get() = _goToPlayStoreEvent
 
     fun getAllData() {
         viewModelScope.launch(exceptionHandler) {
@@ -59,6 +62,10 @@ class SplashViewmodel @Inject constructor(
             }
             _onBoardingCompletedEvent.value = Event(false)
         }
+    }
+
+    fun onGoToPlayStoreButtonClick() {
+        _goToPlayStoreEvent.value = Event(Unit)
     }
 
     private fun isNeedUpdate(currentAppVersion: String, requiredAppVersion: String): Boolean {
