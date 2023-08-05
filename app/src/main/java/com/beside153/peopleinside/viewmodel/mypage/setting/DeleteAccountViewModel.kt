@@ -18,8 +18,7 @@ import javax.inject.Inject
 class DeleteAccountViewModel @Inject constructor(
     private val userService: UserService,
     private val withDrawalService: WithDrawalService
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
 
     private val _checkedAgreeDelete = MutableLiveData(false)
     val checkedAgreeDelete: LiveData<Boolean> get() = _checkedAgreeDelete

@@ -2,7 +2,7 @@ package com.beside153.peopleinside.base
 
 import androidx.fragment.app.Fragment
 import com.beside153.peopleinside.model.common.ErrorMessage
-import com.beside153.peopleinside.view.dialog.ErrorDialog
+import com.beside153.peopleinside.view.dialog.OneButtonDialog
 
 open class BaseFragment : Fragment() {
 
@@ -10,10 +10,10 @@ open class BaseFragment : Fragment() {
         errorMessage: ErrorMessage,
         onClickRefreshButton: () -> Unit
     ) {
-        val errorDialog = ErrorDialog.ErrorDialogBuilder()
+        val errorDialog = OneButtonDialog.OneButtonDialogBuilder()
             .setErrorMessage(errorMessage)
-            .setButtonClickListener(object : ErrorDialog.ErrorDialogListener {
-                override fun onClickRefreshButton() {
+            .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                override fun onDialogButtonClick() {
                     onClickRefreshButton()
                 }
             }).create()

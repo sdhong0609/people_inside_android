@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,49 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minWidth="340dp"
+        android:minHeight="217dp"
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp">
 
         <TextView
-            android:id="@+id/errorDialogTitleTextView"
+            android:id="@+id/dialogTitleTextView"
             style="@style/textStyleBoldBlack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/error_happend"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/dialogDescriptionTextView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/error_happend" />
 
         <TextView
-            android:id="@+id/errorDialogContentTextView"
+            android:id="@+id/dialogDescriptionTextView"
             style="@style/textStyleRegularGray700"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/not_found_page"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@id/refreshButton"
+            app:layout_constraintBottom_toTopOf="@id/dialogButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/errorDialogTitleTextView" />
+            app:layout_constraintTop_toBottomOf="@id/dialogTitleTextView"
+            tools:text="@string/not_found_page" />
 
         <TextView
-            android:id="@+id/refreshButton"
+            android:id="@+id/dialogButton"
             style="@style/textStyleBoldWhite"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:background="@drawable/bg_black_rounded"
             android:gravity="center"
-            android:minWidth="136dp"
             android:minHeight="48dp"
-            android:text="@string/refresh"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/errorDialogContentTextView" />
-
+            app:layout_constraintTop_toBottomOf="@id/dialogDescriptionTextView"
+            tools:text="@string/refresh" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

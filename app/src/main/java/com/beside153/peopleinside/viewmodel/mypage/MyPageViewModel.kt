@@ -18,8 +18,7 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val myContentService: MyContentService,
     private val userService: UserService
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
     private val _bookmarkCount = MutableLiveData(0)
     val bookmarkCount: LiveData<Int> get() = _bookmarkCount
 
