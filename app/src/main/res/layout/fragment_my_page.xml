@@ -125,19 +125,6 @@
             app:layout_constraintTop_toBottomOf="@id/myPageMbtiTextView"
             tools:text="나는야케찹될거야" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/myPageNicknameLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="6dp"
-            android:paddingVertical="11dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myPageMbtiTextView">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <TextView
             android:id="@+id/emailTextView"
             style="@style/textStyleRegularGray800"
@@ -149,7 +136,7 @@
             app:drawableStartCompat="@drawable/img_kakaotalk_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/myPageNicknameLayout"
+            app:layout_constraintTop_toBottomOf="@id/nicknameTextView"
             tools:text="peopleinside@gmail.com" />
 
         <View
