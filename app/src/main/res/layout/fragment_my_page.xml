@@ -59,7 +59,7 @@
                         android:onClick="@{() -> viewModel.onEditProfileClick()}"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="14dp"
-                        android:src="@drawable/ic_nickname_edit"
+                        android:src="@drawable/ic_pencil"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/settingImageView"
                         app:layout_constraintTop_toTopOf="parent" />

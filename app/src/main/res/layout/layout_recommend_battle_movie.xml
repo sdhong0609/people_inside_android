@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/bg_battle_rating"
+        android:background="@drawable/bg_gray100_radius8dp_border"
         android:gravity="center_horizontal"
         android:onClick="@{() -> viewModel.onBattleItemClick(viewModel.movieBattleItem)}"
         android:orientation="vertical">
@@ -22,8 +22,8 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="157dp"
             android:layout_height="228dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="21dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             app:cardCornerRadius="4dp">
 
             <ImageView
@@ -40,10 +40,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="21dp"
-            android:background="@drawable/bg_card_shadow"
-            android:minHeight="146dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_white_radius8dp"
+            android:minHeight="160dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +72,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="8dp"
                     app:cardCornerRadius="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
@@ -110,21 +110,19 @@
                 android:maxLines="2"
                 android:text="@{viewModel.movieBattleItem.topMbtiRating.reviewContent}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@id/heartLikeLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mbtiLayout"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
             <LinearLayout
-                android:id="@+id/heartLikeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/descriptionTextView"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
+                app:layout_constraintVertical_bias="1"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -150,10 +148,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="26dp"
-            android:layout_marginBottom="21dp"
-            android:background="@drawable/bg_card_shadow"
-            android:minHeight="146dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_white_radius8dp"
+            android:minHeight="160dp"
             android:onClick="@{() -> viewModel.onBattleCommentClick(viewModel.movieBattleItem)}"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -182,7 +180,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
+                    android:layout_marginStart="8dp"
                     app:cardCornerRadius="2dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/mbtiIconImageView2"
@@ -220,21 +218,19 @@
                 android:maxLines="2"
                 android:text="@{viewModel.movieBattleItem.bottomMbtiRating.reviewContent}"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@id/heartLikeLayout2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mbtiLayout2"
                 tools:text="이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미진진한 플롯이었어.리뷰 최대 세 줄까지 노출..." />
 
             <LinearLayout
-                android:id="@+id/heartLikeLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/descriptionTextView2"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/descriptionTextView2"
+                app:layout_constraintVertical_bias="1"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
-        android:paddingVertical="22dp">
+        android:paddingVertical="12dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/posterCardView"
@@ -43,7 +43,7 @@
             style="@style/textStyleBoldBlack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="8dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{item.title}"
@@ -55,14 +55,14 @@
 
         <TextView
             android:id="@+id/overviewTextView"
-            style="@style/textStyleMediumBlack333333"
+            style="@style/textStyleRegularGray700"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{item.overview}"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/titleTextView"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
@@ -85,28 +85,33 @@
             app:layout_constraintVertical_bias="1"
             tools:text="전체 4.3점" />
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mbtiRatingCardView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:drawablePadding="4dp"
-            android:fontFamily="@font/notosans_kr_medium"
-            android:gravity="center"
-            android:letterSpacing="-0.05"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="5dp"
-            android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardCornerRadius="2dp"
             app:layout_constraintStart_toEndOf="@id/totalRatingTextView"
-            app:layout_constraintTop_toTopOf="@id/totalRatingTextView"
-            app:mbtiBackground="@{app.prefs.mbti}"
-            app:mbtiLeftIcon="@{app.prefs.mbti}"
-            app:mbtiTextColor="@{app.prefs.mbti}"
-            tools:background="@drawable/bg_mbti_rating_sample"
-            tools:drawableStartCompat="@drawable/ic_clap_hands_white"
-            tools:text="ESFJ 4.5점" />
+            app:layout_constraintTop_toTopOf="@id/totalRatingTextView">
+
+            <TextView
+                style="@style/textStyleMediumWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="5dp"
+                android:text='@{@string/mbti_rating(app.prefs.mbti, item.mbtiRating)}'
+                android:textSize="12sp"
+                app:mbtiBackground="@{app.prefs.mbti}"
+                app:mbtiLeftIcon="@{app.prefs.mbti}"
+                app:mbtiTextColor="@{app.prefs.mbti}"
+                tools:background="@drawable/ENFJ"
+                tools:drawableStartCompat="@drawable/ic_clap_hands_white"
+                tools:text="ESFJ 4.5점" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,82 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <variable
-            name="app"
-            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/noReviewLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/bg_gray100_radius8dp"
+        android:paddingVertical="65dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/noReviewLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="6dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomLineView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/mbtiIconImageView"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:contentDescription="@string/mbti_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:mbtiCircleImg="@{app.prefs.mbti}"
-                tools:src="@drawable/mbti_circle_icon_enfj" />
-
-            <TextView
-                android:id="@+id/mbtiNicknameTextView"
-                style="@style/textStyleBoldBlack"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/mbti_pipsider"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@id/descriptionTextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-                app:layout_constraintTop_toTopOf="@id/mbtiIconImageView" />
-
-            <TextView
-                android:id="@+id/descriptionTextView"
-                style="@style/textStyleMediumGray900"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="@string/could_you_review_first"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/mbtiNicknameTextView"
-                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:id="@+id/bottomLineView"
+        <TextView
+            android:id="@+id/descriptionTextView"
+            style="@style/textStyleMediumGray900"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/gray_300"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:maxLines="2"
+            android:text="@string/could_you_review_first"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/noReviewLayout" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

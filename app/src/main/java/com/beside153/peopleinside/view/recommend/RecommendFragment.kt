@@ -23,6 +23,7 @@ import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
+import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +34,13 @@ class RecommendFragment : BaseFragment() {
     private val recommendViewModel: RecommendViewModel by viewModels()
 
     private val pagerAdapter =
-        Pick10ViewPagerAdapter(::onPick10ItemClick, ::onTopReviewClick, ::onBookmarkClick, ::onRefreshClick)
+        Pick10ViewPagerAdapter(
+            ::onPick10ItemClick,
+            ::onTopReviewClick,
+            ::onBookmarkClick,
+            ::onGoToWriteReviewClick,
+            ::onRefreshClick
+        )
     private val rankingAdpater = SubRankingListAdapter(::onSubRankingItemClick)
     private var scrollPosition: Int = 0
 
@@ -86,7 +93,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.pick10ItemClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                contentDetailActivityLauncher.launch(
+                activityResultLauncher.launch(
                     ContentDetailActivity.newIntent(
                         requireActivity(),
                         false,
@@ -100,7 +107,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.topReviewClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                contentDetailActivityLauncher.launch(
+                activityResultLauncher.launch(
                     ContentDetailActivity.newIntent(
                         requireActivity(),
                         true,
@@ -121,7 +128,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.battleItemClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                contentDetailActivityLauncher.launch(
+                activityResultLauncher.launch(
                     ContentDetailActivity.newIntent(
                         requireActivity(),
                         false,
@@ -135,7 +142,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.battleItemCommentClickEvent.observe(
             viewLifecycleOwner,
             EventObserver { item ->
-                contentDetailActivityLauncher.launch(
+                activityResultLauncher.launch(
                     ContentDetailActivity.newIntent(
                         requireActivity(),
                         true,
@@ -169,9 +176,7 @@ class RecommendFragment : BaseFragment() {
         recommendViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog(it) {
-                    recommendViewModel.initAllData()
-                }
+                showErrorDialog(it) { recommendViewModel.initAllData() }
             }
         )
 
@@ -188,7 +193,7 @@ class RecommendFragment : BaseFragment() {
         )
     }
 
-    private val contentDetailActivityLauncher =
+    private val activityResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 recommendViewModel.initAllData()
@@ -220,6 +225,16 @@ class RecommendFragment : BaseFragment() {
             return
         }
         recommendViewModel.onBookmarkClick(item)
+    }
+
+    private fun onGoToWriteReviewClick(item: Pick10Model) {
+        if (!App.prefs.getIsMember()) {
+            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+            return
+        }
+        activityResultLauncher.launch(CreateReviewActivity.newIntent(requireActivity(), item.contentId, ""))
+        requireActivity().setOpenActivityAnimation()
     }
 
     private fun onRefreshClick() {

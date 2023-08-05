@@ -10,87 +10,99 @@
             type="com.beside153.peopleinside.model.mediacontent.ContentDetailModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_bg_pick10">
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="8dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/posterCardView"
-            android:layout_width="177dp"
-            android:layout_height="256dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginBottom="98dp"
-            app:cardCornerRadius="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/poster_image"
-                android:scaleType="centerCrop"
-                app:posterUrl="@{item.posterPath}"
-                tools:src="@drawable/img_sample_poster" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/posterCardView">
+            android:background="@drawable/img_bg_pick10">
 
-            <TextView
-                style="@style/textStyleMediumBlack"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/posterCardView"
+                android:layout_width="177dp"
+                android:layout_height="256dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="98dp"
+                app:cardCornerRadius="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/poster_image"
+                    android:scaleType="centerCrop"
+                    app:posterUrl="@{item.posterPath}"
+                    tools:src="@drawable/img_sample_poster" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textSize="12sp"
-                app:contentKeywordBackground="@{item.mediaType}"
-                app:contentKeywordTextColor="@{item.mediaType}"
-                app:mediaType="@{item.mediaType}"
-                app:movieKeyword="@{item.releaseDate.substring(0, 4)}"
-                app:tvKeyword='@{item.networks.size > 0 ? item.networks[0].name : ""}'
-                tools:background="@drawable/bg_white_rounded"
-                tools:text="2022" />
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/posterCardView">
 
-            <TextView
-                style="@style/textStyleMediumBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/bg_white_rounded"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textSize="12sp"
-                app:mediaType="@{item.mediaType}"
-                app:movieKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
-                app:tvKeyword="@{item.releaseDate.substring(0, 4)}"
-                tools:text="스릴러" />
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4.5dp"
+                    android:textSize="12sp"
+                    app:contentKeywordBackground="@{item.mediaType}"
+                    app:contentKeywordTextColor="@{item.mediaType}"
+                    app:mediaType="@{item.mediaType}"
+                    app:movieKeyword="@{item.releaseDate.substring(0, 4)}"
+                    app:tvKeyword='@{item.networks.size > 0 ? item.networks[0].name : ""}'
+                    tools:background="@drawable/bg_white_rounded"
+                    tools:text="2022" />
 
-            <TextView
-                style="@style/textStyleMediumBlack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/bg_white_rounded"
-                android:gravity="center"
-                android:padding="5dp"
-                android:textSize="12sp"
-                app:mediaType="@{item.mediaType}"
-                app:movieKeyword='@{item.runtime != null ? @string/runtime_with_value(item.runtime) : ""}'
-                app:tvKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
-                tools:text="125분" />
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@drawable/bg_white_rounded"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4.5dp"
+                    android:textSize="12sp"
+                    app:mediaType="@{item.mediaType}"
+                    app:movieKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
+                    app:tvKeyword="@{item.releaseDate.substring(0, 4)}"
+                    tools:text="스릴러" />
 
+                <TextView
+                    style="@style/textStyleMediumBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@drawable/bg_white_rounded"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4.5dp"
+                    android:textSize="12sp"
+                    app:mediaType="@{item.mediaType}"
+                    app:movieKeyword='@{item.runtime != null ? @string/runtime_with_value(item.runtime) : ""}'
+                    app:tvKeyword='@{!item.genres.empty ? item.genres[0].name : ""}'
+                    tools:text="125분" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>
