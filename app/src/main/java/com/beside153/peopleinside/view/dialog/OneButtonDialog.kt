@@ -8,79 +8,79 @@ import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.DialogErrorBinding
+import com.beside153.peopleinside.databinding.DialogOneButtonBinding
 import com.beside153.peopleinside.model.common.ErrorMessage
 
-class ErrorDialog : DialogFragment() {
-    private lateinit var binding: DialogErrorBinding
+class OneButtonDialog : DialogFragment() {
+    private lateinit var binding: DialogOneButtonBinding
 
     var titleRes: Int? = null
     var description: String? = null
     var descriptionRes: Int? = null
     var buttonTextRes: Int? = null
-    var listener: ErrorDialogListener? = null
+    var listener: OneButtonDialogListener? = null
 
     override fun getTheme(): Int = R.style.RoundedCornersDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_error, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_one_button, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.errorDialogTitleTextView.text = getString(titleRes ?: R.string.error_happend)
-        binding.errorDialogContentTextView.text = description ?: getString(descriptionRes ?: R.string.not_found_page)
-        binding.refreshButton.text = getString(buttonTextRes ?: R.string.refresh)
+        binding.dialogTitleTextView.text = getString(titleRes ?: R.string.error_happend)
+        binding.dialogDescriptionTextView.text = description ?: getString(descriptionRes ?: R.string.not_found_page)
+        binding.dialogButton.text = getString(buttonTextRes ?: R.string.refresh)
 
-        binding.refreshButton.setOnClickListener {
+        binding.dialogButton.setOnClickListener {
             dismiss()
-            listener?.onClickRefreshButton()
+            listener?.onDialogButtonClick()
         }
     }
 
-    class ErrorDialogBuilder {
+    class OneButtonDialogBuilder {
 
-        private val dialog = ErrorDialog()
+        private val dialog = OneButtonDialog()
 
-        fun setTitleRes(@StringRes title: Int): ErrorDialogBuilder {
+        fun setTitleRes(@StringRes title: Int): OneButtonDialogBuilder {
             dialog.titleRes = title
             return this
         }
 
-        fun setDescription(description: String): ErrorDialogBuilder {
+        fun setDescription(description: String): OneButtonDialogBuilder {
             dialog.description = description
             return this
         }
 
-        fun setDescriptionRes(@StringRes descriptionRes: Int): ErrorDialogBuilder {
+        fun setDescriptionRes(@StringRes descriptionRes: Int): OneButtonDialogBuilder {
             dialog.descriptionRes = descriptionRes
             return this
         }
 
-        fun setButtonTextRes(@StringRes buttonTextRes: Int): ErrorDialogBuilder {
+        fun setButtonTextRes(@StringRes buttonTextRes: Int): OneButtonDialogBuilder {
             dialog.buttonTextRes = buttonTextRes
             return this
         }
 
-        fun setErrorMessage(errorMessage: ErrorMessage): ErrorDialogBuilder {
+        fun setErrorMessage(errorMessage: ErrorMessage): OneButtonDialogBuilder {
             dialog.description = errorMessage.message
             dialog.descriptionRes = errorMessage.messageRes
             return this
         }
 
-        fun setButtonClickListener(listener: ErrorDialogListener): ErrorDialogBuilder {
+        fun setButtonClickListener(listener: OneButtonDialogListener): OneButtonDialogBuilder {
             dialog.listener = listener
             return this
         }
 
-        fun create(): ErrorDialog {
+        fun create(): OneButtonDialog {
             return dialog
         }
     }
 
-    interface ErrorDialogListener {
-        fun onClickRefreshButton()
+    interface OneButtonDialogListener {
+        fun onDialogButtonClick()
     }
 }

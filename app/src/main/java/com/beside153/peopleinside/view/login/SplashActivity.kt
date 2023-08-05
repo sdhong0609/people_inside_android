@@ -12,7 +12,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.view.MainActivity
-import com.beside153.peopleinside.view.dialog.ErrorDialog
+import com.beside153.peopleinside.view.dialog.OneButtonDialog
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
 import com.beside153.peopleinside.viewmodel.login.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -66,12 +66,12 @@ class SplashActivity : BaseActivity() {
         splashViewModel.updateAppEvent.observe(
             this,
             EventObserver {
-                val needUpdateDialog = ErrorDialog.ErrorDialogBuilder()
+                val needUpdateDialog = OneButtonDialog.OneButtonDialogBuilder()
                     .setTitleRes(R.string.need_update_dialog_title)
                     .setDescriptionRes(R.string.need_update_dialog_description)
                     .setButtonTextRes(R.string.need_update_dialog_button)
-                    .setButtonClickListener(object : ErrorDialog.ErrorDialogListener {
-                        override fun onClickRefreshButton() {
+                    .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                        override fun onDialogButtonClick() {
                             splashViewModel.onGoToPlayStoreButtonClick()
                         }
                     }).create()
