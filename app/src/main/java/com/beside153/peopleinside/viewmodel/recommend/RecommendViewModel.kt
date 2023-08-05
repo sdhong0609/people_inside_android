@@ -183,12 +183,15 @@ class RecommendViewModel @Inject constructor(
             }
             _subRankingList.value = updatedList ?: emptyList()
 
-            _subRankingProgressBarVisible.value = false
+            Handler(Looper.getMainLooper()).postDelayed({
+                _subRankingProgressBarVisible.value = false
+            }, SUB_RANKING_REFRESH_TIME)
         }
     }
 
     companion object {
         private const val MAX_TAKE = 3
         private const val REFRESH_TIME = 2000L
+        private const val SUB_RANKING_REFRESH_TIME = 1000L
     }
 }
