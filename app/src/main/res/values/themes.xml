@@ -78,12 +78,6 @@
         <item name="android:letterSpacing">-0.03</item>
     </style>
 
-    <style name="textStyleMediumBlack333333">
-        <item name="fontFamily">@font/notosans_kr_medium</item>
-        <item name="android:textColor">@color/black_333333</item>
-        <item name="android:letterSpacing">-0.03</item>
-    </style>
-
     <style name="textStyleMediumBlack">
         <item name="fontFamily">@font/notosans_kr_medium</item>
         <item name="android:textColor">@color/black</item>

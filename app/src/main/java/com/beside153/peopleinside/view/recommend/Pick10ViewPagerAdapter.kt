@@ -53,6 +53,7 @@ class Pick10ViewPagerAdapter(
                         onBookmarkClick((getItem(position) as Pick10ViewPagerModel.Pick10Item).pick10Item)
                     }
                 }
+                binding.hasNoCommentLayout.setOnClickListener(null)
                 binding.goToWriteReviewButton.setOnClickListener {
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {

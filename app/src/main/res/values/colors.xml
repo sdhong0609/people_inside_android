@@ -27,8 +27,6 @@
     <color name="white_opacity0.3">#4DFFFFFF</color>
 
     <color name="black">#FF000000</color>
-    <color name="black_333333">#FF333333</color>
-    <color name="black_opacity0.05">#0D000000</color>
 
     <color name="gray_50">#FFFAFAFA</color>
     <color name="gray_100">#FFF5F5F5</color>

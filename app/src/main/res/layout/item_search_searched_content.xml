@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/overviewTextView"
-            style="@style/textStyleMediumBlack333333"
+            style="@style/textStyleRegularGray700"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
