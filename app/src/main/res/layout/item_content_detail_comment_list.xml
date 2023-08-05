@@ -48,7 +48,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
             app:layout_constraintStart_toEndOf="@id/mbtiIconImageView"
-            app:layout_constraintTop_toTopOf="@id/mbtiIconImageView"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="ESFJ / 피자치킨님adfsdafadfsadfsadfadfsasdfasdfsadfs" />
 
         <ImageView
