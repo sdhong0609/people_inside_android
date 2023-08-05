@@ -83,7 +83,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bg_black_button"
-            android:enabled="@{!TextUtils.isEmpty(viewModel.reviewText)}"
+            android:enabled="@{viewModel.reviewText.length() > 4}"
             android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
             android:text="@string/complete_fix"
             android:textSize="18sp"
