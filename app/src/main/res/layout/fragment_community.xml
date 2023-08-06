@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:elevation="0dp"
-            app:layout_constraintBottom_toTopOf="@id/communityRecyclerView"
+            app:layout_constraintBottom_toTopOf="@id/communityPostRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,13 +46,28 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/communityRecyclerView"
+            android:id="@+id/communityPostRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/communityAppBar" />
+
+        <TextView
+            style="@style/textStyleBoldWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_black_radius50dp"
+            android:gravity="center"
+            android:paddingHorizontal="26dp"
+            android:paddingVertical="13dp"
+            android:text="@string/write_post"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

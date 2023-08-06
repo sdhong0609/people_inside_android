@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/postLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/mbtiCircleImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/mbti_icon"
+            android:src="@drawable/mbti_circle_icon_enfj"
+            app:layout_constraintBottom_toBottomOf="@id/writerProfileLayout"
+            app:layout_constraintEnd_toStartOf="@id/writerProfileLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/writerProfileLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/writerProfileLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toTopOf="@id/postTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/mbtiCircleImageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/mbtiNicknameTextView"
+                style="@style/textStyleBoldGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="개발하는 준영"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/mbtiTextView"
+                app:layout_constraintEnd_toStartOf="@id/timeTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mbtiTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ENFJ"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView" />
+
+            <TextView
+                android:id="@+id/timeTextView"
+                style="@style/textStyleMediumGray500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="방금"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mbtiNicknameTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/postTitleTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="더글로리 봄? 문동은 복수 어떻게 생각해?"
+            app:layout_constraintBottom_toTopOf="@id/postContentTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/writerProfileLayout" />
+
+        <TextView
+            android:id="@+id/postContentTextView"
+            style="@style/textStyleRegularGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="다들 더글로리 봤음? 문동은 복수 긴장감 장난아님\n누가봐도 더글로리 본 사람인게 티나는 와이어프레임같죠"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postTitleTextView" />
+
+        <TextView
+            android:id="@+id/tagTextView"
+            style="@style/textStyleMediumGray400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_white_radius2dp_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="5.5dp"
+            android:text="#ENFP+7"
+            android:textColor="@color/gray_400"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
+
+        <ImageView
+            android:id="@+id/commentImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:contentDescription="@string/comment"
+            android:src="@drawable/ic_comment"
+            app:layout_constraintEnd_toStartOf="@id/commentCountTextView"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@id/tagTextView"
+            app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
+
+        <TextView
+            android:id="@+id/commentCountTextView"
+            style="@style/textStyleMediumGray500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            app:layout_constraintBottom_toBottomOf="@id/commentImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/commentImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_300"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

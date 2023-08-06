@@ -33,7 +33,7 @@ fun TextView.contentKeywordBackground(mediaType: String) {
     val background = if (mediaType == resources.getString(R.string.movie_english)) {
         ContextCompat.getDrawable(context, R.drawable.bg_white_rounded)
     } else {
-        ContextCompat.getDrawable(context, R.drawable.bg_black_rounded)
+        ContextCompat.getDrawable(context, R.drawable.bg_black_radius4dp)
     }
     this.background = background
 }
