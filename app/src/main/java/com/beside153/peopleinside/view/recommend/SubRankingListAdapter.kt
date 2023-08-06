@@ -34,14 +34,14 @@ class SubRankingListAdapter(private val onSubRankingItemClick: (item: SubRanking
             binding.item = item
         }
     }
-}
 
-private class RankingItemDiffCallback : DiffUtil.ItemCallback<SubRankingModel>() {
-    override fun areItemsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
-        return oldItem.contentId == newItem.contentId
-    }
+    private class RankingItemDiffCallback : DiffUtil.ItemCallback<SubRankingModel>() {
+        override fun areItemsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
+            return oldItem.contentId == newItem.contentId
+        }
 
-    override fun areContentsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
-        return oldItem == newItem
+        override fun areContentsTheSame(oldItem: SubRankingModel, newItem: SubRankingModel): Boolean {
+            return oldItem == newItem
+        }
     }
 }
