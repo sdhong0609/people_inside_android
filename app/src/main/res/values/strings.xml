@@ -195,4 +195,7 @@
     <string name="nonmember_jwt_token">eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJzb2NpYWwiOiJzcGFjZSIsIm5pY2tuYW1lIjoiZ29kIiwibWJ0aSI6IkFCQ0QiLCJiaXJ0aCI6Ijk5OTkiLCJzZXgiOiJhbGllbiJ9.q0DbIef5nxoJGJTmbF9m0JaLgLK17CzO49iMYMXkEbo</string>
     <string name="nonmember_nickname">익명의 핍사이더</string>
 
+    <!-- 커뮤니티 메인 -->
+    <string name="community_search_hint">MBTI 또는 키워드를 검색해보세요</string>
+
 </resources>

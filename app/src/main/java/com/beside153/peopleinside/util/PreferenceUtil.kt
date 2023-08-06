@@ -8,7 +8,7 @@ import javax.inject.Inject
 class PreferenceUtil @Inject constructor(
     @ApplicationContext context: Context
 ) {
-    val jwtTokenKey = "JWT_TOKEN"
+    private val jwtTokenKey = "JWT_TOKEN"
     private val userIdKey = "USER_ID"
     private val userMbtiKey = "USER_MBTI"
     private val userNicknameKey = "USER_NICKNAME"
