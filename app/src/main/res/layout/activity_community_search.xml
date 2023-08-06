@@ -84,5 +84,44 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <TextView
+            android:id="@+id/recentSearchTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/recent_searched_keyword"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/noRecentSearchTextView"
+            app:layout_constraintEnd_toStartOf="@id/deleteAllTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAppBar" />
+
+        <TextView
+            android:id="@+id/deleteAllTextView"
+            style="@style/textStyleMediumGray500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/delete_all"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/recentSearchTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recentSearchTextView"
+            app:layout_constraintTop_toTopOf="@id/recentSearchTextView" />
+
+        <TextView
+            android:id="@+id/noRecentSearchTextView"
+            style="@style/textStyleMediumGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_recent_searched_keyword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchTextView" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
