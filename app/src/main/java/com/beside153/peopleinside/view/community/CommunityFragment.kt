@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentCommunityBinding
+import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.community.CommunityViewModel
 
 class CommunityFragment : BaseFragment() {
@@ -22,5 +23,28 @@ class CommunityFragment : BaseFragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_community, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            viewModel = communityViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
+
+        communityViewModel.error.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                //
+            }
+        )
+
+        communityViewModel.searchBarClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(CommunitySearchActivity.newIntent(requireActivity()))
+            }
+        )
     }
 }

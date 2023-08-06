@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.community.CommunityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +40,7 @@
                     android:background="@drawable/bg_gray100_radius4dp_border"
                     android:gravity="center_vertical"
                     android:minHeight="44dp"
+                    android:onClick="@{() -> viewModel.onCommunitySearchBarClick()}"
                     android:paddingHorizontal="16dp"
                     android:text="@string/community_search_hint"
                     android:textSize="16sp" />
