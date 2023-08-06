@@ -37,6 +37,14 @@ class PreferenceUtil @Inject constructor(
         prefs.edit().putInt(userIdKey, i).apply()
     }
 
+    fun getJwtToken(): String {
+        return prefs.getString(jwtTokenKey, "").toString()
+    }
+
+    fun setJwtToken(str: String) {
+        prefs.edit().putString(jwtTokenKey, str).apply()
+    }
+
     fun getMbti(): String {
         return prefs.getString(userMbtiKey, "").toString().uppercase()
     }

@@ -33,16 +33,16 @@ class SplashViewModel @Inject constructor(
     private val _goToPlayStoreEvent = MutableLiveData<Event<Unit>>()
     val goToPlayStoreEvent: LiveData<Event<Unit>> get() = _goToPlayStoreEvent
 
+    private var requiredAppVersion = BuildConfig.VERSION_NAME
+
     fun getAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val reportDeferred = async { reportService.getReportList() }
-            val appVersionDeferred = async { appVersionService.getAppVersionLatest("android") }
-
-            val reportList = reportDeferred.await()
-            val requiredAppVersion = appVersionDeferred.await().requiredVersionName
+            val reportList = reportService.getReportList()
+            if (App.prefs.getJwtToken().isNotEmpty()) {
+                requiredAppVersion = appVersionService.getAppVersionLatest("android").requiredVersionName
+            }
 
             val currentAppVersion = BuildConfig.VERSION_NAME
-
             if (isNeedUpdate(currentAppVersion, requiredAppVersion)) {
                 _updateAppEvent.value = Event(Unit)
                 return@launch

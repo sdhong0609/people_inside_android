@@ -73,8 +73,7 @@ object NetworkModule {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val userId = App.prefs.getUserId()
-            val jwtToken =
-                App.prefs.getString(App.prefs.jwtTokenKey)
+            val jwtToken = App.prefs.getJwtToken()
             val newRequest = request().newBuilder()
                 .addHeader("authorization", "Bearer $jwtToken")
                 .build()

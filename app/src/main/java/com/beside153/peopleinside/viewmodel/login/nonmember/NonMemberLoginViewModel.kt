@@ -59,7 +59,7 @@ class NonMemberLoginViewModel @Inject constructor(
             val jwtToken = response.jwtToken
             val user = response.user
 
-            App.prefs.setString(App.prefs.jwtTokenKey, jwtToken)
+            App.prefs.setJwtToken(jwtToken)
             App.prefs.setUserId(user.userId)
             App.prefs.setNickname(user.nickname)
             App.prefs.setMbti(user.mbti)

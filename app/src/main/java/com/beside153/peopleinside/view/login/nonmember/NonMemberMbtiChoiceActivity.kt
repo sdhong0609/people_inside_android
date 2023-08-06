@@ -53,7 +53,7 @@ class NonMemberMbtiChoiceActivity : BaseActivity() {
         mbtiChoiceViewmodel.completeButtonClickEvent.observe(
             this,
             EventObserver { mbti ->
-                App.prefs.setString(App.prefs.jwtTokenKey, getString(R.string.nonmember_jwt_token))
+                App.prefs.setJwtToken(getString(R.string.nonmember_jwt_token))
                 App.prefs.setUserId(1)
                 App.prefs.setNickname(getString(R.string.nonmember_nickname))
                 App.prefs.setMbti(mbti.uppercase())
