@@ -10,6 +10,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentCommunityBinding
 import com.beside153.peopleinside.util.EventObserver
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.community.CommunityViewModel
 
 class CommunityFragment : BaseFragment() {
@@ -44,6 +45,14 @@ class CommunityFragment : BaseFragment() {
             viewLifecycleOwner,
             EventObserver {
                 startActivity(CommunitySearchActivity.newIntent(requireActivity()))
+            }
+        )
+
+        communityViewModel.writePostClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                startActivity(CreatePostActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
             }
         )
     }

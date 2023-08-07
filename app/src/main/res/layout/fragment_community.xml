@@ -66,6 +66,7 @@
             android:layout_marginBottom="16dp"
             android:background="@drawable/bg_black_radius50dp"
             android:gravity="center"
+            android:onClick="@{() -> viewModel.onWritePostClick()}"
             android:paddingHorizontal="26dp"
             android:paddingVertical="13dp"
             android:text="@string/write_post"
