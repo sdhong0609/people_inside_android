@@ -16,8 +16,8 @@ class CreatePostViewModel : BaseViewModel() {
     private val _mbtiTagList = MutableLiveData<List<MbtiTagModel>>()
     val mbtiTagList: LiveData<List<MbtiTagModel>> get() = _mbtiTagList
 
-    private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
+    private val _completePostEvent = MutableLiveData<Event<Unit>>()
+    val completePostEvent: LiveData<Event<Unit>> get() = _completePostEvent
 
     private var selectedMbtiCount = 0
 
@@ -38,7 +38,7 @@ class CreatePostViewModel : BaseViewModel() {
 
     fun onCompleteButtonClick() {
         if (_isCompleteButtonEnabled.value == false) return
-        _completeButtonClickEvent.value = Event(Unit)
+        _completePostEvent.value = Event(Unit)
     }
 
     fun initMbtiTagList() {

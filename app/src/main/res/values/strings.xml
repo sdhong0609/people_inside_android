@@ -215,5 +215,6 @@
     <string name="stop_post_dialog_description">작성 화면에서 벗어나면 작성된 내용은 저장되지 않습니다.</string>
     <string name="stop_post_dialog_yes">나가기</string>
     <string name="stop_post_dialog_no">계속 작성</string>
+    <string name="complete_create_post">게시글 작성이 완료되었어요!</string>
 
 </resources>

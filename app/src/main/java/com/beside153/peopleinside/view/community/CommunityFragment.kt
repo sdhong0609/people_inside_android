@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
@@ -51,9 +53,16 @@ class CommunityFragment : BaseFragment() {
         communityViewModel.writePostClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                startActivity(CreatePostActivity.newIntent(requireActivity()))
+                writePostActivityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
             }
         )
     }
+
+    private val writePostActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+//                communityViewModel.initAllData()
+            }
+        }
 }

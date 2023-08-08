@@ -3,6 +3,9 @@ package com.beside153.peopleinside.view.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -13,7 +16,7 @@ import com.beside153.peopleinside.databinding.ActivityCreatePostBinding
 import com.beside153.peopleinside.model.community.MbtiTagModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
 
@@ -21,10 +24,13 @@ class CreatePostActivity : BaseActivity() {
     private lateinit var binding: ActivityCreatePostBinding
     private val createPostViewModel: CreatePostViewModel by viewModels()
     private val mbtiTagAdapter = MbtiTagListAdapter(::onMbtiTagItemClick)
+    private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_post)
+
+        inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -65,12 +71,18 @@ class CreatePostActivity : BaseActivity() {
             }
         )
 
-        createPostViewModel.completeButtonClickEvent.observe(
+        createPostViewModel.completePostEvent.observe(
             this,
             EventObserver {
-                startActivity(PostDetailActivity.newIntent(this))
-                setOpenActivityAnimation()
-                finish()
+                inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showToast(R.string.complete_create_post)
+                }, TOAST_DURATION)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setResult(RESULT_OK)
+                    finish()
+                    setCloseActivityAnimation()
+                }, GO_BACK_DURATION)
             }
         )
     }
@@ -98,6 +110,8 @@ class CreatePostActivity : BaseActivity() {
 
     companion object {
         private const val MBTI_TAG_SPAN_COUNT = 4
+        private const val TOAST_DURATION = 200L
+        private const val GO_BACK_DURATION = 2000L
         fun newIntent(context: Context) = Intent(context, CreatePostActivity::class.java)
     }
 }
