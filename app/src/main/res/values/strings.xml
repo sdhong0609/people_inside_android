@@ -210,5 +210,6 @@
     <string name="post_title_hint">글 제목</string>
     <string name="post_content_hint">다양한 MBTI를 가진 핍사이더와 함께 나누고 싶은 이야기를 작성해주세요!</string>
     <string name="mbti_want_to_share">공유하고 싶은 MBTI</string>
+    <string name="mbti_tag">#%s</string>
 
 </resources>

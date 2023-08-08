@@ -52,6 +52,7 @@
 
                 <TextView
                     android:id="@+id/completeTextView"
+                    style="@style/textStyleMediumGray500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -63,106 +64,120 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
+        <ScrollView
+            android:id="@+id/createPostScrollView"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/contentDetailAppBar">
 
-            <EditText
-                android:id="@+id/postTitleEditText"
-                style="@style/textStyleBoldGray900"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_white_radius8dp"
-                android:hint="@string/post_title_hint"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:maxLength="20"
-                android:textColorHint="@color/gray_500"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@id/dividerView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingVertical="16dp">
 
-            <View
-                android:id="@+id/dividerView"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/gray_300"
-                app:layout_constraintBottom_toTopOf="@id/postContentEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postTitleEditText" />
+                <EditText
+                    android:id="@+id/postTitleEditText"
+                    style="@style/textStyleBoldGray900"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/bg_white_radius8dp"
+                    android:hint="@string/post_title_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:textColorHint="@color/gray_500"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toTopOf="@id/dividerView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/postContentEditText"
-                style="@style/textStyleRegularGray900"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/bg_white_radius8dp"
-                android:gravity="top"
-                android:hint="@string/post_content_hint"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:maxLength="1500"
-                android:minHeight="139dp"
-                android:textColorHint="@color/gray_500"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@id/dividerView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dividerView" />
+                <View
+                    android:id="@+id/dividerView"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/gray_300"
+                    app:layout_constraintBottom_toTopOf="@id/postContentEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/postTitleEditText" />
 
-            <View
-                android:id="@+id/dividerView2"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="@color/gray_300"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postContentEditText" />
+                <EditText
+                    android:id="@+id/postContentEditText"
+                    style="@style/textStyleRegularGray900"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_white_radius8dp"
+                    android:gravity="top"
+                    android:hint="@string/post_content_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="1500"
+                    android:minHeight="139dp"
+                    android:textColorHint="@color/gray_500"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/dividerView2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/dividerView" />
 
-            <ImageView
-                android:id="@+id/peopleImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/mbti_want_to_share"
-                android:src="@drawable/icon_people"
-                app:layout_constraintBottom_toBottomOf="@id/wantShareTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/wantShareTextView" />
+                <View
+                    android:id="@+id/dividerView2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/gray_300"
+                    app:layout_constraintBottom_toTopOf="@id/wantShareTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/postContentEditText" />
 
-            <TextView
-                android:id="@+id/wantShareTextView"
-                style="@style/textStyleMediumGray900"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/mbti_want_to_share"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/peopleImageView"
-                app:layout_constraintTop_toBottomOf="@id/dividerView2" />
+                <ImageView
+                    android:id="@+id/peopleImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:contentDescription="@string/mbti_want_to_share"
+                    android:src="@drawable/icon_people"
+                    app:layout_constraintBottom_toBottomOf="@id/wantShareTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/wantShareTextView" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mbtiTagRecyclerView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/wantShareTextView" />
+                <TextView
+                    android:id="@+id/wantShareTextView"
+                    style="@style/textStyleMediumGray900"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mbti_want_to_share"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/peopleImageView"
+                    app:layout_constraintTop_toBottomOf="@id/dividerView2" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mbtiTagRecyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginTop="13dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wantShareTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

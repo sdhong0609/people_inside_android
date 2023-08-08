@@ -69,3 +69,26 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
     }
     setTextColor(textColor)
 }
+
+@BindingAdapter("mbtiTagTextColor")
+fun TextView.mbtiTagTextColor(isSelected: Boolean) {
+    val textColor = if (isSelected) {
+        ContextCompat.getColor(context, R.color.white)
+    } else {
+        ContextCompat.getColor(
+            context,
+            R.color.gray_500
+        )
+    }
+    setTextColor(textColor)
+}
+
+@BindingAdapter("mbtiTagBackground")
+fun TextView.mbtiTagBackground(isSelected: Boolean) {
+    val background = if (isSelected) {
+        ContextCompat.getDrawable(context, R.drawable.bg_black_radius50dp)
+    } else {
+        ContextCompat.getDrawable(context, R.drawable.bg_white_radius50dp_border)
+    }
+    setBackground(background)
+}
