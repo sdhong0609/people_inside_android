@@ -58,6 +58,7 @@
                     android:layout_gravity="end"
                     android:padding="16dp"
                     android:text="@string/complete"
+                    android:textColor="@{viewModel.isCompleteButtonEnabled ? @color/gray_900 : @color/gray_500}"
                     android:textSize="16sp" />
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -89,6 +90,8 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLength="20"
+                    android:onTextChanged="@{viewModel::onTitleTextChanged}"
+                    android:text="@={viewModel.postTitle}"
                     android:textColorHint="@color/gray_500"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toTopOf="@id/dividerView"
@@ -122,6 +125,8 @@
                     android:inputType="textMultiLine"
                     android:maxLength="1500"
                     android:minHeight="139dp"
+                    android:onTextChanged="@{viewModel::onContentTextChanged}"
+                    android:text="@={viewModel.postContent}"
                     android:textColorHint="@color/gray_500"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@id/dividerView2"

@@ -6,8 +6,31 @@ import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.community.MbtiTagModel
 
 class CreatePostViewModel : BaseViewModel() {
+    val postTitle = MutableLiveData("")
+    val postContent = MutableLiveData("")
+
+    private val _isCompleteButtonEnabled = MutableLiveData(false)
+    val isCompleteButtonEnabled: LiveData<Boolean> get() = _isCompleteButtonEnabled
+
     private val _mbtiTagList = MutableLiveData<List<MbtiTagModel>>()
     val mbtiTagList: LiveData<List<MbtiTagModel>> get() = _mbtiTagList
+
+    private var selectedMbtiCount = 0
+
+    fun onTitleTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        postTitle.value = (s ?: "").toString()
+        checkCompleteButtonEnable()
+    }
+
+    fun onContentTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        postContent.value = (s ?: "").toString()
+        checkCompleteButtonEnable()
+    }
+
+    private fun checkCompleteButtonEnable() {
+        _isCompleteButtonEnabled.value =
+            postTitle.value?.isNotEmpty() == true && postContent.value?.isNotEmpty() == true
+    }
 
     fun initMbtiTagList() {
         _mbtiTagList.value = listOf(
@@ -36,6 +59,7 @@ class CreatePostViewModel : BaseViewModel() {
                 if (it.isSelected) {
                     it.copy(isSelected = false)
                 } else {
+                    if (selectedMbtiCount >= 8) return
                     it.copy(isSelected = true)
                 }
             } else {
@@ -43,6 +67,7 @@ class CreatePostViewModel : BaseViewModel() {
             }
         }
 
+        selectedMbtiCount = updatedList?.count { it.isSelected } ?: 0
         _mbtiTagList.value = updatedList ?: emptyList()
     }
 }
