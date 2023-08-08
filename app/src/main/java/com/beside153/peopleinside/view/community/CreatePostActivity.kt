@@ -5,18 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityCreatePostBinding
 import com.beside153.peopleinside.model.community.MbtiTagModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
 
-class CreatePostActivity : AppCompatActivity() {
+class CreatePostActivity : BaseActivity() {
     private lateinit var binding: ActivityCreatePostBinding
     private val createPostViewModel: CreatePostViewModel by viewModels()
     private val mbtiTagAdapter = MbtiTagListAdapter(::onMbtiTagItemClick)
@@ -41,7 +42,7 @@ class CreatePostActivity : AppCompatActivity() {
 
         binding.mbtiTagRecyclerView.apply {
             adapter = mbtiTagAdapter
-            layoutManager = GridLayoutManager(this@CreatePostActivity, 4)
+            layoutManager = GridLayoutManager(this@CreatePostActivity, MBTI_TAG_SPAN_COUNT)
         }
 
         createPostViewModel.initMbtiTagList()
@@ -54,6 +55,22 @@ class CreatePostActivity : AppCompatActivity() {
             this,
             EventObserver {
                 showStopPostDialog()
+            }
+        )
+
+        createPostViewModel.error.observe(
+            this,
+            EventObserver {
+                // TODO
+            }
+        )
+
+        createPostViewModel.completeButtonClickEvent.observe(
+            this,
+            EventObserver {
+                startActivity(PostDetailActivity.newIntent(this))
+                setOpenActivityAnimation()
+                finish()
             }
         )
     }
@@ -80,6 +97,7 @@ class CreatePostActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val MBTI_TAG_SPAN_COUNT = 4
         fun newIntent(context: Context) = Intent(context, CreatePostActivity::class.java)
     }
 }

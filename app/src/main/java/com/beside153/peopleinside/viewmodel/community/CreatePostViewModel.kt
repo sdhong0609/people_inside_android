@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.community.MbtiTagModel
+import com.beside153.peopleinside.util.Event
 
 class CreatePostViewModel : BaseViewModel() {
     val postTitle = MutableLiveData("")
@@ -14,6 +15,9 @@ class CreatePostViewModel : BaseViewModel() {
 
     private val _mbtiTagList = MutableLiveData<List<MbtiTagModel>>()
     val mbtiTagList: LiveData<List<MbtiTagModel>> get() = _mbtiTagList
+
+    private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
+    val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
 
     private var selectedMbtiCount = 0
 
@@ -30,6 +34,11 @@ class CreatePostViewModel : BaseViewModel() {
     private fun checkCompleteButtonEnable() {
         _isCompleteButtonEnabled.value =
             postTitle.value?.isNotEmpty() == true && postContent.value?.isNotEmpty() == true
+    }
+
+    fun onCompleteButtonClick() {
+        if (_isCompleteButtonEnabled.value == false) return
+        _completeButtonClickEvent.value = Event(Unit)
     }
 
     fun initMbtiTagList() {
