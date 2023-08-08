@@ -211,5 +211,9 @@
     <string name="post_content_hint">다양한 MBTI를 가진 핍사이더와 함께 나누고 싶은 이야기를 작성해주세요!</string>
     <string name="mbti_want_to_share">공유하고 싶은 MBTI</string>
     <string name="mbti_tag">#%s</string>
+    <string name="stop_post_dialog_title">작성 화면에서 나가시겠어요?</string>
+    <string name="stop_post_dialog_description">작성 화면에서 벗어나면 작성된 내용은 저장되지 않습니다.</string>
+    <string name="stop_post_dialog_yes">나가기</string>
+    <string name="stop_post_dialog_no">계속 작성</string>
 
 </resources>
