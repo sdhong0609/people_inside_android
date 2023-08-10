@@ -40,6 +40,9 @@ class PostDetailViewModel @Inject constructor(
     private val _postVerticalDotsClickEvent = MutableLiveData<Event<Boolean>>()
     val postVerticalDotsClickEvent: LiveData<Event<Boolean>> get() = _postVerticalDotsClickEvent
 
+    private val _completeDeletePostEvent = MutableLiveData<Event<Unit>>()
+    val completeDeletePostEvent: LiveData<Event<Unit>> get() = _completeDeletePostEvent
+
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
     private var commentList = listOf<CommunityCommentModel>()
@@ -97,6 +100,12 @@ class PostDetailViewModel @Inject constructor(
             _postVerticalDotsClickEvent.value = Event(true)
             return
         }
-//        contentDetailViewModel.onVerticalDotsClick(item)
+    }
+
+    fun deletePost() {
+        viewModelScope.launch(exceptionHandler) {
+            communityPostService.deleteCommunityPost(postId)
+            _completeDeletePostEvent.value = Event(Unit)
+        }
     }
 }

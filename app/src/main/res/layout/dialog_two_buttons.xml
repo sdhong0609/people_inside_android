@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -53,12 +54,12 @@
                 android:background="@drawable/bg_gray200_radius4dp"
                 android:gravity="center"
                 android:minHeight="48dp"
-                android:text="@string/cancel"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/positiveButton"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/cancel" />
 
             <TextView
                 android:id="@+id/positiveButton"
@@ -69,12 +70,12 @@
                 android:gravity="center"
                 android:minWidth="136dp"
                 android:minHeight="48dp"
-                android:text="@string/confirm"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/negativeButton"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/confirm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

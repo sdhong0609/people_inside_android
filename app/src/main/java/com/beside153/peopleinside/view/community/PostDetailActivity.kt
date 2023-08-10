@@ -14,8 +14,10 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.KeyboardVisibilityUtils
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.common.BottomSheetFragment
 import com.beside153.peopleinside.view.common.BottomSheetType
+import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.PostDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -98,21 +100,44 @@ class PostDetailActivity : BaseActivity() {
             }
         )
 
+        postDetailViewModel.completeDeletePostEvent.observe(
+            this,
+            EventObserver {
+                setResult(RESULT_OK)
+                finish()
+                setCloseActivityAnimation()
+            }
+        )
+
         supportFragmentManager.setFragmentResultListener(
             BottomSheetFragment::class.java.simpleName,
             this
         ) { _, bundle ->
             val fixOrDelete = bundle.getString(FIX_DELETE)
             if (fixOrDelete == getString(R.string.fix)) {
-                // 게시글 수정 화면으로 이동
+                startActivity(CreatePostActivity.newIntent(this))
+                setOpenActivityAnimation()
                 return@setFragmentResultListener
             }
             if (fixOrDelete == getString(R.string.delete)) {
-                // 게시글 삭제
-//                postDetailViewModel.deletePost()
+                showDeletePostDialog()
                 return@setFragmentResultListener
             }
         }
+    }
+
+    private fun showDeletePostDialog() {
+        val deletePostDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
+            .setTitle(R.string.delete_post_dialog_title)
+            .setDescription(R.string.delete_post_dialog_description)
+            .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
+                override fun onClickPositiveButton() {
+                    postDetailViewModel.deletePost()
+                }
+
+                override fun onClickNegativeButton() = Unit
+            }).create()
+        deletePostDialog.show(supportFragmentManager, deletePostDialog.tag)
     }
 
     companion object {

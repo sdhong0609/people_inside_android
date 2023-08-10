@@ -13,8 +13,8 @@ import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheet
 import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel.ReportItem
 
 class BottomSheetListAdapter(
-    private val onReportItemClick: ((item: ReportModel) -> Unit)? = null,
-    private val onFixDeleteItemClick: ((item: String) -> Unit)? = null
+    private val onReportItemClick: (item: ReportModel) -> Unit,
+    private val onFixDeleteItemClick: (item: String) -> Unit
 ) :
     ListAdapter<BottomSheetModel, BottomSheetListAdapter.ViewHolder>(BottomSheetItemDiffCallback()) {
 
@@ -33,10 +33,9 @@ class BottomSheetListAdapter(
                 val binding = ItemBottomSheetBinding.inflate(inflater, parent, false)
                 val viewHolder = ViewHolder.ReportItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
-                    val position = viewHolder.adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val item = getItem(position) as ReportItem
-                        onReportItemClick?.invoke(item.reportItem)
+                    val item = getItem(viewHolder.adapterPosition) as? ReportItem
+                    item?.let {
+                        onReportItemClick(it.reportItem)
                     }
                 }
                 viewHolder
@@ -46,10 +45,9 @@ class BottomSheetListAdapter(
                 val binding = ItemBottomSheetBinding.inflate(inflater, parent, false)
                 val viewHolder = ViewHolder.FixDeleteItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
-                    val position = viewHolder.adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val item = getItem(position) as FixDeleteItem
-                        onFixDeleteItemClick?.invoke(item.fixDeleteItem)
+                    val item = getItem(viewHolder.adapterPosition) as? FixDeleteItem
+                    item?.let {
+                        onFixDeleteItemClick(it.fixDeleteItem)
                     }
                 }
                 viewHolder

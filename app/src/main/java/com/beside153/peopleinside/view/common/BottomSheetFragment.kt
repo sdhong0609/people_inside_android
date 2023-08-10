@@ -46,18 +46,20 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
             layoutManager = LinearLayoutManager(context)
         }
 
+        binding.cancelButton.setOnClickListener {
+            dismiss()
+        }
+
         if (bottomSheetType == BottomSheetType.ContentReport) {
             val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getString(App.prefs.reportListKey))
             listAdapter.submitList(reportList.map { BottomSheetModel.ReportItem(it) })
+            return
         }
 
         if (bottomSheetType == BottomSheetType.PostFixDelete) {
             val fixDeleteList = listOf(getString(R.string.fix), getString(R.string.delete))
             listAdapter.submitList(fixDeleteList.map { BottomSheetModel.FixDeleteItem(it) })
-        }
-
-        binding.cancelButton.setOnClickListener {
-            dismiss()
+            return
         }
     }
 

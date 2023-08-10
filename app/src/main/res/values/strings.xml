@@ -226,5 +226,7 @@
     <string name="no_comment">아직 댓글이 없어요!\n제일 먼저 댓글을 남겨주세요.</string>
     <string name="fix">수정하기</string>
     <string name="delete">삭제하기</string>
+    <string name="delete_post_dialog_title">게시글을 정말 삭제하시겠어요?</string>
+    <string name="delete_post_dialog_description">삭제하신 후에는\n다시 복원하실 수 없어요.</string>
 
 </resources>
