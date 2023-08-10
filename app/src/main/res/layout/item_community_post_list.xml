@@ -76,10 +76,11 @@
                     style="@style/textStyleMediumGray500"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="방금"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/mbtiNicknameTextView"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:timeText="@{item.createdAt}"
+                    tools:text="방금" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

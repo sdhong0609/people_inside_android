@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.util.intervalBetweenDateText
 
 @BindingAdapter("recommendTabTextColor")
 fun TextView.recommendTabTextColor(isChosen: Boolean) {
@@ -91,4 +92,9 @@ fun TextView.mbtiTagBackground(isSelected: Boolean) {
         ContextCompat.getDrawable(context, R.drawable.bg_white_radius50dp_border)
     }
     setBackground(background)
+}
+
+@BindingAdapter("timeText")
+fun TextView.timeText(createdAt: String) {
+    text = intervalBetweenDateText(createdAt)
 }
