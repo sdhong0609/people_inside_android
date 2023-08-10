@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.databinding.ItemPostCommentListBinding
 import com.beside153.peopleinside.databinding.ItemPostDetailBinding
 import com.beside153.peopleinside.databinding.ItemPostNoCommentBinding
+import com.beside153.peopleinside.model.community.comment.CommunityCommentModel
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel
+import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel.CommentItem
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel.NoCommentView
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel.PostItem
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.ViewHolder
@@ -22,6 +25,7 @@ class PostDetailScreenAdapter :
         return when (getItem(position)) {
             is PostItem -> R.layout.item_post_detail
             is NoCommentView -> R.layout.item_post_no_comment
+            is CommentItem -> R.layout.item_post_comment_list
         }
     }
 
@@ -34,9 +38,14 @@ class PostDetailScreenAdapter :
                 ViewHolder.PostItemViewHolder(binding)
             }
 
-            else -> {
+            R.layout.item_post_no_comment -> {
                 val binding = ItemPostNoCommentBinding.inflate(inflater, parent, false)
                 ViewHolder.NoCommentViewHolder(binding)
+            }
+
+            else -> {
+                val binding = ItemPostCommentListBinding.inflate(inflater, parent, false)
+                ViewHolder.CommentItemViewHolder(binding)
             }
         }
     }
@@ -45,6 +54,7 @@ class PostDetailScreenAdapter :
         when (holder) {
             is ViewHolder.PostItemViewHolder -> holder.bind(getItem(position) as PostItem)
             is ViewHolder.NoCommentViewHolder -> holder.bind()
+            is ViewHolder.CommentItemViewHolder -> holder.bind(getItem(position) as CommentItem)
         }
     }
 
@@ -58,11 +68,18 @@ class PostDetailScreenAdapter :
         class NoCommentViewHolder(binding: ItemPostNoCommentBinding) : ViewHolder(binding.root) {
             fun bind() = Unit
         }
+
+        class CommentItemViewHolder(private val binding: ItemPostCommentListBinding) : ViewHolder(binding.root) {
+            fun bind(item: CommentItem) {
+                binding.item = item.commentItem
+            }
+        }
     }
 
     sealed class PostDetailScreenModel {
         data class PostItem(val postItem: CommunityPostModel) : PostDetailScreenModel()
         object NoCommentView : PostDetailScreenModel()
+        data class CommentItem(val commentItem: CommunityCommentModel) : PostDetailScreenModel()
     }
 
     private class PostDetailScreenModelDiffCallback : DiffUtil.ItemCallback<PostDetailScreenModel>() {
@@ -70,6 +87,9 @@ class PostDetailScreenAdapter :
             return when {
                 oldItem is PostItem && newItem is PostItem -> oldItem.postItem.postId == newItem.postItem.postId
                 oldItem is NoCommentView && newItem is NoCommentView -> true
+                oldItem is CommentItem && newItem is CommentItem ->
+                    oldItem.commentItem.commentId == newItem.commentItem.commentId
+
                 else -> false
             }
         }

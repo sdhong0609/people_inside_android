@@ -51,6 +51,8 @@
                     style="@style/textStyleBoldGray900"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="@{item.user.nickname}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@id/mbtiTextView"

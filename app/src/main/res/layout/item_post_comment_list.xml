@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.community.comment.CommunityCommentModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{item.author.userId == app.prefs.userId ? @color/gray_100 : @color/white}"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/mbtiCircleImageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/mbti_icon"
+            app:layout_constraintBottom_toBottomOf="@id/commentAuthorLayout"
+            app:layout_constraintEnd_toStartOf="@id/commentAuthorLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/commentAuthorLayout"
+            app:mbtiCircleImg="@{item.author.mbti}"
+            tools:src="@drawable/mbti_circle_icon_enfj" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/commentAuthorLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toTopOf="@id/commentContentTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
+            app:layout_constraintStart_toEndOf="@id/mbtiCircleImageView"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/mbtiNicknameTextView"
+                style="@style/textStyleBoldGray900"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.author.nickname}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@id/mbtiTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="개발하는 준영" />
+
+            <TextView
+                android:id="@+id/mbtiTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/mbti_interpunct(item.author.mbti.toUpperCase())}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/timeTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
+                tools:text="ENFJ·" />
+
+            <TextView
+                android:id="@+id/timeTextView"
+                style="@style/textStyleMediumGray700"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1시간 전"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/mbtiTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mbtiTextView"
+                app:layout_constraintTop_toTopOf="@id/mbtiTextView"
+                tools:text="1시간 전" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/verticalDotsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/vertical_dots"
+            android:src="@drawable/ic_vertical_dots"
+            app:layout_constraintBottom_toBottomOf="@id/commentAuthorLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/commentAuthorLayout"
+            app:layout_constraintTop_toTopOf="@id/commentAuthorLayout" />
+
+        <TextView
+            android:id="@+id/commentContentTextView"
+            style="@style/textStyleMediumGray900"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="@{item.content}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/verticalDotsImageView"
+            app:layout_constraintStart_toStartOf="@id/commentAuthorLayout"
+            app:layout_constraintTop_toBottomOf="@id/commentAuthorLayout"
+            tools:text="일단 빅4 중 제일 기대가 큽니다!" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
