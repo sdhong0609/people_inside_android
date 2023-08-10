@@ -22,6 +22,9 @@ class PostDetailViewModel @Inject constructor(
     private val _screenList = MutableLiveData<List<PostDetailScreenModel>>()
     val screenList: MutableLiveData<List<PostDetailScreenModel>> get() = _screenList
 
+    private val _uploadButtonVisible = MutableLiveData(false)
+    val uploadButtonVisible: LiveData<Boolean> get() = _uploadButtonVisible
+
     private var postId = 1L
 
     fun setPostId(id: Long) {
@@ -40,5 +43,9 @@ class PostDetailViewModel @Inject constructor(
         return listOf(
             PostDetailScreenModel.PostItem(_postDetailItem.value!!)
         )
+    }
+
+    fun setUploadButtonVisible(isVisible: Boolean) {
+        _uploadButtonVisible.value = isVisible
     }
 }
