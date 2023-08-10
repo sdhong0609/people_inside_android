@@ -3,6 +3,7 @@ package com.beside153.peopleinside.viewmodel.community
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.model.community.comment.CommunityCommentModel
@@ -35,6 +36,9 @@ class PostDetailViewModel @Inject constructor(
 
     private val _completeUploadCommentEvent = MutableLiveData<Event<Unit>>()
     val completeUploadCommentEvent: LiveData<Event<Unit>> get() = _completeUploadCommentEvent
+
+    private val _postVerticalDotsClickEvent = MutableLiveData<Event<Boolean>>()
+    val postVerticalDotsClickEvent: LiveData<Event<Boolean>> get() = _postVerticalDotsClickEvent
 
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
@@ -86,5 +90,13 @@ class PostDetailViewModel @Inject constructor(
             commentText.value = ""
             _completeUploadCommentEvent.value = Event(Unit)
         }
+    }
+
+    fun onPostVerticalDotsClick() {
+        if (App.prefs.getUserId().toLong() == (postDetailItem?.user?.userId ?: 1L)) {
+            _postVerticalDotsClickEvent.value = Event(true)
+            return
+        }
+//        contentDetailViewModel.onVerticalDotsClick(item)
     }
 }

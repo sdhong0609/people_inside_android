@@ -10,14 +10,21 @@ import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.FragmentReportBottomSheetBinding
+import com.beside153.peopleinside.databinding.FragmentBottomSheetBinding
 import com.beside153.peopleinside.model.report.ReportModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.serialization.json.Json
 
-class ReportBottomSheetFragment : BottomSheetDialogFragment() {
-    private lateinit var binding: FragmentReportBottomSheetBinding
-    private val reportAdapter = ReportListAdapter(::onReportItemClick)
+enum class BottomSheetType {
+    ContentReport,
+    PostFixDelete,
+    PostReport,
+    CommentReport
+}
+
+class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : BottomSheetDialogFragment() {
+    private lateinit var binding: FragmentBottomSheetBinding
+    private val reportAdapter = BottomSheetListAdapter(::onReportItemClick)
 
     override fun getTheme(): Int = R.style.CustomBottomSheetDialog
 
@@ -26,20 +33,22 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report_bottom_sheet, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottom_sheet, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.reportRecyclerView.apply {
+        binding.bottomSheetRecyclerView.apply {
             adapter = reportAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-        val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getString(App.prefs.reportListKey))
-        reportAdapter.submitList(reportList)
+        if (bottomSheetType == BottomSheetType.ContentReport) {
+            val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getString(App.prefs.reportListKey))
+            reportAdapter.submitList(reportList.map { BottomSheetListAdapter.BottomSheetModel.ReportItem(it) })
+        }
 
         binding.cancelButton.setOnClickListener {
             dismiss()
@@ -48,7 +57,7 @@ class ReportBottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun onReportItemClick(item: ReportModel) {
         setFragmentResult(
-            ReportBottomSheetFragment::class.java.simpleName,
+            BottomSheetFragment::class.java.simpleName,
             bundleOf(REPORT_ID to item.id)
         )
         dismiss()

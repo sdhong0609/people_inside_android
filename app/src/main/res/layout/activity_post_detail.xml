@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:contentDescription="@string/vertical_dots"
+                    android:onClick="@{() -> viewModel.onPostVerticalDotsClick()}"
                     android:paddingHorizontal="6dp"
                     android:paddingVertical="16dp"
                     android:src="@drawable/ic_vertical_dots" />

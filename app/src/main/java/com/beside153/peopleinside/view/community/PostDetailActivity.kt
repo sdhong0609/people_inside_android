@@ -14,6 +14,8 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.KeyboardVisibilityUtils
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
+import com.beside153.peopleinside.view.report.BottomSheetFragment
+import com.beside153.peopleinside.view.report.BottomSheetType
 import com.beside153.peopleinside.viewmodel.community.PostDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -84,6 +86,25 @@ class PostDetailActivity : BaseActivity() {
                 postDetailViewModel.initAllData()
             }
         )
+
+        postDetailViewModel.postVerticalDotsClickEvent.observe(
+            this,
+            EventObserver { isMyPost ->
+                if (isMyPost) {
+                    val bottomSheet = BottomSheetFragment(BottomSheetType.PostFixDelete)
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                    return@EventObserver
+                }
+            }
+        )
+
+        supportFragmentManager.setFragmentResultListener(
+            BottomSheetFragment::class.java.simpleName,
+            this
+        ) { _, bundle ->
+//            reportId = bundle.getInt(REPORT_ID)
+//            contentDetailViewModel.reportComment(reportId)
+        }
     }
 
     companion object {

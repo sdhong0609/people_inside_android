@@ -22,7 +22,8 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
-import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
+import com.beside153.peopleinside.view.report.BottomSheetFragment
+import com.beside153.peopleinside.view.report.BottomSheetType
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -43,7 +44,7 @@ class ContentDetailActivity : BaseActivity() {
             ::onVerticalDotsClick,
             ::onCommentLikeClick
         )
-    private val bottomSheet = ReportBottomSheetFragment()
+    private val bottomSheet = BottomSheetFragment(BottomSheetType.ContentReport)
     private var reportId = 0
     private var didClickComment = false
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -85,7 +86,7 @@ class ContentDetailActivity : BaseActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener(
-            ReportBottomSheetFragment::class.java.simpleName,
+            BottomSheetFragment::class.java.simpleName,
             this
         ) { _, bundle ->
             reportId = bundle.getInt(REPORT_ID)
