@@ -81,6 +81,7 @@ class PostDetailActivity : BaseActivity() {
             EventObserver {
                 inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
                 binding.commentEditText.clearFocus()
+                postDetailViewModel.initAllData()
             }
         )
     }

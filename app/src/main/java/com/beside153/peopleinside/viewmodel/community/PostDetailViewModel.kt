@@ -85,7 +85,6 @@ class PostDetailViewModel @Inject constructor(
             communityCommentService.postCommunityComment(postId, CreateContentRequest(commentText.value ?: ""))
             commentText.value = ""
             _completeUploadCommentEvent.value = Event(Unit)
-            initAllData()
         }
     }
 }
