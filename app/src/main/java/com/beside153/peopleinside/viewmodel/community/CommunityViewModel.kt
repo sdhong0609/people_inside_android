@@ -29,12 +29,19 @@ class CommunityViewModel @Inject constructor(
 
     private var page = 1
 
-    fun initData() {
+    fun initPostList() {
         setProgressBarVisible(true)
         page = 1
         _postList.value = listOf()
         viewModelScope.launch(exceptionHandler) {
             _postList.value = communityPostService.getCommunityPostList(page)
+        }
+    }
+
+    fun loadMorePostList() {
+        viewModelScope.launch(exceptionHandler) {
+            val newPostList = communityPostService.getCommunityPostList(++page)
+            _postList.value = _postList.value?.plus(newPostList)
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity.RESULT_OK
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.databinding.FragmentCommunityBinding
@@ -46,9 +47,22 @@ class CommunityFragment : BaseFragment() {
         binding.communityPostRecyclerView.apply {
             adapter = postListAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        communityViewModel.loadMorePostList()
+                    }
+                }
+            })
         }
 
-        communityViewModel.initData()
+        communityViewModel.initPostList()
 
         communityViewModel.postList.observe(viewLifecycleOwner) { list ->
             postListAdapter.submitList(list)
@@ -60,7 +74,7 @@ class CommunityFragment : BaseFragment() {
         communityViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                showErrorDialog(it) { communityViewModel.initData() }
+                showErrorDialog(it) { communityViewModel.initPostList() }
             }
         )
 
@@ -87,7 +101,7 @@ class CommunityFragment : BaseFragment() {
     private val writePostActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-                communityViewModel.initData()
+                communityViewModel.initPostList()
             }
         }
 
