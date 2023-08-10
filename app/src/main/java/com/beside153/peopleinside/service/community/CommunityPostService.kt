@@ -5,6 +5,7 @@ import com.beside153.peopleinside.model.community.post.CommunityPostRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CommunityPostService {
@@ -16,4 +17,7 @@ interface CommunityPostService {
 
     @POST("/api/community/post")
     suspend fun postCommunityPost(@Body communityPostRequest: CommunityPostRequest): CommunityPostModel
+
+    @GET("/api/community/post/{postId}")
+    suspend fun getCommunityPostDetail(@Path("postId") postId: Long): CommunityPostModel
 }

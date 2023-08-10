@@ -217,4 +217,8 @@
     <string name="stop_post_dialog_no">계속 작성</string>
     <string name="complete_create_post">게시글 작성이 완료되었어요!</string>
 
+    <!-- 커뮤니티 게시글 상세 -->
+    <string name="mbti_interpunct">%s·</string>
+    <string name="comment_count">댓글 %d</string>
+
 </resources>

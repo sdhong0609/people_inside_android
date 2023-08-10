@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/dividerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -54,7 +54,7 @@
                     android:text="@{item.user.nickname}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@id/mbtiTextView"
-                    app:layout_constraintEnd_toStartOf="@id/timeTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="개발하는 준영" />
@@ -64,24 +64,26 @@
                     style="@style/textStyleMediumGray700"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.user.mbti.toUpperCase()}"
+                    android:text="@{@string/mbti_interpunct(item.user.mbti.toUpperCase())}"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/timeTextView"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
-                    tools:text="ENFJ" />
+                    tools:text="ENFJ·" />
 
                 <TextView
                     android:id="@+id/timeTextView"
-                    style="@style/textStyleMediumGray500"
-                    android:layout_width="wrap_content"
+                    style="@style/textStyleMediumGray700"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/mbtiTextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/mbtiNicknameTextView"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mbtiTextView"
+                    app:layout_constraintTop_toTopOf="@id/mbtiTextView"
                     app:timeText="@{item.createdAt}"
-                    tools:text="방금" />
+                    tools:text="1시간 전" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -132,39 +134,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
 
-            <ImageView
-                android:id="@+id/commentImageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:contentDescription="@string/comment"
-                android:src="@drawable/ic_comment"
-                app:layout_constraintEnd_toStartOf="@id/commentCountTextView"
-                app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tagTextView"
-                app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
-
-            <TextView
-                android:id="@+id/commentCountTextView"
-                style="@style/textStyleMediumGray500"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{Long.toString(item.totalComment)}"
-                app:layout_constraintBottom_toBottomOf="@id/commentImageView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/commentImageView"
-                tools:text="10" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
+            android:id="@+id/dividerView"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/gray_300"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/commentCountTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/postLayout" />
+
+        <TextView
+            android:id="@+id/commentCountTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@{@string/comment_count(item.totalComment)}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerView"
+            tools:text="댓글 0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

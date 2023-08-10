@@ -16,13 +16,16 @@ class CommunityViewModel @Inject constructor(
     private val communityPostService: CommunityPostService
 ) : BaseViewModel() {
     private val _searchBarClickEvent = MutableLiveData<Event<Unit>>()
-    val searchBarClickEvent: LiveData<Event<Unit>> = _searchBarClickEvent
+    val searchBarClickEvent: LiveData<Event<Unit>> get() = _searchBarClickEvent
 
     private val _writePostClickEvent = MutableLiveData<Event<Unit>>()
-    val writePostClickEvent: LiveData<Event<Unit>> = _writePostClickEvent
+    val writePostClickEvent: LiveData<Event<Unit>> get() = _writePostClickEvent
 
     private val _postList = MutableLiveData<List<CommunityPostModel>>()
     val postList: LiveData<List<CommunityPostModel>> get() = _postList
+
+    private val _postItemClickEvent = MutableLiveData<Event<Long>>()
+    val postItemClickEvent: LiveData<Event<Long>> get() = _postItemClickEvent
 
     private val _progressBarVisible = MutableLiveData(false)
     val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
@@ -43,6 +46,10 @@ class CommunityViewModel @Inject constructor(
             val newPostList = communityPostService.getCommunityPostList(++page)
             _postList.value = _postList.value?.plus(newPostList)
         }
+    }
+
+    fun onPostItemClick(item: CommunityPostModel) {
+        _postItemClickEvent.value = Event(item.postId)
     }
 
     fun setProgressBarVisible(visible: Boolean) {

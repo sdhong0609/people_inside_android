@@ -88,17 +88,25 @@ class CommunityFragment : BaseFragment() {
         communityViewModel.writePostClickEvent.observe(
             viewLifecycleOwner,
             EventObserver {
-                writePostActivityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
+                activityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
+                requireActivity().setOpenActivityAnimation()
+            }
+        )
+
+        communityViewModel.postItemClickEvent.observe(
+            viewLifecycleOwner,
+            EventObserver { postId ->
+                activityLauncher.launch(PostDetailActivity.newIntent(requireActivity(), postId))
                 requireActivity().setOpenActivityAnimation()
             }
         )
     }
 
     private fun onPostItemClick(item: CommunityPostModel) {
-//        communityViewModel.onPostItemClick(item)
+        communityViewModel.onPostItemClick(item)
     }
 
-    private val writePostActivityLauncher =
+    private val activityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 communityViewModel.initPostList()
