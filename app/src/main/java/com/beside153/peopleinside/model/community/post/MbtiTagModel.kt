@@ -1,4 +1,4 @@
-package com.beside153.peopleinside.model.community
+package com.beside153.peopleinside.model.community.post
 
 data class MbtiTagModel(
     val mbtiTag: String,

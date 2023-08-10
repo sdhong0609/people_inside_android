@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.community.MbtiTagModel
 import com.beside153.peopleinside.model.community.post.CommunityPostRequest
 import com.beside153.peopleinside.model.community.post.Mbti
+import com.beside153.peopleinside.model.community.post.MbtiTagModel
 import com.beside153.peopleinside.service.community.CommunityPostService
 import com.beside153.peopleinside.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -16,8 +16,7 @@ class PostDetailViewModel @Inject constructor(
     private val communityPostService: CommunityPostService
 ) : BaseViewModel() {
 
-    private val _postDetailItem = MutableLiveData<CommunityPostModel>()
-    val postDetailItem: LiveData<CommunityPostModel> get() = _postDetailItem
+    private var postDetailItem: CommunityPostModel? = null
 
     private val _screenList = MutableLiveData<List<PostDetailScreenModel>>()
     val screenList: MutableLiveData<List<PostDetailScreenModel>> get() = _screenList
@@ -33,16 +32,20 @@ class PostDetailViewModel @Inject constructor(
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
-            _postDetailItem.value = communityPostService.getCommunityPostDetail(postId)
+            postDetailItem = communityPostService.getCommunityPostDetail(postId)
 
             _screenList.value = screenList()
         }
     }
 
     private fun screenList(): List<PostDetailScreenModel> {
-        return listOf(
-            PostDetailScreenModel.PostItem(_postDetailItem.value!!)
-        )
+        val commentAreaList = if ((postDetailItem?.totalComment ?: 0) <= 0) {
+            listOf(PostDetailScreenModel.NoCommentView)
+        } else {
+            listOf(PostDetailScreenModel.NoCommentView)
+        }
+
+        return listOf(PostDetailScreenModel.PostItem(postDetailItem!!)) + commentAreaList
     }
 
     fun setUploadButtonVisible(isVisible: Boolean) {

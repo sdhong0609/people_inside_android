@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemMbtiTagBinding
-import com.beside153.peopleinside.model.community.MbtiTagModel
+import com.beside153.peopleinside.model.community.post.MbtiTagModel
 
 class MbtiTagListAdapter(private val onMbtiTagItemClick: (item: MbtiTagModel) -> Unit) :
     ListAdapter<MbtiTagModel, MbtiTagListAdapter.MbtiTagItemViewHolder>(MbtiTagItemDiffCallback()) {
