@@ -55,7 +55,7 @@ class CommunityFragment : BaseFragment() {
         communityViewModel.error.observe(
             viewLifecycleOwner,
             EventObserver {
-                //
+                showErrorDialog(it) { communityViewModel.initData() }
             }
         )
 
@@ -82,7 +82,7 @@ class CommunityFragment : BaseFragment() {
     private val writePostActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
-//                communityViewModel.initAllData()
+                communityViewModel.initData()
             }
         }
 }

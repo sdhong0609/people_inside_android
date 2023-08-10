@@ -19,7 +19,9 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CreatePostActivity : BaseActivity() {
     private lateinit var binding: ActivityCreatePostBinding
     private val createPostViewModel: CreatePostViewModel by viewModels()
@@ -67,7 +69,7 @@ class CreatePostActivity : BaseActivity() {
         createPostViewModel.error.observe(
             this,
             EventObserver {
-                // TODO
+                showErrorDialog(it) { createPostViewModel.onCompleteButtonClick() }
             }
         )
 

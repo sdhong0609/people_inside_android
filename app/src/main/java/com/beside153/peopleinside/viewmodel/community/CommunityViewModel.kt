@@ -28,7 +28,7 @@ class CommunityViewModel @Inject constructor(
 
     fun initData() {
         viewModelScope.launch(exceptionHandler) {
-            _postList.value = communityPostService.getPostList(page)
+            _postList.value = communityPostService.getCommunityPostList(page)
         }
     }
 

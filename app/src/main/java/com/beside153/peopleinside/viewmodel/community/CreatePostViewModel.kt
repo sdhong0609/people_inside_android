@@ -2,11 +2,21 @@ package com.beside153.peopleinside.viewmodel.community
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.community.MbtiTagModel
+import com.beside153.peopleinside.model.community.post.CommunityPostRequest
+import com.beside153.peopleinside.model.community.post.Mbti
+import com.beside153.peopleinside.service.community.CommunityPostService
 import com.beside153.peopleinside.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CreatePostViewModel : BaseViewModel() {
+@HiltViewModel
+class CreatePostViewModel @Inject constructor(
+    private val communityPostService: CommunityPostService
+) : BaseViewModel() {
     val postTitle = MutableLiveData("")
     val postContent = MutableLiveData("")
 
@@ -19,7 +29,8 @@ class CreatePostViewModel : BaseViewModel() {
     private val _completePostEvent = MutableLiveData<Event<Unit>>()
     val completePostEvent: LiveData<Event<Unit>> get() = _completePostEvent
 
-    private var selectedMbtiCount = 0
+    private var selectedMbtiList = mutableListOf<String>()
+    private var mbtiRequest = Mbti()
 
     fun onTitleTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         postTitle.value = (s ?: "").toString()
@@ -34,11 +45,6 @@ class CreatePostViewModel : BaseViewModel() {
     private fun checkCompleteButtonEnable() {
         _isCompleteButtonEnabled.value =
             postTitle.value?.isNotEmpty() == true && postContent.value?.isNotEmpty() == true
-    }
-
-    fun onCompleteButtonClick() {
-        if (_isCompleteButtonEnabled.value == false) return
-        _completePostEvent.value = Event(Unit)
     }
 
     fun initMbtiTagList() {
@@ -66,9 +72,11 @@ class CreatePostViewModel : BaseViewModel() {
         val updatedList = _mbtiTagList.value?.map {
             if (it == item) {
                 if (it.isSelected) {
+                    selectedMbtiList.remove(it.mbtiTag)
                     it.copy(isSelected = false)
                 } else {
-                    if (selectedMbtiCount >= 8) return
+                    if (selectedMbtiList.size >= 8) return
+                    selectedMbtiList.add(it.mbtiTag)
                     it.copy(isSelected = true)
                 }
             } else {
@@ -76,7 +84,41 @@ class CreatePostViewModel : BaseViewModel() {
             }
         }
 
-        selectedMbtiCount = updatedList?.count { it.isSelected } ?: 0
         _mbtiTagList.value = updatedList ?: emptyList()
+    }
+
+    fun onCompleteButtonClick() {
+        if (_isCompleteButtonEnabled.value == false) return
+
+        viewModelScope.launch(exceptionHandler) {
+            for (selectedMbti in selectedMbtiList) {
+                when (selectedMbti) {
+                    "INFP" -> mbtiRequest = mbtiRequest.copy(infp = true)
+                    "ENFP" -> mbtiRequest = mbtiRequest.copy(enfp = true)
+                    "ESFJ" -> mbtiRequest = mbtiRequest.copy(esfj = true)
+                    "ISFJ" -> mbtiRequest = mbtiRequest.copy(isfj = true)
+                    "ISFP" -> mbtiRequest = mbtiRequest.copy(isfp = true)
+                    "ESFP" -> mbtiRequest = mbtiRequest.copy(esfp = true)
+                    "INTP" -> mbtiRequest = mbtiRequest.copy(intp = true)
+                    "INFJ" -> mbtiRequest = mbtiRequest.copy(infj = true)
+                    "ENFJ" -> mbtiRequest = mbtiRequest.copy(enfj = true)
+                    "ENTP" -> mbtiRequest = mbtiRequest.copy(entp = true)
+                    "ESTJ" -> mbtiRequest = mbtiRequest.copy(estj = true)
+                    "ISTJ" -> mbtiRequest = mbtiRequest.copy(istj = true)
+                    "INTJ" -> mbtiRequest = mbtiRequest.copy(intj = true)
+                    "ISTP" -> mbtiRequest = mbtiRequest.copy(istp = true)
+                    "ESTP" -> mbtiRequest = mbtiRequest.copy(estp = true)
+                    "ENTJ" -> mbtiRequest = mbtiRequest.copy(entj = true)
+                }
+            }
+            communityPostService.postCommunityPost(
+                CommunityPostRequest(
+                    postTitle.value ?: "",
+                    postContent.value ?: "",
+                    mbtiRequest
+                )
+            )
+            _completePostEvent.value = Event(Unit)
+        }
     }
 }
