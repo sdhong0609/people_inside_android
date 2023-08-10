@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.model.community.comment.CommunityCommentModel
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.service.community.CommunityCommentService
 import com.beside153.peopleinside.service.community.CommunityPostService
+import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -20,11 +22,19 @@ class PostDetailViewModel @Inject constructor(
     private val communityCommentService: CommunityCommentService
 ) : BaseViewModel() {
 
+    val commentText = MutableLiveData("")
+
     private val _screenList = MutableLiveData<List<PostDetailScreenModel>>()
     val screenList: MutableLiveData<List<PostDetailScreenModel>> get() = _screenList
 
     private val _uploadButtonVisible = MutableLiveData(false)
     val uploadButtonVisible: LiveData<Boolean> get() = _uploadButtonVisible
+
+    private val _isUploadCommentEnabled = MutableLiveData(false)
+    val isUploadCommentEnabled: LiveData<Boolean> get() = _isUploadCommentEnabled
+
+    private val _completeUploadCommentEvent = MutableLiveData<Event<Unit>>()
+    val completeUploadCommentEvent: LiveData<Event<Unit>> get() = _completeUploadCommentEvent
 
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
@@ -36,6 +46,7 @@ class PostDetailViewModel @Inject constructor(
     }
 
     fun initAllData() {
+        page = 1
         viewModelScope.launch(exceptionHandler) {
             val postDetailItemDeferred = async { communityPostService.getCommunityPostDetail(postId) }
             val commentListDeferred = async { communityCommentService.getCommunityCommentList(postId, page) }
@@ -56,7 +67,25 @@ class PostDetailViewModel @Inject constructor(
         return listOf(PostDetailScreenModel.PostItem(postDetailItem!!)) + commentAreaList
     }
 
+    fun onCommentTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        commentText.value = (s ?: "").toString()
+        checkUploadCommentEnable()
+    }
+
+    private fun checkUploadCommentEnable() {
+        _isUploadCommentEnabled.value = commentText.value?.isNotEmpty() ?: false
+    }
+
     fun setUploadButtonVisible(isVisible: Boolean) {
         _uploadButtonVisible.value = isVisible
+    }
+
+    fun onUploadCommentButtonClick() {
+        viewModelScope.launch(exceptionHandler) {
+            communityCommentService.postCommunityComment(postId, CreateContentRequest(commentText.value ?: ""))
+            commentText.value = ""
+            _completeUploadCommentEvent.value = Event(Unit)
+            initAllData()
+        }
     }
 }

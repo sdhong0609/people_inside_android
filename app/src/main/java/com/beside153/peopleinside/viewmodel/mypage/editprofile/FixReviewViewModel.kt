@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
+import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
@@ -33,7 +33,7 @@ class FixReviewViewModel @Inject constructor(
             if ((reviewText.value ?: "").isNotEmpty()) {
                 reviewService.putReview(
                     contentItem.contentId,
-                    CreateReviewRequest(reviewText.value ?: "")
+                    CreateContentRequest(reviewText.value ?: "")
                 )
                 val updatedReview = contentItem.review?.copy(content = reviewText.value ?: "")
                 contentItem = contentItem.copy(review = updatedReview)

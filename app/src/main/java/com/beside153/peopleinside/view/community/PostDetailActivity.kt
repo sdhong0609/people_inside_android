@@ -65,9 +65,24 @@ class PostDetailActivity : BaseActivity() {
             }
         )
 
+        postDetailViewModel.error.observe(
+            this,
+            EventObserver {
+                showErrorDialog(it) { postDetailViewModel.initAllData() }
+            }
+        )
+
         postDetailViewModel.screenList.observe(this) { screenList ->
             postDetailAdapter.submitList(screenList)
         }
+
+        postDetailViewModel.completeUploadCommentEvent.observe(
+            this,
+            EventObserver {
+                inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
+                binding.commentEditText.clearFocus()
+            }
+        )
     }
 
     companion object {
