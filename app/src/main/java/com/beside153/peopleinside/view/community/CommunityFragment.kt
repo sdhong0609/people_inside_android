@@ -1,6 +1,8 @@
 package com.beside153.peopleinside.view.community
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,6 +52,9 @@ class CommunityFragment : BaseFragment() {
 
         communityViewModel.postList.observe(viewLifecycleOwner) { list ->
             postListAdapter.submitList(list)
+            Handler(Looper.getMainLooper()).postDelayed({
+                communityViewModel.setProgressBarVisible(false)
+            }, PROGRESSBAR_VISIBLE_DELAY)
         }
 
         communityViewModel.error.observe(
@@ -85,4 +90,8 @@ class CommunityFragment : BaseFragment() {
                 communityViewModel.initData()
             }
         }
+
+    companion object {
+        private const val PROGRESSBAR_VISIBLE_DELAY = 1000L
+    }
 }

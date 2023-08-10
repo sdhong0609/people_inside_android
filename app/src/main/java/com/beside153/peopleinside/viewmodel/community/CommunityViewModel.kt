@@ -24,12 +24,22 @@ class CommunityViewModel @Inject constructor(
     private val _postList = MutableLiveData<List<CommunityPostModel>>()
     val postList: LiveData<List<CommunityPostModel>> get() = _postList
 
+    private val _progressBarVisible = MutableLiveData(false)
+    val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
+
     private var page = 1
 
     fun initData() {
+        setProgressBarVisible(true)
+        page = 1
+        _postList.value = listOf()
         viewModelScope.launch(exceptionHandler) {
             _postList.value = communityPostService.getCommunityPostList(page)
         }
+    }
+
+    fun setProgressBarVisible(visible: Boolean) {
+        _progressBarVisible.value = visible
     }
 
     fun onCommunitySearchBarClick() {

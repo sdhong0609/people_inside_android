@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:elevation="0dp"
-            app:layout_constraintBottom_toTopOf="@id/communityPostRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -53,6 +52,17 @@
             android:id="@+id/communityPostRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:isVisibleInVisible="@{!viewModel.progressBarVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/communityAppBar" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/black"
+            app:isVisible="@{viewModel.progressBarVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
