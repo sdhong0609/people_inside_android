@@ -116,8 +116,18 @@
                 app:layout_constraintTop_toBottomOf="@id/postTitleTextView"
                 tools:text="다들 더글로리 봤음? 문동은 복수 긴장감 장난아님\n누가봐도 더글로리 본 사람인게 티나는 와이어프레임같죠" />
 
+            <LinearLayout
+                android:id="@+id/mbtiLabelLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
+
             <TextView
-                android:id="@+id/tagTextView"
+                android:id="@+id/tagTextView1"
                 style="@style/textStyleMediumGray400"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,12 +135,74 @@
                 android:background="@drawable/bg_white_radius2dp_border"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="5.5dp"
-                android:text="#ENFP+7"
+                android:text="@{@string/mbti_tag(item.mbtiList[0].toUpperCase())}"
                 android:textColor="@color/gray_400"
                 android:textSize="12sp"
+                app:isVisibleInVisible="@{item.mbtiList.size() > 0}"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tagTextView2"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                tools:text="#ENFP" />
+
+            <TextView
+                android:id="@+id/tagTextView2"
+                style="@style/textStyleMediumGray400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_white_radius2dp_border"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="5.5dp"
+                android:text="@{@string/mbti_tag(item.mbtiList[1].toUpperCase())}"
+                android:textColor="@color/gray_400"
+                android:textSize="12sp"
+                app:isVisibleInVisible="@{item.mbtiList.size() > 1}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tagTextView3"
+                app:layout_constraintStart_toEndOf="@id/tagTextView1"
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                tools:text="#ENFP" />
+
+            <TextView
+                android:id="@+id/tagTextView3"
+                style="@style/textStyleMediumGray400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_white_radius2dp_border"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="5.5dp"
+                android:text="@{@string/mbti_tag(item.mbtiList[2].toUpperCase())}"
+                android:textColor="@color/gray_400"
+                android:textSize="12sp"
+                app:isVisibleInVisible="@{item.mbtiList.size() > 2}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tagTextView4"
+                app:layout_constraintStart_toEndOf="@id/tagTextView2"
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                tools:text="#ENFP" />
+
+            <TextView
+                android:id="@+id/tagTextView4"
+                style="@style/textStyleMediumGray400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_white_radius2dp_border"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="5.5dp"
+                android:text="@{@string/mbti_tag_plus(item.mbtiList.size() - 3)}"
+                android:textColor="@color/gray_400"
+                android:textSize="12sp"
+                app:isVisibleInVisible="@{item.mbtiList.size() > 3}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tagTextView3"
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                tools:text="+3" />
 
             <ImageView
                 android:id="@+id/commentImageView"
@@ -141,7 +213,7 @@
                 android:src="@drawable/ic_comment"
                 app:layout_constraintEnd_toStartOf="@id/commentCountTextView"
                 app:layout_constraintHorizontal_bias="1"
-                app:layout_constraintStart_toEndOf="@id/tagTextView"
+                app:layout_constraintStart_toEndOf="@id/tagTextView4"
                 app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
 
             <TextView

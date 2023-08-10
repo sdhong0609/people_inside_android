@@ -3,6 +3,7 @@ package com.beside153.peopleinside.viewmodel.community
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.service.community.CommunityPostService
@@ -37,7 +38,21 @@ class CommunityViewModel @Inject constructor(
         page = 1
         _postList.value = listOf()
         viewModelScope.launch(exceptionHandler) {
-            _postList.value = communityPostService.getCommunityPostList(page)
+            val tempList = communityPostService.getCommunityPostList(page)
+            val userMbti = App.prefs.getMbti().lowercase()
+
+            val updatedList = tempList.map {
+                if (it.mbtiList.contains(userMbti)) {
+                    val mutableMbtiList = it.mbtiList.toMutableList()
+                    mutableMbtiList.remove(userMbti)
+                    mutableMbtiList.add(0, userMbti)
+                    it.copy(mbtiList = mutableMbtiList.toList())
+                } else {
+                    it
+                }
+            }
+
+            _postList.value = updatedList
         }
     }
 
