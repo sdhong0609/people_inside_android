@@ -14,8 +14,8 @@ import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.KeyboardVisibilityUtils
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
-import com.beside153.peopleinside.view.report.BottomSheetFragment
-import com.beside153.peopleinside.view.report.BottomSheetType
+import com.beside153.peopleinside.view.common.BottomSheetFragment
+import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.viewmodel.community.PostDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -102,13 +102,22 @@ class PostDetailActivity : BaseActivity() {
             BottomSheetFragment::class.java.simpleName,
             this
         ) { _, bundle ->
-//            reportId = bundle.getInt(REPORT_ID)
-//            contentDetailViewModel.reportComment(reportId)
+            val fixOrDelete = bundle.getString(FIX_DELETE)
+            if (fixOrDelete == getString(R.string.fix)) {
+                // 게시글 수정 화면으로 이동
+                return@setFragmentResultListener
+            }
+            if (fixOrDelete == getString(R.string.delete)) {
+                // 게시글 삭제
+//                postDetailViewModel.deletePost()
+                return@setFragmentResultListener
+            }
         }
     }
 
     companion object {
         private const val POST_ID = "POST_ID"
+        private const val FIX_DELETE = "FIX_DELETE"
 
         fun newIntent(context: Context, postId: Long): Intent {
             val intent = Intent(context, PostDetailActivity::class.java)

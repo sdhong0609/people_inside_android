@@ -21,9 +21,9 @@ import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.common.BottomSheetFragment
+import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
-import com.beside153.peopleinside.view.report.BottomSheetFragment
-import com.beside153.peopleinside.view.report.BottomSheetType
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics

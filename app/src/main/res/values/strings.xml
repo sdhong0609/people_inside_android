@@ -224,5 +224,7 @@
     <string name="please_write_comment">댓글을 남겨주세요</string>
     <string name="upload_comment">등록</string>
     <string name="no_comment">아직 댓글이 없어요!\n제일 먼저 댓글을 남겨주세요.</string>
+    <string name="fix">수정하기</string>
+    <string name="delete">삭제하기</string>
 
 </resources>

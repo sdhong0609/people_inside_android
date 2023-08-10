@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.util.intervalBetweenDateText
+import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel
 
 @BindingAdapter("recommendTabTextColor")
 fun TextView.recommendTabTextColor(isChosen: Boolean) {
@@ -97,4 +98,12 @@ fun TextView.mbtiTagBackground(isSelected: Boolean) {
 @BindingAdapter("timeText")
 fun TextView.timeText(createdAt: String) {
     text = intervalBetweenDateText(createdAt)
+}
+
+@BindingAdapter("bottomSheetItemText")
+fun TextView.bottomSheetItemText(item: BottomSheetModel) {
+    text = when (item) {
+        is BottomSheetModel.ReportItem -> item.reportItem.content
+        is BottomSheetModel.FixDeleteItem -> item.fixDeleteItem
+    }
 }

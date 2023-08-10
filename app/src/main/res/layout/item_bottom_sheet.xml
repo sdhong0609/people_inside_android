@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.report.ReportModel" />
+            type="com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +22,8 @@
             android:background="@drawable/bg_white_radius4dp_border"
             android:paddingHorizontal="16dp"
             android:paddingVertical="15dp"
-            android:text="@{item.content}"
             android:textSize="14sp"
+            app:bottomSheetItemText="@{item}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
