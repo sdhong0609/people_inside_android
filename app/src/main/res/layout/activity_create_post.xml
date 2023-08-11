@@ -48,8 +48,9 @@
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="1"
-                    android:text="@string/create_post"
-                    android:textSize="20sp" />
+                    android:text="@{viewModel.isFixPost ? @string/fix_post : @string/create_post}"
+                    android:textSize="20sp"
+                    tools:text="@string/create_post" />
 
                 <TextView
                     android:id="@+id/completeTextView"

@@ -57,7 +57,7 @@ class PostDetailActivity : BaseActivity() {
             layoutManager = LinearLayoutManager(this@PostDetailActivity)
         }
 
-        val postId = intent.getLongExtra(POST_ID, 1)
+        val postId = intent.getLongExtra(POST_ID, 0)
         postDetailViewModel.setPostId(postId)
         postDetailViewModel.initAllData()
 
@@ -115,7 +115,7 @@ class PostDetailActivity : BaseActivity() {
         ) { _, bundle ->
             val fixOrDelete = bundle.getString(FIX_DELETE)
             if (fixOrDelete == getString(R.string.fix)) {
-                startActivity(CreatePostActivity.newIntent(this))
+                startActivity(CreatePostActivity.newIntent(this, postId))
                 setOpenActivityAnimation()
                 return@setFragmentResultListener
             }

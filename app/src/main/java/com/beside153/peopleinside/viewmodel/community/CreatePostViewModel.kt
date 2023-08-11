@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.model.community.post.CommunityPostRequest
 import com.beside153.peopleinside.model.community.post.Mbti
 import com.beside153.peopleinside.model.community.post.MbtiTagModel
@@ -29,8 +30,12 @@ class CreatePostViewModel @Inject constructor(
     private val _completePostEvent = MutableLiveData<Event<Unit>>()
     val completePostEvent: LiveData<Event<Unit>> get() = _completePostEvent
 
+    private val _isFixPost = MutableLiveData(false)
+    val isFixPost: LiveData<Boolean> get() = _isFixPost
+
     private var selectedMbtiList = mutableListOf<String>()
     private var mbtiRequest = Mbti()
+    private var postItem: CommunityPostModel? = null
 
     fun onTitleTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         postTitle.value = (s ?: "").toString()
@@ -84,6 +89,19 @@ class CreatePostViewModel @Inject constructor(
         }
 
         _mbtiTagList.value = updatedList ?: emptyList()
+    }
+
+    fun initPost(postId: Long) {
+        viewModelScope.launch(exceptionHandler) {
+            _isFixPost.value = true
+            postItem = communityPostService.getCommunityPostDetail(postId)
+            postTitle.value = postItem?.title ?: ""
+            postContent.value = postItem?.content ?: ""
+            val mbtiList = postItem?.mbtiList ?: listOf()
+            for (mbti in mbtiList) {
+                onMbtiTagItemClick(MbtiTagModel(mbti.uppercase(), false))
+            }
+        }
     }
 
     fun onCompleteButtonClick() {

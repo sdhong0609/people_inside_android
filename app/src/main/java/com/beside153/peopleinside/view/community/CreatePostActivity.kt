@@ -54,6 +54,10 @@ class CreatePostActivity : BaseActivity() {
                 override fun canScrollVertically(): Boolean = false
             }
         }
+        val postId = intent.getLongExtra(POST_ID, 0)
+        if (postId != 0L) {
+            createPostViewModel.initPost(postId)
+        }
 
         createPostViewModel.initMbtiTagList()
 
@@ -116,6 +120,12 @@ class CreatePostActivity : BaseActivity() {
         private const val MBTI_TAG_SPAN_COUNT = 4
         private const val TOAST_DURATION = 200L
         private const val GO_BACK_DURATION = 2000L
-        fun newIntent(context: Context) = Intent(context, CreatePostActivity::class.java)
+        private const val POST_ID = "POST_ID"
+
+        fun newIntent(context: Context, postId: Long? = null): Intent {
+            val intent = Intent(context, CreatePostActivity::class.java)
+            intent.putExtra(POST_ID, postId)
+            return intent
+        }
     }
 }
