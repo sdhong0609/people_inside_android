@@ -209,7 +209,7 @@
     <string name="create_post">게시글 작성</string>
     <string name="post_title_hint">글 제목</string>
     <string name="post_content_hint">다양한 MBTI를 가진 핍사이더와 함께 나누고 싶은 이야기를 작성해주세요!</string>
-    <string name="mbti_want_to_share">공유하고 싶은 MBTI</string>
+    <string name="mbti_want_to_share">공유하고 싶은 MBTI(선택사항)</string>
     <string name="mbti_tag">#%s</string>
     <string name="mbti_tag_plus">+%d</string>
     <string name="stop_post_dialog_title">작성 화면에서 나가시겠어요?</string>
@@ -228,5 +228,6 @@
     <string name="delete">삭제하기</string>
     <string name="delete_post_dialog_title">게시글을 정말 삭제하시겠어요?</string>
     <string name="delete_post_dialog_description">삭제하신 후에는\n다시 복원하실 수 없어요.</string>
+    <string name="complete_delete_post">게시글이 삭제되었어요</string>
 
 </resources>

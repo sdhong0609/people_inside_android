@@ -50,7 +50,9 @@ class CreatePostActivity : BaseActivity() {
 
         binding.mbtiTagRecyclerView.apply {
             adapter = mbtiTagAdapter
-            layoutManager = GridLayoutManager(this@CreatePostActivity, MBTI_TAG_SPAN_COUNT)
+            layoutManager = object : GridLayoutManager(this@CreatePostActivity, MBTI_TAG_SPAN_COUNT) {
+                override fun canScrollVertically(): Boolean = false
+            }
         }
 
         createPostViewModel.initMbtiTagList()

@@ -103,7 +103,7 @@ class PostDetailActivity : BaseActivity() {
         postDetailViewModel.completeDeletePostEvent.observe(
             this,
             EventObserver {
-                setResult(RESULT_OK)
+                setResult(R.string.delete_post_dialog_title)
                 finish()
                 setCloseActivityAnimation()
             }

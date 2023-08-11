@@ -75,7 +75,6 @@ class CreatePostViewModel @Inject constructor(
                     selectedMbtiList.remove(it.mbtiTag)
                     it.copy(isSelected = false)
                 } else {
-                    if (selectedMbtiList.size >= 8) return
                     selectedMbtiList.add(it.mbtiTag)
                     it.copy(isSelected = true)
                 }

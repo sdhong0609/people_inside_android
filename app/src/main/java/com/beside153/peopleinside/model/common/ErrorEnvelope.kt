@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 @Parcelize
 @Serializable
 data class ErrorEnvelope(
-    @SerialName("result") val result: Boolean,
+    @SerialName("result") val result: Boolean? = false,
     @SerialName("statusCode") val statusCode: Int,
     @SerialName("message") val message: String
 ) : Parcelable

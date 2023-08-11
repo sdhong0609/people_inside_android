@@ -18,6 +18,7 @@ import com.beside153.peopleinside.databinding.FragmentCommunityBinding
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.viewmodel.community.CommunityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -110,10 +111,18 @@ class CommunityFragment : BaseFragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 communityViewModel.initPostList()
+                return@registerForActivityResult
+            }
+            if (result.resultCode == R.string.delete_post_dialog_title) {
+                communityViewModel.initPostList()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    requireActivity().showToast(R.string.complete_delete_post)
+                }, TOAST_DELAY)
             }
         }
 
     companion object {
+        private const val TOAST_DELAY = 500L
         private const val PROGRESSBAR_VISIBLE_DELAY = 1000L
     }
 }
