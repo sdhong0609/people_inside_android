@@ -3,6 +3,7 @@ package com.beside153.peopleinside.service.community
 import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.model.community.comment.CommunityCommentModel
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -20,4 +21,10 @@ interface CommunityCommentService {
         @Path("postId") postId: Long,
         @Body content: CreateContentRequest
     ): CommunityCommentModel
+
+    @DELETE("/api/community/post/{postId}/comment/{commentId}")
+    suspend fun deleteCommunityComment(
+        @Path("postId") postId: Long,
+        @Path("commentId") commentId: Long
+    ): Boolean
 }

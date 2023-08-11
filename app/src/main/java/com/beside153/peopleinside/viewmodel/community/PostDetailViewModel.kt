@@ -55,7 +55,7 @@ class PostDetailViewModel @Inject constructor(
     private var postDetailItem: CommunityPostModel? = null
     private var commentList = listOf<CommunityCommentModel>()
     private var page = 1
-    private var commentId = 0L
+    private var selectedCommentId = 0L
 
     override var postMbtiList = listOf<String>()
 
@@ -115,7 +115,7 @@ class PostDetailViewModel @Inject constructor(
     }
 
     override fun onCommentDotsClick(item: CommunityCommentModel) {
-        commentId = item.commentId
+        selectedCommentId = item.commentId
         if (App.prefs.getUserId().toLong() == item.author.userId) {
             _commentDotsClickEvent.value = Event(true)
             return
@@ -131,7 +131,7 @@ class PostDetailViewModel @Inject constructor(
 
     fun deleteComment() {
         viewModelScope.launch(exceptionHandler) {
-//            communityCommentService.deleteCommunityComment(commentId)
+            communityCommentService.deleteCommunityComment(postId, selectedCommentId)
             initAllData()
         }
     }

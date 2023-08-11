@@ -86,7 +86,7 @@ class PostDetailActivity : BaseActivity() {
         ) { _, bundle ->
             val fixOrDelete = bundle.getString(BottomSheetType.CommentFixDelete.name)
             if (fixOrDelete == getString(R.string.fix)) {
-                startActivity(CreatePostActivity.newIntent(this, postId))
+                startActivity(FixCommentActivity.newIntent(this))
                 setOpenActivityAnimation()
                 return@setFragmentResultListener
             }

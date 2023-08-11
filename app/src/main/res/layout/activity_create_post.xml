@@ -16,7 +16,7 @@
         tools:context=".view.community.CreatePostActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/contentDetailAppBar"
+            android:id="@+id/createPostAppBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -75,7 +75,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/contentDetailAppBar">
+            app:layout_constraintTop_toBottomOf="@id/createPostAppBar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
