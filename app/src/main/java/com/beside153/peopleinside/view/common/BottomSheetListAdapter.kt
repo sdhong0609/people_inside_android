@@ -9,19 +9,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.databinding.ItemBottomSheetBinding
 import com.beside153.peopleinside.model.report.ReportModel
 import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel
-import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel.FixDeleteItem
+import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel.CommentFixDeleteItem
+import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel.PostFixDeleteItem
 import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel.ReportItem
 
 class BottomSheetListAdapter(
     private val onReportItemClick: (item: ReportModel) -> Unit,
-    private val onFixDeleteItemClick: (item: String) -> Unit
+    private val onPostFixDeleteClick: (item: String) -> Unit,
+    private val onCommnetFixDeleteClick: (item: String) -> Unit
 ) :
     ListAdapter<BottomSheetModel, BottomSheetListAdapter.ViewHolder>(BottomSheetItemDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
             is ReportItem -> BottomSheetType.ContentReport.ordinal
-            is FixDeleteItem -> BottomSheetType.PostFixDelete.ordinal
+            is PostFixDeleteItem -> BottomSheetType.PostFixDelete.ordinal
+            is CommentFixDeleteItem -> BottomSheetType.CommentFixDelete.ordinal
         }
     }
 
@@ -41,24 +44,39 @@ class BottomSheetListAdapter(
                 viewHolder
             }
 
-            else -> {
+            BottomSheetType.PostFixDelete.ordinal -> {
                 val binding = ItemBottomSheetBinding.inflate(inflater, parent, false)
-                val viewHolder = ViewHolder.FixDeleteItemViewHolder(binding)
+                val viewHolder = ViewHolder.PostFixDeleteItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {
-                    val item = getItem(viewHolder.adapterPosition) as? FixDeleteItem
+                    val item = getItem(viewHolder.adapterPosition) as? PostFixDeleteItem
                     item?.let {
-                        onFixDeleteItemClick(it.fixDeleteItem)
+                        onPostFixDeleteClick(it.fixDeleteItem)
                     }
                 }
                 viewHolder
             }
+
+            BottomSheetType.CommentFixDelete.ordinal -> {
+                val binding = ItemBottomSheetBinding.inflate(inflater, parent, false)
+                val viewHolder = ViewHolder.CommentFixDeleteItemViewHolder(binding)
+                viewHolder.itemView.setOnClickListener {
+                    val item = getItem(viewHolder.adapterPosition) as? CommentFixDeleteItem
+                    item?.let {
+                        onCommnetFixDeleteClick(it.fixDeleteItem)
+                    }
+                }
+                viewHolder
+            }
+
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder.ReportItemViewHolder -> holder.bind(getItem(position) as ReportItem)
-            is ViewHolder.FixDeleteItemViewHolder -> holder.bind(getItem(position) as FixDeleteItem)
+            is ViewHolder.PostFixDeleteItemViewHolder -> holder.bind(getItem(position) as PostFixDeleteItem)
+            is ViewHolder.CommentFixDeleteItemViewHolder -> holder.bind(getItem(position) as CommentFixDeleteItem)
         }
     }
 
@@ -70,8 +88,14 @@ class BottomSheetListAdapter(
             }
         }
 
-        class FixDeleteItemViewHolder(private val binding: ItemBottomSheetBinding) : ViewHolder(binding.root) {
-            fun bind(item: FixDeleteItem) {
+        class PostFixDeleteItemViewHolder(private val binding: ItemBottomSheetBinding) : ViewHolder(binding.root) {
+            fun bind(item: PostFixDeleteItem) {
+                binding.item = item
+            }
+        }
+
+        class CommentFixDeleteItemViewHolder(private val binding: ItemBottomSheetBinding) : ViewHolder(binding.root) {
+            fun bind(item: CommentFixDeleteItem) {
                 binding.item = item
             }
         }
@@ -79,14 +103,20 @@ class BottomSheetListAdapter(
 
     sealed class BottomSheetModel {
         data class ReportItem(val reportItem: ReportModel) : BottomSheetModel()
-        data class FixDeleteItem(val fixDeleteItem: String) : BottomSheetModel()
+        data class PostFixDeleteItem(val fixDeleteItem: String) : BottomSheetModel()
+        data class CommentFixDeleteItem(val fixDeleteItem: String) : BottomSheetModel()
     }
 
     private class BottomSheetItemDiffCallback : DiffUtil.ItemCallback<BottomSheetModel>() {
         override fun areItemsTheSame(oldItem: BottomSheetModel, newItem: BottomSheetModel): Boolean {
             return when {
                 oldItem is ReportItem && newItem is ReportItem -> oldItem.reportItem.id == newItem.reportItem.id
-                oldItem is FixDeleteItem && newItem is FixDeleteItem -> oldItem.fixDeleteItem == newItem.fixDeleteItem
+                oldItem is PostFixDeleteItem && newItem is PostFixDeleteItem ->
+                    oldItem.fixDeleteItem == newItem.fixDeleteItem
+
+                oldItem is CommentFixDeleteItem && newItem is CommentFixDeleteItem ->
+                    oldItem.fixDeleteItem == newItem.fixDeleteItem
+
                 else -> false
             }
         }

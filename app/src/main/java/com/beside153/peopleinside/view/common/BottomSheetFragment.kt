@@ -20,12 +20,17 @@ enum class BottomSheetType {
     ContentReport,
     PostFixDelete,
     PostReport,
+    CommentFixDelete,
     CommentReport
 }
 
 class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentBottomSheetBinding
-    private val listAdapter = BottomSheetListAdapter(::onReportItemClick, ::onFixDeleteItemClick)
+    private val listAdapter = BottomSheetListAdapter(
+        ::onReportItemClick,
+        ::onPostFixDeleteClick,
+        ::onCommentFixDeleteClick
+    )
 
     override fun getTheme(): Int = R.style.CustomBottomSheetDialog
 
@@ -58,29 +63,38 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
 
         if (bottomSheetType == BottomSheetType.PostFixDelete) {
             val fixDeleteList = listOf(getString(R.string.fix), getString(R.string.delete))
-            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.FixDeleteItem(it) })
+            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.PostFixDeleteItem(it) })
+            return
+        }
+
+        if (bottomSheetType == BottomSheetType.CommentFixDelete) {
+            val fixDeleteList = listOf(getString(R.string.fix), getString(R.string.delete))
+            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.CommentFixDeleteItem(it) })
             return
         }
     }
 
     private fun onReportItemClick(item: ReportModel) {
         setFragmentResult(
-            BottomSheetFragment::class.java.simpleName,
-            bundleOf(REPORT_ID to item.id)
+            BottomSheetType.ContentReport.name,
+            bundleOf(BottomSheetType.ContentReport.name to item.id)
         )
         dismiss()
     }
 
-    private fun onFixDeleteItemClick(item: String) {
+    private fun onPostFixDeleteClick(item: String) {
         setFragmentResult(
-            BottomSheetFragment::class.java.simpleName,
-            bundleOf(FIX_DELETE to item)
+            BottomSheetType.PostFixDelete.name,
+            bundleOf(BottomSheetType.PostFixDelete.name to item)
         )
         dismiss()
     }
 
-    companion object {
-        private const val REPORT_ID = "REPORT_ID"
-        private const val FIX_DELETE = "FIX_DELETE"
+    private fun onCommentFixDeleteClick(item: String) {
+        setFragmentResult(
+            BottomSheetType.CommentFixDelete.name,
+            bundleOf(BottomSheetType.CommentFixDelete.name to item)
+        )
+        dismiss()
     }
 }

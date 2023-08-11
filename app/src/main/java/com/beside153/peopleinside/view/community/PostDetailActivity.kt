@@ -62,6 +62,42 @@ class PostDetailActivity : BaseActivity() {
         postDetailViewModel.setPostId(postId)
         postDetailViewModel.initAllData()
 
+        initObserver()
+
+        supportFragmentManager.setFragmentResultListener(
+            BottomSheetType.PostFixDelete.name,
+            this
+        ) { _, bundle ->
+            val fixOrDelete = bundle.getString(BottomSheetType.PostFixDelete.name)
+            if (fixOrDelete == getString(R.string.fix)) {
+                startActivity(CreatePostActivity.newIntent(this, postId))
+                setOpenActivityAnimation()
+                return@setFragmentResultListener
+            }
+            if (fixOrDelete == getString(R.string.delete)) {
+                showDeletePostDialog()
+                return@setFragmentResultListener
+            }
+        }
+
+        supportFragmentManager.setFragmentResultListener(
+            BottomSheetType.CommentFixDelete.name,
+            this
+        ) { _, bundle ->
+            val fixOrDelete = bundle.getString(BottomSheetType.CommentFixDelete.name)
+            if (fixOrDelete == getString(R.string.fix)) {
+                startActivity(CreatePostActivity.newIntent(this, postId))
+                setOpenActivityAnimation()
+                return@setFragmentResultListener
+            }
+            if (fixOrDelete == getString(R.string.delete)) {
+                showDeleteCommentDialog()
+                return@setFragmentResultListener
+            }
+        }
+    }
+
+    private fun initObserver() {
         postDetailViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -101,6 +137,17 @@ class PostDetailActivity : BaseActivity() {
             }
         )
 
+        postDetailViewModel.commentDotsClickEvent.observe(
+            this,
+            EventObserver { isMyComment ->
+                if (isMyComment) {
+                    val bottomSheet = BottomSheetFragment(BottomSheetType.CommentFixDelete)
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                    return@EventObserver
+                }
+            }
+        )
+
         postDetailViewModel.completeDeletePostEvent.observe(
             this,
             EventObserver {
@@ -109,28 +156,12 @@ class PostDetailActivity : BaseActivity() {
                 setCloseActivityAnimation()
             }
         )
-
-        supportFragmentManager.setFragmentResultListener(
-            BottomSheetFragment::class.java.simpleName,
-            this
-        ) { _, bundle ->
-            val fixOrDelete = bundle.getString(FIX_DELETE)
-            if (fixOrDelete == getString(R.string.fix)) {
-                startActivity(CreatePostActivity.newIntent(this, postId))
-                setOpenActivityAnimation()
-                return@setFragmentResultListener
-            }
-            if (fixOrDelete == getString(R.string.delete)) {
-                showDeletePostDialog()
-                return@setFragmentResultListener
-            }
-        }
     }
 
     private fun showDeletePostDialog() {
         val deletePostDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
             .setTitle(R.string.delete_post_dialog_title)
-            .setDescription(R.string.delete_post_dialog_description)
+            .setDescriptionRes(R.string.delete_post_dialog_description)
             .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                 override fun onClickPositiveButton() {
                     postDetailViewModel.deletePost()
@@ -141,9 +172,24 @@ class PostDetailActivity : BaseActivity() {
         deletePostDialog.show(supportFragmentManager, deletePostDialog.tag)
     }
 
+    private fun showDeleteCommentDialog() {
+        val deleteCommentDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
+            .setTitle(R.string.delete_comment_dialog_title)
+            .setDescription("")
+            .setYesText(R.string.delete)
+            .setNoText(R.string.cancel)
+            .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
+                override fun onClickPositiveButton() {
+                    postDetailViewModel.deleteComment()
+                }
+
+                override fun onClickNegativeButton() = Unit
+            }).create()
+        deleteCommentDialog.show(supportFragmentManager, deleteCommentDialog.tag)
+    }
+
     companion object {
         private const val POST_ID = "POST_ID"
-        private const val FIX_DELETE = "FIX_DELETE"
 
         fun newIntent(context: Context, postId: Long): Intent {
             val intent = Intent(context, PostDetailActivity::class.java)

@@ -102,7 +102,7 @@ class CreatePostActivity : BaseActivity() {
     private fun showStopPostDialog() {
         val stopPostDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
             .setTitle(R.string.stop_post_dialog_title)
-            .setDescription(R.string.stop_post_dialog_description)
+            .setDescriptionRes(R.string.stop_post_dialog_description)
             .setYesText(R.string.stop_post_dialog_yes)
             .setNoText(R.string.stop_post_dialog_no)
             .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {

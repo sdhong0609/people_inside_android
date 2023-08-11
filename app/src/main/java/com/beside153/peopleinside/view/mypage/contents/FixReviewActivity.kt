@@ -78,7 +78,7 @@ class FixReviewActivity : BaseActivity() {
     private fun showCancelReviewDialog() {
         val cancelReviewDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
             .setTitle(R.string.will_you_cancel)
-            .setDescription(R.string.will_you_cancel_content)
+            .setDescriptionRes(R.string.will_you_cancel_content)
             .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                 override fun onClickPositiveButton() {
                     finish()

@@ -49,10 +49,19 @@ class PostDetailScreenAdapter(
                 ViewHolder.NoCommentViewHolder(binding)
             }
 
-            else -> {
+            R.layout.item_post_comment_list -> {
                 val binding = ItemPostCommentListBinding.inflate(inflater, parent, false)
-                ViewHolder.CommentItemViewHolder(binding)
+                val viewHolder = ViewHolder.CommentItemViewHolder(binding)
+                binding.verticalDotsImageView.setOnClickListener {
+                    val item = getItem(viewHolder.adapterPosition) as? CommentItem
+                    item?.let {
+                        handler.onCommentDotsClick(it.commentItem)
+                    }
+                }
+                viewHolder
             }
+
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 

@@ -19,6 +19,7 @@ import javax.inject.Inject
 
 interface PostDetailViewModelHandler {
     val postMbtiList: List<String>
+    fun onCommentDotsClick(item: CommunityCommentModel)
 }
 
 @HiltViewModel
@@ -44,6 +45,9 @@ class PostDetailViewModel @Inject constructor(
     private val _postVerticalDotsClickEvent = MutableLiveData<Event<Boolean>>()
     val postVerticalDotsClickEvent: LiveData<Event<Boolean>> get() = _postVerticalDotsClickEvent
 
+    private val _commentDotsClickEvent = MutableLiveData<Event<Boolean>>()
+    val commentDotsClickEvent: LiveData<Event<Boolean>> get() = _commentDotsClickEvent
+
     private val _completeDeletePostEvent = MutableLiveData<Event<Unit>>()
     val completeDeletePostEvent: LiveData<Event<Unit>> get() = _completeDeletePostEvent
 
@@ -51,6 +55,7 @@ class PostDetailViewModel @Inject constructor(
     private var postDetailItem: CommunityPostModel? = null
     private var commentList = listOf<CommunityCommentModel>()
     private var page = 1
+    private var commentId = 0L
 
     override var postMbtiList = listOf<String>()
 
@@ -109,10 +114,25 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
+    override fun onCommentDotsClick(item: CommunityCommentModel) {
+        commentId = item.commentId
+        if (App.prefs.getUserId().toLong() == item.author.userId) {
+            _commentDotsClickEvent.value = Event(true)
+            return
+        }
+    }
+
     fun deletePost() {
         viewModelScope.launch(exceptionHandler) {
             communityPostService.deleteCommunityPost(postId)
             _completeDeletePostEvent.value = Event(Unit)
+        }
+    }
+
+    fun deleteComment() {
+        viewModelScope.launch(exceptionHandler) {
+//            communityCommentService.deleteCommunityComment(commentId)
+            initAllData()
         }
     }
 }

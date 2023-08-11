@@ -86,10 +86,10 @@ class ContentDetailActivity : BaseActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener(
-            BottomSheetFragment::class.java.simpleName,
+            BottomSheetType.ContentReport.name,
             this
         ) { _, bundle ->
-            reportId = bundle.getInt(REPORT_ID)
+            reportId = bundle.getInt(BottomSheetType.ContentReport.name)
             contentDetailViewModel.reportComment(reportId)
         }
 
@@ -225,7 +225,6 @@ class ContentDetailActivity : BaseActivity() {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val CONTENT_ID = "CONTENT_ID"
         private const val POSITION_COMMENT_LIST = 3
-        private const val REPORT_ID = "REPORT_ID"
         private const val STAY_TIME = 3000L
         private const val SCROLL_DURATION = 300L
 
