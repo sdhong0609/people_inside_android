@@ -36,6 +36,7 @@ class CreatePostViewModel @Inject constructor(
     private var selectedMbtiList = mutableListOf<String>()
     private var mbtiRequest = Mbti()
     private var postItem: CommunityPostModel? = null
+    private var postId = 0L
 
     fun onTitleTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         postTitle.value = (s ?: "").toString()
@@ -91,8 +92,9 @@ class CreatePostViewModel @Inject constructor(
         _mbtiTagList.value = updatedList ?: emptyList()
     }
 
-    fun initPost(postId: Long) {
+    fun initPost(id: Long) {
         viewModelScope.launch(exceptionHandler) {
+            postId = id
             _isFixPost.value = true
             postItem = communityPostService.getCommunityPostDetail(postId)
             postTitle.value = postItem?.title ?: ""
@@ -127,6 +129,18 @@ class CreatePostViewModel @Inject constructor(
                     "ESTP" -> mbtiRequest = mbtiRequest.copy(estp = true)
                     "ENTJ" -> mbtiRequest = mbtiRequest.copy(entj = true)
                 }
+            }
+            if (_isFixPost.value == true) {
+                communityPostService.patchCommunityPost(
+                    postId,
+                    CommunityPostRequest(
+                        postTitle.value ?: "",
+                        postContent.value ?: "",
+                        mbtiRequest
+                    )
+                )
+                _completePostEvent.value = Event(Unit)
+                return@launch
             }
             communityPostService.postCommunityPost(
                 CommunityPostRequest(
