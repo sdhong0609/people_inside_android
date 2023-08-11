@@ -60,6 +60,9 @@ class PostDetailViewModel @Inject constructor(
     private val _completeDeletePostEvent = MutableLiveData<Event<Unit>>()
     val completeDeletePostEvent: LiveData<Event<Unit>> get() = _completeDeletePostEvent
 
+    private val _completeDeleteCommentEvent = MutableLiveData<Event<Unit>>()
+    val completeDeleteCommentEvent: LiveData<Event<Unit>> get() = _completeDeleteCommentEvent
+
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
     private var commentList = listOf<CommunityCommentModel>()
@@ -147,6 +150,7 @@ class PostDetailViewModel @Inject constructor(
     fun deleteComment() {
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.deleteCommunityComment(postId, selectedCommentId)
+            _completeDeleteCommentEvent.value = Event(Unit)
             initAllData()
         }
     }

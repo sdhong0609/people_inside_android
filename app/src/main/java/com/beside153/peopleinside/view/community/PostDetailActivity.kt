@@ -184,6 +184,13 @@ class PostDetailActivity : BaseActivity() {
                 setCloseActivityAnimation()
             }
         )
+
+        postDetailViewModel.completeDeleteCommentEvent.observe(
+            this,
+            EventObserver {
+                showToast(R.string.delete_comment_complete)
+            }
+        )
     }
 
     private fun showDeletePostDialog() {
