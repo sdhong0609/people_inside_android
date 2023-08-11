@@ -120,21 +120,18 @@
                 app:layout_constraintTop_toBottomOf="@id/postTitleTextView"
                 tools:text="다들 더글로리 봤음? 문동은 복수 긴장감 장난아님\n누가봐도 더글로리 본 사람인게 티나는 와이어프레임같죠" />
 
-            <TextView
-                android:id="@+id/tagTextView"
-                style="@style/textStyleMediumGray400"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mbtiLabelRecyclerView"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_white_radius2dp_border"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="5.5dp"
-                android:text="#ENFP+7"
-                android:textColor="@color/gray_400"
-                android:textSize="12sp"
+                android:layout_marginEnd="42dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/postContentTextView" />
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                app:spanCount="5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

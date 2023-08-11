@@ -25,12 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class PostDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityPostDetailBinding
     private val postDetailViewModel: PostDetailViewModel by viewModels()
-    private val postDetailAdapter = PostDetailScreenAdapter()
+    private lateinit var postDetailAdapter: PostDetailScreenAdapter
     private lateinit var inputMethodManager: InputMethodManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
+        postDetailAdapter = PostDetailScreenAdapter(postDetailViewModel)
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         addBackPressedAnimation()

@@ -17,11 +17,15 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+interface PostDetailViewModelHandler {
+    val postMbtiList: List<String>
+}
+
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
     private val communityPostService: CommunityPostService,
     private val communityCommentService: CommunityCommentService
-) : BaseViewModel() {
+) : BaseViewModel(), PostDetailViewModelHandler {
 
     val commentText = MutableLiveData("")
 
@@ -48,6 +52,8 @@ class PostDetailViewModel @Inject constructor(
     private var commentList = listOf<CommunityCommentModel>()
     private var page = 1
 
+    override var postMbtiList = listOf<String>()
+
     fun setPostId(id: Long) {
         postId = id
     }
@@ -60,6 +66,7 @@ class PostDetailViewModel @Inject constructor(
             postDetailItem = postDetailItemDeferred.await()
             commentList = commentListDeferred.await()
 
+            postMbtiList = postDetailItem?.mbtiList ?: listOf()
             _screenList.value = screenList()
         }
     }

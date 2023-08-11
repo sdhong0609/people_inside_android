@@ -17,8 +17,11 @@ import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDet
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel.NoCommentView
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel.PostItem
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.ViewHolder
+import com.beside153.peopleinside.viewmodel.community.PostDetailViewModelHandler
 
-class PostDetailScreenAdapter :
+class PostDetailScreenAdapter(
+    private val handler: PostDetailViewModelHandler
+) :
     ListAdapter<PostDetailScreenModel, ViewHolder>(PostDetailScreenModelDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
@@ -35,6 +38,9 @@ class PostDetailScreenAdapter :
         return when (viewType) {
             R.layout.item_post_detail -> {
                 val binding = ItemPostDetailBinding.inflate(inflater, parent, false)
+                val mbtiLabelAdapter = MbtiLabelListAdapter()
+                binding.mbtiLabelRecyclerView.adapter = mbtiLabelAdapter
+                mbtiLabelAdapter.submitList(handler.postMbtiList)
                 ViewHolder.PostItemViewHolder(binding)
             }
 
