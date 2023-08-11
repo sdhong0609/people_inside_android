@@ -233,5 +233,6 @@
     <string name="complete_delete_post">게시글이 삭제되었어요</string>
     <string name="delete_comment_dialog_title">댓글을 정말 삭제하시겠어요?</string>
     <string name="fix_comment">댓글 수정</string>
+    <string name="fix_comment_complete">댓글 수정이 완료되었어요!</string>
 
 </resources>

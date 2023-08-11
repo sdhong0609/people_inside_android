@@ -22,6 +22,12 @@ interface PostDetailViewModelHandler {
     fun onCommentDotsClick(item: CommunityCommentModel)
 }
 
+data class CommentFixModel(
+    val postId: Long,
+    val commentId: Long,
+    val commentContent: String
+)
+
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
     private val communityPostService: CommunityPostService,
@@ -48,6 +54,9 @@ class PostDetailViewModel @Inject constructor(
     private val _commentDotsClickEvent = MutableLiveData<Event<Boolean>>()
     val commentDotsClickEvent: LiveData<Event<Boolean>> get() = _commentDotsClickEvent
 
+    private val _commentFixClickEvent = MutableLiveData<Event<CommentFixModel>>()
+    val commentFixClickEvent: LiveData<Event<CommentFixModel>> get() = _commentFixClickEvent
+
     private val _completeDeletePostEvent = MutableLiveData<Event<Unit>>()
     val completeDeletePostEvent: LiveData<Event<Unit>> get() = _completeDeletePostEvent
 
@@ -56,6 +65,7 @@ class PostDetailViewModel @Inject constructor(
     private var commentList = listOf<CommunityCommentModel>()
     private var page = 1
     private var selectedCommentId = 0L
+    private var selectedCommentContent = ""
 
     override var postMbtiList = listOf<String>()
 
@@ -116,10 +126,15 @@ class PostDetailViewModel @Inject constructor(
 
     override fun onCommentDotsClick(item: CommunityCommentModel) {
         selectedCommentId = item.commentId
+        selectedCommentContent = item.content
         if (App.prefs.getUserId().toLong() == item.author.userId) {
             _commentDotsClickEvent.value = Event(true)
             return
         }
+    }
+
+    fun onCommentFixClick() {
+        _commentFixClickEvent.value = Event(CommentFixModel(postId, selectedCommentId, selectedCommentContent))
     }
 
     fun deletePost() {

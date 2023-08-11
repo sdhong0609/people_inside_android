@@ -5,6 +5,7 @@ import com.beside153.peopleinside.model.community.comment.CommunityCommentModel
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,6 +20,13 @@ interface CommunityCommentService {
     @POST("/api/community/post/{postId}/comment")
     suspend fun postCommunityComment(
         @Path("postId") postId: Long,
+        @Body content: CreateContentRequest
+    ): CommunityCommentModel
+
+    @PATCH("/api/community/post/{postId}/comment/{commentId}")
+    suspend fun patchCommunityComment(
+        @Path("postId") postId: Long,
+        @Path("commentId") commentId: Long,
         @Body content: CreateContentRequest
     ): CommunityCommentModel
 

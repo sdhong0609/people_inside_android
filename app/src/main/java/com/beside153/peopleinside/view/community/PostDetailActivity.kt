@@ -3,7 +3,10 @@ package com.beside153.peopleinside.view.community
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +18,7 @@ import com.beside153.peopleinside.util.KeyboardVisibilityUtils
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.common.BottomSheetFragment
 import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
@@ -86,8 +90,7 @@ class PostDetailActivity : BaseActivity() {
         ) { _, bundle ->
             val fixOrDelete = bundle.getString(BottomSheetType.CommentFixDelete.name)
             if (fixOrDelete == getString(R.string.fix)) {
-                startActivity(FixCommentActivity.newIntent(this))
-                setOpenActivityAnimation()
+                postDetailViewModel.onCommentFixClick()
                 return@setFragmentResultListener
             }
             if (fixOrDelete == getString(R.string.delete)) {
@@ -97,7 +100,32 @@ class PostDetailActivity : BaseActivity() {
         }
     }
 
+    private val activityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == R.string.fix_comment_complete) {
+                postDetailViewModel.initAllData()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showToast(R.string.fix_comment_complete)
+                }, TOAST_DELAY)
+            }
+        }
+
     private fun initObserver() {
+        postDetailViewModel.commentFixClickEvent.observe(
+            this,
+            EventObserver { comment ->
+                activityLauncher.launch(
+                    FixCommentActivity.newIntent(
+                        this,
+                        comment.postId,
+                        comment.commentId,
+                        comment.commentContent
+                    )
+                )
+                setOpenActivityAnimation()
+            }
+        )
+
         postDetailViewModel.backButtonClickEvent.observe(
             this,
             EventObserver {
@@ -190,6 +218,7 @@ class PostDetailActivity : BaseActivity() {
 
     companion object {
         private const val POST_ID = "POST_ID"
+        private const val TOAST_DELAY = 500L
 
         fun newIntent(context: Context, postId: Long): Intent {
             val intent = Intent(context, PostDetailActivity::class.java)
