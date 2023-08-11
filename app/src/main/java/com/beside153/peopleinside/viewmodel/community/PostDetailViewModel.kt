@@ -89,6 +89,14 @@ class PostDetailViewModel @Inject constructor(
         }
     }
 
+    fun loadMoreCommentList() {
+        viewModelScope.launch(exceptionHandler) {
+            val newCommentList = communityCommentService.getCommunityCommentList(postId, ++page)
+            commentList = commentList.plus(newCommentList)
+            _screenList.value = screenList()
+        }
+    }
+
     private fun screenList(): List<PostDetailScreenModel> {
         val commentAreaList = if ((postDetailItem?.totalComment ?: 0) <= 0) {
             listOf(PostDetailScreenModel.NoCommentView)

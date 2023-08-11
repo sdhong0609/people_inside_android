@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityPostDetailBinding
@@ -60,6 +61,19 @@ class PostDetailActivity : BaseActivity() {
         binding.postDetailRecyclerView.apply {
             adapter = postDetailAdapter
             layoutManager = LinearLayoutManager(this@PostDetailActivity)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        postDetailViewModel.loadMoreCommentList()
+                    }
+                }
+            })
         }
 
         val postId = intent.getLongExtra(POST_ID, 0)
