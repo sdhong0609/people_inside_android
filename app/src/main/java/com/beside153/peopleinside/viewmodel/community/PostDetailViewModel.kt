@@ -159,7 +159,19 @@ class PostDetailViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.deleteCommunityComment(postId, selectedCommentId)
             _completeDeleteCommentEvent.value = Event(Unit)
-            initAllData()
+            initComments()
+        }
+    }
+
+    fun initComments() {
+        viewModelScope.launch(exceptionHandler) {
+            postDetailItem = communityPostService.getCommunityPostDetail(postId)
+            commentList = listOf()
+            (1..page).forEach {
+                val newCommentList = communityCommentService.getCommunityCommentList(postId, it)
+                commentList = commentList.plus(newCommentList)
+            }
+            _screenList.value = screenList()
         }
     }
 }

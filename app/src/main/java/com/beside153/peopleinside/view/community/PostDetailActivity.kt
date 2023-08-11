@@ -117,7 +117,7 @@ class PostDetailActivity : BaseActivity() {
     private val activityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == R.string.fix_comment_complete) {
-                postDetailViewModel.initAllData()
+                postDetailViewModel.initComments()
                 Handler(Looper.getMainLooper()).postDelayed({
                     showToast(R.string.fix_comment_complete)
                 }, TOAST_DELAY)
@@ -164,7 +164,7 @@ class PostDetailActivity : BaseActivity() {
             EventObserver {
                 inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
                 binding.commentEditText.clearFocus()
-                postDetailViewModel.initAllData()
+                postDetailViewModel.initComments()
             }
         )
 
