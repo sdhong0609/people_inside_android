@@ -35,24 +35,26 @@ class CommunityViewModel @Inject constructor(
 
     fun initPostList() {
         setProgressBarVisible(true)
-        page = 1
-        _postList.value = listOf()
+        var allPostList = listOf<CommunityPostModel>()
         viewModelScope.launch(exceptionHandler) {
-            val tempList = communityPostService.getCommunityPostList(page)
-            val userMbti = App.prefs.getMbti().lowercase()
+            (1..page).forEach {
+                val tempList = communityPostService.getCommunityPostList(it)
+                val userMbti = App.prefs.getMbti().lowercase()
 
-            val updatedList = tempList.map {
-                if (it.mbtiList.contains(userMbti)) {
-                    val mutableMbtiList = it.mbtiList.toMutableList()
-                    mutableMbtiList.remove(userMbti)
-                    mutableMbtiList.add(0, userMbti)
-                    it.copy(mbtiList = mutableMbtiList.toList())
-                } else {
-                    it
+                val updatedList = tempList.map { item ->
+                    if (item.mbtiList.contains(userMbti)) {
+                        val mutableMbtiList = item.mbtiList.toMutableList()
+                        mutableMbtiList.remove(userMbti)
+                        mutableMbtiList.add(0, userMbti)
+                        item.copy(mbtiList = mutableMbtiList.toList())
+                    } else {
+                        item
+                    }
                 }
-            }
 
-            _postList.value = updatedList
+                allPostList = allPostList.plus(updatedList)
+            }
+            _postList.value = allPostList
         }
     }
 
