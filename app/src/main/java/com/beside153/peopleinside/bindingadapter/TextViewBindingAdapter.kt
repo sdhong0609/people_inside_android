@@ -104,7 +104,6 @@ fun TextView.timeText(createdAt: String) {
 fun TextView.bottomSheetItemText(item: BottomSheetModel) {
     text = when (item) {
         is BottomSheetModel.ReportItem -> item.reportItem.content
-        is BottomSheetModel.PostFixDeleteItem -> item.fixDeleteItem
-        is BottomSheetModel.CommentFixDeleteItem -> item.fixDeleteItem
+        is BottomSheetModel.FixDeleteItem -> item.fixDeleteItem
     }
 }

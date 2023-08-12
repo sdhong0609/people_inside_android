@@ -26,11 +26,7 @@ enum class BottomSheetType {
 
 class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentBottomSheetBinding
-    private val listAdapter = BottomSheetListAdapter(
-        ::onReportItemClick,
-        ::onPostFixDeleteClick,
-        ::onCommentFixDeleteClick
-    )
+    private val listAdapter = BottomSheetListAdapter(::onReportItemClick, ::onFixDeleteClick)
 
     override fun getTheme(): Int = R.style.CustomBottomSheetDialog
 
@@ -76,15 +72,9 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
             return
         }
 
-        if (bottomSheetType == BottomSheetType.PostFixDelete) {
+        if (bottomSheetType == BottomSheetType.PostFixDelete || bottomSheetType == BottomSheetType.CommentFixDelete) {
             val fixDeleteList = listOf(getString(R.string.fix), getString(R.string.delete))
-            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.PostFixDeleteItem(it) })
-            return
-        }
-
-        if (bottomSheetType == BottomSheetType.CommentFixDelete) {
-            val fixDeleteList = listOf(getString(R.string.fix), getString(R.string.delete))
-            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.CommentFixDeleteItem(it) })
+            listAdapter.submitList(fixDeleteList.map { BottomSheetModel.FixDeleteItem(it) })
             return
         }
     }
@@ -111,19 +101,20 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
         dismiss()
     }
 
-    private fun onPostFixDeleteClick(item: String) {
-        setFragmentResult(
-            BottomSheetType.PostFixDelete.name,
-            bundleOf(BottomSheetType.PostFixDelete.name to item)
-        )
-        dismiss()
-    }
+    private fun onFixDeleteClick(item: String) {
+        when (bottomSheetType) {
+            BottomSheetType.PostFixDelete -> setFragmentResult(
+                BottomSheetType.PostFixDelete.name,
+                bundleOf(BottomSheetType.PostFixDelete.name to item)
+            )
 
-    private fun onCommentFixDeleteClick(item: String) {
-        setFragmentResult(
-            BottomSheetType.CommentFixDelete.name,
-            bundleOf(BottomSheetType.CommentFixDelete.name to item)
-        )
+            BottomSheetType.CommentFixDelete -> setFragmentResult(
+                BottomSheetType.CommentFixDelete.name,
+                bundleOf(BottomSheetType.CommentFixDelete.name to item)
+            )
+
+            else -> throw IllegalArgumentException("Invalid bottom sheet type")
+        }
         dismiss()
     }
 }
