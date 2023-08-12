@@ -121,7 +121,7 @@ class PostDetailActivity : BaseActivity() {
         ) { _, bundle ->
             val fixOrDelete = bundle.getString(BottomSheetType.PostFixDelete.name)
             if (fixOrDelete == getString(R.string.fix)) {
-                startActivity(CreatePostActivity.newIntent(this, postId))
+                activityLauncher.launch(CreatePostActivity.newIntent(this, postId))
                 setOpenActivityAnimation()
                 return@setFragmentResultListener
             }
@@ -150,10 +150,14 @@ class PostDetailActivity : BaseActivity() {
     private val activityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == R.string.fix_comment_complete) {
-                postDetailViewModel.initComments()
+                postDetailViewModel.initAllData()
                 Handler(Looper.getMainLooper()).postDelayed({
                     showToast(R.string.fix_comment_complete)
                 }, TOAST_DELAY)
+                return@registerForActivityResult
+            }
+            if (result.resultCode == R.string.complete_fix_post) {
+                postDetailViewModel.initAllData()
             }
         }
 
@@ -205,7 +209,7 @@ class PostDetailActivity : BaseActivity() {
             EventObserver {
                 inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
                 binding.commentEditText.clearFocus()
-                postDetailViewModel.initComments()
+                postDetailViewModel.initAllData()
             }
         )
 

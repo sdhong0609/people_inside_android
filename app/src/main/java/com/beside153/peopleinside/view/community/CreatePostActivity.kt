@@ -20,6 +20,7 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.OneButtonDialog
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
+import com.beside153.peopleinside.viewmodel.community.PostMode
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -96,13 +97,21 @@ class CreatePostActivity : BaseActivity() {
 
         createPostViewModel.completePostEvent.observe(
             this,
-            EventObserver {
+            EventObserver { mode ->
                 inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    showToast(R.string.complete_create_post)
+                    if (mode == PostMode.CREATE) {
+                        showToast(R.string.complete_create_post)
+                    } else {
+                        showToast(R.string.complete_fix_post)
+                    }
                 }, TOAST_DURATION)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    setResult(RESULT_OK)
+                    if (mode == PostMode.CREATE) {
+                        setResult(R.string.complete_create_post)
+                    } else {
+                        setResult(R.string.complete_fix_post)
+                    }
                     finish()
                     setCloseActivityAnimation()
                 }, GO_BACK_DURATION)

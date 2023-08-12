@@ -16,6 +16,10 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+enum class PostMode {
+    CREATE, FIX
+}
+
 @HiltViewModel
 class CreatePostViewModel @Inject constructor(
     private val communityPostService: CommunityPostService
@@ -29,8 +33,8 @@ class CreatePostViewModel @Inject constructor(
     private val _mbtiTagList = MutableLiveData<List<MbtiTagModel>>()
     val mbtiTagList: LiveData<List<MbtiTagModel>> get() = _mbtiTagList
 
-    private val _completePostEvent = MutableLiveData<Event<Unit>>()
-    val completePostEvent: LiveData<Event<Unit>> get() = _completePostEvent
+    private val _completePostEvent = MutableLiveData<Event<PostMode>>()
+    val completePostEvent: LiveData<Event<PostMode>> get() = _completePostEvent
 
     private val _isFixPost = MutableLiveData(false)
     val isFixPost: LiveData<Boolean> get() = _isFixPost
@@ -158,7 +162,7 @@ class CreatePostViewModel @Inject constructor(
                         mbtiRequest
                     )
                 )
-                _completePostEvent.value = Event(Unit)
+                _completePostEvent.value = Event(PostMode.FIX)
                 return@launch
             }
             communityPostService.postCommunityPost(
@@ -168,7 +172,7 @@ class CreatePostViewModel @Inject constructor(
                     mbtiRequest
                 )
             )
-            _completePostEvent.value = Event(Unit)
+            _completePostEvent.value = Event(PostMode.CREATE)
         }
     }
 }

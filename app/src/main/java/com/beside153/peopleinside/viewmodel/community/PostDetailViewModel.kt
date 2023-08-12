@@ -13,7 +13,6 @@ import com.beside153.peopleinside.service.community.CommunityPostService
 import com.beside153.peopleinside.util.Event
 import com.beside153.peopleinside.view.community.PostDetailScreenAdapter.PostDetailScreenModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -83,13 +82,13 @@ class PostDetailViewModel @Inject constructor(
     }
 
     fun initAllData() {
-        page = 1
         viewModelScope.launch(exceptionHandler) {
-            val postDetailItemDeferred = async { communityPostService.getCommunityPostDetail(postId) }
-            val commentListDeferred = async { communityCommentService.getCommunityCommentList(postId, page) }
-            postDetailItem = postDetailItemDeferred.await()
-            commentList = commentListDeferred.await()
-
+            postDetailItem = communityPostService.getCommunityPostDetail(postId)
+            commentList = listOf()
+            (1..page).forEach {
+                val newCommentList = communityCommentService.getCommunityCommentList(postId, it)
+                commentList = commentList.plus(newCommentList)
+            }
             postMbtiList = postDetailItem?.mbtiList ?: listOf()
             _screenList.value = screenList()
         }
@@ -176,19 +175,7 @@ class PostDetailViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.deleteCommunityComment(postId, selectedCommentId)
             _completeDeleteCommentEvent.value = Event(Unit)
-            initComments()
-        }
-    }
-
-    fun initComments() {
-        viewModelScope.launch(exceptionHandler) {
-            postDetailItem = communityPostService.getCommunityPostDetail(postId)
-            commentList = listOf()
-            (1..page).forEach {
-                val newCommentList = communityCommentService.getCommunityCommentList(postId, it)
-                commentList = commentList.plus(newCommentList)
-            }
-            _screenList.value = screenList()
+            this@PostDetailViewModel.initAllData()
         }
     }
 
