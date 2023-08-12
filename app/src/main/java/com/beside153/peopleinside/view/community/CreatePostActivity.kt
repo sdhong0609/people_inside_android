@@ -17,6 +17,7 @@ import com.beside153.peopleinside.model.community.post.MbtiTagModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.dialog.OneButtonDialog
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,6 +77,20 @@ class CreatePostActivity : BaseActivity() {
             this,
             EventObserver {
                 showErrorDialog(it) { createPostViewModel.onCompleteButtonClick() }
+            }
+        )
+
+        createPostViewModel.showBadWordDialogEvent.observe(
+            this,
+            EventObserver {
+                val badWordDialog = OneButtonDialog.OneButtonDialogBuilder()
+                    .setTitleRes(R.string.bad_word_dialog_title)
+                    .setDescriptionRes(R.string.bad_word_dialog_description)
+                    .setButtonTextRes(R.string.fix)
+                    .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                        override fun onDialogButtonClick() = Unit
+                    }).create()
+                badWordDialog.show(supportFragmentManager, badWordDialog.tag)
             }
         )
 

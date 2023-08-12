@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.model.community.post.CommunityPostRequest
 import com.beside153.peopleinside.model.community.post.Mbti
@@ -11,6 +12,7 @@ import com.beside153.peopleinside.model.community.post.MbtiTagModel
 import com.beside153.peopleinside.service.community.CommunityPostService
 import com.beside153.peopleinside.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +34,9 @@ class CreatePostViewModel @Inject constructor(
 
     private val _isFixPost = MutableLiveData(false)
     val isFixPost: LiveData<Boolean> get() = _isFixPost
+
+    private val _showBadWordDialogEvent = MutableLiveData<Event<Unit>>()
+    val showBadWordDialogEvent: LiveData<Event<Unit>> get() = _showBadWordDialogEvent
 
     private var selectedMbtiList = mutableListOf<String>()
     private var mbtiRequest = Mbti()
@@ -109,7 +114,21 @@ class CreatePostViewModel @Inject constructor(
     fun onCompleteButtonClick() {
         if (_isCompleteButtonEnabled.value == false) return
 
-        viewModelScope.launch(exceptionHandler) {
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 403) {
+                        _showBadWordDialogEvent.value = Event(Unit)
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
+                }
+
+                else -> exceptionHandler.handleException(context, t)
+            }
+        }
+
+        viewModelScope.launch(ceh) {
             for (selectedMbti in selectedMbtiList) {
                 when (selectedMbti) {
                     "INFP" -> mbtiRequest = mbtiRequest.copy(infp = true)

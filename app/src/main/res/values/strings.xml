@@ -219,6 +219,8 @@
     <string name="stop_post_dialog_yes">나가기</string>
     <string name="stop_post_dialog_no">계속 작성</string>
     <string name="complete_create_post">게시글 작성이 완료되었어요!</string>
+    <string name="bad_word_dialog_title">작성할 수 없는 단어가 포함되어 있어요</string>
+    <string name="bad_word_dialog_description">본문에 부적절한 단어가 포함되어 있어요.\n내용을 수정해주세요.</string>
 
     <!-- 커뮤니티 게시글 상세 -->
     <string name="mbti_interpunct">%s·</string>
