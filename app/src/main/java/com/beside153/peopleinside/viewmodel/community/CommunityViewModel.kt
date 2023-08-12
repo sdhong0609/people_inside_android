@@ -28,13 +28,9 @@ class CommunityViewModel @Inject constructor(
     private val _postItemClickEvent = MutableLiveData<Event<Long>>()
     val postItemClickEvent: LiveData<Event<Long>> get() = _postItemClickEvent
 
-    private val _progressBarVisible = MutableLiveData(false)
-    val progressBarVisible: LiveData<Boolean> get() = _progressBarVisible
-
     private var page = 1
 
     fun initPostList() {
-        setProgressBarVisible(true)
         var allPostList = listOf<CommunityPostModel>()
         viewModelScope.launch(exceptionHandler) {
             (1..page).forEach {
@@ -67,10 +63,6 @@ class CommunityViewModel @Inject constructor(
 
     fun onPostItemClick(item: CommunityPostModel) {
         _postItemClickEvent.value = Event(item.postId)
-    }
-
-    fun setProgressBarVisible(visible: Boolean) {
-        _progressBarVisible.value = visible
     }
 
     fun onCommunitySearchBarClick() {

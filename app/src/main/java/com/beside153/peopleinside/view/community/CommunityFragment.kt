@@ -64,13 +64,8 @@ class CommunityFragment : BaseFragment() {
             })
         }
 
-        communityViewModel.initPostList()
-
         communityViewModel.postList.observe(viewLifecycleOwner) { list ->
             postListAdapter.submitList(list)
-            Handler(Looper.getMainLooper()).postDelayed({
-                communityViewModel.setProgressBarVisible(false)
-            }, PROGRESSBAR_VISIBLE_DELAY)
         }
 
         communityViewModel.error.observe(
@@ -107,6 +102,11 @@ class CommunityFragment : BaseFragment() {
                 requireActivity().setOpenActivityAnimation()
             }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        communityViewModel.initPostList()
     }
 
     private fun onPostItemClick(item: CommunityPostModel) {
