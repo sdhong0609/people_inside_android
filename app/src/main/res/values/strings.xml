@@ -48,6 +48,7 @@
     <string name="need_update_dialog_title">필수 업데이트 안내</string>
     <string name="need_update_dialog_description">더 편리하고 다양한 기능을 준비했어요. 앱을 업데이트 해주세요.</string>
     <string name="need_update_dialog_button">플레이스토어로 가기</string>
+    <string name="no_user_info_dialog_description">회원 정보가 존재하지 않습니다.\n회원가입을 진행해주세요.</string>
 
     <!-- 로그인 화면 -->
     <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>

@@ -88,6 +88,23 @@ class SplashActivity : BaseActivity() {
                 startActivity(intent)
             }
         )
+
+        splashViewModel.noUserInfoEvent.observe(
+            this,
+            EventObserver {
+                val noUserInfoDialog = OneButtonDialog.OneButtonDialogBuilder()
+                    .setDescriptionRes(R.string.no_user_info_dialog_description)
+                    .setButtonTextRes(R.string.sign_up)
+                    .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                        override fun onDialogButtonClick() {
+                            startActivity(LoginActivity.newIntent(this@SplashActivity))
+                            finish()
+                        }
+                    }).create()
+                noUserInfoDialog.isCancelable = false
+                noUserInfoDialog.show(supportFragmentManager, noUserInfoDialog.tag)
+            }
+        )
     }
 
     companion object {
