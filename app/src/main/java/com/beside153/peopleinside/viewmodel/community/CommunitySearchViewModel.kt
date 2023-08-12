@@ -40,6 +40,7 @@ class CommunitySearchViewModel @Inject constructor(
     val hasSearchWord: LiveData<Boolean> get() = _hasSearchWord
 
     private var page = 1
+    private var searchedWord = ""
 
     fun initSearchWordList() {
         _searchWordList.value = App.prefs.getRecentSearchList().toMutableList()
@@ -53,17 +54,24 @@ class CommunitySearchViewModel @Inject constructor(
     fun searchPostAction() {
         page = 1
         _noResult.value = false
-        val word = _keyword.value ?: ""
-        if (word.isEmpty()) return
+        val searchedWord = _keyword.value ?: ""
+        if (searchedWord.isEmpty()) return
 
         viewModelScope.launch(exceptionHandler) {
-            _searchedPostList.value = communityPostService.getCommunityPostList(page, word)
+            _searchedPostList.value = communityPostService.getCommunityPostList(page, searchedWord)
             _isSearched.value = true
 
             if (_searchedPostList.value.isNullOrEmpty()) {
                 _noResult.value = true
             }
-            addSearchWord(word)
+            addSearchWord(searchedWord)
+        }
+    }
+
+    fun loadMorePostList() {
+        viewModelScope.launch(exceptionHandler) {
+            val newPostList = communityPostService.getCommunityPostList(++page)
+            _searchedPostList.value = _searchedPostList.value?.plus(newPostList)
         }
     }
 
