@@ -48,6 +48,9 @@ object Versions {
     // Hilt
     const val hilt = "2.44.2"
     const val hilt_compiler = "2.44"
+
+    // Flexbox Layout
+    const val flexbox = "3.0.0"
 }
 
 object Libraries {
@@ -114,5 +117,9 @@ object Libraries {
     object Hilt {
         const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
         const val hilt_compiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt_compiler}"
+    }
+
+    object Flexbox {
+        const val flexbox = "com.google.android.flexbox:flexbox:${Versions.flexbox}"
     }
 }
