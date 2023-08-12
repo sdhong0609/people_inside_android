@@ -140,7 +140,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/duplicateNicknameTextView"
+                    android:id="@+id/signupDuplicateTextView"
                     style="@style/textStyleRegularRed100"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -148,6 +148,20 @@
                     android:text="@string/duplicate_nickname"
                     android:textSize="12sp"
                     app:isVisible="@{viewModel.isDuplicate}"
+                    app:layout_constraintBottom_toTopOf="@id/genderTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nicknameLayout" />
+
+                <TextView
+                    android:id="@+id/singupBadWordTextView"
+                    style="@style/textStyleRegularRed100"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/nickname_has_bad_word"
+                    android:textSize="12sp"
+                    app:isVisible="@{viewModel.hasBadWord}"
                     app:layout_constraintBottom_toTopOf="@id/genderTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +178,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/nicknameLayout"
-                    app:setGenderTextViewPlace="@{viewModel.isDuplicate}" />
+                    app:setGenderTextViewPlace="@{viewModel.isDuplicate}"
+                    app:setGenderTextViewPlace2="@{viewModel.hasBadWord}" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/genderChoiceLayout"

@@ -48,6 +48,7 @@
     <string name="need_update_dialog_title">필수 업데이트 안내</string>
     <string name="need_update_dialog_description">더 편리하고 다양한 기능을 준비했어요. 앱을 업데이트 해주세요.</string>
     <string name="need_update_dialog_button">플레이스토어로 가기</string>
+    <string name="no_user_info_dialog_description">회원 정보가 존재하지 않습니다.\n회원가입을 진행해주세요.</string>
 
     <!-- 로그인 화면 -->
     <string name="login_screen_subtitle">MBTI 영화/드라마 추천 서비스</string>
@@ -71,6 +72,7 @@
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
     <string name="duplicate_nickname">이미 사용중인 닉네임입니다.</string>
+    <string name="nickname_has_bad_word">닉네임에 금지어가 포함되어 있습니다.</string>
     <string name="gender">성별</string>
     <string name="man">men</string>
     <string name="woman">women</string>
