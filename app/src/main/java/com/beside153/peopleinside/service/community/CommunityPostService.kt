@@ -31,4 +31,7 @@ interface CommunityPostService {
 
     @DELETE("/api/community/post/{postId}")
     suspend fun deleteCommunityPost(@Path("postId") postId: Long): Boolean
+
+    @POST("/api/community/post/{postId}/report")
+    suspend fun postCommunityPostReport(@Path("postId") postId: Long, @Query("reportId") reportId: Int): Boolean
 }

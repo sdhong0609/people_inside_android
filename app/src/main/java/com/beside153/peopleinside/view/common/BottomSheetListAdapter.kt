@@ -22,7 +22,7 @@ class BottomSheetListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is ReportItem -> BottomSheetType.ContentReport.ordinal
+            is ReportItem -> BottomSheetType.ReviewReport.ordinal
             is PostFixDeleteItem -> BottomSheetType.PostFixDelete.ordinal
             is CommentFixDeleteItem -> BottomSheetType.CommentFixDelete.ordinal
         }
@@ -32,7 +32,7 @@ class BottomSheetListAdapter(
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            BottomSheetType.ContentReport.ordinal -> {
+            BottomSheetType.ReviewReport.ordinal -> {
                 val binding = ItemBottomSheetBinding.inflate(inflater, parent, false)
                 val viewHolder = ViewHolder.ReportItemViewHolder(binding)
                 viewHolder.itemView.setOnClickListener {

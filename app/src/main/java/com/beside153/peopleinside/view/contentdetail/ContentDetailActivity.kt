@@ -44,7 +44,7 @@ class ContentDetailActivity : BaseActivity() {
             ::onVerticalDotsClick,
             ::onCommentLikeClick
         )
-    private val bottomSheet = BottomSheetFragment(BottomSheetType.ContentReport)
+    private val bottomSheet = BottomSheetFragment(BottomSheetType.ReviewReport)
     private var reportId = 0
     private var didClickComment = false
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -86,10 +86,10 @@ class ContentDetailActivity : BaseActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener(
-            BottomSheetType.ContentReport.name,
+            BottomSheetType.ReviewReport.name,
             this
         ) { _, bundle ->
-            reportId = bundle.getInt(BottomSheetType.ContentReport.name)
+            reportId = bundle.getInt(BottomSheetType.ReviewReport.name)
             contentDetailViewModel.reportComment(reportId)
         }
 

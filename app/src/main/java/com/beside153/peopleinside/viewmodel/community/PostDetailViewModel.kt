@@ -48,8 +48,8 @@ class PostDetailViewModel @Inject constructor(
     private val _completeUploadCommentEvent = MutableLiveData<Event<Unit>>()
     val completeUploadCommentEvent: LiveData<Event<Unit>> get() = _completeUploadCommentEvent
 
-    private val _postVerticalDotsClickEvent = MutableLiveData<Event<Boolean>>()
-    val postVerticalDotsClickEvent: LiveData<Event<Boolean>> get() = _postVerticalDotsClickEvent
+    private val _postDotsClickEvent = MutableLiveData<Event<Boolean>>()
+    val postDotsClickEvent: LiveData<Event<Boolean>> get() = _postDotsClickEvent
 
     private val _commentDotsClickEvent = MutableLiveData<Event<Boolean>>()
     val commentDotsClickEvent: LiveData<Event<Boolean>> get() = _commentDotsClickEvent
@@ -62,6 +62,9 @@ class PostDetailViewModel @Inject constructor(
 
     private val _completeDeleteCommentEvent = MutableLiveData<Event<Unit>>()
     val completeDeleteCommentEvent: LiveData<Event<Unit>> get() = _completeDeleteCommentEvent
+
+    private val _completeReportEvent = MutableLiveData<Event<Unit>>()
+    val completeReportEvent: LiveData<Event<Unit>> get() = _completeReportEvent
 
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
@@ -130,9 +133,10 @@ class PostDetailViewModel @Inject constructor(
 
     fun onPostVerticalDotsClick() {
         if (App.prefs.getUserId().toLong() == (postDetailItem?.user?.userId ?: 1L)) {
-            _postVerticalDotsClickEvent.value = Event(true)
+            _postDotsClickEvent.value = Event(true)
             return
         }
+        _postDotsClickEvent.value = Event(false)
     }
 
     override fun onCommentDotsClick(item: CommunityCommentModel) {
@@ -142,6 +146,7 @@ class PostDetailViewModel @Inject constructor(
             _commentDotsClickEvent.value = Event(true)
             return
         }
+        _commentDotsClickEvent.value = Event(false)
     }
 
     fun onCommentFixClick() {
@@ -172,6 +177,20 @@ class PostDetailViewModel @Inject constructor(
                 commentList = commentList.plus(newCommentList)
             }
             _screenList.value = screenList()
+        }
+    }
+
+    fun reportPost(reportId: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            communityPostService.postCommunityPostReport(postId, reportId)
+            _completeReportEvent.value = Event(Unit)
+        }
+    }
+
+    fun reportComment(reportId: Int) {
+        viewModelScope.launch(exceptionHandler) {
+            communityCommentService.postCommunityCommentReport(postId, selectedCommentId, reportId)
+            _completeReportEvent.value = Event(Unit)
         }
     }
 }

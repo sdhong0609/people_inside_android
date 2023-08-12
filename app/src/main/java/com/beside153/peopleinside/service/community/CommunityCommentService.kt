@@ -35,4 +35,11 @@ interface CommunityCommentService {
         @Path("postId") postId: Long,
         @Path("commentId") commentId: Long
     ): Boolean
+
+    @POST("/api/community/post/{postId}/comment/{commentId}/report")
+    suspend fun postCommunityCommentReport(
+        @Path("postId") postId: Long,
+        @Path("commentId") commentId: Long,
+        @Query("reportId") reportId: Int
+    ): Boolean
 }

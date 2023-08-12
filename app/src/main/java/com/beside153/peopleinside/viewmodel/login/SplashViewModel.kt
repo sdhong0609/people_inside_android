@@ -37,7 +37,7 @@ class SplashViewModel @Inject constructor(
 
     fun getAllData() {
         viewModelScope.launch(exceptionHandler) {
-            val reportList = reportService.getReportList().subList(0, 2)
+            val allReportList = reportService.getReportList()
             if (App.prefs.getJwtToken().isNotEmpty()) {
                 requiredAppVersion = appVersionService.getAppVersionLatest("android").requiredVersionName
             }
@@ -54,7 +54,7 @@ class SplashViewModel @Inject constructor(
                 onBoardingCompleted = onBoardingDeferred.await()
             }
 
-            App.prefs.setString(App.prefs.reportListKey, Json.encodeToString(reportList))
+            App.prefs.setReportList(Json.encodeToString(allReportList))
 
             if (onBoardingCompleted) {
                 _onBoardingCompletedEvent.value = Event(true)

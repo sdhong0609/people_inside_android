@@ -83,6 +83,22 @@ class PostDetailActivity : BaseActivity() {
         initObserver()
 
         supportFragmentManager.setFragmentResultListener(
+            BottomSheetType.PostReport.name,
+            this
+        ) { _, bundle ->
+            val reportId = bundle.getInt(BottomSheetType.PostReport.name)
+            postDetailViewModel.reportPost(reportId)
+        }
+
+        supportFragmentManager.setFragmentResultListener(
+            BottomSheetType.CommentReport.name,
+            this
+        ) { _, bundle ->
+            val reportId = bundle.getInt(BottomSheetType.CommentReport.name)
+            postDetailViewModel.reportComment(reportId)
+        }
+
+        supportFragmentManager.setFragmentResultListener(
             BottomSheetType.PostFixDelete.name,
             this
         ) { _, bundle ->
@@ -168,7 +184,7 @@ class PostDetailActivity : BaseActivity() {
             }
         )
 
-        postDetailViewModel.postVerticalDotsClickEvent.observe(
+        postDetailViewModel.postDotsClickEvent.observe(
             this,
             EventObserver { isMyPost ->
                 if (isMyPost) {
@@ -176,6 +192,8 @@ class PostDetailActivity : BaseActivity() {
                     bottomSheet.show(supportFragmentManager, bottomSheet.tag)
                     return@EventObserver
                 }
+                val bottomSheet = BottomSheetFragment(BottomSheetType.PostReport)
+                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
             }
         )
 
@@ -187,6 +205,15 @@ class PostDetailActivity : BaseActivity() {
                     bottomSheet.show(supportFragmentManager, bottomSheet.tag)
                     return@EventObserver
                 }
+                val bottomSheet = BottomSheetFragment(BottomSheetType.CommentReport)
+                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+            }
+        )
+
+        postDetailViewModel.completeReportEvent.observe(
+            this,
+            EventObserver {
+                showToast(R.string.report_success)
             }
         )
 

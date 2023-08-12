@@ -17,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.serialization.json.Json
 
 enum class BottomSheetType {
-    ContentReport,
+    ReviewReport,
     PostFixDelete,
     PostReport,
     CommentFixDelete,
@@ -55,8 +55,23 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
             dismiss()
         }
 
-        if (bottomSheetType == BottomSheetType.ContentReport) {
-            val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getString(App.prefs.reportListKey))
+        if (bottomSheetType == BottomSheetType.ReviewReport) {
+            val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getReportList())
+                .filter { it.type == "MEDIA_CONTENT_REVIEW" }
+            listAdapter.submitList(reportList.map { BottomSheetModel.ReportItem(it) })
+            return
+        }
+
+        if (bottomSheetType == BottomSheetType.PostReport) {
+            val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getReportList())
+                .filter { it.type == "COMMUNITY_POST" }
+            listAdapter.submitList(reportList.map { BottomSheetModel.ReportItem(it) })
+            return
+        }
+
+        if (bottomSheetType == BottomSheetType.CommentReport) {
+            val reportList = Json.decodeFromString<List<ReportModel>>(App.prefs.getReportList())
+                .filter { it.type == "COMMUNITY_COMMENT" }
             listAdapter.submitList(reportList.map { BottomSheetModel.ReportItem(it) })
             return
         }
@@ -75,10 +90,24 @@ class BottomSheetFragment(private val bottomSheetType: BottomSheetType) : Bottom
     }
 
     private fun onReportItemClick(item: ReportModel) {
-        setFragmentResult(
-            BottomSheetType.ContentReport.name,
-            bundleOf(BottomSheetType.ContentReport.name to item.id)
-        )
+        when (bottomSheetType) {
+            BottomSheetType.ReviewReport -> setFragmentResult(
+                BottomSheetType.ReviewReport.name,
+                bundleOf(BottomSheetType.ReviewReport.name to item.id)
+            )
+
+            BottomSheetType.PostReport -> setFragmentResult(
+                BottomSheetType.PostReport.name,
+                bundleOf(BottomSheetType.PostReport.name to item.id)
+            )
+
+            BottomSheetType.CommentReport -> setFragmentResult(
+                BottomSheetType.CommentReport.name,
+                bundleOf(BottomSheetType.CommentReport.name to item.id)
+            )
+
+            else -> throw IllegalArgumentException("Invalid bottom sheet type")
+        }
         dismiss()
     }
 
