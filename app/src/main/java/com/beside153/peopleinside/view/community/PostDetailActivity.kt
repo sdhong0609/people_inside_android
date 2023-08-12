@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
 import com.beside153.peopleinside.databinding.ActivityPostDetailBinding
@@ -59,6 +60,13 @@ class PostDetailActivity : BaseActivity() {
             lifecycleOwner = this@PostDetailActivity
         }
 
+        binding.commentEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && !App.prefs.getIsMember()) {
+                startActivity(NonMemberLoginActivity.newIntent(this))
+                setOpenActivityAnimation()
+            }
+        }
+
         binding.postDetailRecyclerView.apply {
             adapter = postDetailAdapter
             layoutManager = LinearLayoutManager(this@PostDetailActivity)
@@ -82,7 +90,15 @@ class PostDetailActivity : BaseActivity() {
         postDetailViewModel.initAllData()
 
         initObserver()
+        initFragmentResultListener(postId)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        binding.commentEditText.clearFocus()
+    }
+
+    private fun initFragmentResultListener(postId: Long) {
         supportFragmentManager.setFragmentResultListener(
             BottomSheetType.PostReport.name,
             this
