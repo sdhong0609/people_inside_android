@@ -10,7 +10,9 @@ import kotlinx.serialization.Serializable
 data class CommunityCommentModel(
     @SerialName("comment_id") val commentId: Long,
     @SerialName("content") val content: String,
-    @SerialName("author") val author: Author
+    @SerialName("author") val author: Author,
+    @SerialName("created_at") val createdAt: String,
+    @SerialName("updated_at") val updatedAt: String
 ) : Parcelable
 
 @Parcelize

@@ -76,12 +76,12 @@
                 style="@style/textStyleMediumGray700"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="1시간 전"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@id/mbtiTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/mbtiTextView"
                 app:layout_constraintTop_toTopOf="@id/mbtiTextView"
+                app:timeText="@{item.createdAt}"
                 tools:text="1시간 전" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
