@@ -238,6 +238,8 @@ class PostDetailActivity : BaseActivity() {
         val deletePostDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
             .setTitle(R.string.delete_post_dialog_title)
             .setDescriptionRes(R.string.delete_post_dialog_description)
+            .setYesText(R.string.delete)
+            .setNoText(R.string.cancel)
             .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                 override fun onClickPositiveButton() {
                     postDetailViewModel.deletePost()
