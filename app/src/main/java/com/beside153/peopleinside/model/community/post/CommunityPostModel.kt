@@ -22,13 +22,13 @@ data class CommunityPostModel(
     val updatedAt: String,
     @SerialName("mbti_list")
     val mbtiList: List<String>,
-    @SerialName("user")
-    val user: User
+    @SerialName("author")
+    val author: Author
 ) : Parcelable
 
 @Parcelize
 @Serializable
-data class User(
+data class Author(
     @SerialName("user_id")
     val userId: Long,
     @SerialName("social")

@@ -139,7 +139,7 @@ class PostDetailViewModel @Inject constructor(
             _goToNonMemberLoginEvent.value = Event(Unit)
             return
         }
-        if (App.prefs.getUserId().toLong() == (postDetailItem?.user?.userId ?: 1L)) {
+        if (App.prefs.getUserId().toLong() == (postDetailItem?.author?.userId ?: 1L)) {
             _postDotsClickEvent.value = Event(true)
             return
         }
