@@ -23,6 +23,7 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.common.BottomSheetFragment
 import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
+import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
 import com.beside153.peopleinside.viewmodel.community.PostDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -141,6 +142,14 @@ class PostDetailActivity : BaseActivity() {
         }
 
     private fun initObserver() {
+        postDetailViewModel.goToNonMemberLoginEvent.observe(
+            this,
+            EventObserver {
+                startActivity(NonMemberLoginActivity.newIntent(this))
+                setOpenActivityAnimation()
+            }
+        )
+
         postDetailViewModel.commentFixClickEvent.observe(
             this,
             EventObserver { comment ->

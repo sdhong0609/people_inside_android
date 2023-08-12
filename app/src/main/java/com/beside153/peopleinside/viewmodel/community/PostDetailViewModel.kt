@@ -66,6 +66,9 @@ class PostDetailViewModel @Inject constructor(
     private val _completeReportEvent = MutableLiveData<Event<Unit>>()
     val completeReportEvent: LiveData<Event<Unit>> get() = _completeReportEvent
 
+    private val _goToNonMemberLoginEvent = MutableLiveData<Event<Unit>>()
+    val goToNonMemberLoginEvent: LiveData<Event<Unit>> get() = _goToNonMemberLoginEvent
+
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
     private var commentList = listOf<CommunityCommentModel>()
@@ -132,6 +135,10 @@ class PostDetailViewModel @Inject constructor(
     }
 
     fun onPostVerticalDotsClick() {
+        if (!App.prefs.getIsMember()) {
+            _goToNonMemberLoginEvent.value = Event(Unit)
+            return
+        }
         if (App.prefs.getUserId().toLong() == (postDetailItem?.user?.userId ?: 1L)) {
             _postDotsClickEvent.value = Event(true)
             return
@@ -140,6 +147,11 @@ class PostDetailViewModel @Inject constructor(
     }
 
     override fun onCommentDotsClick(item: CommunityCommentModel) {
+        if (!App.prefs.getIsMember()) {
+            _goToNonMemberLoginEvent.value = Event(Unit)
+            return
+        }
+
         selectedCommentId = item.commentId
         selectedCommentContent = item.content
         if (App.prefs.getUserId().toLong() == item.author.userId) {
