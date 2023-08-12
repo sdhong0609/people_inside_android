@@ -71,6 +71,7 @@
     <string name="nickname">닉네임</string>
     <string name="please_input_nickname">닉네임을 입력해주세요.</string>
     <string name="duplicate_nickname">이미 사용중인 닉네임입니다.</string>
+    <string name="nickname_has_bad_word">닉네임에 금지어가 포함되어 있습니다.</string>
     <string name="gender">성별</string>
     <string name="man">men</string>
     <string name="woman">women</string>

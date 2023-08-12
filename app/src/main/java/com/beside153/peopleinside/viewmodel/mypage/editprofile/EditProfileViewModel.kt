@@ -48,10 +48,14 @@ class EditProfileViewModel @Inject constructor(
     private val _isDuplicate = MutableLiveData(false)
     val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
+    private val _hasBadWord = MutableLiveData(false)
+    val hasBadWord: LiveData<Boolean> get() = _hasBadWord
+
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
         _isDuplicate.value = false
+        _hasBadWord.value = false
     }
 
     fun onBirthYearClick() {
@@ -86,10 +90,18 @@ class EditProfileViewModel @Inject constructor(
         val ceh = CoroutineExceptionHandler { context, t ->
             when (t) {
                 is ApiException -> {
-                    if (t.error.statusCode == 400) {
-                        _isDuplicate.value = true
-                    } else {
-                        exceptionHandler.handleException(context, t)
+                    when (t.error.statusCode) {
+                        400 -> {
+                            _isDuplicate.value = true
+                        }
+
+                        403 -> {
+                            _hasBadWord.value = true
+                        }
+
+                        else -> {
+                            exceptionHandler.handleException(context, t)
+                        }
                     }
                 }
 
