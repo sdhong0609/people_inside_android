@@ -15,6 +15,10 @@ import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.community.CommunitySearchViewModel
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +26,7 @@ class CommunitySearchActivity : BaseActivity() {
     private lateinit var binding: ActivityCommunitySearchBinding
     private val communitySearchViewModel: CommunitySearchViewModel by viewModels()
     private val postListAdapter = CommunityPostListAdapter(::onPostItemClick)
+    private val recentSearchWordAdapter = RecentSearchWordAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,17 @@ class CommunitySearchActivity : BaseActivity() {
             searchedPostRecyclerView.adapter = postListAdapter
         }
 
+        FlexboxLayoutManager(this).apply {
+            flexWrap = FlexWrap.WRAP
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.FLEX_START
+        }.let {
+            binding.recentSearchRecyclerView.apply {
+                layoutManager = it
+                adapter = recentSearchWordAdapter
+            }
+        }
+
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 communitySearchViewModel.searchPostAction()
@@ -51,10 +67,15 @@ class CommunitySearchActivity : BaseActivity() {
             false
         }
 
+        initObserver()
+        communitySearchViewModel.initSearchWordList()
+    }
+
+    private fun initObserver() {
         communitySearchViewModel.error.observe(
             this,
             EventObserver {
-                //
+                showErrorDialog(it) { communitySearchViewModel.searchPostAction() }
             }
         )
 
@@ -65,6 +86,10 @@ class CommunitySearchActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }
         )
+
+        communitySearchViewModel.searchWordList.observe(this) { list ->
+            recentSearchWordAdapter.submitList(list)
+        }
 
         communitySearchViewModel.searchedPostList.observe(this) { list ->
             postListAdapter.submitList(list)

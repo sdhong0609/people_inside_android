@@ -4,6 +4,7 @@ import android.text.Editable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.base.BaseViewModel
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.service.community.CommunityPostService
@@ -32,7 +33,22 @@ class CommunitySearchViewModel @Inject constructor(
     private val _noResult = MutableLiveData(false)
     val noResult: LiveData<Boolean> get() = _noResult
 
+    private val _searchWordList = MutableLiveData<List<String>>(listOf())
+    val searchWordList: LiveData<List<String>> get() = _searchWordList
+
+    private val _hasSearchWord = MutableLiveData(false)
+    val hasSearchWord: LiveData<Boolean> get() = _hasSearchWord
+
     private var page = 1
+
+    fun initSearchWordList() {
+        _searchWordList.value = App.prefs.getRecentSearchList().toMutableList()
+        checkHasSearchWord()
+    }
+
+    private fun checkHasSearchWord() {
+        _hasSearchWord.value = _searchWordList.value?.isNotEmpty() ?: false
+    }
 
     fun searchPostAction() {
         page = 1
@@ -47,7 +63,25 @@ class CommunitySearchViewModel @Inject constructor(
             if (_searchedPostList.value.isNullOrEmpty()) {
                 _noResult.value = true
             }
+            addSearchWord(word)
         }
+    }
+
+    private fun addSearchWord(word: String) {
+        val tempList = _searchWordList.value?.toMutableList() ?: mutableListOf()
+        if (tempList.size >= word_max_size) {
+            tempList.removeAt(tempList.size - 1)
+        }
+        tempList.add(0, word)
+        App.prefs.setRecentSearchList(tempList.toList())
+        _searchWordList.value = tempList
+        checkHasSearchWord()
+    }
+
+    fun deleteAllSearchWord() {
+        App.prefs.setRecentSearchList(listOf())
+        _searchWordList.value = listOf()
+        checkHasSearchWord()
     }
 
     fun onPostItemClick(item: CommunityPostModel) {
@@ -65,5 +99,9 @@ class CommunitySearchViewModel @Inject constructor(
     fun onSearchCancelClick() {
         _keyword.value = ""
         _isSearched.value = false
+    }
+
+    companion object {
+        private const val word_max_size = 20
     }
 }

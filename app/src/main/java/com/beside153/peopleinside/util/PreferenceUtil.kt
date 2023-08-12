@@ -17,6 +17,7 @@ class PreferenceUtil @Inject constructor(
     private val reportListKey = "REPORT_LIST"
     private val isMemberKey = "IS_MEMBER"
     private val emailKey = "EMAIL"
+    private val recentSearchKey = "RECENT_SEARCH_LIST"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
@@ -91,5 +92,13 @@ class PreferenceUtil @Inject constructor(
 
     fun setIsMember(bln: Boolean) {
         prefs.edit().putBoolean(isMemberKey, bln).apply()
+    }
+
+    fun setRecentSearchList(list: List<String>) {
+        prefs.edit().putStringSet(recentSearchKey, list.toSet()).apply()
+    }
+
+    fun getRecentSearchList(): List<String> {
+        return prefs.getStringSet(recentSearchKey, setOf())?.toList() ?: listOf()
     }
 }

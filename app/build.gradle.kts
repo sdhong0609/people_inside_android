@@ -109,6 +109,9 @@ dependencies {
     // Hilt
     implementation(Libraries.Hilt.hilt)
     kapt(Libraries.Hilt.hilt_compiler)
+
+    // Flexbox Layout
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
 }
 
 kapt {
