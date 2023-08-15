@@ -15,11 +15,11 @@
         android:name="com.beside153.peopleinside.view.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
-    <!--    <fragment-->
-    <!--        android:id="@+id/communityFragment"-->
-    <!--        android:name="com.beside153.peopleinside.view.CommunityFragment"-->
-    <!--        android:label="fragment_community"-->
-    <!--        tools:layout="@layout/fragment_community" />-->
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.beside153.peopleinside.view.community.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" />
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.beside153.peopleinside.view.mypage.MyPageFragment"

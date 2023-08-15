@@ -4,6 +4,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.util.intervalBetweenDateText
+import com.beside153.peopleinside.view.common.BottomSheetListAdapter.BottomSheetModel
 
 @BindingAdapter("recommendTabTextColor")
 fun TextView.recommendTabTextColor(isChosen: Boolean) {
@@ -33,7 +35,7 @@ fun TextView.contentKeywordBackground(mediaType: String) {
     val background = if (mediaType == resources.getString(R.string.movie_english)) {
         ContextCompat.getDrawable(context, R.drawable.bg_white_rounded)
     } else {
-        ContextCompat.getDrawable(context, R.drawable.bg_black_rounded)
+        ContextCompat.getDrawable(context, R.drawable.bg_black_radius4dp)
     }
     this.background = background
 }
@@ -68,4 +70,40 @@ fun TextView.userInfoTextColor(isChosen: Boolean) {
         )
     }
     setTextColor(textColor)
+}
+
+@BindingAdapter("mbtiTagTextColor")
+fun TextView.mbtiTagTextColor(isSelected: Boolean) {
+    val textColor = if (isSelected) {
+        ContextCompat.getColor(context, R.color.white)
+    } else {
+        ContextCompat.getColor(
+            context,
+            R.color.gray_500
+        )
+    }
+    setTextColor(textColor)
+}
+
+@BindingAdapter("mbtiTagBackground")
+fun TextView.mbtiTagBackground(isSelected: Boolean) {
+    val background = if (isSelected) {
+        ContextCompat.getDrawable(context, R.drawable.bg_black_radius50dp)
+    } else {
+        ContextCompat.getDrawable(context, R.drawable.bg_white_radius50dp_border)
+    }
+    setBackground(background)
+}
+
+@BindingAdapter("timeText")
+fun TextView.timeText(createdAt: String) {
+    text = intervalBetweenDateText(createdAt)
+}
+
+@BindingAdapter("bottomSheetItemText")
+fun TextView.bottomSheetItemText(item: BottomSheetModel) {
+    text = when (item) {
+        is BottomSheetModel.ReportItem -> item.reportItem.content
+        is BottomSheetModel.FixDeleteItem -> item.fixDeleteItem
+    }
 }

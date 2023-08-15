@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.BuildConfig
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.service.AppVersionService
 import com.beside153.peopleinside.service.ReportService
 import com.beside153.peopleinside.service.UserService
 import com.beside153.peopleinside.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
@@ -33,11 +35,29 @@ class SplashViewModel @Inject constructor(
     private val _goToPlayStoreEvent = MutableLiveData<Event<Unit>>()
     val goToPlayStoreEvent: LiveData<Event<Unit>> get() = _goToPlayStoreEvent
 
+    private val _noUserInfoEvent = MutableLiveData<Event<Unit>>()
+    val noUserInfoEvent: LiveData<Event<Unit>> get() = _noUserInfoEvent
+
     private var requiredAppVersion = BuildConfig.VERSION_NAME
 
     fun getAllData() {
-        viewModelScope.launch(exceptionHandler) {
-            val reportList = reportService.getReportList()
+        val ceh = CoroutineExceptionHandler { context, t ->
+            when (t) {
+                is ApiException -> {
+                    if (t.error.statusCode == 404) {
+                        _noUserInfoEvent.value = Event(Unit)
+                    } else {
+                        exceptionHandler.handleException(context, t)
+                    }
+                }
+
+                else -> {
+                    exceptionHandler.handleException(context, t)
+                }
+            }
+        }
+        viewModelScope.launch(ceh) {
+            val allReportList = reportService.getReportList()
             if (App.prefs.getJwtToken().isNotEmpty()) {
                 requiredAppVersion = appVersionService.getAppVersionLatest("android").requiredVersionName
             }
@@ -54,7 +74,7 @@ class SplashViewModel @Inject constructor(
                 onBoardingCompleted = onBoardingDeferred.await()
             }
 
-            App.prefs.setString(App.prefs.reportListKey, Json.encodeToString(reportList))
+            App.prefs.setReportList(Json.encodeToString(allReportList))
 
             if (onBoardingCompleted) {
                 _onBoardingCompletedEvent.value = Event(true)

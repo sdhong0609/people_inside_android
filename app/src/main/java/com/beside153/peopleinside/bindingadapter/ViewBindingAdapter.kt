@@ -18,20 +18,34 @@ fun View.isVisibleInVisible(isVisible: Boolean) {
 @BindingAdapter("setGenderTextViewPlace")
 fun View.setGenderTextViewPlace(showAlert: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.topToBottom = if (showAlert) R.id.duplicateNicknameTextView else R.id.nicknameLayout
+    layoutParams.topToBottom = if (showAlert) R.id.signupDuplicateTextView else R.id.nicknameLayout
     this.layoutParams = layoutParams
 }
 
 @BindingAdapter("setGenderTextViewPlace2")
 fun View.setGenderTextViewPlace2(showAlert: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.topToBottom = if (showAlert) R.id.plsInputTextView else R.id.editNicknameLayout
+    layoutParams.topToBottom = if (showAlert) R.id.singupBadWordTextView else R.id.nicknameLayout
     this.layoutParams = layoutParams
 }
 
 @BindingAdapter("setGenderTextViewPlace3")
 fun View.setGenderTextViewPlace3(showAlert: Boolean) {
     val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.topToBottom = if (showAlert) R.id.isDuplicateTextView else R.id.editNicknameLayout
+    layoutParams.topToBottom = if (showAlert) R.id.editProfilePlsInputTextView else R.id.editNicknameLayout
+    this.layoutParams = layoutParams
+}
+
+@BindingAdapter("setGenderTextViewPlace4")
+fun View.setGenderTextViewPlace4(showAlert: Boolean) {
+    val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.topToBottom = if (showAlert) R.id.editProfileDuplicateTextView else R.id.editNicknameLayout
+    this.layoutParams = layoutParams
+}
+
+@BindingAdapter("setGenderTextViewPlace5")
+fun View.setGenderTextViewPlace5(showAlert: Boolean) {
+    val layoutParams = this.layoutParams as ConstraintLayout.LayoutParams
+    layoutParams.topToBottom = if (showAlert) R.id.editProfileBadWordTextView else R.id.editNicknameLayout
     this.layoutParams = layoutParams
 }

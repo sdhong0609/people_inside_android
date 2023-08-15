@@ -94,7 +94,7 @@ class SettingActivity : BaseActivity() {
             EventObserver {
                 val logoutDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
                     .setTitle(R.string.logout)
-                    .setDescription(R.string.you_may_use_after_login)
+                    .setDescriptionRes(R.string.you_may_use_after_login)
                     .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                         override fun onClickPositiveButton() {
                             logoutKakaoAccount()

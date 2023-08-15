@@ -64,7 +64,7 @@ class DeleteAccountActivity : BaseActivity() {
             EventObserver {
                 val dialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
                     .setTitle(R.string.delete_account_dialog_title)
-                    .setDescription(R.string.delete_account_dialog_description)
+                    .setDescriptionRes(R.string.delete_account_dialog_description)
                     .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
                         override fun onClickPositiveButton() {
                             deleteAccountViewModel.deleteAccount()

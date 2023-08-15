@@ -8,25 +8,26 @@ import javax.inject.Inject
 class PreferenceUtil @Inject constructor(
     @ApplicationContext context: Context
 ) {
-    val jwtTokenKey = "JWT_TOKEN"
+    private val jwtTokenKey = "JWT_TOKEN"
     private val userIdKey = "USER_ID"
     private val userMbtiKey = "USER_MBTI"
     private val userNicknameKey = "USER_NICKNAME"
     private val userGenderKey = "USER_GENDER"
     private val userBirthKey = "USER_BIRTH"
-    val reportListKey = "REPORT_LIST"
+    private val reportListKey = "REPORT_LIST"
     private val isMemberKey = "IS_MEMBER"
     private val emailKey = "EMAIL"
+    private val recentSearchKey = "RECENT_SEARCH_LIST"
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
 
-    fun getString(key: String): String {
-        return prefs.getString(key, "").toString()
+    fun getReportList(): String {
+        return prefs.getString(reportListKey, "").toString()
     }
 
-    fun setString(key: String, str: String) {
-        prefs.edit().putString(key, str).apply()
+    fun setReportList(str: String) {
+        prefs.edit().putString(reportListKey, str).apply()
     }
 
     fun getUserId(): Int {
@@ -91,5 +92,13 @@ class PreferenceUtil @Inject constructor(
 
     fun setIsMember(bln: Boolean) {
         prefs.edit().putBoolean(isMemberKey, bln).apply()
+    }
+
+    fun setRecentSearchList(list: List<String>) {
+        prefs.edit().putStringSet(recentSearchKey, list.toSet()).apply()
+    }
+
+    fun getRecentSearchList(): List<String> {
+        return prefs.getStringSet(recentSearchKey, setOf())?.toList() ?: listOf()
     }
 }

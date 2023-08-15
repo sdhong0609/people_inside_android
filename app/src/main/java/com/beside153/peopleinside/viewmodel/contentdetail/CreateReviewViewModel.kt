@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
-import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
+import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.service.mediacontent.ReviewService
 import com.beside153.peopleinside.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,9 +39,9 @@ class CreateReviewViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             if ((reviewText.value ?: "").isNotEmpty()) {
                 if (alreadyHadReview) {
-                    reviewService.putReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                    reviewService.putReview(contentId, CreateContentRequest(reviewText.value ?: ""))
                 } else {
-                    reviewService.postReview(contentId, CreateReviewRequest(reviewText.value ?: ""))
+                    reviewService.postReview(contentId, CreateContentRequest(reviewText.value ?: ""))
                 }
                 _completeButtonClickEvent.value = Event(Unit)
             }

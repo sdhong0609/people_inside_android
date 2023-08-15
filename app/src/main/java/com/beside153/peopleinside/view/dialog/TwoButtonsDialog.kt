@@ -14,7 +14,10 @@ class TwoButtonsDialog : DialogFragment() {
     private lateinit var binding: DialogTwoButtonsBinding
 
     var title: Int? = null
-    var description: Int? = null
+    var description: String? = null
+    var descriptionRes: Int? = null
+    var yesTextRes: Int? = null
+    var noTextRes: Int? = null
     var listener: TwoButtonsDialogListener? = null
 
     override fun getTheme(): Int = R.style.RoundedCornersDialog
@@ -28,8 +31,9 @@ class TwoButtonsDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.dialogTitleTextView.text = getString(title ?: R.string.error_happend)
-
-        binding.dialogDescriptionTextView.text = getString(description ?: R.string.not_found_page)
+        binding.dialogDescriptionTextView.text = description ?: getString(descriptionRes ?: R.string.not_found_page)
+        binding.positiveButton.text = getString(yesTextRes ?: R.string.yes)
+        binding.negativeButton.text = getString(noTextRes ?: R.string.no)
 
         binding.positiveButton.setOnClickListener {
             dismiss()
@@ -50,8 +54,23 @@ class TwoButtonsDialog : DialogFragment() {
             return this
         }
 
-        fun setDescription(@StringRes description: Int): TwoButtonsDialogBuilder {
+        fun setDescription(description: String): TwoButtonsDialogBuilder {
             dialog.description = description
+            return this
+        }
+
+        fun setDescriptionRes(@StringRes descriptionRes: Int): TwoButtonsDialogBuilder {
+            dialog.descriptionRes = descriptionRes
+            return this
+        }
+
+        fun setYesText(@StringRes yesTextRes: Int): TwoButtonsDialogBuilder {
+            dialog.yesTextRes = yesTextRes
+            return this
+        }
+
+        fun setNoText(@StringRes noTextRes: Int): TwoButtonsDialogBuilder {
+            dialog.noTextRes = noTextRes
             return this
         }
 

@@ -1,8 +1,8 @@
 package com.beside153.peopleinside.service.mediacontent
 
+import com.beside153.peopleinside.model.common.CreateContentRequest
 import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
 import com.beside153.peopleinside.model.mediacontent.review.ContentReviewModel
-import com.beside153.peopleinside.model.mediacontent.review.CreateReviewRequest
 import com.beside153.peopleinside.model.mediacontent.review.LikeToggleResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -26,10 +26,10 @@ interface ReviewService {
     ): List<ContentCommentModel>
 
     @POST("/api/media-content/{contentId}/review")
-    suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
+    suspend fun postReview(@Path("contentId") contentId: Int, @Body content: CreateContentRequest): ContentReviewModel
 
     @PUT("/api/media-content/{contentId}/review")
-    suspend fun putReview(@Path("contentId") contentId: Int, @Body content: CreateReviewRequest): ContentReviewModel
+    suspend fun putReview(@Path("contentId") contentId: Int, @Body content: CreateContentRequest): ContentReviewModel
 
     @DELETE("/api/media-content/{contentId}/review/{reviewId}")
     suspend fun deleteReview(@Path("contentId") content: Int, @Path("reviewId") reviewId: Int): Boolean

@@ -17,6 +17,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".view.community.FixCommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.community.PostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.community.CreatePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.community.CommunitySearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.login.nonmember.NonMemberLoginActivity"
             android:exported="false" />
         <activity

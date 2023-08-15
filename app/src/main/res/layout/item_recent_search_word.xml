@@ -7,28 +7,29 @@
 
         <variable
             name="item"
-            type="com.beside153.peopleinside.model.report.ReportModel" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="4dp"
+        android:paddingBottom="4dp">
 
         <TextView
-            style="@style/textStyleBoldBlack"
-            android:layout_width="match_parent"
+            style="@style/textStyleMediumBlack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_white_radius4dp_border"
+            android:background="@drawable/bg_white_radius50dp_border"
+            android:gravity="center"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="15dp"
-            android:text="@{item.content}"
-            android:textSize="14sp"
+            android:paddingVertical="8dp"
+            android:text="@{item}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="부적절한 내용/스포일러" />
+            tools:text="분노의 질주" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

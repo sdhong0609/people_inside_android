@@ -109,6 +109,9 @@ dependencies {
     // Hilt
     implementation(Libraries.Hilt.hilt)
     kapt(Libraries.Hilt.hilt_compiler)
+
+    // Flexbox Layout
+    implementation(Libraries.Flexbox.flexbox)
 }
 
 kapt {

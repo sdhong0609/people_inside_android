@@ -21,8 +21,9 @@ import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
+import com.beside153.peopleinside.view.common.BottomSheetFragment
+import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
-import com.beside153.peopleinside.view.report.ReportBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -43,7 +44,7 @@ class ContentDetailActivity : BaseActivity() {
             ::onVerticalDotsClick,
             ::onCommentLikeClick
         )
-    private val bottomSheet = ReportBottomSheetFragment()
+    private val bottomSheet = BottomSheetFragment(BottomSheetType.ReviewReport)
     private var reportId = 0
     private var didClickComment = false
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -85,10 +86,10 @@ class ContentDetailActivity : BaseActivity() {
         }
 
         supportFragmentManager.setFragmentResultListener(
-            ReportBottomSheetFragment::class.java.simpleName,
+            BottomSheetType.ReviewReport.name,
             this
         ) { _, bundle ->
-            reportId = bundle.getInt(REPORT_ID)
+            reportId = bundle.getInt(BottomSheetType.ReviewReport.name)
             contentDetailViewModel.reportComment(reportId)
         }
 
@@ -224,7 +225,6 @@ class ContentDetailActivity : BaseActivity() {
         private const val DID_CLICK_COMMENT = "DID_CLICK_COMMENT"
         private const val CONTENT_ID = "CONTENT_ID"
         private const val POSITION_COMMENT_LIST = 3
-        private const val REPORT_ID = "REPORT_ID"
         private const val STAY_TIME = 3000L
         private const val SCROLL_DURATION = 300L
 

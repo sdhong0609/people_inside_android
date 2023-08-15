@@ -3,6 +3,8 @@ package com.beside153.peopleinside.service
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.common.exception.ApiException
 import com.beside153.peopleinside.model.common.ErrorEnvelope
+import com.beside153.peopleinside.service.community.CommunityCommentService
+import com.beside153.peopleinside.service.community.CommunityPostService
 import com.beside153.peopleinside.service.mediacontent.BookmarkService
 import com.beside153.peopleinside.service.mediacontent.MediaContentService
 import com.beside153.peopleinside.service.mediacontent.RatingService
@@ -155,4 +157,14 @@ object NetworkModule {
     @Provides
     fun provideAppVersionService(@AppRetrofit retrofit: Retrofit): AppVersionService =
         retrofit.create(AppVersionService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCommunityPostService(@AppRetrofit retrofit: Retrofit): CommunityPostService =
+        retrofit.create(CommunityPostService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCommunityCommentService(@AppRetrofit retrofit: Retrofit): CommunityCommentService =
+        retrofit.create(CommunityCommentService::class.java)
 }

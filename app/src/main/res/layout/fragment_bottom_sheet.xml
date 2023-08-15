@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp"
-        tools:context=".view.report.ReportBottomSheetFragment">
+        tools:context=".view.common.BottomSheetFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reportRecyclerView"
+            android:id="@+id/bottomSheetRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@id/cancelButton"
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reportRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/bottomSheetRecyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

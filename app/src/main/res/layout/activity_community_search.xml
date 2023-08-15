@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.community.CommunitySearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.community.CommunitySearchActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/searchAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp">
+
+                <ImageButton
+                    android:id="@+id/backImageButton"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
+                    android:src="@drawable/ic_left_arrow" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="6dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/bg_gray100_radius4dp_border"
+                    android:weightSum="10">
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        style="@style/textStyleMediumBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="9"
+                        android:afterTextChanged="@{viewModel::afterKeywordTextChanged}"
+                        android:background="@drawable/bg_search_edittext"
+                        android:hint="@string/community_search_hint"
+                        android:imeOptions="actionSearch"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingHorizontal="18dp"
+                        android:text="@{viewModel.keyword}"
+                        android:textColorHint="@color/gray_500"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/searchCancelImageView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/search_cancel_image"
+                        android:onClick="@{() -> viewModel.onSearchCancelClick()}"
+                        android:paddingVertical="12dp"
+                        android:src="@drawable/ic_search_cancel" />
+
+                </LinearLayout>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/recentSearchTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/recent_searched_keyword"
+            android:textSize="16sp"
+            app:isVisible="@{!viewModel.isSearched}"
+            app:layout_constraintBottom_toTopOf="@id/noRecentSearchTextView"
+            app:layout_constraintEnd_toStartOf="@id/deleteAllTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAppBar" />
+
+        <TextView
+            android:id="@+id/deleteAllTextView"
+            style="@style/textStyleMediumGray500"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:onClick="@{() -> viewModel.deleteAllSearchWord()}"
+            android:text="@string/delete_all"
+            android:textSize="14sp"
+            app:isVisible="@{!viewModel.isSearched}"
+            app:layout_constraintBottom_toBottomOf="@id/recentSearchTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/recentSearchTextView"
+            app:layout_constraintTop_toTopOf="@id/recentSearchTextView" />
+
+        <TextView
+            android:id="@+id/noRecentSearchTextView"
+            style="@style/textStyleMediumGray700"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_recent_searched_keyword"
+            app:isVisible="@{!viewModel.isSearched &amp;&amp; !viewModel.hasSearchWord}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recentSearchRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="16dp"
+            app:isVisible="@{!viewModel.isSearched &amp;&amp; viewModel.hasSearchWord}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchTextView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchedPostRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:isVisible="@{viewModel.isSearched}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAppBar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/noPostLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:isVisible="@{viewModel.noResult}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAppBar">
+
+            <ImageView
+                android:id="@+id/noPostImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_empty_post"
+                app:layout_constraintBottom_toTopOf="@id/noPostTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/noPostTextView"
+                style="@style/textStyleBoldGray500"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/no_post_list_result"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/noPostImageView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

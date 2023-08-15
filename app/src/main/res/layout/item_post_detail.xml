@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.community.post.CommunityPostModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/postLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/dividerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/mbtiCircleImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/mbti_icon"
+                app:layout_constraintBottom_toBottomOf="@id/writerProfileLayout"
+                app:layout_constraintEnd_toStartOf="@id/writerProfileLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/writerProfileLayout"
+                app:mbtiCircleImg="@{item.author.mbti}"
+                tools:src="@drawable/mbti_circle_icon_enfj" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/writerProfileLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toTopOf="@id/postTitleTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/mbtiCircleImageView"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/mbtiNicknameTextView"
+                    style="@style/textStyleBoldGray900"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@{item.author.nickname}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toTopOf="@id/mbtiTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="개발하는 준영" />
+
+                <TextView
+                    android:id="@+id/mbtiTextView"
+                    style="@style/textStyleMediumGray700"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{@string/mbti_interpunct(item.author.mbti.toUpperCase())}"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/timeTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mbtiNicknameTextView"
+                    tools:text="ENFJ·" />
+
+                <TextView
+                    android:id="@+id/timeTextView"
+                    style="@style/textStyleMediumGray700"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/mbtiTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/mbtiTextView"
+                    app:layout_constraintTop_toTopOf="@id/mbtiTextView"
+                    app:timeText="@{item.createdAt}"
+                    tools:text="1시간 전" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/postTitleTextView"
+                style="@style/textStyleBoldBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.title}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/postContentTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/writerProfileLayout"
+                tools:text="더글로리 봄? 문동은 복수 어떻게 생각해?" />
+
+            <TextView
+                android:id="@+id/postContentTextView"
+                style="@style/textStyleRegularGray700"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{item.content}"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postTitleTextView"
+                tools:text="다들 더글로리 봤음? 문동은 복수 긴장감 장난아님\n누가봐도 더글로리 본 사람인게 티나는 와이어프레임같죠" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mbtiLabelRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="42dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/postContentTextView"
+                app:spanCount="5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/dividerView"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_300"
+            app:layout_constraintBottom_toTopOf="@id/commentCountTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postLayout" />
+
+        <TextView
+            android:id="@+id/commentCountTextView"
+            style="@style/textStyleBoldBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@{@string/comment_count(item.totalComment)}"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerView"
+            tools:text="댓글 0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

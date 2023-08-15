@@ -173,7 +173,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/plsInputTextView"
+                    android:id="@+id/editProfilePlsInputTextView"
                     style="@style/textStyleRegularRed100"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
                     app:layout_constraintTop_toBottomOf="@id/editNicknameLayout" />
 
                 <TextView
-                    android:id="@+id/isDuplicateTextView"
+                    android:id="@+id/editProfileDuplicateTextView"
                     style="@style/textStyleRegularRed100"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -195,6 +195,20 @@
                     android:text="@string/duplicate_nickname"
                     android:textSize="12sp"
                     app:isVisible="@{viewModel.isDuplicate}"
+                    app:layout_constraintBottom_toTopOf="@id/genderTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editNicknameLayout" />
+
+                <TextView
+                    android:id="@+id/editProfileBadWordTextView"
+                    style="@style/textStyleRegularRed100"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/nickname_has_bad_word"
+                    android:textSize="12sp"
+                    app:isVisible="@{viewModel.hasBadWord}"
                     app:layout_constraintBottom_toTopOf="@id/genderTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -211,8 +225,9 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/editNicknameLayout"
-                    app:setGenderTextViewPlace2="@{viewModel.nicknameIsEmpty}"
-                    app:setGenderTextViewPlace3="@{viewModel.isDuplicate}" />
+                    app:setGenderTextViewPlace3="@{viewModel.nicknameIsEmpty}"
+                    app:setGenderTextViewPlace4="@{viewModel.isDuplicate}"
+                    app:setGenderTextViewPlace5="@{viewModel.hasBadWord}" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/genderChoiceLayout"

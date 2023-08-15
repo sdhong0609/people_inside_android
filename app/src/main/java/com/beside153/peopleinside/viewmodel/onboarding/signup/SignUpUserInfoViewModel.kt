@@ -28,6 +28,9 @@ class SignUpUserInfoViewModel @Inject constructor(
     private val _isDuplicate = MutableLiveData(false)
     val isDuplicate: LiveData<Boolean> get() = _isDuplicate
 
+    private val _hasBadWord = MutableLiveData(false)
+    val hasBadWord: LiveData<Boolean> get() = _hasBadWord
+
     private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
     val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
 
@@ -59,6 +62,7 @@ class SignUpUserInfoViewModel @Inject constructor(
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
         _isDuplicate.value = false
+        _hasBadWord.value = false
         checkSignUpButtonEnable()
     }
 
@@ -91,15 +95,21 @@ class SignUpUserInfoViewModel @Inject constructor(
     }
 
     fun onSignUpButtonClick() {
-        // TODO: 가입하기 버튼 클릭 시 금칙어 체크 로직 구현 필요
-
         val ceh = CoroutineExceptionHandler { context, t ->
             when (t) {
                 is ApiException -> {
-                    if (t.error.statusCode == 400) {
-                        _isDuplicate.value = true
-                    } else {
-                        exceptionHandler.handleException(context, t)
+                    when (t.error.statusCode) {
+                        400 -> {
+                            _isDuplicate.value = true
+                        }
+
+                        403 -> {
+                            _hasBadWord.value = true
+                        }
+
+                        else -> {
+                            exceptionHandler.handleException(context, t)
+                        }
                     }
                 }
 
