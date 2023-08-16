@@ -40,7 +40,6 @@ class CommunitySearchViewModel @Inject constructor(
     val hasSearchWord: LiveData<Boolean> get() = _hasSearchWord
 
     private var page = 1
-    private var searchedWord = ""
 
     fun initSearchWordList() {
         _searchWordList.value = App.prefs.getRecentSearchList().toMutableList()
