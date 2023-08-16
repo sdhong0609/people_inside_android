@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.beside153.peopleinside.base.BaseViewModel
+import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingModel
 import com.beside153.peopleinside.model.mediacontent.rating.ContentRatingRequest
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
 import com.beside153.peopleinside.model.mycontent.Rating
@@ -60,9 +61,10 @@ class RatedContentsViewModel @Inject constructor(
             val currentRating = item.rating?.rating ?: 0f
             if (currentRating.roundToHalf() == rating) return@launch
 
+            var postRatingResponse: ContentRatingModel? = null
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
             if (currentRating <= 0) {
-                ratingService.postContentRating(item.contentId, ContentRatingRequest(rating))
+                postRatingResponse = ratingService.postContentRating(item.contentId, ContentRatingRequest(rating))
             } else if (currentRatingHasValue && (0 < rating && rating <= MAX_RATING)) {
                 ratingService.putContentRating(item.contentId, ContentRatingRequest(rating))
             } else if (currentRatingHasValue && rating == 0f) {
@@ -71,7 +73,11 @@ class RatedContentsViewModel @Inject constructor(
 
             val updatedList = _contentList.value?.map {
                 if (item == it) {
-                    it.copy(rating = Rating(it.contentId, it.rating?.ratingId ?: 0, rating))
+                    if (postRatingResponse != null) {
+                        it.copy(rating = Rating(item.contentId, postRatingResponse.ratingId, rating))
+                    } else {
+                        it.copy(rating = Rating(item.contentId, item.rating?.ratingId ?: 0, rating))
+                    }
                 } else {
                     it
                 }
