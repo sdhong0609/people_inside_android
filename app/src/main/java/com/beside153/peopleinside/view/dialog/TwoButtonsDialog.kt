@@ -8,6 +8,7 @@ import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.bindingadapter.isVisible
 import com.beside153.peopleinside.databinding.DialogTwoButtonsBinding
 
 class TwoButtonsDialog : DialogFragment() {
@@ -16,6 +17,7 @@ class TwoButtonsDialog : DialogFragment() {
     var title: Int? = null
     var description: String? = null
     var descriptionRes: Int? = null
+    var descriptionVisible: Boolean = true
     var yesTextRes: Int? = null
     var noTextRes: Int? = null
     var listener: TwoButtonsDialogListener? = null
@@ -32,6 +34,7 @@ class TwoButtonsDialog : DialogFragment() {
 
         binding.dialogTitleTextView.text = getString(title ?: R.string.error_happend)
         binding.dialogDescriptionTextView.text = description ?: getString(descriptionRes ?: R.string.not_found_page)
+        binding.dialogDescriptionTextView.isVisible(descriptionVisible)
         binding.positiveButton.text = getString(yesTextRes ?: R.string.yes)
         binding.negativeButton.text = getString(noTextRes ?: R.string.no)
 
@@ -61,6 +64,11 @@ class TwoButtonsDialog : DialogFragment() {
 
         fun setDescriptionRes(@StringRes descriptionRes: Int): TwoButtonsDialogBuilder {
             dialog.descriptionRes = descriptionRes
+            return this
+        }
+
+        fun setDescriptionVisible(descriptionVisible: Boolean): TwoButtonsDialogBuilder {
+            dialog.descriptionVisible = descriptionVisible
             return this
         }
 

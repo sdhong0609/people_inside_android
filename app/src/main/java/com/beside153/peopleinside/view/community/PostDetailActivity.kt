@@ -282,7 +282,7 @@ class PostDetailActivity : BaseActivity() {
     private fun showDeleteCommentDialog() {
         val deleteCommentDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
             .setTitle(R.string.delete_comment_dialog_title)
-            .setDescription("")
+            .setDescriptionVisible(false)
             .setYesText(R.string.delete)
             .setNoText(R.string.cancel)
             .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
