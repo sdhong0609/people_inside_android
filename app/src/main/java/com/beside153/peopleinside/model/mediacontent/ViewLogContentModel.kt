@@ -10,5 +10,5 @@ import kotlinx.serialization.Serializable
 data class ViewLogContentModel(
     @SerialName("content_id") val contentId: Int,
     @SerialName("title") val title: String,
-    @SerialName("poster_path") val posterPath: String
+    @SerialName("poster_path") val posterPath: String?
 ) : Parcelable

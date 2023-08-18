@@ -13,7 +13,7 @@ data class ContentDetailModel(
     @SerialName("title") val title: String,
     @SerialName("original_title") val originalTitle: String,
     @SerialName("overview") val overview: String,
-    @SerialName("poster_path") val posterPath: String,
+    @SerialName("poster_path") val posterPath: String?,
     @SerialName("release_date") val releaseDate: String,
     @SerialName("runtime") val runtime: Int?,
     @SerialName("tagline") val tagline: String,
