@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityContentDetailBinding
 import com.beside153.peopleinside.model.mediacontent.review.ContentCommentModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -101,76 +101,55 @@ class ContentDetailActivity : BaseActivity() {
     }
 
     private fun initObserver() {
-        contentDetailViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                setResult(RESULT_OK)
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        contentDetailViewModel.backButtonClickEvent.eventObserve(this) {
+            setResult(RESULT_OK)
+            finish()
+            setCloseActivityAnimation()
+        }
+
+        contentDetailViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { contentDetailViewModel.initAllData(didClickComment) }
+        }
 
         contentDetailViewModel.screenList.observe(this) { screenList ->
             contentDetailScreenAdapter.submitList(screenList)
         }
 
-        contentDetailViewModel.scrollEvent.observe(
-            this,
-            EventObserver {
-                val smoothScroller = object : LinearSmoothScroller(this) {
-                    override fun getVerticalSnapPreference(): Int = SNAP_TO_START
-                }
-                smoothScroller.targetPosition = POSITION_COMMENT_LIST
-                Handler(Looper.getMainLooper()).postDelayed({
-                    binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
-                }, SCROLL_DURATION)
+        contentDetailViewModel.scrollEvent.eventObserve(this) {
+            val smoothScroller = object : LinearSmoothScroller(this) {
+                override fun getVerticalSnapPreference(): Int = SNAP_TO_START
             }
-        )
+            smoothScroller.targetPosition = POSITION_COMMENT_LIST
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+            }, SCROLL_DURATION)
+        }
 
-        contentDetailViewModel.createReviewClickEvent.observe(
-            this,
-            EventObserver {
-                createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
-                setOpenActivityAnimation()
-            }
-        )
+        contentDetailViewModel.createReviewClickEvent.eventObserve(this) {
+            createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
+            setOpenActivityAnimation()
+        }
 
-        contentDetailViewModel.verticalDotsClickEvent.observe(
-            this,
-            EventObserver {
-                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-            }
-        )
+        contentDetailViewModel.verticalDotsClickEvent.eventObserve(this) {
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
 
-        contentDetailViewModel.reportSuccessEvent.observe(
-            this,
-            EventObserver { success ->
-                if (success) {
-                    showToast(R.string.report_success)
-                    return@EventObserver
-                }
-                showToast(R.string.report_failed)
+        contentDetailViewModel.reportSuccessEvent.eventObserve(this) { success ->
+            if (success) {
+                showToast(R.string.report_success)
+                return@eventObserve
             }
-        )
+            showToast(R.string.report_failed)
+        }
 
-        contentDetailViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { contentDetailViewModel.initAllData(didClickComment) }
+        contentDetailViewModel.createRatingEvent.eventObserve(this) { item ->
+            firebaseAnalytics.logEvent("평가작성") {
+                param("유저_ID", App.prefs.getUserId().toString())
+                param("유저_MBTI", App.prefs.getMbti())
+                param("콘텐츠_ID", item.contentId.toString())
+                param("별점", item.rating.toString())
             }
-        )
-
-        contentDetailViewModel.createRatingEvent.observe(
-            this,
-            EventObserver { item ->
-                firebaseAnalytics.logEvent("평가작성") {
-                    param("유저_ID", App.prefs.getUserId().toString())
-                    param("유저_MBTI", App.prefs.getMbti())
-                    param("콘텐츠_ID", item.contentId.toString())
-                    param("별점", item.rating.toString())
-                }
-            }
-        )
+        }
     }
 
     private fun goToNonMemberLoginAcitivity() {

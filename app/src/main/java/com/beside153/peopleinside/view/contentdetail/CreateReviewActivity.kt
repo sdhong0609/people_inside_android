@@ -11,8 +11,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityCreateReviewBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
@@ -38,19 +38,16 @@ class CreateReviewActivity : BaseActivity() {
         createReviewViewModel.setContentId(contentId)
         createReviewViewModel.setContent(content ?: "")
 
-        createReviewViewModel.completeButtonClickEvent.observe(
-            this,
-            EventObserver {
-                val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
-                showToast(R.string.create_review_completed)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    setResult(RESULT_OK)
-                    finish()
-                    setCloseActivityAnimation()
-                }, DURATION_UNTIL_BACK)
-            }
-        )
+        createReviewViewModel.completeButtonClickEvent.eventObserve(this) {
+            val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
+            showToast(R.string.create_review_completed)
+            Handler(Looper.getMainLooper()).postDelayed({
+                setResult(RESULT_OK)
+                finish()
+                setCloseActivityAnimation()
+            }, DURATION_UNTIL_BACK)
+        }
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -61,16 +58,13 @@ class CreateReviewActivity : BaseActivity() {
             }
         )
 
-        createReviewViewModel.backButtonClickEvent.observe(this) {
+        createReviewViewModel.backButtonClickEvent.eventObserve(this) {
             showCancelReviewDialog()
         }
 
-        createReviewViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { createReviewViewModel.onCompleteButtonClick() }
-            }
-        )
+        createReviewViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { createReviewViewModel.onCompleteButtonClick() }
+        }
     }
 
     private fun showCancelReviewDialog() {
