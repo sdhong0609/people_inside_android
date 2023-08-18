@@ -8,5 +8,5 @@ object Configuration {
     const val minorVersion = 1
     const val patchVersion = 0
     const val versionName = "$majorVersion.$minorVersion.$patchVersion"
-    const val versionCode = 17
+    const val versionCode = 18
 }
