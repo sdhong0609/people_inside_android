@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityPostDetailBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.KeyboardVisibilityUtils
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
@@ -162,105 +162,74 @@ class PostDetailActivity : BaseActivity() {
         }
 
     private fun initObserver() {
-        postDetailViewModel.goToNonMemberLoginEvent.observe(
-            this,
-            EventObserver {
-                startActivity(NonMemberLoginActivity.newIntent(this))
-                setOpenActivityAnimation()
-            }
-        )
+        postDetailViewModel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            setCloseActivityAnimation()
+        }
 
-        postDetailViewModel.commentFixClickEvent.observe(
-            this,
-            EventObserver { comment ->
-                activityLauncher.launch(
-                    FixCommentActivity.newIntent(
-                        this,
-                        comment.postId,
-                        comment.commentId,
-                        comment.commentContent
-                    )
+        postDetailViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { postDetailViewModel.initAllData() }
+        }
+        postDetailViewModel.goToNonMemberLoginEvent.eventObserve(this) {
+            startActivity(NonMemberLoginActivity.newIntent(this))
+            setOpenActivityAnimation()
+        }
+
+        postDetailViewModel.commentFixClickEvent.eventObserve(this) {
+            activityLauncher.launch(
+                FixCommentActivity.newIntent(
+                    this,
+                    it.postId,
+                    it.commentId,
+                    it.commentContent
                 )
-                setOpenActivityAnimation()
-            }
-        )
-
-        postDetailViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
-
-        postDetailViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { postDetailViewModel.initAllData() }
-            }
-        )
+            )
+            setOpenActivityAnimation()
+        }
 
         postDetailViewModel.screenList.observe(this) { screenList ->
             postDetailAdapter.submitList(screenList)
         }
 
-        postDetailViewModel.completeUploadCommentEvent.observe(
-            this,
-            EventObserver {
-                inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
-                binding.commentEditText.clearFocus()
-                postDetailViewModel.initAllData()
-            }
-        )
+        postDetailViewModel.completeUploadCommentEvent.eventObserve(this) {
+            inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
+            binding.commentEditText.clearFocus()
+            postDetailViewModel.initAllData()
+        }
 
-        postDetailViewModel.postDotsClickEvent.observe(
-            this,
-            EventObserver { isMyPost ->
-                if (isMyPost) {
-                    val bottomSheet = BottomSheetFragment(BottomSheetType.PostFixDelete)
-                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                    return@EventObserver
-                }
-                val bottomSheet = BottomSheetFragment(BottomSheetType.PostReport)
+        postDetailViewModel.postDotsClickEvent.eventObserve(this) { isMyPost ->
+            if (isMyPost) {
+                val bottomSheet = BottomSheetFragment(BottomSheetType.PostFixDelete)
                 bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                return@eventObserve
             }
-        )
+            val bottomSheet = BottomSheetFragment(BottomSheetType.PostReport)
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
 
-        postDetailViewModel.commentDotsClickEvent.observe(
-            this,
-            EventObserver { isMyComment ->
-                if (isMyComment) {
-                    val bottomSheet = BottomSheetFragment(BottomSheetType.CommentFixDelete)
-                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                    return@EventObserver
-                }
-                val bottomSheet = BottomSheetFragment(BottomSheetType.CommentReport)
+        postDetailViewModel.commentDotsClickEvent.eventObserve(this) { isMyComment ->
+            if (isMyComment) {
+                val bottomSheet = BottomSheetFragment(BottomSheetType.CommentFixDelete)
                 bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                return@eventObserve
             }
-        )
+            val bottomSheet = BottomSheetFragment(BottomSheetType.CommentReport)
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+        }
 
-        postDetailViewModel.completeReportEvent.observe(
-            this,
-            EventObserver {
-                showToast(R.string.report_success)
-            }
-        )
+        postDetailViewModel.completeReportEvent.eventObserve(this) {
+            showToast(R.string.report_success)
+        }
 
-        postDetailViewModel.completeDeletePostEvent.observe(
-            this,
-            EventObserver {
-                setResult(R.string.delete_post_dialog_title)
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        postDetailViewModel.completeDeletePostEvent.eventObserve(this) {
+            setResult(R.string.delete_post_dialog_title)
+            finish()
+            setCloseActivityAnimation()
+        }
 
-        postDetailViewModel.completeDeleteCommentEvent.observe(
-            this,
-            EventObserver {
-                showToast(R.string.delete_comment_complete)
-            }
-        )
+        postDetailViewModel.completeDeleteCommentEvent.eventObserve(this) {
+            showToast(R.string.delete_comment_complete)
+        }
     }
 
     private fun showDeletePostDialog() {

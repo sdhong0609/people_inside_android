@@ -12,9 +12,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityCreatePostBinding
 import com.beside153.peopleinside.model.community.post.MbtiTagModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.OneButtonDialog
@@ -67,56 +67,44 @@ class CreatePostActivity : BaseActivity() {
             mbtiTagAdapter.submitList(list)
         }
 
-        createPostViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                showStopPostDialog()
-            }
-        )
+        createPostViewModel.backButtonClickEvent.eventObserve(this) {
+            showStopPostDialog()
+        }
 
-        createPostViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { createPostViewModel.onCompleteButtonClick() }
-            }
-        )
+        createPostViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { createPostViewModel.onCompleteButtonClick() }
+        }
 
-        createPostViewModel.showBadWordDialogEvent.observe(
-            this,
-            EventObserver {
-                val badWordDialog = OneButtonDialog.OneButtonDialogBuilder()
-                    .setTitleRes(R.string.bad_word_dialog_title)
-                    .setDescriptionRes(R.string.bad_word_dialog_description)
-                    .setButtonTextRes(R.string.fix)
-                    .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
-                        override fun onDialogButtonClick() = Unit
-                    }).create()
-                badWordDialog.show(supportFragmentManager, badWordDialog.tag)
-            }
-        )
+        createPostViewModel.showBadWordDialogEvent.eventObserve(this) {
+            val badWordDialog = OneButtonDialog.OneButtonDialogBuilder()
+                .setTitleRes(R.string.bad_word_dialog_title)
+                .setDescriptionRes(R.string.bad_word_dialog_description)
+                .setButtonTextRes(R.string.fix)
+                .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                    override fun onDialogButtonClick() = Unit
+                }).create()
+            badWordDialog.show(supportFragmentManager, badWordDialog.tag)
+        }
 
-        createPostViewModel.completePostEvent.observe(
-            this,
-            EventObserver { mode ->
-                inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mode == PostMode.CREATE) {
-                        showToast(R.string.complete_create_post)
-                    } else {
-                        showToast(R.string.complete_fix_post)
-                    }
-                }, TOAST_DURATION)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    if (mode == PostMode.CREATE) {
-                        setResult(R.string.complete_create_post)
-                    } else {
-                        setResult(R.string.complete_fix_post)
-                    }
-                    finish()
-                    setCloseActivityAnimation()
-                }, GO_BACK_DURATION)
-            }
-        )
+        createPostViewModel.completePostEvent.eventObserve(this) {
+            inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (it == PostMode.CREATE) {
+                    showToast(R.string.complete_create_post)
+                } else {
+                    showToast(R.string.complete_fix_post)
+                }
+            }, TOAST_DURATION)
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (it == PostMode.CREATE) {
+                    setResult(R.string.complete_create_post)
+                } else {
+                    setResult(R.string.complete_fix_post)
+                }
+                finish()
+                setCloseActivityAnimation()
+            }, GO_BACK_DURATION)
+        }
     }
 
     private fun onMbtiTagItemClick(item: MbtiTagModel) {

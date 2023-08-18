@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentCommunityBinding
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
@@ -68,40 +68,28 @@ class CommunityFragment : BaseFragment() {
             postListAdapter.submitList(list)
         }
 
-        communityViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                showErrorDialog(it) { communityViewModel.initPostList() }
-            }
-        )
+        communityViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { communityViewModel.initPostList() }
+        }
 
-        communityViewModel.searchBarClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                startActivity(CommunitySearchActivity.newIntent(requireActivity()))
-            }
-        )
+        communityViewModel.searchBarClickEvent.eventObserve(viewLifecycleOwner) {
+            startActivity(CommunitySearchActivity.newIntent(requireActivity()))
+        }
 
-        communityViewModel.writePostClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                if (App.prefs.getIsMember()) {
-                    activityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
-                    requireActivity().setOpenActivityAnimation()
-                    return@EventObserver
-                }
-                startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+        communityViewModel.writePostClickEvent.eventObserve(viewLifecycleOwner) {
+            if (App.prefs.getIsMember()) {
+                activityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
+                return@eventObserve
             }
-        )
+            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        communityViewModel.postItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { postId ->
-                activityLauncher.launch(PostDetailActivity.newIntent(requireActivity(), postId))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        communityViewModel.postItemClickEvent.eventObserve(viewLifecycleOwner) { postId ->
+            activityLauncher.launch(PostDetailActivity.newIntent(requireActivity(), postId))
+            requireActivity().setOpenActivityAnimation()
+        }
     }
 
     override fun onResume() {
@@ -129,6 +117,5 @@ class CommunityFragment : BaseFragment() {
 
     companion object {
         private const val TOAST_DELAY = 500L
-        private const val PROGRESSBAR_VISIBLE_DELAY = 1000L
     }
 }
