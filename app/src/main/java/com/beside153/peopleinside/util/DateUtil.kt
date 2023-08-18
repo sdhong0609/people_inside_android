@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 fun intervalBetweenDateText(beforeDate: String): String {
     val nowFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).parse(getCurrentTime())
@@ -34,11 +35,15 @@ fun intervalBetweenDateText(beforeDate: String): String {
         diffMonths--
     }
 
-    if (diffYears > 0) {
-        return "${diffYears}년 전"
-    }
-    if (diffMonths > 0) {
-        return "${diffMonths}개월 전"
+//    if (diffYears > 0) {
+//        return "${diffYears}년 전"
+//    }
+//    if (diffMonths > 0) {
+//        return "${diffMonths}개월 전"
+//    }
+    if (diffDays > 1) {
+        val dateFormat = SimpleDateFormat("yy.MM.dd", Locale.getDefault())
+        return dateFormat.format(beforeFormat as Date)
     }
     if (diffDays > 0) {
         return "${diffDays}일 전"
@@ -59,5 +64,7 @@ fun intervalBetweenDateText(beforeDate: String): String {
 }
 
 private fun getCurrentTime(): String {
-    return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).format(Date())
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    return dateFormat.format(Date())
 }
