@@ -9,9 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityRecommendSubRankingBinding
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.dpToPx
@@ -55,28 +55,19 @@ class RecommendSubRankingActivity : BaseActivity() {
             rankingAdpater.submitList(list)
         }
 
-        subRankingViewModel.subRankingItemClickEvent.observe(
-            this,
-            EventObserver { item ->
-                startActivity(ContentDetailActivity.newIntent(this, false, item.contentId))
-                setOpenActivityAnimation()
-            }
-        )
+        subRankingViewModel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            setCloseActivityAnimation()
+        }
 
-        subRankingViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        subRankingViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { subRankingViewModel.initData(mediaType) }
+        }
 
-        subRankingViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { subRankingViewModel.initData(mediaType) }
-            }
-        )
+        subRankingViewModel.subRankingItemClickEvent.eventObserve(this) { item ->
+            startActivity(ContentDetailActivity.newIntent(this, false, item.contentId))
+            setOpenActivityAnimation()
+        }
     }
 
     private fun onSubRankingItemClick(item: SubRankingModel) {
