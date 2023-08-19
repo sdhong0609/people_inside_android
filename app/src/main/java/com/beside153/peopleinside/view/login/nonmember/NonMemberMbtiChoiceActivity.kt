@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityNonMemberMbtiChoiceBinding
 import com.beside153.peopleinside.model.common.MbtiModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -42,28 +42,22 @@ class NonMemberMbtiChoiceActivity : BaseActivity() {
             mbtiAdapter.submitList(list)
         }
 
-        mbtiChoiceViewmodel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        mbtiChoiceViewmodel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            setCloseActivityAnimation()
+        }
 
-        mbtiChoiceViewmodel.completeButtonClickEvent.observe(
-            this,
-            EventObserver { mbti ->
-                App.prefs.setJwtToken(getString(R.string.nonmember_jwt_token))
-                App.prefs.setUserId(1)
-                App.prefs.setNickname(getString(R.string.nonmember_nickname))
-                App.prefs.setMbti(mbti.uppercase())
-                App.prefs.setIsMember(false)
+        mbtiChoiceViewmodel.completeButtonClickEvent.eventObserve(this) { mbti ->
+            App.prefs.setJwtToken(getString(R.string.nonmember_jwt_token))
+            App.prefs.setUserId(1)
+            App.prefs.setNickname(getString(R.string.nonmember_nickname))
+            App.prefs.setMbti(mbti.uppercase())
+            App.prefs.setIsMember(false)
 
-                startActivity(MainActivity.newIntent(this, false))
-                finishAffinity()
-                setOpenActivityAnimation()
-            }
-        )
+            startActivity(MainActivity.newIntent(this, false))
+            finishAffinity()
+            setOpenActivityAnimation()
+        }
     }
 
     private fun initRecyclerView() {
