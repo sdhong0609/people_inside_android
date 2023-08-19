@@ -8,13 +8,15 @@ open class BaseFragment : Fragment() {
 
     protected fun showErrorDialog(
         errorMessage: ErrorMessage,
-        onClickRefreshButton: () -> Unit
+        onButtonClick: (() -> Unit)? = null
     ) {
         val errorDialog = OneButtonDialog.OneButtonDialogBuilder()
             .setErrorMessage(errorMessage)
             .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
                 override fun onDialogButtonClick() {
-                    onClickRefreshButton()
+                    if (onButtonClick != null) {
+                        onButtonClick()
+                    }
                 }
             }).create()
         errorDialog.show(childFragmentManager, errorDialog.tag)

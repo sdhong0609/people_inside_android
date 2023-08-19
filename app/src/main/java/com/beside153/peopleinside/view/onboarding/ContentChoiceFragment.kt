@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentSignUpContentChoiceBinding
 import com.beside153.peopleinside.model.mediacontent.OnBoardingContentModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.viewmodel.onboarding.ContentChoiceViewModel
@@ -43,21 +43,22 @@ class ContentChoiceFragment : BaseFragment() {
             lifecycleOwner = this@ContentChoiceFragment
         }
 
+        initScreenRecyclerView()
         contentViewModel.initAllData()
 
-        initScreenRecyclerView()
         contentViewModel.screenList.observe(viewLifecycleOwner) { list ->
             contentAdapter.submitList(list)
         }
 
-        contentViewModel.completeButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                startActivity(MainActivity.newIntent(requireActivity(), true))
-                requireActivity().setOpenActivityAnimation()
-                requireActivity().finish()
-            }
-        )
+        contentViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it)
+        }
+
+        contentViewModel.completeButtonClickEvent.eventObserve(viewLifecycleOwner) {
+            startActivity(MainActivity.newIntent(requireActivity(), true))
+            requireActivity().setOpenActivityAnimation()
+            requireActivity().finish()
+        }
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
