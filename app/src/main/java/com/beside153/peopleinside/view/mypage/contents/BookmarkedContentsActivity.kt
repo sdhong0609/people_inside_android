@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityMypageBookmarkContentsBinding
 import com.beside153.peopleinside.model.mycontent.BookmarkedContentModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
@@ -60,34 +60,22 @@ class BookmarkedContentsActivity : BaseActivity() {
             contentsAdapter.submitList(list)
         }
 
-        contentsViewModel.bookmarkCreatedEvent.observe(
-            this,
-            EventObserver { bookmarkCreated ->
-                if (bookmarkCreated) {
-                    showToast(R.string.bookmark_created)
-                    return@EventObserver
-                }
-                showToast(R.string.bookmark_deleted)
-            }
-        )
+        contentsViewModel.backButtonClickEvent.eventObserve(this) {
+            setResult(RESULT_OK)
+            finish()
+            setCloseActivityAnimation()
+        }
+        contentsViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { contentsViewModel.initAllData() }
+        }
 
-        contentsViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                setResult(RESULT_OK)
-                finish()
-                setCloseActivityAnimation()
+        contentsViewModel.bookmarkCreatedEvent.eventObserve(this) { bookmarkCreated ->
+            if (bookmarkCreated) {
+                showToast(R.string.bookmark_created)
+                return@eventObserve
             }
-        )
-
-        contentsViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) {
-                    contentsViewModel.initAllData()
-                }
-            }
-        )
+            showToast(R.string.bookmark_deleted)
+        }
     }
 
     private fun onBookmarkClick(item: BookmarkedContentModel) {

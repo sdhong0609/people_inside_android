@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.common.BirthYearBottomSheetFragment
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel
@@ -53,52 +53,37 @@ class EditProfileFragment : BaseFragment() {
             gender = it
         }
 
-        editProfileViewModel.birthYearClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
-                bottomSheet.show(childFragmentManager, bottomSheet.tag)
-            }
-        )
+        editProfileViewModel.backButtonClickEvent.eventObserve(viewLifecycleOwner) {
+            requireActivity().finish()
+            requireActivity().setCloseActivityAnimation()
+        }
 
-        editProfileViewModel.mbtiChoiceClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                val action =
-                    EditProfileFragmentDirections.actionEditProfileFragmentToEditProfileMbtiChoiceFragment(mbti)
-                findNavController().navigate(action)
-            }
-        )
+        editProfileViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { initSelectedValues() }
+        }
 
-        editProfileViewModel.completeButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                requireActivity().setResult(RESULT_OK)
-                requireActivity().finish()
-                requireActivity().setCloseActivityAnimation()
-            }
-        )
+        editProfileViewModel.birthYearClickEvent.eventObserve(viewLifecycleOwner) {
+            val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
+            bottomSheet.show(childFragmentManager, bottomSheet.tag)
+        }
+
+        editProfileViewModel.mbtiChoiceClickEvent.eventObserve(viewLifecycleOwner) {
+            val action =
+                EditProfileFragmentDirections.actionEditProfileFragmentToEditProfileMbtiChoiceFragment(mbti)
+            findNavController().navigate(action)
+        }
+
+        editProfileViewModel.completeButtonClickEvent.eventObserve(viewLifecycleOwner) {
+            requireActivity().setResult(RESULT_OK)
+            requireActivity().finish()
+            requireActivity().setCloseActivityAnimation()
+        }
 
         editProfileViewModel.nickname.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 editProfileViewModel.setNicknameIsEmpty(false)
             }
         }
-
-        editProfileViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                showErrorDialog(it) { initSelectedValues() }
-            }
-        )
-
-        editProfileViewModel.backButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                requireActivity().finish()
-                requireActivity().setCloseActivityAnimation()
-            }
-        )
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
