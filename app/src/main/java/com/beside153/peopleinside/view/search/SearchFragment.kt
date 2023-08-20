@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentSearchBinding
 import com.beside153.peopleinside.model.mediacontent.SearchHotModel
 import com.beside153.peopleinside.model.mediacontent.SearchedContentModel
 import com.beside153.peopleinside.model.mediacontent.SearchingTitleModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.viewmodel.search.SearchViewModel
@@ -79,42 +79,33 @@ class SearchFragment : BaseFragment() {
             searchScreenAdapter.submitList(list)
         }
 
-        searchViewModel.backButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                findNavController().navigateUp()
-            }
-        )
-
-        searchViewModel.searchCompleteEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                inputMethodManager.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-                binding.searchScreenRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-
-                        val lastVisibleItemPosition =
-                            (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                        val itemTotalCount = recyclerView.adapter!!.itemCount - 1
-
-                        if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
-                            searchViewModel.loadMoreContentList()
-                        }
-                    }
-                })
-            }
-        )
-
-        searchViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                showErrorDialog(it) { searchViewModel.initSearchScreen() }
-            }
-        )
-
         searchViewModel.keyword.observe(viewLifecycleOwner) {
             binding.searchScreenRecyclerView.clearOnScrollListeners()
+        }
+
+        searchViewModel.backButtonClickEvent.eventObserve(viewLifecycleOwner) {
+            findNavController().navigateUp()
+        }
+
+        searchViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { searchViewModel.initSearchScreen() }
+        }
+
+        searchViewModel.searchCompleteEvent.eventObserve(viewLifecycleOwner) {
+            inputMethodManager.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
+            binding.searchScreenRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        searchViewModel.loadMoreContentList()
+                    }
+                }
+            })
         }
     }
 

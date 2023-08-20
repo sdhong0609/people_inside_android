@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityCommunitySearchBinding
 import com.beside153.peopleinside.model.community.post.CommunityPostModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.viewmodel.community.CommunitySearchViewModel
 import com.google.android.flexbox.FlexDirection
@@ -87,20 +87,14 @@ class CommunitySearchActivity : BaseActivity() {
     }
 
     private fun initObserver() {
-        communitySearchViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { communitySearchViewModel.searchPostAction() }
-            }
-        )
+        communitySearchViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { communitySearchViewModel.searchPostAction() }
+        }
 
-        communitySearchViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                overridePendingTransition(0, 0)
-            }
-        )
+        communitySearchViewModel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            overridePendingTransition(0, 0)
+        }
 
         communitySearchViewModel.searchWordList.observe(this) { list ->
             recentSearchWordAdapter.submitList(list)
@@ -110,13 +104,10 @@ class CommunitySearchActivity : BaseActivity() {
             postListAdapter.submitList(list)
         }
 
-        communitySearchViewModel.postItemClickEvent.observe(
-            this,
-            EventObserver { postId ->
-                activityLauncher.launch(PostDetailActivity.newIntent(this, postId))
-                setOpenActivityAnimation()
-            }
-        )
+        communitySearchViewModel.postItemClickEvent.eventObserve(this) { postId ->
+            activityLauncher.launch(PostDetailActivity.newIntent(this, postId))
+            setOpenActivityAnimation()
+        }
     }
 
     private val activityLauncher =

@@ -10,8 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentMyPageBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.mypage.contents.BookmarkedContentsActivity
@@ -45,44 +45,29 @@ class MyPageFragment : BaseFragment() {
 
         myPageViewModel.initAllData()
 
-        myPageViewModel.bookmarkContentsClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                bookmarkContentsActivityLauncher.launch(BookmarkedContentsActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        myPageViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { myPageViewModel.initAllData() }
+        }
 
-        myPageViewModel.ratingContentsClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                ratingContentsActivityLauncher.launch(RatedContentsActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        myPageViewModel.bookmarkContentsClickEvent.eventObserve(viewLifecycleOwner) {
+            bookmarkContentsActivityLauncher.launch(BookmarkedContentsActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        myPageViewModel.editProfileClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                editProfileActivityLauncher.launch(EditProfileActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        myPageViewModel.ratingContentsClickEvent.eventObserve(viewLifecycleOwner) {
+            ratingContentsActivityLauncher.launch(RatedContentsActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        myPageViewModel.settingClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                startActivity(SettingActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        myPageViewModel.editProfileClickEvent.eventObserve(viewLifecycleOwner) {
+            editProfileActivityLauncher.launch(EditProfileActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        myPageViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                showErrorDialog(it) { myPageViewModel.initAllData() }
-            }
-        )
+        myPageViewModel.settingClickEvent.eventObserve(viewLifecycleOwner) {
+            startActivity(SettingActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+        }
     }
 
     private val bookmarkContentsActivityLauncher =

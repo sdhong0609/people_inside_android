@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpTermsViewModel
 
 class SignUpTermsFragment : BaseFragment() {
@@ -36,30 +36,21 @@ class SignUpTermsFragment : BaseFragment() {
             lifecycleOwner = this@SignUpTermsFragment
         }
 
-        termsViewModel.nextButtonClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
-                findNavController().navigate(action)
-            }
-        )
+        termsViewModel.nextButtonClickEvent.eventObserve(viewLifecycleOwner) {
+            val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
+            findNavController().navigate(action)
+        }
 
-        termsViewModel.seeTermsClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
-                startActivity(intent)
-            }
-        )
+        termsViewModel.seeTermsClickEvent.eventObserve(viewLifecycleOwner) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
+            startActivity(intent)
+        }
 
-        termsViewModel.seePrivacyPolicyClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                val intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
-                startActivity(intent)
-            }
-        )
+        termsViewModel.seePrivacyPolicyClickEvent.eventObserve(viewLifecycleOwner) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
+            startActivity(intent)
+        }
     }
 }

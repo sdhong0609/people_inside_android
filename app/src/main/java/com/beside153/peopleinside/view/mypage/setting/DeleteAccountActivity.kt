@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityDeleteAccountBinding
 import com.beside153.peopleinside.model.withdrawal.WithDrawalReasonModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
@@ -51,49 +51,37 @@ class DeleteAccountActivity : BaseActivity() {
 
         deleteAccountViewModel.initReasonList()
 
-        deleteAccountViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
-
-        deleteAccountViewModel.deleteAccountClickEvent.observe(
-            this,
-            EventObserver {
-                val dialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
-                    .setTitle(R.string.delete_account_dialog_title)
-                    .setDescriptionRes(R.string.delete_account_dialog_description)
-                    .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
-                        override fun onClickPositiveButton() {
-                            deleteAccountViewModel.deleteAccount()
-                        }
-
-                        override fun onClickNegativeButton() = Unit
-                    }).create()
-                dialog.show(supportFragmentManager, dialog.tag)
-            }
-        )
-
-        deleteAccountViewModel.deleteAccountSuccessEvent.observe(
-            this,
-            EventObserver {
-                unlinkKakaoAccount()
-                startActivity(LoginActivity.newIntent(this))
-                finishAffinity()
-            }
-        )
-
-        deleteAccountViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { deleteAccountViewModel.initReasonList() }
-            }
-        )
-
         deleteAccountViewModel.withDrawalReasonList.observe(this) { list ->
             reasonAdapter.submitList(list)
+        }
+
+        deleteAccountViewModel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            setCloseActivityAnimation()
+        }
+
+        deleteAccountViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { deleteAccountViewModel.initReasonList() }
+        }
+
+        deleteAccountViewModel.deleteAccountClickEvent.eventObserve(this) {
+            val dialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
+                .setTitle(R.string.delete_account_dialog_title)
+                .setDescriptionRes(R.string.delete_account_dialog_description)
+                .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
+                    override fun onClickPositiveButton() {
+                        deleteAccountViewModel.deleteAccount()
+                    }
+
+                    override fun onClickNegativeButton() = Unit
+                }).create()
+            dialog.show(supportFragmentManager, dialog.tag)
+        }
+
+        deleteAccountViewModel.deleteAccountSuccessEvent.eventObserve(this) {
+            unlinkKakaoAccount()
+            startActivity(LoginActivity.newIntent(this))
+            finishAffinity()
         }
     }
 

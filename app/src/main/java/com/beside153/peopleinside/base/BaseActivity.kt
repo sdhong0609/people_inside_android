@@ -8,13 +8,15 @@ open class BaseActivity : AppCompatActivity() {
 
     protected fun showErrorDialog(
         errorMessage: ErrorMessage,
-        onDialogButtonClick: () -> Unit
+        onButtonClick: (() -> Unit)? = null
     ) {
         val errorDialog = OneButtonDialog.OneButtonDialogBuilder()
             .setErrorMessage(errorMessage)
             .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
                 override fun onDialogButtonClick() {
-                    onDialogButtonClick()
+                    if (onButtonClick != null) {
+                        onButtonClick()
+                    }
                 }
             }).create()
         errorDialog.show(supportFragmentManager, errorDialog.tag)

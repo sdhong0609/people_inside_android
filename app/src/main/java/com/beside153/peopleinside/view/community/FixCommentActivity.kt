@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityFixCommentBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.addBackPressedAnimation
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.viewmodel.community.FixCommentViewModel
@@ -35,29 +35,20 @@ class FixCommentActivity : BaseActivity() {
         val content = intent.getStringExtra("content") ?: ""
         fixCommentViewModel.initData(postId, commentId, content)
 
-        fixCommentViewModel.backButtonClickEvent.observe(
-            this,
-            EventObserver {
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        fixCommentViewModel.backButtonClickEvent.eventObserve(this) {
+            finish()
+            setCloseActivityAnimation()
+        }
 
-        fixCommentViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { fixCommentViewModel.onCompleteButtonClick() }
-            }
-        )
+        fixCommentViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { fixCommentViewModel.onCompleteButtonClick() }
+        }
 
-        fixCommentViewModel.completeFixCommentEvent.observe(
-            this,
-            EventObserver {
-                setResult(R.string.fix_comment_complete)
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
+        fixCommentViewModel.completeFixCommentEvent.eventObserve(this) {
+            setResult(R.string.fix_comment_complete)
+            finish()
+            setCloseActivityAnimation()
+        }
     }
 
     companion object {

@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityLoginBinding
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
@@ -43,40 +43,32 @@ class LoginActivity : BaseActivity() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
         kakaoApi = UserApiClient.instance
 
-        loginViewModel.kakaoLoginClickEvent.observe(
-            this,
-            EventObserver {
-                kakaoLogin()
-            }
-        )
+        loginViewModel.error.eventObserve(this) {
+            showErrorDialog(it)
+        }
 
-        loginViewModel.goToSignUpEvent.observe(
-            this,
-            EventObserver { authToken ->
-                startActivity(SignUpActivity.newIntent(this, authToken))
-                finishAffinity()
-            }
-        )
+        loginViewModel.kakaoLoginClickEvent.eventObserve(this) {
+            kakaoLogin()
+        }
 
-        loginViewModel.onBoardingCompletedEvent.observe(
-            this,
-            EventObserver { completed ->
-                if (completed) {
-                    startActivity(MainActivity.newIntent(this, false))
-                } else {
-                    startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
-                }
-                finishAffinity()
-            }
-        )
+        loginViewModel.goToSignUpEvent.eventObserve(this) { authToken ->
+            startActivity(SignUpActivity.newIntent(this, authToken))
+            finishAffinity()
+        }
 
-        loginViewModel.withoutLoginClickEvent.observe(
-            this,
-            EventObserver {
-                startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
-                setOpenActivityAnimation()
+        loginViewModel.onBoardingCompletedEvent.eventObserve(this) { completed ->
+            if (completed) {
+                startActivity(MainActivity.newIntent(this, false))
+            } else {
+                startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
             }
-        )
+            finishAffinity()
+        }
+
+        loginViewModel.withoutLoginClickEvent.eventObserve(this) {
+            startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
+            setOpenActivityAnimation()
+        }
     }
 
     private val didUserCancel: (error: Throwable) -> Boolean = { error ->

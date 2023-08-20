@@ -10,9 +10,9 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.ActivityFixReviewBinding
 import com.beside153.peopleinside.model.mycontent.RatedContentModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.FixReviewViewModel
@@ -49,30 +49,24 @@ class FixReviewActivity : BaseActivity() {
 
         fixReviewViewModel.initContentItem(contentItem)
 
-        fixReviewViewModel.completeButtonClickEvent.observe(
-            this,
-            EventObserver {
-                val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
-
-                val intent = Intent(this, RatedContentsActivity::class.java)
-                intent.putExtra(FIXED_ITEM, fixReviewViewModel.getFixedItem())
-                setResult(RESULT_OK, intent)
-                finish()
-                setCloseActivityAnimation()
-            }
-        )
-
-        fixReviewViewModel.backButtonClickEvent.observe(this) {
+        fixReviewViewModel.backButtonClickEvent.eventObserve(this) {
             showCancelReviewDialog()
         }
 
-        fixReviewViewModel.error.observe(
-            this,
-            EventObserver {
-                showErrorDialog(it) { fixReviewViewModel.onCompleteButtonClick() }
-            }
-        )
+        fixReviewViewModel.error.eventObserve(this) {
+            showErrorDialog(it) { fixReviewViewModel.onCompleteButtonClick() }
+        }
+
+        fixReviewViewModel.completeButtonClickEvent.eventObserve(this) {
+            val imm = this.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.completeButton.windowToken, 0)
+
+            val intent = Intent(this, RatedContentsActivity::class.java)
+            intent.putExtra(FIXED_ITEM, fixReviewViewModel.getFixedItem())
+            setResult(RESULT_OK, intent)
+            finish()
+            setCloseActivityAnimation()
+        }
     }
 
     private fun showCancelReviewDialog() {

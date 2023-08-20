@@ -15,10 +15,10 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
 import com.beside153.peopleinside.model.mediacontent.Pick10Model
 import com.beside153.peopleinside.model.mediacontent.SubRankingModel
-import com.beside153.peopleinside.util.EventObserver
 import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.dpToPx
 import com.beside153.peopleinside.util.setOpenActivityAnimation
@@ -90,107 +90,80 @@ class RecommendFragment : BaseFragment() {
             pagerAdapter.submitList(list)
         }
 
-        recommendViewModel.pick10ItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { item ->
-                activityResultLauncher.launch(
-                    ContentDetailActivity.newIntent(
-                        requireActivity(),
-                        false,
-                        item.contentId
-                    )
-                )
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+        recommendViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { recommendViewModel.initAllData() }
+        }
 
-        recommendViewModel.topReviewClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { item ->
-                activityResultLauncher.launch(
-                    ContentDetailActivity.newIntent(
-                        requireActivity(),
-                        true,
-                        item.contentId
-                    )
+        recommendViewModel.pick10ItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
+            activityResultLauncher.launch(
+                ContentDetailActivity.newIntent(
+                    requireActivity(),
+                    false,
+                    item.contentId
                 )
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+            )
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        recommendViewModel.refreshPick10ClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                binding.pick10ViewPager.currentItem = 0
-            }
-        )
-
-        recommendViewModel.battleItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { item ->
-                activityResultLauncher.launch(
-                    ContentDetailActivity.newIntent(
-                        requireActivity(),
-                        false,
-                        item.contentId
-                    )
+        recommendViewModel.topReviewClickEvent.eventObserve(viewLifecycleOwner) { item ->
+            activityResultLauncher.launch(
+                ContentDetailActivity.newIntent(
+                    requireActivity(),
+                    true,
+                    item.contentId
                 )
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+            )
+            requireActivity().setOpenActivityAnimation()
+        }
 
-        recommendViewModel.battleItemCommentClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { item ->
-                activityResultLauncher.launch(
-                    ContentDetailActivity.newIntent(
-                        requireActivity(),
-                        true,
-                        item.contentId
-                    )
+        recommendViewModel.refreshPick10ClickEvent.eventObserve(viewLifecycleOwner) {
+            binding.pick10ViewPager.currentItem = 0
+        }
+
+        recommendViewModel.battleItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
+            activityResultLauncher.launch(
+                ContentDetailActivity.newIntent(
+                    requireActivity(),
+                    false,
+                    item.contentId
                 )
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
+            )
+            requireActivity().setOpenActivityAnimation()
+        }
+
+        recommendViewModel.battleItemCommentClickEvent.eventObserve(viewLifecycleOwner) { item ->
+            activityResultLauncher.launch(
+                ContentDetailActivity.newIntent(
+                    requireActivity(),
+                    true,
+                    item.contentId
+                )
+            )
+            requireActivity().setOpenActivityAnimation()
+        }
 
         recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
             rankingAdpater.submitList(list)
         }
 
-        recommendViewModel.subRankingArrowClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { mediaType ->
-                startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), mediaType))
+        recommendViewModel.subRankingArrowClickEvent.eventObserve(viewLifecycleOwner) { mediaType ->
+            startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), mediaType))
+            requireActivity().setOpenActivityAnimation()
+        }
+
+        recommendViewModel.subRankingItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
+            startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
+            requireActivity().setOpenActivityAnimation()
+        }
+
+        recommendViewModel.mbtiImgClickEvent.eventObserve(viewLifecycleOwner) {
+            if (!App.prefs.getIsMember()) {
+                startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
                 requireActivity().setOpenActivityAnimation()
+                return@eventObserve
             }
-        )
-
-        recommendViewModel.subRankingItemClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver { item ->
-                startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
-                requireActivity().setOpenActivityAnimation()
-            }
-        )
-
-        recommendViewModel.error.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                showErrorDialog(it) { recommendViewModel.initAllData() }
-            }
-        )
-
-        recommendViewModel.mbtiImgClickEvent.observe(
-            viewLifecycleOwner,
-            EventObserver {
-                if (!App.prefs.getIsMember()) {
-                    startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
-                    requireActivity().setOpenActivityAnimation()
-                    return@EventObserver
-                }
-                findNavController().navigate(R.id.myPageFragment)
-            }
-        )
+            findNavController().navigate(R.id.myPageFragment)
+        }
     }
 
     private val activityResultLauncher =
