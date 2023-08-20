@@ -25,6 +25,7 @@ import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
 import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
+import com.beside153.peopleinside.viewmodel.recommend.RecommendEvent
 import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -94,75 +95,79 @@ class RecommendFragment : BaseFragment() {
             showErrorDialog(it) { recommendViewModel.initAllData() }
         }
 
-        recommendViewModel.pick10ItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
-            activityResultLauncher.launch(
-                ContentDetailActivity.newIntent(
-                    requireActivity(),
-                    false,
-                    item.contentId
-                )
-            )
-            requireActivity().setOpenActivityAnimation()
-        }
-
-        recommendViewModel.topReviewClickEvent.eventObserve(viewLifecycleOwner) { item ->
-            activityResultLauncher.launch(
-                ContentDetailActivity.newIntent(
-                    requireActivity(),
-                    true,
-                    item.contentId
-                )
-            )
-            requireActivity().setOpenActivityAnimation()
-        }
-
-        recommendViewModel.refreshPick10ClickEvent.eventObserve(viewLifecycleOwner) {
-            binding.pick10ViewPager.currentItem = 0
-        }
-
-        recommendViewModel.battleItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
-            activityResultLauncher.launch(
-                ContentDetailActivity.newIntent(
-                    requireActivity(),
-                    false,
-                    item.contentId
-                )
-            )
-            requireActivity().setOpenActivityAnimation()
-        }
-
-        recommendViewModel.battleItemCommentClickEvent.eventObserve(viewLifecycleOwner) { item ->
-            activityResultLauncher.launch(
-                ContentDetailActivity.newIntent(
-                    requireActivity(),
-                    true,
-                    item.contentId
-                )
-            )
-            requireActivity().setOpenActivityAnimation()
-        }
-
         recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
             rankingAdpater.submitList(list)
         }
 
-        recommendViewModel.subRankingArrowClickEvent.eventObserve(viewLifecycleOwner) { mediaType ->
-            startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), mediaType))
-            requireActivity().setOpenActivityAnimation()
-        }
+        recommendViewModel.recommendEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                is RecommendEvent.Pick10ItemClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            false,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
 
-        recommendViewModel.subRankingItemClickEvent.eventObserve(viewLifecycleOwner) { item ->
-            startActivity(ContentDetailActivity.newIntent(requireActivity(), false, item.contentId))
-            requireActivity().setOpenActivityAnimation()
-        }
+                is RecommendEvent.TopReviewClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            true,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
 
-        recommendViewModel.mbtiImgClickEvent.eventObserve(viewLifecycleOwner) {
-            if (!App.prefs.getIsMember()) {
-                startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-                return@eventObserve
+                is RecommendEvent.BattleItemClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            false,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.BattleItemCommentClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            true,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.SubRankingArrowClick -> {
+                    startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), it.mediaType))
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.SubRankingItemClick -> {
+                    startActivity(ContentDetailActivity.newIntent(requireActivity(), false, it.item.contentId))
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                RecommendEvent.RefreshPick10Click -> {
+                    binding.pick10ViewPager.currentItem = 0
+                }
+
+                RecommendEvent.MbtiImgClick -> {
+                    if (!App.prefs.getIsMember()) {
+                        startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+                        requireActivity().setOpenActivityAnimation()
+                        return@eventObserve
+                    }
+                    findNavController().navigate(R.id.myPageFragment)
+                }
             }
-            findNavController().navigate(R.id.myPageFragment)
         }
     }
 
