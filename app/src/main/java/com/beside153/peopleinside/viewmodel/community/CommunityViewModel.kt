@@ -12,21 +12,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface CommunityEvent {
+    object SearchBarClick : CommunityEvent
+    object WritePostClick : CommunityEvent
+    data class PostItemClick(val postId: Long) : CommunityEvent
+}
+
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val communityPostService: CommunityPostService
 ) : BaseViewModel() {
-    private val _searchBarClickEvent = MutableLiveData<Event<Unit>>()
-    val searchBarClickEvent: LiveData<Event<Unit>> get() = _searchBarClickEvent
-
-    private val _writePostClickEvent = MutableLiveData<Event<Unit>>()
-    val writePostClickEvent: LiveData<Event<Unit>> get() = _writePostClickEvent
-
     private val _postList = MutableLiveData<List<CommunityPostModel>>()
     val postList: LiveData<List<CommunityPostModel>> get() = _postList
 
-    private val _postItemClickEvent = MutableLiveData<Event<Long>>()
-    val postItemClickEvent: LiveData<Event<Long>> get() = _postItemClickEvent
+    private val _communityEvent = MutableLiveData<Event<CommunityEvent>>()
+    val communityEvent: LiveData<Event<CommunityEvent>> get() = _communityEvent
 
     private var page = 1
 
@@ -61,15 +61,15 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    fun onPostItemClick(item: CommunityPostModel) {
-        _postItemClickEvent.value = Event(item.postId)
-    }
-
     fun onCommunitySearchBarClick() {
-        _searchBarClickEvent.value = Event(Unit)
+        _communityEvent.value = Event(CommunityEvent.SearchBarClick)
     }
 
     fun onWritePostClick() {
-        _writePostClickEvent.value = Event(Unit)
+        _communityEvent.value = Event(CommunityEvent.WritePostClick)
+    }
+
+    fun onPostItemClick(item: CommunityPostModel) {
+        _communityEvent.value = Event(CommunityEvent.PostItemClick(item.postId))
     }
 }

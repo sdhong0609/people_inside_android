@@ -20,6 +20,11 @@ enum class PostMode {
     CREATE, FIX
 }
 
+sealed interface CreatePostEvent {
+    data class CompletePost(val postMode: PostMode) : CreatePostEvent
+    object ShowBadWordDialog : CreatePostEvent
+}
+
 @HiltViewModel
 class CreatePostViewModel @Inject constructor(
     private val communityPostService: CommunityPostService
@@ -33,14 +38,11 @@ class CreatePostViewModel @Inject constructor(
     private val _mbtiTagList = MutableLiveData<List<MbtiTagModel>>()
     val mbtiTagList: LiveData<List<MbtiTagModel>> get() = _mbtiTagList
 
-    private val _completePostEvent = MutableLiveData<Event<PostMode>>()
-    val completePostEvent: LiveData<Event<PostMode>> get() = _completePostEvent
-
     private val _isFixPost = MutableLiveData(false)
     val isFixPost: LiveData<Boolean> get() = _isFixPost
 
-    private val _showBadWordDialogEvent = MutableLiveData<Event<Unit>>()
-    val showBadWordDialogEvent: LiveData<Event<Unit>> get() = _showBadWordDialogEvent
+    private val _createPostEvent = MutableLiveData<Event<CreatePostEvent>>()
+    val createPostEvent: LiveData<Event<CreatePostEvent>> = _createPostEvent
 
     private var selectedMbtiList = mutableListOf<String>()
     private var mbtiRequest = Mbti()
@@ -122,7 +124,7 @@ class CreatePostViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     if (t.error.statusCode == 403) {
-                        _showBadWordDialogEvent.value = Event(Unit)
+                        _createPostEvent.value = Event(CreatePostEvent.ShowBadWordDialog)
                     } else {
                         exceptionHandler.handleException(context, t)
                     }
@@ -162,7 +164,7 @@ class CreatePostViewModel @Inject constructor(
                         mbtiRequest
                     )
                 )
-                _completePostEvent.value = Event(PostMode.FIX)
+                _createPostEvent.value = Event(CreatePostEvent.CompletePost(PostMode.FIX))
                 return@launch
             }
             communityPostService.postCommunityPost(
@@ -172,7 +174,7 @@ class CreatePostViewModel @Inject constructor(
                     mbtiRequest
                 )
             )
-            _completePostEvent.value = Event(PostMode.CREATE)
+            _createPostEvent.value = Event(CreatePostEvent.CompletePost(PostMode.CREATE))
         }
     }
 }
