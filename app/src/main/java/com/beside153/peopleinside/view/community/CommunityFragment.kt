@@ -20,6 +20,7 @@ import com.beside153.peopleinside.model.community.post.CommunityPostModel
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
+import com.beside153.peopleinside.viewmodel.community.CommunityEvent
 import com.beside153.peopleinside.viewmodel.community.CommunityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -72,23 +73,27 @@ class CommunityFragment : BaseFragment() {
             showErrorDialog(it) { communityViewModel.initPostList() }
         }
 
-        communityViewModel.searchBarClickEvent.eventObserve(viewLifecycleOwner) {
-            startActivity(CommunitySearchActivity.newIntent(requireActivity()))
-        }
+        communityViewModel.communityEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                CommunityEvent.SearchBarClick -> {
+                    startActivity(CommunitySearchActivity.newIntent(requireActivity()))
+                }
 
-        communityViewModel.writePostClickEvent.eventObserve(viewLifecycleOwner) {
-            if (App.prefs.getIsMember()) {
-                activityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
-                requireActivity().setOpenActivityAnimation()
-                return@eventObserve
+                CommunityEvent.WritePostClick -> {
+                    if (App.prefs.getIsMember()) {
+                        activityLauncher.launch(CreatePostActivity.newIntent(requireActivity()))
+                        requireActivity().setOpenActivityAnimation()
+                        return@eventObserve
+                    }
+                    startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is CommunityEvent.PostItemClick -> {
+                    activityLauncher.launch(PostDetailActivity.newIntent(requireActivity(), it.postId))
+                    requireActivity().setOpenActivityAnimation()
+                }
             }
-            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
-            requireActivity().setOpenActivityAnimation()
-        }
-
-        communityViewModel.postItemClickEvent.eventObserve(viewLifecycleOwner) { postId ->
-            activityLauncher.launch(PostDetailActivity.newIntent(requireActivity(), postId))
-            requireActivity().setOpenActivityAnimation()
         }
     }
 

@@ -15,6 +15,7 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.view.login.nonmember.NonMemberMbtiChoiceActivity
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
+import com.beside153.peopleinside.viewmodel.login.LoginEvent
 import com.beside153.peopleinside.viewmodel.login.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -47,27 +48,28 @@ class LoginActivity : BaseActivity() {
             showErrorDialog(it)
         }
 
-        loginViewModel.kakaoLoginClickEvent.eventObserve(this) {
-            kakaoLogin()
-        }
+        loginViewModel.loginEvent.eventObserve(this) {
+            when (it) {
+                LoginEvent.KakaoLoginClick -> kakaoLogin()
+                LoginEvent.WithoutLoginClick -> {
+                    startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
+                    setOpenActivityAnimation()
+                }
 
-        loginViewModel.goToSignUpEvent.eventObserve(this) { authToken ->
-            startActivity(SignUpActivity.newIntent(this, authToken))
-            finishAffinity()
-        }
+                is LoginEvent.GoToSignUp -> {
+                    startActivity(SignUpActivity.newIntent(this, it.authToken))
+                    finishAffinity()
+                }
 
-        loginViewModel.onBoardingCompletedEvent.eventObserve(this) { completed ->
-            if (completed) {
-                startActivity(MainActivity.newIntent(this, false))
-            } else {
-                startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                is LoginEvent.OnBoardingCompleted -> {
+                    if (it.isCompleted) {
+                        startActivity(MainActivity.newIntent(this, false))
+                    } else {
+                        startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                    }
+                    finishAffinity()
+                }
             }
-            finishAffinity()
-        }
-
-        loginViewModel.withoutLoginClickEvent.eventObserve(this) {
-            startActivity(NonMemberMbtiChoiceActivity.newIntent(this))
-            setOpenActivityAnimation()
         }
     }
 

@@ -14,20 +14,20 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface NonMemberLoginEvent {
+    object KakaoLoginClick : NonMemberLoginEvent
+    data class GoToSignUp(val authToken: String) : NonMemberLoginEvent
+    data class OnBoardingCompleted(val isCompleted: Boolean) : NonMemberLoginEvent
+}
+
 @HiltViewModel
 class NonMemberLoginViewModel @Inject constructor(
     private val authService: AuthService,
     private val userService: UserService
 ) : BaseViewModel() {
 
-    private val _kakaoLoginClickEvent = MutableLiveData<Event<Unit>>()
-    val kakaoLoginClickEvent: LiveData<Event<Unit>> get() = _kakaoLoginClickEvent
-
-    private val _goToSignUpEvent = MutableLiveData<Event<String>>()
-    val goToSignUpEvent: LiveData<Event<String>> get() = _goToSignUpEvent
-
-    private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
-    val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
+    private val _nonMemberLoginEvent = MutableLiveData<Event<NonMemberLoginEvent>>()
+    val nonMemberLoginEvent: LiveData<Event<NonMemberLoginEvent>> = _nonMemberLoginEvent
 
     private var authToken = ""
 
@@ -36,7 +36,7 @@ class NonMemberLoginViewModel @Inject constructor(
     }
 
     fun onKakaoLoginClick() {
-        _kakaoLoginClickEvent.value = Event(Unit)
+        _nonMemberLoginEvent.value = Event(NonMemberLoginEvent.KakaoLoginClick)
     }
 
     fun peopleInsideLogin() {
@@ -44,7 +44,7 @@ class NonMemberLoginViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     if (t.error.statusCode == 401) {
-                        _goToSignUpEvent.value = Event(authToken)
+                        _nonMemberLoginEvent.value = Event(NonMemberLoginEvent.GoToSignUp(authToken))
                     } else {
                         exceptionHandler.handleException(context, t)
                     }
@@ -70,9 +70,9 @@ class NonMemberLoginViewModel @Inject constructor(
             val onBoardingCompleted = userService.getOnBoardingCompleted(user.userId)
 
             if (onBoardingCompleted) {
-                _onBoardingCompletedEvent.value = Event(true)
+                _nonMemberLoginEvent.value = Event(NonMemberLoginEvent.OnBoardingCompleted(true))
             } else {
-                _onBoardingCompletedEvent.value = Event(false)
+                _nonMemberLoginEvent.value = Event(NonMemberLoginEvent.OnBoardingCompleted(false))
             }
         }
     }

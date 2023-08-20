@@ -16,6 +16,7 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.setOpenActivityAnimation
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.LoginActivity
+import com.beside153.peopleinside.viewmodel.mypage.setting.SettingEvent
 import com.beside153.peopleinside.viewmodel.mypage.setting.SettingViewModel
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
@@ -56,46 +57,52 @@ class SettingActivity : BaseActivity() {
             showErrorDialog(it) { settingViewModel.setAppVersionName() }
         }
 
-        settingViewModel.termsClickEvent.eventObserve(this) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
-            startActivity(intent)
-        }
+        settingViewModel.settingEvent.eventObserve(this) {
+            when (it) {
+                SettingEvent.TermsClick -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
+                    startActivity(intent)
+                }
 
-        settingViewModel.privacyPolicyClickEvent.eventObserve(this) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
-            startActivity(intent)
-        }
+                SettingEvent.PrivacyPolicyClick -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
+                    startActivity(intent)
+                }
 
-        settingViewModel.updateClickEvent.eventObserve(this) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.beside153.peopleinside")
-            startActivity(intent)
-        }
+                SettingEvent.UpdateClick -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.beside153.peopleinside")
+                    startActivity(intent)
+                }
 
-        settingViewModel.logoutClickEvent.eventObserve(this) {
-            val logoutDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
-                .setTitle(R.string.logout)
-                .setDescriptionRes(R.string.you_may_use_after_login)
-                .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
-                    override fun onClickPositiveButton() {
-                        logoutKakaoAccount()
-                        App.prefs.setUserId(0)
-                        App.prefs.setNickname("")
-                        startActivity(LoginActivity.newIntent(this@SettingActivity))
-                        finishAffinity()
-                    }
+                SettingEvent.LogoutClick -> showLogoutDialog()
 
-                    override fun onClickNegativeButton() = Unit
-                }).create()
-            logoutDialog.show(supportFragmentManager, logoutDialog.tag)
+                SettingEvent.DeleteAccountClick -> {
+                    startActivity(DeleteAccountActivity.newIntent(this))
+                    setOpenActivityAnimation()
+                }
+            }
         }
+    }
 
-        settingViewModel.deleteAccountEvent.eventObserve(this) {
-            startActivity(DeleteAccountActivity.newIntent(this))
-            setOpenActivityAnimation()
-        }
+    private fun showLogoutDialog() {
+        val logoutDialog = TwoButtonsDialog.TwoButtonsDialogBuilder()
+            .setTitle(R.string.logout)
+            .setDescriptionRes(R.string.you_may_use_after_login)
+            .setButtonClickListener(object : TwoButtonsDialog.TwoButtonsDialogListener {
+                override fun onClickPositiveButton() {
+                    logoutKakaoAccount()
+                    App.prefs.setUserId(0)
+                    App.prefs.setNickname("")
+                    startActivity(LoginActivity.newIntent(this@SettingActivity))
+                    finishAffinity()
+                }
+
+                override fun onClickNegativeButton() = Unit
+            }).create()
+        logoutDialog.show(supportFragmentManager, logoutDialog.tag)
     }
 
     private fun logoutKakaoAccount() {
@@ -109,7 +116,6 @@ class SettingActivity : BaseActivity() {
     }
 
     companion object {
-
         fun newIntent(context: Context): Intent {
             return Intent(context, SettingActivity::class.java)
         }

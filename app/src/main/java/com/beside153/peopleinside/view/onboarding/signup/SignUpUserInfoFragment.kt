@@ -14,6 +14,7 @@ import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentSignUpUserInfoBinding
 import com.beside153.peopleinside.view.common.BirthYearBottomSheetFragment
+import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpUserInfoEvent
 import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpUserInfoViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -69,28 +70,32 @@ class SignUpUserInfoFragment : BaseFragment() {
             showErrorDialog(it) { userInfoViewModel.onSignUpButtonClick() }
         }
 
-        userInfoViewModel.birthYearClickEvent.eventObserve(viewLifecycleOwner) {
-            val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
-            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-        }
+        userInfoViewModel.signUpUserInfoEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                SignUpUserInfoEvent.BirthYearClick -> {
+                    val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
+                    bottomSheet.show(childFragmentManager, bottomSheet.tag)
+                }
 
-        userInfoViewModel.mbtiChoiceClickEvent.eventObserve(viewLifecycleOwner) {
-            val action =
-                SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment(mbti)
-            findNavController().navigate(action)
-        }
+                SignUpUserInfoEvent.MbtiChoiceClick -> {
+                    val action =
+                        SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpMbtiChoiceFragment(mbti)
+                    findNavController().navigate(action)
+                }
 
-        userInfoViewModel.signUpButtonClickEvent.eventObserve(viewLifecycleOwner) {
-            firebaseAnalytics.logEvent("회원가입") {
-                param("유저_ID", App.prefs.getUserId().toString())
-                param("유저명", App.prefs.getNickname())
-                param("유저_MBTI", App.prefs.getMbti())
-                param("소셜로그인_경로", "KAKAO")
+                SignUpUserInfoEvent.SignUpButtonClick -> {
+                    firebaseAnalytics.logEvent("회원가입") {
+                        param("유저_ID", App.prefs.getUserId().toString())
+                        param("유저명", App.prefs.getNickname())
+                        param("유저_MBTI", App.prefs.getMbti())
+                        param("소셜로그인_경로", "KAKAO")
+                    }
+
+                    val action =
+                        SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
+                    findNavController().navigate(action)
+                }
             }
-
-            val action =
-                SignUpUserInfoFragmentDirections.actionSignUpUserInfoFragmentToSignUpContentChoiceFragment()
-            findNavController().navigate(action)
         }
     }
 

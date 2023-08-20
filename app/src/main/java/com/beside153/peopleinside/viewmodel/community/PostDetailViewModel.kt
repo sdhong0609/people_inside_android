@@ -27,6 +27,17 @@ data class CommentFixModel(
     val commentContent: String
 )
 
+sealed interface PostDetailEvent {
+    object CompleteUploadComment : PostDetailEvent
+    object CompleteDeletePost : PostDetailEvent
+    object CompleteDeleteComment : PostDetailEvent
+    object CompleteReport : PostDetailEvent
+    object GoToNonMemberLogin : PostDetailEvent
+    data class PostDotsClick(val isMyPost: Boolean) : PostDetailEvent
+    data class CommentDotsClick(val isMyComment: Boolean) : PostDetailEvent
+    data class CommentFixClick(val commentFixModel: CommentFixModel) : PostDetailEvent
+}
+
 @HiltViewModel
 class PostDetailViewModel @Inject constructor(
     private val communityPostService: CommunityPostService,
@@ -44,29 +55,8 @@ class PostDetailViewModel @Inject constructor(
     private val _isUploadCommentEnabled = MutableLiveData(false)
     val isUploadCommentEnabled: LiveData<Boolean> get() = _isUploadCommentEnabled
 
-    private val _completeUploadCommentEvent = MutableLiveData<Event<Unit>>()
-    val completeUploadCommentEvent: LiveData<Event<Unit>> get() = _completeUploadCommentEvent
-
-    private val _postDotsClickEvent = MutableLiveData<Event<Boolean>>()
-    val postDotsClickEvent: LiveData<Event<Boolean>> get() = _postDotsClickEvent
-
-    private val _commentDotsClickEvent = MutableLiveData<Event<Boolean>>()
-    val commentDotsClickEvent: LiveData<Event<Boolean>> get() = _commentDotsClickEvent
-
-    private val _commentFixClickEvent = MutableLiveData<Event<CommentFixModel>>()
-    val commentFixClickEvent: LiveData<Event<CommentFixModel>> get() = _commentFixClickEvent
-
-    private val _completeDeletePostEvent = MutableLiveData<Event<Unit>>()
-    val completeDeletePostEvent: LiveData<Event<Unit>> get() = _completeDeletePostEvent
-
-    private val _completeDeleteCommentEvent = MutableLiveData<Event<Unit>>()
-    val completeDeleteCommentEvent: LiveData<Event<Unit>> get() = _completeDeleteCommentEvent
-
-    private val _completeReportEvent = MutableLiveData<Event<Unit>>()
-    val completeReportEvent: LiveData<Event<Unit>> get() = _completeReportEvent
-
-    private val _goToNonMemberLoginEvent = MutableLiveData<Event<Unit>>()
-    val goToNonMemberLoginEvent: LiveData<Event<Unit>> get() = _goToNonMemberLoginEvent
+    private val _postDetailEvent = MutableLiveData<Event<PostDetailEvent>>()
+    val postDetailEvent: LiveData<Event<PostDetailEvent>> = _postDetailEvent
 
     private var postId = 1L
     private var postDetailItem: CommunityPostModel? = null
@@ -129,67 +119,68 @@ class PostDetailViewModel @Inject constructor(
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.postCommunityComment(postId, CreateContentRequest(commentText.value ?: ""))
             commentText.value = ""
-            _completeUploadCommentEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.CompleteUploadComment)
         }
     }
 
     fun onPostVerticalDotsClick() {
         if (!App.prefs.getIsMember()) {
-            _goToNonMemberLoginEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.GoToNonMemberLogin)
             return
         }
         if (App.prefs.getUserId().toLong() == (postDetailItem?.author?.userId ?: 1L)) {
-            _postDotsClickEvent.value = Event(true)
+            _postDetailEvent.value = Event(PostDetailEvent.PostDotsClick(true))
             return
         }
-        _postDotsClickEvent.value = Event(false)
+        _postDetailEvent.value = Event(PostDetailEvent.PostDotsClick(false))
     }
 
     override fun onCommentDotsClick(item: CommunityCommentModel) {
         if (!App.prefs.getIsMember()) {
-            _goToNonMemberLoginEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.GoToNonMemberLogin)
             return
         }
 
         selectedCommentId = item.commentId
         selectedCommentContent = item.content
         if (App.prefs.getUserId().toLong() == item.author.userId) {
-            _commentDotsClickEvent.value = Event(true)
+            _postDetailEvent.value = Event(PostDetailEvent.CommentDotsClick(true))
             return
         }
-        _commentDotsClickEvent.value = Event(false)
+        _postDetailEvent.value = Event(PostDetailEvent.CommentDotsClick(false))
     }
 
     fun onCommentFixClick() {
-        _commentFixClickEvent.value = Event(CommentFixModel(postId, selectedCommentId, selectedCommentContent))
+        _postDetailEvent.value =
+            Event(PostDetailEvent.CommentFixClick(CommentFixModel(postId, selectedCommentId, selectedCommentContent)))
     }
 
     fun deletePost() {
         viewModelScope.launch(exceptionHandler) {
             communityPostService.deleteCommunityPost(postId)
-            _completeDeletePostEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.CompleteDeletePost)
         }
     }
 
     fun deleteComment() {
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.deleteCommunityComment(postId, selectedCommentId)
-            _completeDeleteCommentEvent.value = Event(Unit)
-            this@PostDetailViewModel.initAllData()
+            _postDetailEvent.value = Event(PostDetailEvent.CompleteDeleteComment)
+            initAllData()
         }
     }
 
     fun reportPost(reportId: Int) {
         viewModelScope.launch(exceptionHandler) {
             communityPostService.postCommunityPostReport(postId, reportId)
-            _completeReportEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.CompleteReport)
         }
     }
 
     fun reportComment(reportId: Int) {
         viewModelScope.launch(exceptionHandler) {
             communityCommentService.postCommunityCommentReport(postId, selectedCommentId, reportId)
-            _completeReportEvent.value = Event(Unit)
+            _postDetailEvent.value = Event(PostDetailEvent.CompleteReport)
         }
     }
 }

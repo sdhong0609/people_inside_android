@@ -19,6 +19,7 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.dialog.OneButtonDialog
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
+import com.beside153.peopleinside.viewmodel.community.CreatePostEvent
 import com.beside153.peopleinside.viewmodel.community.CreatePostViewModel
 import com.beside153.peopleinside.viewmodel.community.PostMode
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,35 +76,39 @@ class CreatePostActivity : BaseActivity() {
             showErrorDialog(it) { createPostViewModel.onCompleteButtonClick() }
         }
 
-        createPostViewModel.showBadWordDialogEvent.eventObserve(this) {
-            val badWordDialog = OneButtonDialog.OneButtonDialogBuilder()
-                .setTitleRes(R.string.bad_word_dialog_title)
-                .setDescriptionRes(R.string.bad_word_dialog_description)
-                .setButtonTextRes(R.string.fix)
-                .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
-                    override fun onDialogButtonClick() = Unit
-                }).create()
-            badWordDialog.show(supportFragmentManager, badWordDialog.tag)
-        }
+        createPostViewModel.createPostEvent.eventObserve(this) {
+            when (it) {
+                CreatePostEvent.ShowBadWordDialog -> {
+                    val badWordDialog = OneButtonDialog.OneButtonDialogBuilder()
+                        .setTitleRes(R.string.bad_word_dialog_title)
+                        .setDescriptionRes(R.string.bad_word_dialog_description)
+                        .setButtonTextRes(R.string.fix)
+                        .setButtonClickListener(object : OneButtonDialog.OneButtonDialogListener {
+                            override fun onDialogButtonClick() = Unit
+                        }).create()
+                    badWordDialog.show(supportFragmentManager, badWordDialog.tag)
+                }
 
-        createPostViewModel.completePostEvent.eventObserve(this) {
-            inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (it == PostMode.CREATE) {
-                    showToast(R.string.complete_create_post)
-                } else {
-                    showToast(R.string.complete_fix_post)
+                is CreatePostEvent.CompletePost -> {
+                    inputMethodManager.hideSoftInputFromWindow(binding.postContentEditText.windowToken, 0)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (it.postMode == PostMode.CREATE) {
+                            showToast(R.string.complete_create_post)
+                        } else {
+                            showToast(R.string.complete_fix_post)
+                        }
+                    }, TOAST_DURATION)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (it.postMode == PostMode.CREATE) {
+                            setResult(R.string.complete_create_post)
+                        } else {
+                            setResult(R.string.complete_fix_post)
+                        }
+                        finish()
+                        setCloseActivityAnimation()
+                    }, GO_BACK_DURATION)
                 }
-            }, TOAST_DURATION)
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (it == PostMode.CREATE) {
-                    setResult(R.string.complete_create_post)
-                } else {
-                    setResult(R.string.complete_fix_post)
-                }
-                finish()
-                setCloseActivityAnimation()
-            }, GO_BACK_DURATION)
+            }
         }
     }
 

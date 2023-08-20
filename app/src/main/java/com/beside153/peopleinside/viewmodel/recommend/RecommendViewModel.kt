@@ -18,6 +18,17 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface RecommendEvent {
+    data class Pick10ItemClick(val item: Pick10Model) : RecommendEvent
+    data class TopReviewClick(val item: Pick10Model) : RecommendEvent
+    data class BattleItemClick(val item: RatingBattleModel) : RecommendEvent
+    data class BattleItemCommentClick(val item: RatingBattleModel) : RecommendEvent
+    data class SubRankingArrowClick(val mediaType: String) : RecommendEvent
+    data class SubRankingItemClick(val item: SubRankingModel) : RecommendEvent
+    object MbtiImgClick : RecommendEvent
+    object RefreshPick10Click : RecommendEvent
+}
+
 @HiltViewModel
 class RecommendViewModel @Inject constructor(
     private val mediaContentService: MediaContentService,
@@ -30,29 +41,14 @@ class RecommendViewModel @Inject constructor(
     private val _viewPagerList = MutableLiveData<List<Pick10ViewPagerModel>>()
     val viewPagerList: LiveData<List<Pick10ViewPagerModel>> get() = _viewPagerList
 
-    private val _pick10ItemClickEvent = MutableLiveData<Event<Pick10Model>>()
-    val pick10ItemClickEvent: LiveData<Event<Pick10Model>> get() = _pick10ItemClickEvent
-
-    private val _topReviewClickEvent = MutableLiveData<Event<Pick10Model>>()
-    val topReviewClickEvent: LiveData<Event<Pick10Model>> get() = _topReviewClickEvent
-
     private val _pick10ProgressBarVisible = MutableLiveData(false)
     val pick10ProgressBarVisible: LiveData<Boolean> get() = _pick10ProgressBarVisible
-
-    private val _refreshPick10ClickEvent = MutableLiveData<Event<Unit>>()
-    val refreshPick10ClickEvent: LiveData<Event<Unit>> get() = _refreshPick10ClickEvent
 
     private val _movieBattleItem = MutableLiveData<RatingBattleModel>()
     val movieBattleItem: LiveData<RatingBattleModel> get() = _movieBattleItem
 
     private val _tvBattleItem = MutableLiveData<RatingBattleModel>()
     val tvBattleItem: LiveData<RatingBattleModel> get() = _tvBattleItem
-
-    private val _battleItemClickEvent = MutableLiveData<Event<RatingBattleModel>>()
-    val battleItemClickEvent: LiveData<Event<RatingBattleModel>> get() = _battleItemClickEvent
-
-    private val _battleItemCommentClickEvent = MutableLiveData<Event<RatingBattleModel>>()
-    val battleItemCommentClickEvent: LiveData<Event<RatingBattleModel>> get() = _battleItemCommentClickEvent
 
     private val _subRankingList = MutableLiveData<List<SubRankingModel>>()
     val subRankingList: LiveData<List<SubRankingModel>> get() = _subRankingList
@@ -63,14 +59,8 @@ class RecommendViewModel @Inject constructor(
     private val _selectedTab = MutableLiveData("all")
     val selectedTab: LiveData<String> get() = _selectedTab
 
-    private val _subRankingArrowClickEvent = MutableLiveData<Event<String>>()
-    val subRankingArrowClickEvent: LiveData<Event<String>> get() = _subRankingArrowClickEvent
-
-    private val _subRankingItemClickEvent = MutableLiveData<Event<SubRankingModel>>()
-    val subRankingItemClickEvent: LiveData<Event<SubRankingModel>> get() = _subRankingItemClickEvent
-
-    private val _mbtiImgClickEvent = MutableLiveData<Event<Unit>>()
-    val mbtiImgClickEvent: LiveData<Event<Unit>> get() = _mbtiImgClickEvent
+    private val _recommendEvent = MutableLiveData<Event<RecommendEvent>>()
+    val recommendEvent: LiveData<Event<RecommendEvent>> = _recommendEvent
 
     private var pick10PageCount = 1
     private var pick10List = listOf<Pick10Model>()
@@ -98,7 +88,7 @@ class RecommendViewModel @Inject constructor(
     }
 
     fun onMbtiImgClick() {
-        _mbtiImgClickEvent.value = Event(Unit)
+        _recommendEvent.value = Event(RecommendEvent.MbtiImgClick)
     }
 
     fun refreshPick10List() {
@@ -106,7 +96,7 @@ class RecommendViewModel @Inject constructor(
             _pick10ProgressBarVisible.value = true
             pick10List = mediaContentService.getPick10List(++pick10PageCount)
             _viewPagerList.value = viewPagerList()
-            _refreshPick10ClickEvent.value = Event(Unit)
+            _recommendEvent.value = Event(RecommendEvent.RefreshPick10Click)
             Handler(Looper.getMainLooper()).postDelayed({
                 _pick10ProgressBarVisible.value = false
             }, REFRESH_TIME)
@@ -142,27 +132,27 @@ class RecommendViewModel @Inject constructor(
     }
 
     fun onPick10ItemClick(item: Pick10Model) {
-        _pick10ItemClickEvent.value = Event(item)
+        _recommendEvent.value = Event(RecommendEvent.Pick10ItemClick(item))
     }
 
     fun onTopReviewClick(item: Pick10Model) {
-        _topReviewClickEvent.value = Event(item)
+        _recommendEvent.value = Event(RecommendEvent.TopReviewClick(item))
     }
 
     fun onBattleItemClick(item: RatingBattleModel) {
-        _battleItemClickEvent.value = Event(item)
+        _recommendEvent.value = Event(RecommendEvent.BattleItemClick(item))
     }
 
     fun onBattleCommentClick(item: RatingBattleModel) {
-        _battleItemCommentClickEvent.value = Event(item)
+        _recommendEvent.value = Event(RecommendEvent.BattleItemCommentClick(item))
     }
 
     fun onSubRankingArrowClick() {
-        _subRankingArrowClickEvent.value = Event(_selectedTab.value ?: "all")
+        _recommendEvent.value = Event(RecommendEvent.SubRankingArrowClick(_selectedTab.value ?: "all"))
     }
 
     fun onSubRankingItemClick(item: SubRankingModel) {
-        _subRankingItemClickEvent.value = Event(item)
+        _recommendEvent.value = Event(RecommendEvent.SubRankingItemClick(item))
     }
 
     fun setSelectedTab(tab: String) {

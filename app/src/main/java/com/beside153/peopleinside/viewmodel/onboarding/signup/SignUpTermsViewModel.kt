@@ -5,6 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.beside153.peopleinside.util.Event
 
+sealed interface SignUpTermsEvent {
+    object SeeTermsClick : SignUpTermsEvent
+    object SeePrivacyPolicyClick : SignUpTermsEvent
+    object NextButtonClick : SignUpTermsEvent
+}
+
 class SignUpTermsViewModel : ViewModel() {
 
     private val _didCheckAll = MutableLiveData(false)
@@ -19,17 +25,11 @@ class SignUpTermsViewModel : ViewModel() {
     private val _didCheckThird = MutableLiveData(false)
     val didCheckThird: LiveData<Boolean> get() = _didCheckThird
 
-    private val _seeTermsClickEvent = MutableLiveData<Event<Unit>>()
-    val seeTermsClickEvent: LiveData<Event<Unit>> get() = _seeTermsClickEvent
-
-    private val _seePrivacyPolicyClickEvent = MutableLiveData<Event<Unit>>()
-    val seePrivacyPolicyClickEvent: LiveData<Event<Unit>> get() = _seePrivacyPolicyClickEvent
-
     private val _isNextButtonEnable = MutableLiveData(false)
     val isNextButtonEnable: LiveData<Boolean> get() = _isNextButtonEnable
 
-    private val _nextButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val nextButtonClickEvent: LiveData<Event<Unit>> get() = _nextButtonClickEvent
+    private val _signUpTermsEvent = MutableLiveData<Event<SignUpTermsEvent>>()
+    val signUpTermsEvent: LiveData<Event<SignUpTermsEvent>> = _signUpTermsEvent
 
     fun onAllClick() {
         if (_didCheckAll.value == false) {
@@ -72,14 +72,14 @@ class SignUpTermsViewModel : ViewModel() {
     }
 
     fun onNextButtonClick() {
-        _nextButtonClickEvent.value = Event(Unit)
+        _signUpTermsEvent.value = Event(SignUpTermsEvent.NextButtonClick)
     }
 
     fun onSeeTermsClick() {
-        _seeTermsClickEvent.value = Event(Unit)
+        _signUpTermsEvent.value = Event(SignUpTermsEvent.SeeTermsClick)
     }
 
     fun onSeePrivacyPolicyClick() {
-        _seePrivacyPolicyClickEvent.value = Event(Unit)
+        _signUpTermsEvent.value = Event(SignUpTermsEvent.SeePrivacyPolicyClick)
     }
 }

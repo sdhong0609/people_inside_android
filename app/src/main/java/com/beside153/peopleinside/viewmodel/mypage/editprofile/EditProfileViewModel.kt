@@ -14,6 +14,12 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface EditProfileEvent {
+    object BirthYearClick : EditProfileEvent
+    object MbtiChoiceClick : EditProfileEvent
+    object CompleteButtonClick : EditProfileEvent
+}
+
 @HiltViewModel
 class EditProfileViewModel @Inject constructor(
     private val userService: UserService
@@ -24,12 +30,6 @@ class EditProfileViewModel @Inject constructor(
     private val _nicknameCount = MutableLiveData(0)
     val nicknameCount: LiveData<Int> get() = _nicknameCount
 
-    private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
-    val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
-
-    private val _mbtiChoiceClickEvent = MutableLiveData<Event<Unit>>()
-    val mbtiChoiceClickEvent: LiveData<Event<Unit>> get() = _mbtiChoiceClickEvent
-
     private val _selectedGender = MutableLiveData("")
     val selectedGender: LiveData<String> get() = _selectedGender
 
@@ -38,9 +38,6 @@ class EditProfileViewModel @Inject constructor(
 
     private val _selectedMbti = MutableLiveData("")
     val selectedMbti: LiveData<String> get() = _selectedMbti
-
-    private val _completeButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val completeButtonClickEvent: LiveData<Event<Unit>> get() = _completeButtonClickEvent
 
     private val _nicknameIsEmpty = MutableLiveData(false)
     val nicknameIsEmpty: LiveData<Boolean> get() = _nicknameIsEmpty
@@ -51,6 +48,9 @@ class EditProfileViewModel @Inject constructor(
     private val _hasBadWord = MutableLiveData(false)
     val hasBadWord: LiveData<Boolean> get() = _hasBadWord
 
+    private val _editProfileEvent = MutableLiveData<Event<EditProfileEvent>>()
+    val editProfileEvent: LiveData<Event<EditProfileEvent>> = _editProfileEvent
+
     fun onNicknameTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         nickname.value = (s ?: "").toString()
         _nicknameCount.value = s?.length ?: 0
@@ -59,11 +59,11 @@ class EditProfileViewModel @Inject constructor(
     }
 
     fun onBirthYearClick() {
-        _birthYearClickEvent.value = Event(Unit)
+        _editProfileEvent.value = Event(EditProfileEvent.BirthYearClick)
     }
 
     fun onMbtiChoiceClick() {
-        _mbtiChoiceClickEvent.value = Event(Unit)
+        _editProfileEvent.value = Event(EditProfileEvent.MbtiChoiceClick)
     }
 
     fun setSelectedGender(gender: String) {
@@ -129,7 +129,7 @@ class EditProfileViewModel @Inject constructor(
             App.prefs.setBirth(_selectedYear.value.toString())
             App.prefs.setGender(_selectedGender.value ?: "")
 
-            _completeButtonClickEvent.value = Event(Unit)
+            _editProfileEvent.value = Event(EditProfileEvent.CompleteButtonClick)
         }
     }
 

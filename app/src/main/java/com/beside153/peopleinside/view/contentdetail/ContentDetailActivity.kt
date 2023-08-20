@@ -24,6 +24,7 @@ import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.common.BottomSheetFragment
 import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
+import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailEvent
 import com.beside153.peopleinside.viewmodel.contentdetail.ContentDetailViewModel
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -115,39 +116,43 @@ class ContentDetailActivity : BaseActivity() {
             contentDetailScreenAdapter.submitList(screenList)
         }
 
-        contentDetailViewModel.scrollEvent.eventObserve(this) {
-            val smoothScroller = object : LinearSmoothScroller(this) {
-                override fun getVerticalSnapPreference(): Int = SNAP_TO_START
-            }
-            smoothScroller.targetPosition = POSITION_COMMENT_LIST
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
-            }, SCROLL_DURATION)
-        }
+        contentDetailViewModel.contentDetailEvent.eventObserve(this) {
+            when (it) {
+                ContentDetailEvent.Scroll -> {
+                    val smoothScroller = object : LinearSmoothScroller(this) {
+                        override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+                    }
+                    smoothScroller.targetPosition = POSITION_COMMENT_LIST
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        binding.contentDetailRecyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+                    }, SCROLL_DURATION)
+                }
 
-        contentDetailViewModel.createReviewClickEvent.eventObserve(this) {
-            createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.first, it.second))
-            setOpenActivityAnimation()
-        }
+                ContentDetailEvent.VerticalDotsClick -> {
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                }
 
-        contentDetailViewModel.verticalDotsClickEvent.eventObserve(this) {
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        }
+                is ContentDetailEvent.CreateReview -> {
+                    createReviewActivityLauncher.launch(CreateReviewActivity.newIntent(this, it.contentId, it.content))
+                    setOpenActivityAnimation()
+                }
 
-        contentDetailViewModel.reportSuccessEvent.eventObserve(this) { success ->
-            if (success) {
-                showToast(R.string.report_success)
-                return@eventObserve
-            }
-            showToast(R.string.report_failed)
-        }
+                is ContentDetailEvent.ReportSuccess -> {
+                    if (it.isSuccess) {
+                        showToast(R.string.report_success)
+                        return@eventObserve
+                    }
+                    showToast(R.string.report_failed)
+                }
 
-        contentDetailViewModel.createRatingEvent.eventObserve(this) { item ->
-            firebaseAnalytics.logEvent("평가작성") {
-                param("유저_ID", App.prefs.getUserId().toString())
-                param("유저_MBTI", App.prefs.getMbti())
-                param("콘텐츠_ID", item.contentId.toString())
-                param("별점", item.rating.toString())
+                is ContentDetailEvent.CreateRating -> {
+                    firebaseAnalytics.logEvent("평가작성") {
+                        param("유저_ID", App.prefs.getUserId().toString())
+                        param("유저_MBTI", App.prefs.getMbti())
+                        param("콘텐츠_ID", it.item.contentId.toString())
+                        param("별점", it.item.rating.toString())
+                    }
+                }
             }
         }
     }

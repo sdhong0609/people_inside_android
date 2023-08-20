@@ -25,6 +25,7 @@ import com.beside153.peopleinside.view.common.BottomSheetFragment
 import com.beside153.peopleinside.view.common.BottomSheetType
 import com.beside153.peopleinside.view.dialog.TwoButtonsDialog
 import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
+import com.beside153.peopleinside.viewmodel.community.PostDetailEvent
 import com.beside153.peopleinside.viewmodel.community.PostDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -162,6 +163,10 @@ class PostDetailActivity : BaseActivity() {
         }
 
     private fun initObserver() {
+        postDetailViewModel.screenList.observe(this) { screenList ->
+            postDetailAdapter.submitList(screenList)
+        }
+
         postDetailViewModel.backButtonClickEvent.eventObserve(this) {
             finish()
             setCloseActivityAnimation()
@@ -170,65 +175,66 @@ class PostDetailActivity : BaseActivity() {
         postDetailViewModel.error.eventObserve(this) {
             showErrorDialog(it) { postDetailViewModel.initAllData() }
         }
-        postDetailViewModel.goToNonMemberLoginEvent.eventObserve(this) {
-            startActivity(NonMemberLoginActivity.newIntent(this))
-            setOpenActivityAnimation()
-        }
 
-        postDetailViewModel.commentFixClickEvent.eventObserve(this) {
-            activityLauncher.launch(
-                FixCommentActivity.newIntent(
-                    this,
-                    it.postId,
-                    it.commentId,
-                    it.commentContent
-                )
-            )
-            setOpenActivityAnimation()
-        }
+        postDetailViewModel.postDetailEvent.eventObserve(this) {
+            when (it) {
+                PostDetailEvent.CompleteUploadComment -> {
+                    inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
+                    binding.commentEditText.clearFocus()
+                    postDetailViewModel.initAllData()
+                }
 
-        postDetailViewModel.screenList.observe(this) { screenList ->
-            postDetailAdapter.submitList(screenList)
-        }
+                PostDetailEvent.CompleteDeletePost -> {
+                    setResult(R.string.delete_post_dialog_title)
+                    finish()
+                    setCloseActivityAnimation()
+                }
 
-        postDetailViewModel.completeUploadCommentEvent.eventObserve(this) {
-            inputMethodManager.hideSoftInputFromWindow(binding.commentEditText.windowToken, 0)
-            binding.commentEditText.clearFocus()
-            postDetailViewModel.initAllData()
-        }
+                PostDetailEvent.CompleteDeleteComment -> {
+                    showToast(R.string.delete_comment_complete)
+                }
 
-        postDetailViewModel.postDotsClickEvent.eventObserve(this) { isMyPost ->
-            if (isMyPost) {
-                val bottomSheet = BottomSheetFragment(BottomSheetType.PostFixDelete)
-                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                return@eventObserve
+                PostDetailEvent.CompleteReport -> {
+                    showToast(R.string.report_success)
+                }
+
+                PostDetailEvent.GoToNonMemberLogin -> {
+                    startActivity(NonMemberLoginActivity.newIntent(this))
+                    setOpenActivityAnimation()
+                }
+
+                is PostDetailEvent.PostDotsClick -> {
+                    if (it.isMyPost) {
+                        val bottomSheet = BottomSheetFragment(BottomSheetType.PostFixDelete)
+                        bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                        return@eventObserve
+                    }
+                    val bottomSheet = BottomSheetFragment(BottomSheetType.PostReport)
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                }
+
+                is PostDetailEvent.CommentDotsClick -> {
+                    if (it.isMyComment) {
+                        val bottomSheet = BottomSheetFragment(BottomSheetType.CommentFixDelete)
+                        bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                        return@eventObserve
+                    }
+                    val bottomSheet = BottomSheetFragment(BottomSheetType.CommentReport)
+                    bottomSheet.show(supportFragmentManager, bottomSheet.tag)
+                }
+
+                is PostDetailEvent.CommentFixClick -> {
+                    activityLauncher.launch(
+                        FixCommentActivity.newIntent(
+                            this,
+                            it.commentFixModel.postId,
+                            it.commentFixModel.commentId,
+                            it.commentFixModel.commentContent
+                        )
+                    )
+                    setOpenActivityAnimation()
+                }
             }
-            val bottomSheet = BottomSheetFragment(BottomSheetType.PostReport)
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        }
-
-        postDetailViewModel.commentDotsClickEvent.eventObserve(this) { isMyComment ->
-            if (isMyComment) {
-                val bottomSheet = BottomSheetFragment(BottomSheetType.CommentFixDelete)
-                bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-                return@eventObserve
-            }
-            val bottomSheet = BottomSheetFragment(BottomSheetType.CommentReport)
-            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
-        }
-
-        postDetailViewModel.completeReportEvent.eventObserve(this) {
-            showToast(R.string.report_success)
-        }
-
-        postDetailViewModel.completeDeletePostEvent.eventObserve(this) {
-            setResult(R.string.delete_post_dialog_title)
-            finish()
-            setCloseActivityAnimation()
-        }
-
-        postDetailViewModel.completeDeleteCommentEvent.eventObserve(this) {
-            showToast(R.string.delete_comment_complete)
         }
     }
 

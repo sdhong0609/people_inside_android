@@ -13,6 +13,7 @@ import com.beside153.peopleinside.R
 import com.beside153.peopleinside.base.BaseFragment
 import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentSignUpTermsBinding
+import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpTermsEvent
 import com.beside153.peopleinside.viewmodel.onboarding.signup.SignUpTermsViewModel
 
 class SignUpTermsFragment : BaseFragment() {
@@ -36,21 +37,25 @@ class SignUpTermsFragment : BaseFragment() {
             lifecycleOwner = this@SignUpTermsFragment
         }
 
-        termsViewModel.nextButtonClickEvent.eventObserve(viewLifecycleOwner) {
-            val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
-            findNavController().navigate(action)
-        }
+        termsViewModel.signUpTermsEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                SignUpTermsEvent.SeeTermsClick -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
+                    startActivity(intent)
+                }
 
-        termsViewModel.seeTermsClickEvent.eventObserve(viewLifecycleOwner) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://peopleinside.notion.site/ac6615474dcb40749f59ab453527a602?")
-            startActivity(intent)
-        }
+                SignUpTermsEvent.SeePrivacyPolicyClick -> {
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
+                    startActivity(intent)
+                }
 
-        termsViewModel.seePrivacyPolicyClickEvent.eventObserve(viewLifecycleOwner) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://peopleinside.notion.site/1e270175949d4942b2e025d35107362e?pvs=4")
-            startActivity(intent)
+                SignUpTermsEvent.NextButtonClick -> {
+                    val action = SignUpTermsFragmentDirections.actionSignUpTermsFragmentToSignUpUserInfoFragment()
+                    findNavController().navigate(action)
+                }
+            }
         }
     }
 }

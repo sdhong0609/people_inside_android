@@ -15,6 +15,12 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface SignUpUserInfoEvent {
+    object BirthYearClick : SignUpUserInfoEvent
+    object MbtiChoiceClick : SignUpUserInfoEvent
+    object SignUpButtonClick : SignUpUserInfoEvent
+}
+
 @HiltViewModel
 class SignUpUserInfoViewModel @Inject constructor(
     private val userService: UserService,
@@ -31,12 +37,6 @@ class SignUpUserInfoViewModel @Inject constructor(
     private val _hasBadWord = MutableLiveData(false)
     val hasBadWord: LiveData<Boolean> get() = _hasBadWord
 
-    private val _birthYearClickEvent = MutableLiveData<Event<Unit>>()
-    val birthYearClickEvent: LiveData<Event<Unit>> get() = _birthYearClickEvent
-
-    private val _mbtiChoiceClickEvent = MutableLiveData<Event<Unit>>()
-    val mbtiChoiceClickEvent: LiveData<Event<Unit>> get() = _mbtiChoiceClickEvent
-
     private val _selectedGender = MutableLiveData("")
     val selectedGender: LiveData<String> get() = _selectedGender
 
@@ -49,8 +49,8 @@ class SignUpUserInfoViewModel @Inject constructor(
     private val _isSignUpButtonEnable = MutableLiveData(false)
     val isSignUpButtonEnable: LiveData<Boolean> get() = _isSignUpButtonEnable
 
-    private val _signUpButtonClickEvent = MutableLiveData<Event<Unit>>()
-    val signUpButtonClickEvent: LiveData<Event<Unit>> get() = _signUpButtonClickEvent
+    private val _signUpUserInfoEvent = MutableLiveData<Event<SignUpUserInfoEvent>>()
+    val signUpUserInfoEvent: LiveData<Event<SignUpUserInfoEvent>> = _signUpUserInfoEvent
 
     private var authToken = ""
 
@@ -67,11 +67,11 @@ class SignUpUserInfoViewModel @Inject constructor(
     }
 
     fun onBirthYearClick() {
-        _birthYearClickEvent.value = Event(Unit)
+        _signUpUserInfoEvent.value = Event(SignUpUserInfoEvent.BirthYearClick)
     }
 
     fun onMbtiChoiceClick() {
-        _mbtiChoiceClickEvent.value = Event(Unit)
+        _signUpUserInfoEvent.value = Event(SignUpUserInfoEvent.MbtiChoiceClick)
     }
 
     fun setSelectedGender(gender: String) {
@@ -99,17 +99,9 @@ class SignUpUserInfoViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     when (t.error.statusCode) {
-                        400 -> {
-                            _isDuplicate.value = true
-                        }
-
-                        403 -> {
-                            _hasBadWord.value = true
-                        }
-
-                        else -> {
-                            exceptionHandler.handleException(context, t)
-                        }
+                        400 -> _isDuplicate.value = true
+                        403 -> _hasBadWord.value = true
+                        else -> exceptionHandler.handleException(context, t)
                     }
                 }
 
@@ -140,7 +132,7 @@ class SignUpUserInfoViewModel @Inject constructor(
             App.prefs.setGender(user.sex)
             App.prefs.setIsMember(true)
 
-            _signUpButtonClickEvent.value = Event(Unit)
+            _signUpUserInfoEvent.value = Event(SignUpUserInfoEvent.SignUpButtonClick)
         }
     }
 

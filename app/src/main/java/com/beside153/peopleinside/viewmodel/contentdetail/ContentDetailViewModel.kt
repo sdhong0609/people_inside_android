@@ -24,6 +24,14 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface ContentDetailEvent {
+    object Scroll : ContentDetailEvent
+    object VerticalDotsClick : ContentDetailEvent
+    data class CreateReview(val contentId: Int, val content: String) : ContentDetailEvent
+    data class ReportSuccess(val isSuccess: Boolean) : ContentDetailEvent
+    data class CreateRating(val item: ContentRatingModel) : ContentDetailEvent
+}
+
 @HiltViewModel
 class ContentDetailViewModel @Inject constructor(
     private val mediaContentService: MediaContentService,
@@ -38,20 +46,8 @@ class ContentDetailViewModel @Inject constructor(
     private val _screenList = MutableLiveData<List<ContentDetailScreenModel>>()
     val screenList: LiveData<List<ContentDetailScreenModel>> get() = _screenList
 
-    private val _scrollEvent = MutableLiveData<Event<Unit>>()
-    val scrollEvent: LiveData<Event<Unit>> get() = _scrollEvent
-
-    private val _createReviewClickEvent = MutableLiveData<Event<Pair<Int, String>>>()
-    val createReviewClickEvent: LiveData<Event<Pair<Int, String>>> get() = _createReviewClickEvent
-
-    private val _verticalDotsClickEvent = MutableLiveData<Event<Unit>>()
-    val verticalDotsClickEvent: LiveData<Event<Unit>> get() = _verticalDotsClickEvent
-
-    private val _reportSuccessEvent = MutableLiveData<Event<Boolean>>()
-    val reportSuccessEvent: LiveData<Event<Boolean>> get() = _reportSuccessEvent
-
-    private val _createRatingEvent = MutableLiveData<Event<ContentRatingModel>>()
-    val createRatingEvent: LiveData<Event<ContentRatingModel>> get() = _createRatingEvent
+    private val _contentDetailEvent = MutableLiveData<Event<ContentDetailEvent>>()
+    val contentDetailEvent: LiveData<Event<ContentDetailEvent>> = _contentDetailEvent
 
     private var contentId = 0
     private var currentRating = 0f
@@ -82,7 +78,7 @@ class ContentDetailViewModel @Inject constructor(
     }
 
     fun onVerticalDotsClick(item: ContentCommentModel) {
-        _verticalDotsClickEvent.value = Event(Unit)
+        _contentDetailEvent.value = Event(ContentDetailEvent.VerticalDotsClick)
         commentIdForReport = item.reviewId
     }
 
@@ -118,7 +114,7 @@ class ContentDetailViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     if (t.error.statusCode == 400) {
-                        _reportSuccessEvent.value = Event(false)
+                        _contentDetailEvent.value = Event(ContentDetailEvent.ReportSuccess(false))
                     } else {
                         exceptionHandler.handleException(context, t)
                     }
@@ -130,7 +126,7 @@ class ContentDetailViewModel @Inject constructor(
 
         viewModelScope.launch(ceh) {
             reviewService.postReport(contentId, commentIdForReport, reportId)
-            _reportSuccessEvent.value = Event(true)
+            _contentDetailEvent.value = Event(ContentDetailEvent.ReportSuccess(true))
         }
     }
 
@@ -150,7 +146,7 @@ class ContentDetailViewModel @Inject constructor(
             postViewLogDeferred.await()
 
             _screenList.value = screenList()
-            if (didClickComment) _scrollEvent.value = Event(Unit)
+            if (didClickComment) _contentDetailEvent.value = Event(ContentDetailEvent.Scroll)
         }
     }
 
@@ -212,7 +208,7 @@ class ContentDetailViewModel @Inject constructor(
                     ratingService.postContentRating(contentId, ContentRatingRequest(rating))
                 currentRating = rating
                 currentRatingId = contentRatingItem.ratingId
-                _createRatingEvent.value = Event(contentRatingItem)
+                _contentDetailEvent.value = Event(ContentDetailEvent.CreateRating(contentRatingItem))
                 return@launch
             }
             val currentRatingHasValue = 0 < currentRating && currentRating <= MAX_RATING
@@ -256,9 +252,9 @@ class ContentDetailViewModel @Inject constructor(
 
     fun onCreateReviewClick() {
         if (!writerHasReview) {
-            _createReviewClickEvent.value = Event(Pair(contentId, ""))
+            _contentDetailEvent.value = Event(ContentDetailEvent.CreateReview(contentId, ""))
         } else {
-            _createReviewClickEvent.value = Event(Pair(contentId, writerReviewItem.content))
+            _contentDetailEvent.value = Event(ContentDetailEvent.CreateReview(contentId, writerReviewItem.content))
         }
     }
 
