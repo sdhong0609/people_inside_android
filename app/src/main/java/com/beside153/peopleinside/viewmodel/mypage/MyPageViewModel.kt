@@ -14,6 +14,13 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface MyPageEvent {
+    object BookmarkContentsClick : MyPageEvent
+    object RatingContentsClick : MyPageEvent
+    object EditProfileClick : MyPageEvent
+    object SettingClick : MyPageEvent
+}
+
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val myContentService: MyContentService,
@@ -25,20 +32,11 @@ class MyPageViewModel @Inject constructor(
     private val _ratingCount = MutableLiveData(0)
     val ratingCount: LiveData<Int> get() = _ratingCount
 
-    private val _bookmarkContentsClickEvent = MutableLiveData<Event<Unit>>()
-    val bookmarkContentsClickEvent: LiveData<Event<Unit>> get() = _bookmarkContentsClickEvent
-
-    private val _ratingContentsClickEvent = MutableLiveData<Event<Unit>>()
-    val ratingContentsClickEvent: LiveData<Event<Unit>> get() = _ratingContentsClickEvent
-
-    private val _editProfileClickEvent = MutableLiveData<Event<Unit>>()
-    val editProfileClickEvent: LiveData<Event<Unit>> get() = _editProfileClickEvent
-
-    private val _settingClickEvent = MutableLiveData<Event<Unit>>()
-    val settingClickEvent: LiveData<Event<Unit>> get() = _settingClickEvent
-
     private val _userInfo = MutableLiveData<UserInfo>()
     val userInfo: LiveData<UserInfo> get() = _userInfo
+
+    private val _myPageEvent = MutableLiveData<Event<MyPageEvent>>()
+    val myPageEvent: LiveData<Event<MyPageEvent>> = _myPageEvent
 
     fun initAllData() {
         viewModelScope.launch(exceptionHandler) {
@@ -53,18 +51,18 @@ class MyPageViewModel @Inject constructor(
     }
 
     fun onBookmarkContentsClick() {
-        _bookmarkContentsClickEvent.value = Event(Unit)
+        _myPageEvent.value = Event(MyPageEvent.BookmarkContentsClick)
     }
 
     fun onRatingContentsClick() {
-        _ratingContentsClickEvent.value = Event(Unit)
+        _myPageEvent.value = Event(MyPageEvent.RatingContentsClick)
     }
 
     fun onEditProfileClick() {
-        _editProfileClickEvent.value = Event(Unit)
+        _myPageEvent.value = Event(MyPageEvent.EditProfileClick)
     }
 
     fun onSettingClick() {
-        _settingClickEvent.value = Event(Unit)
+        _myPageEvent.value = Event(MyPageEvent.SettingClick)
     }
 }

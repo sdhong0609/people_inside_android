@@ -10,6 +10,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface SettingEvent {
+    object TermsClick : SettingEvent
+    object PrivacyPolicyClick : SettingEvent
+    object UpdateClick : SettingEvent
+    object LogoutClick : SettingEvent
+    object DeleteAccountClick : SettingEvent
+}
+
 @HiltViewModel
 class SettingViewModel @Inject constructor(
     private val appVersionService: AppVersionService
@@ -18,20 +26,8 @@ class SettingViewModel @Inject constructor(
     private val _appVersionName = MutableLiveData("1.0.0")
     val appVersionName: LiveData<String> get() = _appVersionName
 
-    private val _termsClickEvent = MutableLiveData<Event<Unit>>()
-    val termsClickEvent: LiveData<Event<Unit>> get() = _termsClickEvent
-
-    private val _privacyPolicyClickEvent = MutableLiveData<Event<Unit>>()
-    val privacyPolicyClickEvent: LiveData<Event<Unit>> get() = _privacyPolicyClickEvent
-
-    private val _updateClickEvent = MutableLiveData<Event<Unit>>()
-    val updateClickEvent: LiveData<Event<Unit>> get() = _updateClickEvent
-
-    private val _logoutClickEvent = MutableLiveData<Event<Unit>>()
-    val logoutClickEvent: LiveData<Event<Unit>> get() = _logoutClickEvent
-
-    private val _deleteAccountEvent = MutableLiveData<Event<Unit>>()
-    val deleteAccountEvent: LiveData<Event<Unit>> get() = _deleteAccountEvent
+    private val _settingEvent = MutableLiveData<Event<SettingEvent>>()
+    val settingEvent: LiveData<Event<SettingEvent>> = _settingEvent
 
     fun setAppVersionName() {
         viewModelScope.launch(exceptionHandler) {
@@ -40,22 +36,22 @@ class SettingViewModel @Inject constructor(
     }
 
     fun onTermsClick() {
-        _termsClickEvent.value = Event(Unit)
+        _settingEvent.value = Event(SettingEvent.TermsClick)
     }
 
     fun onPrivacyPolicyClick() {
-        _privacyPolicyClickEvent.value = Event(Unit)
+        _settingEvent.value = Event(SettingEvent.PrivacyPolicyClick)
     }
 
     fun onUpdateClick() {
-        _updateClickEvent.value = Event(Unit)
+        _settingEvent.value = Event(SettingEvent.UpdateClick)
     }
 
     fun onLogoutClick() {
-        _logoutClickEvent.value = Event(Unit)
+        _settingEvent.value = Event(SettingEvent.LogoutClick)
     }
 
     fun onDeleteAccountClick() {
-        _deleteAccountEvent.value = Event(Unit)
+        _settingEvent.value = Event(SettingEvent.DeleteAccountClick)
     }
 }

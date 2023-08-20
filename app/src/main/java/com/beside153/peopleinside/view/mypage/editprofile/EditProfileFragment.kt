@@ -17,6 +17,7 @@ import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentEditProfileBinding
 import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.view.common.BirthYearBottomSheetFragment
+import com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileEvent
 import com.beside153.peopleinside.viewmodel.mypage.editprofile.EditProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,26 +63,31 @@ class EditProfileFragment : BaseFragment() {
             showErrorDialog(it) { initSelectedValues() }
         }
 
-        editProfileViewModel.birthYearClickEvent.eventObserve(viewLifecycleOwner) {
-            val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
-            bottomSheet.show(childFragmentManager, bottomSheet.tag)
-        }
-
-        editProfileViewModel.mbtiChoiceClickEvent.eventObserve(viewLifecycleOwner) {
-            val action =
-                EditProfileFragmentDirections.actionEditProfileFragmentToEditProfileMbtiChoiceFragment(mbti)
-            findNavController().navigate(action)
-        }
-
-        editProfileViewModel.completeButtonClickEvent.eventObserve(viewLifecycleOwner) {
-            requireActivity().setResult(RESULT_OK)
-            requireActivity().finish()
-            requireActivity().setCloseActivityAnimation()
-        }
-
         editProfileViewModel.nickname.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 editProfileViewModel.setNicknameIsEmpty(false)
+            }
+        }
+        editProfileViewModel.editProfileEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                EditProfileEvent.BirthYearClick -> {
+                    val bottomSheet = BirthYearBottomSheetFragment.newInstance(year)
+                    bottomSheet.show(childFragmentManager, bottomSheet.tag)
+                }
+
+                EditProfileEvent.MbtiChoiceClick -> {
+                    val action =
+                        EditProfileFragmentDirections.actionEditProfileFragmentToEditProfileMbtiChoiceFragment(mbti)
+                    findNavController().navigate(action)
+                }
+
+                EditProfileEvent.CompleteButtonClick -> {
+                    requireActivity().apply {
+                        setResult(RESULT_OK)
+                        finish()
+                        setCloseActivityAnimation()
+                    }
+                }
             }
         }
 
