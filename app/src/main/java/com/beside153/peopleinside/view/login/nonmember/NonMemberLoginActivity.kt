@@ -15,6 +15,7 @@ import com.beside153.peopleinside.util.setCloseActivityAnimation
 import com.beside153.peopleinside.util.showToast
 import com.beside153.peopleinside.view.MainActivity
 import com.beside153.peopleinside.view.onboarding.signup.SignUpActivity
+import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberLoginEvent
 import com.beside153.peopleinside.viewmodel.login.nonmember.NonMemberLoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
@@ -55,22 +56,23 @@ class NonMemberLoginActivity : BaseActivity() {
             showErrorDialog(it)
         }
 
-        nonMemberLoginViewModel.kakaoLoginClickEvent.eventObserve(this) {
-            kakaoLogin()
-        }
+        nonMemberLoginViewModel.nonMemberLoginEvent.eventObserve(this) {
+            when (it) {
+                NonMemberLoginEvent.KakaoLoginClick -> kakaoLogin()
+                is NonMemberLoginEvent.GoToSignUp -> {
+                    startActivity(SignUpActivity.newIntent(this, it.authToken))
+                    finishAffinity()
+                }
 
-        nonMemberLoginViewModel.goToSignUpEvent.eventObserve(this) { authToken ->
-            startActivity(SignUpActivity.newIntent(this, authToken))
-            finishAffinity()
-        }
-
-        nonMemberLoginViewModel.onBoardingCompletedEvent.eventObserve(this) { completed ->
-            if (completed) {
-                startActivity(MainActivity.newIntent(this, false))
-            } else {
-                startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                is NonMemberLoginEvent.OnBoardingCompleted -> {
+                    if (it.isCompleted) {
+                        startActivity(MainActivity.newIntent(this, false))
+                    } else {
+                        startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                    }
+                    finishAffinity()
+                }
             }
-            finishAffinity()
         }
     }
 

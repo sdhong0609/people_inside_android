@@ -14,23 +14,21 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+sealed interface LoginEvent {
+    object KakaoLoginClick : LoginEvent
+    object WithoutLoginClick : LoginEvent
+    data class GoToSignUp(val authToken: String) : LoginEvent
+    data class OnBoardingCompleted(val isCompleted: Boolean) : LoginEvent
+}
+
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authService: AuthService,
     private val userService: UserService
 ) : BaseViewModel() {
 
-    private val _kakaoLoginClickEvent = MutableLiveData<Event<Unit>>()
-    val kakaoLoginClickEvent: LiveData<Event<Unit>> get() = _kakaoLoginClickEvent
-
-    private val _goToSignUpEvent = MutableLiveData<Event<String>>()
-    val goToSignUpEvent: LiveData<Event<String>> get() = _goToSignUpEvent
-
-    private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
-    val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
-
-    private val _withoutLoginClickEvent = MutableLiveData<Event<Unit>>()
-    val withoutLoginClickEvent: LiveData<Event<Unit>> get() = _withoutLoginClickEvent
+    private val _loginEvent = MutableLiveData<Event<LoginEvent>>()
+    val loginEvent: LiveData<Event<LoginEvent>> = _loginEvent
 
     private var authToken = ""
 
@@ -39,7 +37,7 @@ class LoginViewModel @Inject constructor(
     }
 
     fun onKakaoLoginClick() {
-        _kakaoLoginClickEvent.value = Event(Unit)
+        _loginEvent.value = Event(LoginEvent.KakaoLoginClick)
     }
 
     fun peopleInsideLogin() {
@@ -47,7 +45,7 @@ class LoginViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     if (t.error.statusCode == 401) {
-                        _goToSignUpEvent.value = Event(authToken)
+                        _loginEvent.value = Event(LoginEvent.GoToSignUp(authToken))
                     } else {
                         exceptionHandler.handleException(context, t)
                     }
@@ -73,14 +71,14 @@ class LoginViewModel @Inject constructor(
             val onBoardingCompleted = userService.getOnBoardingCompleted(user.userId)
 
             if (onBoardingCompleted) {
-                _onBoardingCompletedEvent.value = Event(true)
+                _loginEvent.value = Event(LoginEvent.OnBoardingCompleted(true))
             } else {
-                _onBoardingCompletedEvent.value = Event(false)
+                _loginEvent.value = Event(LoginEvent.OnBoardingCompleted(false))
             }
         }
     }
 
     fun onWithoutLoginClick() {
-        _withoutLoginClickEvent.value = Event(Unit)
+        _loginEvent.value = Event(LoginEvent.WithoutLoginClick)
     }
 }

@@ -19,6 +19,13 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
+sealed interface SplashEvent {
+    object UpdateApp : SplashEvent
+    object GoToPlayStore : SplashEvent
+    object NoUserInfo : SplashEvent
+    data class OnBoardingCompleted(val isCompleted: Boolean) : SplashEvent
+}
+
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private val appVersionService: AppVersionService,
@@ -26,17 +33,8 @@ class SplashViewModel @Inject constructor(
     private val userService: UserService
 ) : BaseViewModel() {
 
-    private val _onBoardingCompletedEvent = MutableLiveData<Event<Boolean>>()
-    val onBoardingCompletedEvent: LiveData<Event<Boolean>> get() = _onBoardingCompletedEvent
-
-    private val _updateAppEvent = MutableLiveData<Event<Unit>>()
-    val updateAppEvent: LiveData<Event<Unit>> get() = _updateAppEvent
-
-    private val _goToPlayStoreEvent = MutableLiveData<Event<Unit>>()
-    val goToPlayStoreEvent: LiveData<Event<Unit>> get() = _goToPlayStoreEvent
-
-    private val _noUserInfoEvent = MutableLiveData<Event<Unit>>()
-    val noUserInfoEvent: LiveData<Event<Unit>> get() = _noUserInfoEvent
+    private val _splashEvent = MutableLiveData<Event<SplashEvent>>()
+    val splashEvent: LiveData<Event<SplashEvent>> = _splashEvent
 
     private var requiredAppVersion = BuildConfig.VERSION_NAME
 
@@ -45,7 +43,7 @@ class SplashViewModel @Inject constructor(
             when (t) {
                 is ApiException -> {
                     if (t.error.statusCode == 404) {
-                        _noUserInfoEvent.value = Event(Unit)
+                        _splashEvent.value = Event(SplashEvent.NoUserInfo)
                     } else {
                         exceptionHandler.handleException(context, t)
                     }
@@ -64,7 +62,7 @@ class SplashViewModel @Inject constructor(
 
             val currentAppVersion = BuildConfig.VERSION_NAME
             if (isNeedUpdate(currentAppVersion, requiredAppVersion)) {
-                _updateAppEvent.value = Event(Unit)
+                _splashEvent.value = Event(SplashEvent.UpdateApp)
                 return@launch
             }
 
@@ -77,15 +75,15 @@ class SplashViewModel @Inject constructor(
             App.prefs.setReportList(Json.encodeToString(allReportList))
 
             if (onBoardingCompleted) {
-                _onBoardingCompletedEvent.value = Event(true)
+                _splashEvent.value = Event(SplashEvent.OnBoardingCompleted(true))
                 return@launch
             }
-            _onBoardingCompletedEvent.value = Event(false)
+            _splashEvent.value = Event(SplashEvent.OnBoardingCompleted(false))
         }
     }
 
     fun onGoToPlayStoreButtonClick() {
-        _goToPlayStoreEvent.value = Event(Unit)
+        _splashEvent.value = Event(SplashEvent.GoToPlayStore)
     }
 
     private fun isNeedUpdate(currentAppVersion: String, requiredAppVersion: String): Boolean {
