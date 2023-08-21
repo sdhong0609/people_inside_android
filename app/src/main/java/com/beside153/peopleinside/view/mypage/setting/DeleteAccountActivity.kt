@@ -80,8 +80,11 @@ class DeleteAccountActivity : BaseActivity() {
 
         deleteAccountViewModel.deleteAccountSuccessEvent.eventObserve(this) {
             unlinkKakaoAccount()
-            startActivity(LoginActivity.newIntent(this))
-            finishAffinity()
+            startActivity(
+                LoginActivity.newIntent(this).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+            )
         }
     }
 

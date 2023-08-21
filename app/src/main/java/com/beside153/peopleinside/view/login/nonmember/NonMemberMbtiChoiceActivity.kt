@@ -54,8 +54,11 @@ class NonMemberMbtiChoiceActivity : BaseActivity() {
             App.prefs.setMbti(mbti.uppercase())
             App.prefs.setIsMember(false)
 
-            startActivity(MainActivity.newIntent(this, false))
-            finishAffinity()
+            startActivity(
+                MainActivity.newIntent(this, false).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+            )
             setOpenActivityAnimation()
         }
     }

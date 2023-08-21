@@ -57,17 +57,27 @@ class LoginActivity : BaseActivity() {
                 }
 
                 is LoginEvent.GoToSignUp -> {
-                    startActivity(SignUpActivity.newIntent(this, it.authToken))
-                    finishAffinity()
+                    startActivity(
+                        SignUpActivity.newIntent(this, it.authToken).apply {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                    )
                 }
 
                 is LoginEvent.OnBoardingCompleted -> {
                     if (it.isCompleted) {
-                        startActivity(MainActivity.newIntent(this, false))
+                        startActivity(
+                            MainActivity.newIntent(this, false).apply {
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                        )
                     } else {
-                        startActivity(SignUpActivity.newIntent(this, ON_BOARDING))
+                        startActivity(
+                            SignUpActivity.newIntent(this, ON_BOARDING).apply {
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                        )
                     }
-                    finishAffinity()
                 }
             }
         }
