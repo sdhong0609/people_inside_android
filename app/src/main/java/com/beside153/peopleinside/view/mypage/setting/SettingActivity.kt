@@ -96,8 +96,11 @@ class SettingActivity : BaseActivity() {
                     logoutKakaoAccount()
                     App.prefs.setUserId(0)
                     App.prefs.setNickname("")
-                    startActivity(LoginActivity.newIntent(this@SettingActivity))
-                    finishAffinity()
+                    startActivity(
+                        LoginActivity.newIntent(this@SettingActivity).apply {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        }
+                    )
                 }
 
                 override fun onClickNegativeButton() = Unit
