@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.onboarding.ContentChoiceViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.onboarding.ContentChoiceFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/signUpContentChoiceAppBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp">
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contetChoiceScreenRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingHorizontal="12dp"
+            app:layout_constraintBottom_toTopOf="@id/chooseButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signUpContentChoiceAppBar" />
+
+        <Button
+            android:id="@+id/chooseButton"
+            style="@style/textStyleBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_black_button"
+            android:enabled="@{viewModel.isCompleteButtonEnable}"
+            android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
+            android:textSize="18sp"
+            app:contentChoiceButtonText="@{viewModel.choiceCount}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contetChoiceScreenRecyclerView"
+            tools:text="0개 선택" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

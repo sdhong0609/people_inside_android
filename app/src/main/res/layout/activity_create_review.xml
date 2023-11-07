@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.contentdetail.CreateReviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.contentdetail.CreateReviewActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/createReviewAppBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="0dp">
+
+                <ImageButton
+                    android:id="@+id/backImageButton"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/back_button"
+                    android:onClick="@{() -> viewModel.onBackButtonClick()}"
+                    android:src="@drawable/ic_left_arrow" />
+
+                <TextView
+                    style="@style/textStyleBoldBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/create_review"
+                    android:textSize="20sp" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <EditText
+            android:id="@+id/reviewEditText"
+            style="@style/textStyleMediumBlack"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/create_review_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLength="1500"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="14dp"
+            android:text="@={viewModel.reviewText}"
+            android:textColorHint="@color/gray_400"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/completeButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/createReviewAppBar" />
+
+        <Button
+            android:id="@+id/completeButton"
+            style="@style/textStyleBoldWhite"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_black_button"
+            android:enabled="@{viewModel.reviewText.length() > 4}"
+            android:onClick="@{() -> viewModel.onCompleteButtonClick()}"
+            android:text="@string/complete"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reviewEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

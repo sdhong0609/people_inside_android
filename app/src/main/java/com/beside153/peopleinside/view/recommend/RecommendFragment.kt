@@ -4,28 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
+import com.beside153.peopleinside.App
 import com.beside153.peopleinside.R
+import com.beside153.peopleinside.base.BaseFragment
+import com.beside153.peopleinside.common.extension.eventObserve
 import com.beside153.peopleinside.databinding.FragmentRecommendBinding
-import com.beside153.peopleinside.model.Pick10Item
-import com.beside153.peopleinside.model.RankingItem
-import com.beside153.peopleinside.service.RetrofitClient.mbtiService
+import com.beside153.peopleinside.model.mediacontent.Pick10Model
+import com.beside153.peopleinside.model.mediacontent.SubRankingModel
+import com.beside153.peopleinside.util.LinearLinelItemDecoration
 import com.beside153.peopleinside.util.dpToPx
-import com.beside153.peopleinside.view.notification.NotificationActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.beside153.peopleinside.util.setOpenActivityAnimation
+import com.beside153.peopleinside.view.contentdetail.ContentDetailActivity
+import com.beside153.peopleinside.view.contentdetail.CreateReviewActivity
+import com.beside153.peopleinside.view.login.nonmember.NonMemberLoginActivity
+import com.beside153.peopleinside.viewmodel.recommend.RecommendEvent
+import com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class RecommendFragment : Fragment() {
+@AndroidEntryPoint
+class RecommendFragment : BaseFragment() {
     private lateinit var binding: FragmentRecommendBinding
-    private lateinit var pick10ItemList: List<Pick10Item>
-    private val pagerAdapter = Pick10ViewPagerAdapter()
-    private val rankingAdpater = RankingRecyclerViewAdapter(::onRankingItemClick)
+    private val recommendViewModel: RecommendViewModel by viewModels()
+
+    private val pagerAdapter =
+        Pick10ViewPagerAdapter(
+            ::onPick10ItemClick,
+            ::onTopReviewClick,
+            ::onBookmarkClick,
+            ::onGoToWriteReviewClick,
+            ::onRefreshClick
+        )
+    private val rankingAdpater = SubRankingListAdapter(::onSubRankingItemClick)
     private var scrollPosition: Int = 0
 
     override fun onCreateView(
@@ -40,7 +57,12 @@ class RecommendFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.layoutRecommendPick10.pick10ViewPager.apply {
+        binding.apply {
+            viewModel = recommendViewModel
+            lifecycleOwner = this@RecommendFragment
+        }
+
+        binding.pick10ViewPager.apply {
             val pagerOffsetPx = 16.dpToPx(resources.displayMetrics)
             val pagerMarginPx = 8.dpToPx(resources.displayMetrics)
             adapter = pagerAdapter
@@ -49,80 +71,155 @@ class RecommendFragment : Fragment() {
             setPageTransformer(MarginPageTransformer(pagerMarginPx))
         }
 
-        binding.recommendAppBar.notificationImageView.setOnClickListener {
-            startActivity(NotificationActivity.newIntent(requireActivity()))
-        }
-
-        @Suppress("MagicNumber")
-        val rankingList = listOf(
-            RankingItem(
-                1,
-                "1",
-                "어느 날 우리 집 현관으로 멸망이 들어왔다.",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            ),
-            RankingItem(
-                2,
-                "2",
-                "그 해 우리는",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.이 드라마는 도전적이고 흥미...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            ),
-            RankingItem(
-                3,
-                "3",
-                "브람스를 좋아하세요?",
-                "이 드라마는 도전적이고 흥미진진한 플롯이었어.최대 2줄처리 필요합니다. 참고 부탁...",
-                "전체 4.3점",
-                "ISTJ 4.5점"
-            )
-        )
-
         binding.subRankingRecyclerView.apply {
             adapter = rankingAdpater
             layoutManager = object : LinearLayoutManager(requireActivity()) {
                 override fun canScrollVertically(): Boolean = false
             }
-            addItemDecoration(DividerItemDecoration(requireActivity(), LinearLayoutManager.VERTICAL))
+            addItemDecoration(
+                LinearLinelItemDecoration(
+                    1f.dpToPx(resources.displayMetrics),
+                    0f,
+                    ContextCompat.getColor(requireActivity(), R.color.gray_300)
+                )
+            )
         }
 
-        binding.subRankingArrowImageView.setOnClickListener {
-            scrollPosition = binding.recommendScrollView.scrollY
-            startActivity(RecommendRankingActivity.newIntent(requireActivity()))
+        recommendViewModel.initAllData()
+
+        recommendViewModel.viewPagerList.observe(viewLifecycleOwner) { list ->
+            pagerAdapter.submitList(list)
         }
 
-        rankingAdpater.submitList(rankingList)
+        recommendViewModel.error.eventObserve(viewLifecycleOwner) {
+            showErrorDialog(it) { recommendViewModel.initAllData() }
+        }
 
-        loadPick10ItemList("esfj")
+        recommendViewModel.subRankingList.observe(viewLifecycleOwner) { list ->
+            rankingAdpater.submitList(list)
+        }
+
+        recommendViewModel.recommendEvent.eventObserve(viewLifecycleOwner) {
+            when (it) {
+                is RecommendEvent.Pick10ItemClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            false,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.TopReviewClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            true,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.BattleItemClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            false,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.BattleItemCommentClick -> {
+                    activityResultLauncher.launch(
+                        ContentDetailActivity.newIntent(
+                            requireActivity(),
+                            true,
+                            it.item.contentId
+                        )
+                    )
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.SubRankingArrowClick -> {
+                    startActivity(RecommendSubRankingActivity.newIntent(requireActivity(), it.mediaType))
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                is RecommendEvent.SubRankingItemClick -> {
+                    startActivity(ContentDetailActivity.newIntent(requireActivity(), false, it.item.contentId))
+                    requireActivity().setOpenActivityAnimation()
+                }
+
+                RecommendEvent.RefreshPick10Click -> {
+                    binding.pick10ViewPager.currentItem = 0
+                }
+
+                RecommendEvent.MbtiImgClick -> {
+                    if (!App.prefs.getIsMember()) {
+                        startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+                        requireActivity().setOpenActivityAnimation()
+                        return@eventObserve
+                    }
+                    findNavController().navigate(R.id.myPageFragment)
+                }
+            }
+        }
     }
+
+    private val activityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                recommendViewModel.initAllData()
+            }
+        }
 
     override fun onResume() {
         super.onResume()
         binding.recommendScrollView.post { binding.recommendScrollView.scrollTo(0, scrollPosition) }
     }
 
-    private fun onRankingItemClick(item: RankingItem) {
-        Toast.makeText(requireActivity(), item.title, Toast.LENGTH_SHORT).show()
+    override fun onStop() {
+        super.onStop()
+        scrollPosition = binding.recommendScrollView.scrollY
     }
 
-    private fun loadPick10ItemList(mbti: String) {
-        val call = mbtiService.getTop10Content(mbti)
-        call.enqueue(object : Callback<List<Pick10Item>> {
-            override fun onResponse(call: Call<List<Pick10Item>>, response: Response<List<Pick10Item>>) {
-                if (!response.isSuccessful || response.body() == null) {
-                    Toast.makeText(requireActivity(), "데이터 불러오기를 실패했습니다", Toast.LENGTH_SHORT).show()
-                    return
-                }
-                pick10ItemList = response.body()!!
-                pagerAdapter.submitList(pick10ItemList)
-            }
+    private fun onPick10ItemClick(item: Pick10Model) {
+        recommendViewModel.onPick10ItemClick(item)
+    }
 
-            override fun onFailure(call: Call<List<Pick10Item>>, t: Throwable) {
-                Toast.makeText(requireActivity(), t.message, Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun onTopReviewClick(item: Pick10Model) {
+        recommendViewModel.onTopReviewClick(item)
+    }
+
+    private fun onBookmarkClick(item: Pick10Model) {
+        if (!App.prefs.getIsMember()) {
+            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+            return
+        }
+        recommendViewModel.onBookmarkClick(item)
+    }
+
+    private fun onGoToWriteReviewClick(item: Pick10Model) {
+        if (!App.prefs.getIsMember()) {
+            startActivity(NonMemberLoginActivity.newIntent(requireActivity()))
+            requireActivity().setOpenActivityAnimation()
+            return
+        }
+        activityResultLauncher.launch(CreateReviewActivity.newIntent(requireActivity(), item.contentId, ""))
+        requireActivity().setOpenActivityAnimation()
+    }
+
+    private fun onRefreshClick() {
+        recommendViewModel.refreshPick10List()
+    }
+
+    private fun onSubRankingItemClick(item: SubRankingModel) {
+        recommendViewModel.onSubRankingItemClick(item)
     }
 }

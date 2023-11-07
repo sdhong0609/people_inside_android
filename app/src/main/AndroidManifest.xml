@@ -5,29 +5,105 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_app_icon"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PeopleInsideAndroid"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.notification.NotificationActivity"
+            android:name=".view.community.FixCommentActivity"
             android:exported="false" />
         <activity
-            android:name=".view.recommend.RecommendRankingActivity"
+            android:name=".view.community.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.community.CreatePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.community.CommunitySearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.nonmember.NonMemberLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.login.nonmember.NonMemberMbtiChoiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.mypage.setting.DeleteAccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.mypage.setting.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.mypage.editprofile.EditProfileActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".view.mypage.contents.FixReviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.mypage.contents.RatedContentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.mypage.contents.BookmarkedContentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.onboarding.signup.SignUpActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".view.login.SplashActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.contentdetail.CreateReviewActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".view.contentdetail.ContentDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.notification.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.recommend.RecommendSubRankingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="kakao89d8b4308014be36f84f5b0de58bca09" />
             </intent-filter>
         </activity>
     </application>

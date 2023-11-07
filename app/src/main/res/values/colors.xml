@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
+
+    <drawable name="INFP">#FFF9C2D5</drawable>
+    <drawable name="ENFP">#FFFF9936</drawable>
+    <drawable name="ESFJ">#FFFF4867</drawable>
+    <drawable name="ISFJ">#FF00C9A4</drawable>
+    <drawable name="ISFP">#FF77EA71</drawable>
+    <drawable name="ESFP">#FFEC536F</drawable>
+    <drawable name="INTP">#FFE5207C</drawable>
+    <drawable name="INFJ">#FF7193ED</drawable>
+    <drawable name="ENFJ">#FFBF9EF1</drawable>
+    <drawable name="ENTP">#FF5B199B</drawable>
+    <drawable name="ESTJ">#FF00DDFA</drawable>
+    <drawable name="ISTJ">#FF73FEE5</drawable>
+    <drawable name="INTJ">#FF5A50E5</drawable>
+    <drawable name="ISTP">#FF2A88FF</drawable>
+    <drawable name="ESTP">#FFFFE047</drawable>
+    <drawable name="ENTJ">#FFD1E872</drawable>
+
     <color name="white">#FFFFFFFF</color>
+    <color name="white_opacity0.5">#80FFFFFF</color>
+    <color name="white_opacity0.3">#4DFFFFFF</color>
 
-    <color name="black_333333">#FF333333</color>
+    <color name="black">#FF000000</color>
 
-    <color name="gray_C4C4C6">#FFC4C4C6</color>
-    <color name="gray_B4B4B4">#FFB4B4B4</color>
-    <color name="gray_4F4F4F">#FF4F4F4F</color>
-    <color name="gray_EEEEEE">#FFEEEEEE</color>
-    <color name="gray_F7F6F8">#FFF7F6F8</color>
-    <color name="gray_EAEAEA">#FFEAEAEA</color>
-    <color name="gray_9B9FA2">#FF9B9FA2</color>
-    <color name="gray_CCCFD4">#FFCCCFD4</color>
+    <color name="gray_50">#FFFAFAFA</color>
+    <color name="gray_100">#FFF5F5F5</color>
+    <color name="gray_200">#FFEEEEEE</color>
+    <color name="gray_300">#FFE0E0E0</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_500">#FF9E9E9E</color>
     <color name="gray_700">#FF616161</color>
     <color name="gray_800">#FF424242</color>
+    <color name="gray_900">#FF212121</color>
 
-    <color name="blue_7193ED">#FF7193ED</color>
-    <color name="white_opacity0.7">#B3FFFFFF</color>
-    <color name="white_opacity0.5">#80FFFFFF</color>
+    <color name="red_100">#FFFF5252</color>
 </resources>

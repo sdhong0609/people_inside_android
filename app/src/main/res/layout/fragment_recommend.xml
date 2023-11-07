@@ -1,25 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.beside153.peopleinside.viewmodel.recommend.RecommendViewModel" />
+
+        <variable
+            name="app"
+            type="com.beside153.peopleinside.App" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.recommend.RecommendFragment">
+        tools:context=".view.recommend.RecommendFragment"
+        tools:layout_marginTop="-200dp">
 
-        <include
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/recommendAppBar"
-            layout="@layout/layout_recommend_appbar" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                app:contentInsetStart="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="3dp">
+
+                    <TextView
+                        android:id="@+id/nickNameTextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/changwondangamasac_bold"
+                        android:maxLines="1"
+                        android:text='@{@string/mbti_nickname(app.prefs.mbti, app.prefs.nickname)}'
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/mbtiImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="ISTJ 피즈강아아 피즈강아아" />
+
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/notificationImageView"-->
+                    <!--                    android:layout_width="0dp"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_weight="12.5"-->
+                    <!--                    android:contentDescription="@string/notification_icon"-->
+                    <!--                    android:src="@drawable/ic_notification_on" />-->
+
+                    <ImageView
+                        android:id="@+id/mbtiImageView"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="end"
+                        android:contentDescription="@string/mbti_icon"
+                        android:onClick="@{() -> viewModel.onMbtiImgClick()}"
+                        android:padding="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/nickNameTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:mbtiLargeImg="@{app.prefs.mbti}"
+                        tools:src="@drawable/mbti_large_img_infp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
             android:id="@+id/recommendScrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:isVisible="@{!viewModel.progressBarVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,121 +102,235 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include
-                    android:id="@+id/layoutRecommendPick10"
-                    layout="@layout/layout_recommend_pick10" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/pick10TextView"
+                        style="@style/textStyleBoldBlack"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="15.72dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/pick10_title"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/pick10ViewPager"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        app:isVisibleInVisible="@{!viewModel.pick10ProgressBarVisible}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pick10TextView" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/black"
+                        app:isVisible="@{viewModel.pick10ProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pick10TextView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
-                    android:layout_marginVertical="40dp"
-                    android:background="@color/gray_EEEEEE" />
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@color/gray_200" />
 
                 <TextView
                     android:id="@+id/ratingBattleTextView"
                     style="@style/textStyleBoldBlack"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginBottom="12dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:text="@string/mbti_rating_battle_title"
                     android:textSize="20sp" />
 
-                <include layout="@layout/layout_recommend_mbti_battle" />
+                <include
+                    layout="@layout/layout_recommend_battle_movie"
+                    bind:viewModel="@{viewModel}" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="24dp" />
+                    android:layout_height="12dp" />
 
-                <include layout="@layout/layout_recommend_mbti_battle" />
+                <include
+                    layout="@layout/layout_recommend_battle_tv"
+                    bind:viewModel="@{viewModel}" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="60dp" />
+                    android:layout_height="32dp" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="15dp">
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp">
 
                     <TextView
-                        style="@style/textStyleBoldBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/same_mbti_ranking_title"
-                        android:textSize="20sp" />
-
-                    <Space
+                        android:id="@+id/subRankingSubtitleTextView"
+                        style="@style/textStyleRegularGray700"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/sub_ranking_subtitle(app.prefs.nickname)}"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toTopOf="@id/subRankingTitleTextView"
+                        app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="치즈님과 같은 MBTI가 선택한" />
+
+                    <TextView
+                        android:id="@+id/subRankingTitleTextView"
+                        style="@style/textStyleBoldBlack"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{@string/sub_ranking_title(app.prefs.mbti)}"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/subRankingArrowImageView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/subRankingSubtitleTextView"
+                        tools:text="ESFJ핍사이더들의 선택" />
 
                     <ImageView
                         android:id="@+id/subRankingArrowImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/sub_ranking_arrow"
-                        android:src="@drawable/ic_right_arrow" />
+                        android:onClick="@{() -> viewModel.onSubRankingArrowClick()}"
+                        android:paddingHorizontal="8dp"
+                        android:paddingTop="22dp"
+                        android:src="@drawable/ic_right_arrow_24x24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/subRankingTitleTextView"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    style="@style/textStyleMediumBlack333333"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginBottom="48dp"
-                    android:paddingHorizontal="15dp"
-                    android:text="치즈님과 같은 MBTI가 선택한"
-                    android:textColor="@color/gray_9B9FA2"
-                    android:textSize="16sp" />
-
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    android:background="@drawable/background_battle_rating"
-                    android:padding="4dp">
+                    android:background="@drawable/bg_gray100_radius2dp"
+                    android:padding="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/genderTextView">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="34dp"
-                        app:tabBackground="@drawable/bg_recommend_tab_layout"
-                        app:tabIndicatorHeight="0dp"
-                        app:tabTextAppearance="@style/textStyleTabLayout"
-                        app:tabTextColor="@color/recommend_tab_text_color">
+                    <TextView
+                        android:id="@+id/totalTextView"
+                        style="@style/textStyleMediumGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/all)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/all_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/movieTextView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/all)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/all)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/total" />
+                    <TextView
+                        android:id="@+id/movieTextView"
+                        style="@style/textStyleMediumGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/movie)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/movie_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/dramaTextView"
+                        app:layout_constraintStart_toEndOf="@id/totalTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/movie)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/movie)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/movie" />
+                    <TextView
+                        android:id="@+id/dramaTextView"
+                        style="@style/textStyleMediumGray500"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:onClick="@{() -> viewModel.setSelectedTab(@string/tv_english)}"
+                        android:paddingVertical="8dp"
+                        android:text="@string/drama_korean"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/movieTextView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:recommendTabBackground="@{viewModel.selectedTab.equals(@string/tv_english)}"
+                        app:recommendTabTextColor="@{viewModel.selectedTab.equals(@string/tv_english)}" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/drama" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    </com.google.android.material.tabs.TabLayout>
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/subRankingRecyclerView"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_recommend_sub_ranking" />
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/subRankingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="16dp"
+                        app:isVisibleInVisible="@{!viewModel.subRankingProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:itemCount="3"
+                        tools:listitem="@layout/item_recommend_sub_ranking" />
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/black"
+                        app:isVisible="@{viewModel.subRankingProgressBarVisible}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 
         </ScrollView>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/black"
+            app:isVisible="@{viewModel.progressBarVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

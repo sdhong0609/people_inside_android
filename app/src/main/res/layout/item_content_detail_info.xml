@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.beside153.peopleinside.model.mediacontent.ContentDetailModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical"
+        android:paddingVertical="32dp">
+
+        <TextView
+            style="@style/textStyleBoldBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/content_information"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/contentDescriptionTextView"
+            style="@style/textStyleRegularGray900"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{item.overview.empty ? @string/no_overview : item.overview}"
+            tools:text="신장 이식 수술 후 서로를 닮아가는 열여덟 절친 고유와 고준휘가 전학생 한소연에게 동시에 반하며 벌어지는 세포기억 하이틴 로맨스" />
+
+    </LinearLayout>
+</layout>

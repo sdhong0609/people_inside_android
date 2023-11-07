@@ -3,21 +3,24 @@ package com.beside153.peopleinside.view.notification
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.beside153.peopleinside.R
-import com.beside153.peopleinside.databinding.NotificationActivityBinding
+import com.beside153.peopleinside.base.BaseActivity
+import com.beside153.peopleinside.databinding.ActivityNotificationBinding
 import com.beside153.peopleinside.model.notification.NotificationItem
+import com.beside153.peopleinside.util.addBackPressedAnimation
+import com.beside153.peopleinside.util.setCloseActivityAnimation
 
-class NotificationActivity : AppCompatActivity() {
-    private lateinit var binding: NotificationActivityBinding
+class NotificationActivity : BaseActivity() {
+    private lateinit var binding: ActivityNotificationBinding
     private val notificationAdapter = NotificationListAdapter()
 
-    @Suppress("MagicNumber")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.notification_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
+
+        addBackPressedAnimation()
 
         val notificationItemList = listOf(
             NotificationItem(
@@ -74,6 +77,7 @@ class NotificationActivity : AppCompatActivity() {
 
         binding.backImageButton.setOnClickListener {
             finish()
+            setCloseActivityAnimation()
         }
     }
 

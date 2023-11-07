@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rounded_8dp">
+
+        <TextView
+            android:id="@+id/reviewFixTextView"
+            style="@style/textStyleMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="108dp"
+            android:padding="16dp"
+            android:text="@string/review_fix"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/reviewDeleteTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/reviewDeleteTextView"
+            style="@style/textStyleMediumBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="108dp"
+            android:padding="16dp"
+            android:text="@string/review_delete"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/reviewFixTextView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
