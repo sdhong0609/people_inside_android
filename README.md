@@ -1,7 +1,8 @@
 # 피플인사이드 (People Inside)
 
-- GitHub : https://github.com/PeopleInsideTeam/people_inside_android
 - PlayStore : https://play.google.com/store/apps/details?id=com.beside153.peopleinside
+
+    - 현재 서버 기한 만료로 앱 정상작동하지 않음
 
 <br>
 
