@@ -1,8 +1,7 @@
 # 피플인사이드 (People Inside) - 팀 프로젝트
 
 - PlayStore : https://play.google.com/store/apps/details?id=com.beside153.peopleinside
-
-    - 현재 서버 기한 만료로 앱 정상작동하지 않음
+- ⚠️ 현재 서버 기한 만료로 앱이 정상작동하지 않습니다.
 
 <br>
 
@@ -20,16 +19,6 @@
 
 <br>
 
-## ✅ 수행 업무 : Android 앱 전체 개발  
-- MBTI 기반으로 추천하는 콘텐츠 표시 (홈 화면)
-- 콘텐츠 검색
-- 콘텐츠 별점 남기기 및 감상 작성
-- 마이페이지
-- 커뮤니티
-- 카카오 계정을 통한 회원가입 및 로그인
-
-<br>
-
 ## 🤖 Android 기술 스택
 
 | 카테고리         | 기술 스택                                         |
@@ -41,7 +30,17 @@
 | Image          | Glide                                          |
 | Asynchronous   | Coroutines                                     |
 | Jetpack        | ViewModel, LiveData, Navigation, DataBinding   |
-| Logging        | Timber                                         |
+
+<br>
+
+## ✅ 수행 업무
+👇 **Android 앱을 혼자서 전체 개발했습니다.**
+- MBTI 기반으로 추천하는 콘텐츠 표시 (홈 화면)
+- 콘텐츠 검색
+- 콘텐츠 별점 남기기 및 감상 작성
+- 마이페이지
+- 커뮤니티
+- 카카오 계정을 통한 회원가입 및 로그인
 
 <br>
 
